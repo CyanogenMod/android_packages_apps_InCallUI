@@ -511,6 +511,12 @@ public class InCallActivity extends Activity {
             resId = R.string.callFailed_dsac_restricted_emergency;
         } else if (cause == Call.DisconnectCause.CS_RESTRICTED_NORMAL) {
             resId = R.string.callFailed_dsac_restricted_normal;
+        } else if (cause == Call.DisconnectCause.DIAL_MODIFIED_TO_USSD) {
+            resId = R.string.callFailed_dialToUssd;
+        } else if (cause == Call.DisconnectCause.DIAL_MODIFIED_TO_SS) {
+            resId = R.string.callFailed_dialToSs;
+        } else if (cause == Call.DisconnectCause.DIAL_MODIFIED_TO_DIAL) {
+            resId = R.string.callFailed_dialToDial;
         }
 
         return resId;

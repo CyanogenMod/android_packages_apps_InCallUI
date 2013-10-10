@@ -452,11 +452,12 @@ public class InCallActivity extends Activity {
         return super.dispatchPopulateAccessibilityEvent(event);
     }
 
-    public void maybeShowErrorDialogOnDisconnect(Call.DisconnectCause cause) {
-        Log.d(this, "maybeShowErrorDialogOnDisconnect");
+    public void maybeShowErrorDialogOnDisconnect(Call call) {
+        Log.d(this, "maybeShowErrorDialogOnDisconnect: Call=" + call);
 
-        if (!isFinishing()) {
-            final int resId = getResIdForDisconnectCause(cause);
+        if (!isFinishing() && call != null) {
+            final int resId = getResIdForDisconnectCause(call.getDisconnectCause(),
+                    call.getSuppServNotification());
             if (resId != INVALID_RES_ID) {
                 showErrorDialog(resId);
             }
@@ -498,11 +499,30 @@ public class InCallActivity extends Activity {
         mDialog.show();
     }
 
-    private int getResIdForDisconnectCause(Call.DisconnectCause cause) {
+    private int getResIdForDisconnectCause(Call.DisconnectCause cause,
+            Call.SsNotification notification) {
         int resId = INVALID_RES_ID;
 
-        if (cause == Call.DisconnectCause.CALL_BARRED) {
-            resId = R.string.callFailed_cb_enabled;
+        if (cause == Call.DisconnectCause.INCOMING_MISSED) {
+            // If the network sends SVC Notification then this dialog will be displayed
+            // in case of B when the incoming call at B is not answered and gets forwarded
+            // to C
+            if (notification != null && notification.notificationType == 1 &&
+                    notification.code ==
+                    Call.SsNotification.MT_CODE_ADDITIONAL_CALL_FORWARDED) {
+                resId = R.string.callUnanswered_forwarded;
+            }
+        } else if (cause == Call.DisconnectCause.CALL_BARRED) {
+            // When call is disconnected with this code then it can either be barring from
+            // MO side or MT side.
+            // In MT case, if network sends SVC Notification then this dialog will be
+            // displayed when A is calling B & incoming is barred on B.
+            if (notification != null && notification.notificationType == 0 &&
+                    notification.code == Call.SsNotification.MO_CODE_INCOMING_CALLS_BARRED) {
+                resId = R.string.callFailed_incoming_cb_enabled;
+            } else {
+                resId = R.string.callFailed_cb_enabled;
+            }
         } else if (cause == Call.DisconnectCause.FDN_BLOCKED) {
             resId = R.string.callFailed_fdn_only;
         } else if (cause == Call.DisconnectCause.CS_RESTRICTED) {

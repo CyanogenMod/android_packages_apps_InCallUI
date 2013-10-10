@@ -508,7 +508,7 @@ public class InCallPresenter implements CallList.Listener {
     private void maybeShowErrorDialogOnDisconnect(Call call) {
         // For newly disconnected calls, we may want to show a dialog on specific error conditions
         if (isActivityStarted() && call.getState() == Call.State.DISCONNECTED) {
-            mInCallActivity.maybeShowErrorDialogOnDisconnect(call.getDisconnectCause());
+            mInCallActivity.maybeShowErrorDialogOnDisconnect(call);
         }
     }
 

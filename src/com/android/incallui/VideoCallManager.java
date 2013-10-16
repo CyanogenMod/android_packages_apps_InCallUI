@@ -36,6 +36,7 @@ import android.os.Message;
 import android.util.Log;
 import com.android.incallui.CameraHandler.CameraState;
 import com.android.incallui.CvoHandler.CvoEventListener;
+import com.android.incallui.MediaHandler.IMediaEventListener;
 
 import java.io.IOException;
 
@@ -47,6 +48,7 @@ import java.io.IOException;
 public class VideoCallManager {
     private static final String TAG = "VideoCallManager";
     private static VideoCallManager mInstance; // Use a singleton
+    private static final int INVALID_SIZE = -1;
     private CameraHandler mCameraHandler;
     private MediaHandler mMediaHandler;
     private CvoHandler mCvoHandler;
@@ -54,6 +56,8 @@ public class VideoCallManager {
         @Override
         public void handleMessage(Message msg) {
             AsyncResult ar;
+            log("handleMessage id=" + msg.what);
+
             switch (msg.what) {
                 case CVO_MODE_REQUEST_CHANGED:
                     ar = (AsyncResult) msg.obj;
@@ -298,7 +302,7 @@ public class VideoCallManager {
         mCameraHandler.stopCameraRecording();
     }
 
-    public void setOnParamReadyListener(VideoCallPanel.ParamReadyListener listener) {
+    public void setMediaEventListener(VideoCallPanel.MediaEventListener listener) {
         mMediaHandler.setMediaEventListener(listener);
     }
 
@@ -318,7 +322,25 @@ public class VideoCallManager {
         }
     }
 
+    public float getPeerAspectRatio() {
+        int peerHeight = mMediaHandler.getPeerHeight();
+        int peerWidth = mMediaHandler.getPeerWidth();
+        //Check for invalid size and divide by zero
+        if (peerHeight == INVALID_SIZE || peerWidth == INVALID_SIZE || peerHeight == 0) {
+            loge("getPeerAspectRatio ERROR peerHeight=" + peerHeight + " peerWidth=" + peerWidth);
+            return INVALID_SIZE;
+        }
+        float aspectRatio = (float) peerWidth / peerHeight;
+        log("aspectRatio= " + aspectRatio + " peerHeight=" + peerHeight + " peerWidth="
+                + peerWidth);
+        return aspectRatio;
+    }
+
     private void log(String msg) {
         Log.d(TAG, msg);
+    }
+
+    private void loge(String msg) {
+        Log.e(TAG, msg);
     }
 }

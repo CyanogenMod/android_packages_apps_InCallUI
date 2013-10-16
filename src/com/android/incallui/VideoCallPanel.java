@@ -57,6 +57,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
     private static final int MEDIA_TO_CAMERA_CONV_UNIT = 1000;
     private static final int DEFAULT_CAMERA_ZOOM_VALUE = 0;
+    private static final int INVALID_SIZE = -1;
 
     private Context mContext;
     private VideoCallManager mVideoCallManager;
@@ -69,6 +70,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private SurfaceTexture mCameraSurface;
     private SurfaceTexture mFarEndSurface;
     private ImageView mCameraPicker;
+    private final Resize mResize = new Resize();
 
     private int mZoomMax;
     private int mZoomValue;  // The current zoom value
@@ -78,6 +80,9 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private int mFrontCameraId;
     private int mBackCameraId;
     private int mCameraId;
+
+    private int mHeight = INVALID_SIZE;
+    private int mWidth = INVALID_SIZE;
 
     // Property used to indicate that the Media running in loopback mode
     private boolean mIsMediaLoopback = false;
@@ -96,10 +101,11 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         }
     }
 
+
     /**
      * This class implements the listener for PARAM READY EVENT
      */
-    public class ParamReadyListener implements MediaHandler.MediaEventListener {
+    public class MediaEventListener implements MediaHandler.IMediaEventListener {
         @Override
         public void onParamReadyEvent() {
             CameraState cameraState = mVideoCallManager.getCameraState();
@@ -130,6 +136,14 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
          // NO-OP
         }
 
+        @Override
+        public void onPeerResolutionChangeEvent() {
+            if (DBG) log("onPeerResolutionChangeEvent");
+
+            if (mHeight != INVALID_SIZE && mWidth != INVALID_SIZE) {
+                resizeFarEndView();
+            }
+        }
     }
 
     public class CvoListener implements CvoHandler.CvoEventListener {
@@ -200,7 +214,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         }
 
         // Set media event listener
-        mVideoCallManager.setOnParamReadyListener(new ParamReadyListener());
+        mVideoCallManager.setMediaEventListener(new MediaEventListener());
         mVideoCallManager.setCvoEventListener(new CvoListener());
     }
 
@@ -237,12 +251,27 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
      */
     @Override
     protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld) {
-        if (DBG) log("onSizeChanged");
-        if (DBG) log("Video Panel width:" + xNew + ", height:" + yNew);
+        log("onSizeChanged");
+        log("Video Panel xNew=" + xNew + ", yNew=" + yNew + " xOld=" + xOld + " yOld=" + yOld);
+        if (xNew != xOld || yNew != yOld) {
+            post(mResize);
+        }
+    }
 
-        // Resize preview window if the size of the view changed
-        resizeCameraPreview(yNew);
-        resizeFarEndView(xNew, yNew);
+    private class Resize implements Runnable {
+        @Override
+        public void run() {
+            doSizeChanged();
+        }
+    }
+
+    private void doSizeChanged() {
+        mWidth = getWidth();
+        mHeight = getHeight();
+
+        if (DBG) log("doSizeChanged: VideoCallPanel width=" + mWidth + ", height=" + mHeight);
+        resizeCameraPreview();
+        resizeFarEndView();
     }
 
     /**
@@ -526,32 +555,42 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     /**
      * This method resizes the camera preview based on the size of the
      * VideoCallPanel
-     * @param targetSize
      */
-    private void resizeCameraPreview(int targetSize) {
-        if (DBG) log("resizeCameraPreview targetSize=" + targetSize);
+    private void resizeCameraPreview() {
+        if (DBG) log("resizeCameraPreview: mHeight=" + mHeight);
         // For now, set the preview size to be 1/4th of the VideoCallPanel
         ViewGroup.LayoutParams cameraPreivewLp = mCameraPreview.getLayoutParams();
-        cameraPreivewLp.height = targetSize / 4;
-        cameraPreivewLp.width = targetSize / 4;
+        cameraPreivewLp.height = mHeight / 4;
+        cameraPreivewLp.width = mHeight / 4; // use mHeight to create small
+                                             // square box for camera preview
         mCameraPreview.setLayoutParams(cameraPreivewLp);
     }
 
     /**
      * This method resizes the far end view based on the size of VideoCallPanel
      * Presently supports only full size far end video
-     * @param targetWidth
-     * @param targetHeight
      */
-    private void resizeFarEndView(int targetWidth, int targetHeight) {
+    private void resizeFarEndView() {
+        int minDimension = Math.min(mWidth, mHeight);
+        int farEndWidth = mWidth;
+        int farEndHeight = mHeight;
+        float aspectRatio = mVideoCallManager.getPeerAspectRatio();
+        if (aspectRatio > 1) {
+            // Width > Height, so fix the width
+            farEndWidth = minDimension;
+            farEndHeight = Math.round(minDimension / aspectRatio);
+        } else if (aspectRatio > 0 && aspectRatio <= 1) {
+            farEndHeight = minDimension;
+            farEndWidth = Math.round(aspectRatio * minDimension);
+        } // In other cases continue with target height and width
         if (DBG) {
-            log("resizeFarEndView");
-            log("Videocall pandel width:" + targetWidth + ", height:" + targetHeight);
+            log("resizeFarEndView FarEnd to width:" + farEndWidth + ", height:" + farEndHeight);
         }
 
         ViewGroup.LayoutParams farEndViewLp = mFarEndView.getLayoutParams();
-        farEndViewLp.height = targetHeight;
-        farEndViewLp.width = targetWidth;
+        farEndViewLp.height = farEndHeight;
+        farEndViewLp.width = farEndWidth;
+
         mFarEndView.setLayoutParams(farEndViewLp);
     }
 

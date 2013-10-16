@@ -130,6 +130,27 @@ static int dpl_getUIOrientationMode(JNIEnv *e, jobject o) {
     return def;
 }
 
+static int dpl_getPeerHeight(JNIEnv *e, jobject o) {
+    int def = -1;
+    ALOGD("%s", __func__);
+
+    if (vt_apis && vt_apis->getPeerHeight) {
+        return vt_apis->getPeerHeight();
+    }
+    return def;
+}
+
+static int dpl_getPeerWidth(JNIEnv *e, jobject o) {
+    int def = -1;
+    ALOGD("%s", __func__);
+
+    if(vt_apis && vt_apis->getPeerWidth) {
+        return vt_apis->getPeerWidth();
+    }
+    return def;
+}
+
+
 static void onMediaEvent(uint16_t eventId) {
     bool threadAttached = false;
 
@@ -184,6 +205,8 @@ static JNINativeMethod sMethods[] =
     {"nativeGetNegotiatedHeight", "()I", (void *)dpl_getNegotiatedHeight},
     {"nativeGetNegotiatedWidth", "()I", (void *)dpl_getNegotiatedWidth},
     {"nativeGetUIOrientationMode", "()I", (void *)dpl_getUIOrientationMode},
+    {"nativeGetPeerHeight", "()I", (void *)dpl_getPeerHeight},
+    {"nativeGetPeerWidth", "()I", (void *)dpl_getPeerWidth},
     {"nativeRegisterForMediaEvents", "(Lcom/android/incallui/MediaHandler;)V"
         , (void *)dpl_registerForImsEvent}
 };
@@ -200,6 +223,8 @@ static JNINativeMethod sMethods[] =
 #define IMPL_SYM_NEG_HEIGHT  "getNegotiatedHeight"
 #define IMPL_SYM_NEG_WIDTH   "getNegotiatedWidth"
 #define IMPL_SYM_UI_ORIENTATION_MODE   "getUIOrientationMode"
+#define IMPL_SYM_PEER_HEIGHT  "getPeerHeight"
+#define IMPL_SYM_PEER_WIDTH   "getPeerWidth"
 #define IMPL_SYM_REGISTER    "registerAppEventCallback"
 
 struct VtImplApis *vt_load_impl_lib(const char *path)
@@ -224,6 +249,8 @@ struct VtImplApis *vt_load_impl_lib(const char *path)
     ret->getNegotiatedHeight = (VtImplUint32VoidFunc) dlsym(handle, IMPL_SYM_NEG_HEIGHT);
     ret->getNegotiatedWidth = (VtImplUint32VoidFunc) dlsym(handle, IMPL_SYM_NEG_WIDTH);
     ret->getUIOrientationMode = (VtImplUint32VoidFunc) dlsym(handle, IMPL_SYM_UI_ORIENTATION_MODE);
+    ret->getPeerHeight = (VtImplUint32VoidFunc) dlsym(handle, IMPL_SYM_PEER_HEIGHT);
+    ret->getPeerWidth = (VtImplUint32VoidFunc) dlsym(handle, IMPL_SYM_PEER_WIDTH);
     ret->registerAppEventCallback = (VtImplRegisterCbFun) dlsym(handle, IMPL_SYM_REGISTER);
 
     return ret;

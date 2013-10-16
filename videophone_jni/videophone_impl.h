@@ -54,6 +54,8 @@ struct VtImplApis {
     VtImplUint32VoidFunc getNegotiatedHeight;
     VtImplUint32VoidFunc getNegotiatedWidth;
     VtImplUint32VoidFunc getUIOrientationMode;
+    VtImplUint32VoidFunc getPeerHeight;
+    VtImplUint32VoidFunc getPeerWidth;
 };
 
 #endif

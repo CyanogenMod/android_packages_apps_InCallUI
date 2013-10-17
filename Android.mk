@@ -12,6 +12,9 @@ LOCAL_RESOURCE_DIR := res_none
 # SDK.
 LOCAL_SDK_VERSION := 19
 
+LOCAL_JNI_SHARED_LIBRARIES := libvt_jni libimscamera_jni
+LOCAL_REQUIRED_MODULES := libvt_jni libimscamera_jni
+
 LOCAL_PACKAGE_NAME := InCallUI
 LOCAL_CERTIFICATE := shared
 LOCAL_PRIVELEGED_MODULE := false

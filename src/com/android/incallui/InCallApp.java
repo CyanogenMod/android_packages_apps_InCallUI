@@ -34,6 +34,8 @@ public class InCallApp extends Application {
      */
     public static final String ACTION_HANG_UP_ONGOING_CALL =
             "com.android.incallui.ACTION_HANG_UP_ONGOING_CALL";
+    public static final String ADD_CALL_MODE_KEY = "add_call_mode";
+    public static final String ADD_PARTICIPANT_KEY = "add_participant";
 
     public InCallApp() {
     }

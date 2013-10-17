@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,7 +98,11 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
                 call.getCallId());
         getUi().showAnswerUi(true);
 
-        if (call.can(Call.Capabilities.RESPOND_VIA_TEXT) && textMsgs != null) {
+        if(CallUtils.isVideoCall(call)) {
+            getUi().showVideoButtons();
+            if (textMsgs != null)
+                getUi().configureMessageDialog(textMsgs);
+        } else if (call.can(Call.Capabilities.RESPOND_VIA_TEXT) && textMsgs != null) {
             getUi().showTextButton(true);
             getUi().configureMessageDialog(textMsgs);
         } else {
@@ -118,14 +126,14 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
-    public void onAnswer() {
+    public void onAnswer(int callType) {
         if (mCallId == Call.INVALID_CALL_ID) {
             return;
         }
 
-        Log.d(this, "onAnswer " + mCallId);
+        Log.d(this, "onAnswer: callId=" + mCallId + "callType=" + callType);
 
-        CallCommandClient.getInstance().answerCall(mCallId);
+        CallCommandClient.getInstance().answerCallWithCallType(mCallId, callType);
     }
 
     public void onDecline() {
@@ -154,6 +162,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     interface AnswerUi extends Ui {
         public void showAnswerUi(boolean show);
+        public void showVideoButtons();
         public void showTextButton(boolean show);
         public void showMessageDialog();
         public void configureMessageDialog(ArrayList<String> textResponses);

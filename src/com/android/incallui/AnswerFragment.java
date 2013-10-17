@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -133,6 +137,28 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
 
             mGlowpad.reset(false);
         }
+    }
+
+    @Override
+    public void showVideoButtons() {
+        Log.d(this, "ims video ");
+        final int targetResourceId = R.array.incoming_call_widget_6way_ims_targets;
+
+        if (targetResourceId != mGlowpad.getTargetResourceId()) {
+            // Answer, Decline, Respond via SMS, and Video options
+            // (VT,VoLTE,VT-TX,VT-RX)
+            mGlowpad.setTargetResources(R.array.incoming_call_widget_6way_ims_targets);
+            mGlowpad.setTargetDescriptionsResourceId(
+                    R.array.incoming_call_widget_6way_ims_target_descriptions);
+            mGlowpad.setDirectionDescriptionsResourceId(
+                    R.array.incoming_call_widget_6way_ims_direction_descriptions);
+
+            mGlowpad.reset(false);
+        }
+    }
+
+    public boolean isMessageDialogueShowing() {
+        return mCannedResponsePopup != null && mCannedResponsePopup.isShowing();
     }
 
     @Override
@@ -279,8 +305,8 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
     }
 
     @Override
-    public void onAnswer() {
-        getPresenter().onAnswer();
+    public void onAnswer(int callType) {
+        getPresenter().onAnswer(callType);
     }
 
     @Override

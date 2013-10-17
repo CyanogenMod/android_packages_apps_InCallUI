@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +25,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.graphics.Bitmap;
+import android.provider.MediaStore.Audio;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -36,6 +41,7 @@ import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.Capabilities;
 import com.android.services.telephony.common.CallIdentification;
 import com.google.common.base.Preconditions;
+import com.android.incallui.CallUtils;
 
 /**
  * Presenter for the Call Card Fragment.
@@ -188,14 +194,16 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
 
         // Set the call state
+        final int callType = CallUtils.getCallType(mPrimary);
+
         if (mPrimary != null) {
             final boolean bluetoothOn =
                     (AudioModeProvider.getInstance().getAudioMode() == AudioMode.BLUETOOTH);
             ui.setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn,
-                    getGatewayLabel(), getGatewayNumber(), mPrimary.isHeldRemotely());
+                    getGatewayLabel(), getGatewayNumber(), mPrimary.isHeldRemotely(), calltype);
         } else {
             ui.setCallState(Call.State.IDLE, Call.DisconnectCause.UNKNOWN,
-                    false, null, null, false);
+                    false, null, null, false, calltype);
         }
     }
 
@@ -205,7 +213,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             final boolean bluetoothOn = (AudioMode.BLUETOOTH == mode);
 
             getUi().setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn,
-                    getGatewayLabel(), getGatewayNumber(), mPrimary.isHeldRemotely());
+                    getGatewayLabel(), getGatewayNumber(), mPrimary.isHeldRemotely(),
+                    CallUtils.getCallType(mPrimary));
         }
     }
 
@@ -276,7 +285,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                         return;
                     }
                     if (entry.photo != null) {
-                        if (mPrimary != null && callId == mPrimary.getCallId()) {
+                        if (mPrimary != null && !CallUtils.isVideoCall(mPrimary) &&
+                                callId == mPrimary.getCallId()) {
                             getUi().setPrimaryImage(entry.photo);
                         } else if (mSecondary != null && callId == mSecondary.getCallId()) {
                             getUi().setSecondaryImage(entry.photo);
@@ -363,16 +373,17 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         final boolean isGenericConf = isGenericConference(mPrimary);
         final boolean isForwarded = isForwarded(mPrimary);
+        final boolean isVideo = CallUtils.isVideoCall(mPrimary);
         if (entry != null) {
             final String name = getNameForCall(entry);
             final String number = getNumberForCall(entry);
             final boolean nameIsNumber = name != null && name.equals(entry.number);
             ui.setPrimary(number, name, nameIsNumber, entry.label,
                     entry.photo, isConference, isGenericConf,
-                    entry.isSipCall, isForwarded);
+                    entry.isSipCall, isForwarded, isVideo);
         } else {
             ui.setPrimary(null, null, false, null, null, isConference,
-                    isGenericConf, false, isForwarded);
+                    isGenericConf, false, isForwarded, isVideo);
         }
 
     }
@@ -470,12 +481,12 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setVisible(boolean on);
         void setPrimary(String number, String name, boolean nameIsNumber, String label,
                 Drawable photo, boolean isConference, boolean isGeneric,
-                boolean isSipCall, boolean isForwarded);
+                boolean isSipCall, boolean isForwarded, boolean isVideo);
         void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
                 Drawable photo, boolean isConference, boolean isGeneric);
         void setSecondaryImage(Drawable image);
         void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn,
-                String gatewayLabel, String gatewayNumber, boolean isHeldRemotely);
+                String gatewayLabel, String gatewayNumber, boolean isHeldRemotely, int callType);
         void setPrimaryCallElapsedTime(boolean show, String duration);
         void setPrimaryName(String name, boolean nameIsNumber);
         void setPrimaryImage(Drawable image);

@@ -2,6 +2,17 @@
   *;
 }
 
+-keep public class com.android.incallui.MediaHandler
+
+-keepclasseswithmembers class * {
+    native <methods>;
+}
+
+-keep class com.android.incallui.MediaHandler {
+    *** onMediaEvent(...);
+}
+
+
 # Keep names that are used only by animation framework.
 -keepclasseswithmembers class com.android.incallui.AnimationUtils$CrossFadeDrawable {
     *** setCrossFadeAlpha(...);

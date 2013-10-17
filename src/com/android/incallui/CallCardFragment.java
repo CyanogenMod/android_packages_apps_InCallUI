@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +27,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.telephony.MSimTelephonyManager;
+import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +39,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
 
 import java.util.List;
@@ -66,6 +72,25 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     // Cached DisplayMetrics density.
     private float mDensity;
+
+    private VideoCallPanel mVideoCallPanel;
+    private boolean mAudioDeviceInitialized = false;
+
+    // Constants for TelephonyProperties.PROPERTY_IMS_AUDIO_OUTPUT property.
+    // Currently, the default audio output is headset if connected, bluetooth
+    // if connected, speaker/earpiece for video/voice call.
+    private static final int IMS_AUDIO_OUTPUT_DEFAULT = 0;
+    private static final int IMS_AUDIO_OUTPUT_DISABLE_SPEAKER = 1;
+
+    /**
+     * Controls audio route for VT calls.
+     * 0 - Use the default audio routing strategy.
+     * 1 - Disable the speaker. Route the audio to Headset or Bloutooth
+     *     or Earpiece, based on the default audio routing strategy.
+     * This property is for testing purpose only.
+     */
+    static final String PROPERTY_IMS_AUDIO_OUTPUT =
+                                "persist.radio.ims.audio.output";
 
     @Override
     CallCardPresenter.CallCardUi getUi() {
@@ -120,6 +145,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mSubscriptionId = (TextView) view.findViewById(R.id.subId);
         mSupplementaryInfoContainer =
             (ViewGroup) view.findViewById(R.id.supplementary_info_container);
+        mVideoCallPanel = (VideoCallPanel) view.findViewById(R.id.videoCallPanel);
     }
 
     @Override
@@ -175,14 +201,14 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         } else {
             mNumberLabel.setVisibility(View.GONE);
         }
-
     }
 
     @Override
     public void setPrimary(String number, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isConference, boolean isGeneric,
-            boolean isSipCall, boolean isForwarded) {
+            Drawable photo, boolean isConference, boolean isGeneric, boolean isSipCall,
+            boolean isForwarded, boolean isVideo) {
         Log.d(this, "Setting primary call");
+
 
         if (isConference) {
             name = getConferenceString(isGeneric);
@@ -200,7 +226,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         showCallTypeLabel(isSipCall, isForwarded);
 
-        setDrawableToImageView(mPhoto, photo);
 
         if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
             String[] sub = {"SUB 1", "SUB 2", "SUB 3"};
@@ -209,6 +234,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             if (subscription != -1) {
                 showSubscriptionInfo(sub[subscription]);
             }
+        }
+
+        if (! isVideo) {
+            setDrawableToImageView(mPhoto, photo);
         }
     }
 
@@ -247,8 +276,17 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     @Override
     public void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn,
-            String gatewayLabel, String gatewayNumber, boolean isHeldRemotely) {
+            String gatewayLabel, String gatewayNumber, boolean isHeldRemotely, int callType) {
         String callStateLabel = null;
+
+        // If this is a video call then update the state of the VideoCallPanel
+        if (CallUtils.isVideoCall(callType)) {
+            updateVideoCallState(state, callType);
+        } else {
+            // This will hide the VideoCallPanel for any non VT/ non VS call or
+            // downgrade scenarios
+            hideVideoCallWidgets();
+        }
 
         // States other than disconnected not yet supported
         callStateLabel = getCallStateLabelFromState(state, cause, isHeldRemotely);
@@ -551,5 +589,148 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         if (size == eventText.size()) {
             eventText.add(null);
         }
+    }
+
+    /**
+     * Updates the VideoCallPanel based on the current state of the call
+     * TODO: Move to a separate file.
+     * @param call
+     */
+    private void updateVideoCallState(int callState, int callType) {
+        log("  - Videocall.state: " + callState);
+
+        // Null check
+        if (mVideoCallPanel == null) {
+            loge("VideocallPanel is null");
+            return;
+        }
+        switch (callState) {
+            case Call.State.INCOMING:
+                //break; // TODO: Uncomment this once SurfaceTexuture issue is fixed.
+
+            case Call.State.DIALING:
+            case Call.State.REDIALING:
+            case Call.State.ACTIVE:
+                initVideoCall(callType);
+                showVideoCallWidgets(callType);
+                break;
+
+            case Call.State.DISCONNECTING:
+            case Call.State.DISCONNECTED:
+            case Call.State.ONHOLD:
+            case Call.State.IDLE:
+            case Call.State.CALL_WAITING:
+                hideVideoCallWidgets();
+                break;
+
+            default:
+                Log.e(this, "videocall: updateVideoCallState in bad state:" + callState);
+                hideVideoCallWidgets();
+                break;
+        }
+    }
+
+    /**
+     * If this is a video call then hide the photo widget and show the video
+     * call panel
+     */
+    private void showVideoCallWidgets(int callType) {
+
+        if (isPhotoVisible()) {
+            log("show videocall widget");
+            mPhoto.setVisibility(View.GONE);
+        }
+
+        mVideoCallPanel.setVisibility(View.VISIBLE);
+        mVideoCallPanel.setPanelElementsVisibility(callType);
+    }
+
+    /**
+     * Hide the video call widget and restore the photo widget and reset
+     * mAudioDeviceInitialized
+     */
+    private void hideVideoCallWidgets() {
+        mAudioDeviceInitialized = false;
+
+        if ((mVideoCallPanel != null) && (mVideoCallPanel.getVisibility() == View.VISIBLE)) {
+            log("Hide videocall widget");
+
+            mPhoto.setVisibility(View.VISIBLE);
+            mVideoCallPanel.setVisibility(View.GONE);
+            mVideoCallPanel.setCameraNeeded(false);
+        }
+    }
+
+    /**
+     * Initializes the video call widgets if not already initialized
+     */
+    private void initVideoCall(int callType) {
+        /*
+         * 1. Speaker state is updated only at the beginning of a video call 2.
+         * For MO video call, speaker update happens in dialing state 3. For MT
+         * video call, it happens in active state 4. Speaker state not changed
+         * during a call when VOLTE<->VT call type change happens.
+         */
+        log("initVideoCall mAudioDeviceInitialized: " + mAudioDeviceInitialized);
+        if (!mAudioDeviceInitialized ) {
+            switchInVideoCallAudio(); // Set audio to speaker by default
+            mAudioDeviceInitialized = true;
+        }
+        // Choose camera direction based on call type
+        mVideoCallPanel.onCallInitiating(callType);
+    }
+
+    /**
+     * Switches the current routing of in-call audio for the video call
+     */
+    private void switchInVideoCallAudio() {
+        Log.d(this,"In switchInVideoCallAudio");
+
+        // If the wired headset is connected then the AudioService takes care of
+        // routing audio to the headset
+        int mode = AudioModeProvider.getInstance().getAudioMode();
+        CallCommandClient.getInstance().setAudioMode(mode);
+        if (mode == AudioMode.WIRED_HEADSET) {
+            Log.d(this,"Wired headset connected, not routing audio to speaker");
+            return;
+        }
+
+        // If the bluetooth is available then BluetoothHandsfree class takes
+        // care of making sure that the audio is routed to Bluetooth by default.
+        // However if the audio is not connected to Bluetooth because user wanted
+        // audio off then continue to turn on the speaker
+        if (mode == AudioMode.BLUETOOTH ) {
+            Log.d(this, "Bluetooth connected, not routing audio to speaker");
+            return;
+        }
+
+        // If the speaker is explicitly disabled then do not enable it.
+        if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
+                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER) {
+            Log.d(this, "Speaker disabled, not routing audio to speaker");
+            return;
+        }
+
+        // If the bluetooth headset or the wired headset is not connected and
+        // the speaker is not disabled then turn on speaker by default
+        // for the VT call
+        CallCommandClient.getInstance().setAudioMode(AudioMode.SPEAKER);
+    }
+
+    /**
+     * Return true if mPhoto is available and is visible
+     *
+     * @return
+     */
+    private boolean isPhotoVisible() {
+        return ((mPhoto != null) && (mPhoto.getVisibility() == View.VISIBLE));
+    }
+
+    private void log(String msg) {
+        Log.d(this, msg);
+    }
+
+    private void loge(String msg) {
+        Log.e(this, msg);
     }
 }

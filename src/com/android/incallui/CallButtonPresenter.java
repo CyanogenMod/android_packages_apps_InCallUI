@@ -22,6 +22,7 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
+import com.android.services.telephony.common.CallDetails;
 import com.android.services.telephony.common.Call.Capabilities;
 
 import android.app.AlertDialog;
@@ -193,6 +194,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         CallCommandClient.getInstance().merge();
     }
 
+    public void addParticipantClicked() {
+        InCallPresenter.getInstance().sendAddParticipantIntent();
+    }
+
     public void addCallClicked() {
         // Automatically mute the current call
         mAutomaticallyMuted = true;
@@ -306,6 +311,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 }
             }
 
+            ui.enableAddParticipant(call.can(Capabilities.ADD_PARTICIPANT));
+
             ui.enableMute(call.can(Capabilities.MUTE));
 
             // Finally, update the "extra button row": It's displayed above the
@@ -365,6 +372,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void showSwap(boolean show);
         void showAddCall(boolean show);
         void enableAddCall(boolean enabled);
+        void enableAddParticipant(boolean show);
         void displayDialpad(boolean on);
         boolean isDialpadVisible();
         void setAudio(int mode);

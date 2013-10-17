@@ -118,4 +118,6 @@
     <dimen name="glowpadview_margin_bottom">-48dip</dimen>
     <dimen name="glowpadview_margin_right">0dip</dimen>
 
+    <!-- Dimensions for Video Call Panel -->
+    <dimen name="indicator_bar_width">38dp</dimen>
 </resources>

@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +27,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.android.incallui.widget.multiwaveview.GlowPadView;
+import com.android.services.telephony.common.CallDetails;
 
 /**
  *
@@ -105,13 +110,38 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
         }
     }
 
+    private int toCallType(int resId) {
+        int callType = CallDetails.CALL_TYPE_VOICE;
+        switch (resId) {
+            case R.drawable.ic_lockscreen_answer_video:
+                callType = CallDetails.CALL_TYPE_VT;
+                break;
+            case R.drawable.ic_lockscreen_answer_tx_video:
+                callType = CallDetails.CALL_TYPE_VT_TX;
+                break;
+            case R.drawable.ic_lockscreen_answer_rx_video:
+                callType = CallDetails.CALL_TYPE_VT_RX;
+                break;
+            case R.drawable.ic_lockscreen_answer:
+                callType = CallDetails.CALL_TYPE_VOICE;
+                break;
+            default:
+                Log.wtf(this, "Unknown resource id, resId=" + resId);
+                break;
+        }
+        return callType;
+    }
+
     @Override
     public void onTrigger(View v, int target) {
         Log.d(this, "onTrigger()");
         final int resId = getResourceIdForTarget(target);
         switch (resId) {
+            case R.drawable.ic_lockscreen_answer_video:
+            case R.drawable.ic_lockscreen_answer_tx_video:
+            case R.drawable.ic_lockscreen_answer_rx_video:
             case R.drawable.ic_lockscreen_answer:
-                mAnswerListener.onAnswer();
+                mAnswerListener.onAnswer(toCallType(resId));
                 mTargetTriggered = true;
                 break;
             case R.drawable.ic_lockscreen_decline:
@@ -143,7 +173,7 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
     }
 
     public interface AnswerListener {
-        void onAnswer();
+        void onAnswer(int callType);
         void onDecline();
         void onText();
     }

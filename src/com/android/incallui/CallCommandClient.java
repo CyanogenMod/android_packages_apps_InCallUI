@@ -18,6 +18,7 @@ package com.android.incallui;
 
 import android.os.RemoteException;
 
+import com.android.internal.telephony.MSimConstants;
 
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.ICallCommandService;
@@ -253,5 +254,34 @@ public class CallCommandClient {
         } catch (RemoteException e) {
             Log.e(this, "Error on blacklistAndHangup().", e);
         }
+    }
+
+    public void setActiveSubscription(int subscriptionId) {
+        Log.i(this, "set active sub = " + subscriptionId);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot set active Sub; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.setActiveSubscription(subscriptionId);
+        } catch (RemoteException e) {
+            Log.e(this, "Error setActiveSub.", e);
+        }
+    }
+
+    public int getActiveSubscription() {
+        int subscriptionId = MSimConstants.INVALID_SUBSCRIPTION;
+
+        if (mCommandService == null) {
+            Log.e(this, "Cannot get active sub; CallCommandService == null");
+            return subscriptionId;
+        }
+        try {
+            subscriptionId = mCommandService.getActiveSubscription();
+        } catch (RemoteException e) {
+            Log.e(this, "Error getActiveSub.", e);
+        }
+        Log.i(this, "get active sub " + subscriptionId);
+        return subscriptionId;
     }
 }

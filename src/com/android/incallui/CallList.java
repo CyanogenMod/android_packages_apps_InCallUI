@@ -54,6 +54,7 @@ public class CallList {
     private final HashMap<Integer, List<CallUpdateListener>> mCallUpdateListenerMap = Maps
             .newHashMap();
 
+    private int mSubscription = 0;
 
     /**
      * Static singleton accessor method.
@@ -477,5 +478,18 @@ public class CallList {
     public interface CallUpdateListener {
         // TODO: refactor and limit arg to be call state.  Caller info is not needed.
         public void onCallStateChanged(Call call);
+    }
+
+    /**
+     * Called when active subscription changes.
+     */
+    public void onActiveSubChanged(int activeSub) {
+        Log.d(this, "onActiveSubChanged: old = " + mSubscription + " new = " + activeSub);
+
+        mSubscription = activeSub;
+    }
+
+    public int getActiveSubscription() {
+        return mSubscription;
     }
 }

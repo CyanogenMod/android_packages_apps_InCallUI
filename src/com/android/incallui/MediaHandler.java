@@ -28,8 +28,13 @@
 
 package com.android.incallui;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.SurfaceTexture;
+import android.os.AsyncResult;
 import android.os.Handler;
+import android.os.Message;
+import android.os.Registrant;
+import android.os.RegistrantList;
 import android.util.Log;
 
 /**
@@ -51,14 +56,24 @@ public class MediaHandler extends Handler {
     private static native void nativeDeInit();
     private static native void nativeHandleRawFrame(byte[] frame);
     private static native int nativeSetSurface(SurfaceTexture st);
+    private static native void nativeSetDeviceOrientation(int orientation);
     private static native short nativeGetNegotiatedFPS();
     private static native int nativeGetNegotiatedHeight();
     private static native int nativeGetNegotiatedWidth();
+    private static native int nativeGetUIOrientationMode();
     private static native void nativeRegisterForMediaEvents(MediaHandler instance);
 
     public static final int PARAM_READY_EVT = 1;
     public static final int START_READY_EVT = 2;
+    public static final int DISPLAY_MODE_EVT = 5;
 
+    protected final RegistrantList mDisplayModeEventRegistrants
+            = new RegistrantList();
+
+    // UI Orientation Modes
+    private static final int LANDSCAPE_MODE = 1;
+    private static final int PORTRAIT_MODE = 2;
+    private static final int CVO_MODE = 3;
     /*
      * Initializing default negotiated parameters to a working set of valuesso
      * that the application does not crash in case we do not get the Param ready
@@ -66,14 +81,35 @@ public class MediaHandler extends Handler {
      */
     private static int mNegotiatedHeight = 240;
     private static int mNegotiatedWidth = 320;
+    private static int mUIOrientationMode = PORTRAIT_MODE;
     private static short mNegotiatedFps = 20;
 
     private MediaEventListener mMediaEventListener;
+    public RegistrantList mCvoModeOnRegistrant = new RegistrantList();
 
-    private static boolean mIsReadyToReceivePreview = false;
+    // Use a singleton
+    private static MediaHandler mInstance;
+
+    /**
+     * This method returns the single instance of MediaHandler object *
+     */
+    public static synchronized MediaHandler getInstance() {
+        if (mInstance == null) {
+            mInstance = new MediaHandler();
+        }
+        return mInstance;
+    }
+
+    /**
+     * Private constructor for MediaHandler
+     */
+    private MediaHandler() {
+    }
 
     public interface MediaEventListener {
         void onParamReadyEvent();
+        void onDisplayModeEvent();
+        void onStartReadyEvent();
     }
 
     static {
@@ -89,8 +125,6 @@ public class MediaHandler extends Handler {
      */
     public int init() {
         if (!mInitCalledFlag) {
-            //Initialize mIsReadyToReceivePreview to false to begin with
-            mIsReadyToReceivePreview = false;
             int error = nativeInit();
             Log.d(TAG, "init called error = " + error);
             switch (error) {
@@ -121,6 +155,11 @@ public class MediaHandler extends Handler {
         Log.d(TAG, "deInit called");
         nativeDeInit();
         mInitCalledFlag = false;
+    }
+
+    public void sendCvoInfo(int orientation) {
+        Log.d(TAG, "sendCvoInfo orientation=" + orientation);
+        nativeSetDeviceOrientation(orientation);
     }
 
     /**
@@ -156,14 +195,6 @@ public class MediaHandler extends Handler {
     }
 
     /**
-     * Get Negotiated FPS
-     */
-    public static short getNegotiatedFPS() {
-        Log.d(TAG, "Negotiated FPS = " + mNegotiatedFps);
-        return mNegotiatedFps;
-    }
-
-    /**
      * Get Negotiated Height
      */
     public static int getNegotiatedHeight() {
@@ -179,13 +210,16 @@ public class MediaHandler extends Handler {
         return mNegotiatedWidth;
     }
 
-    public static synchronized boolean canSendPreview() {
-        return MediaHandler.mIsReadyToReceivePreview;
+    /**
+     * Get Negotiated Width
+     */
+    public int getUIOrientationMode() {
+        Log.d(TAG, "UI Orientation Mode = " + mUIOrientationMode);
+        return mUIOrientationMode;
     }
 
-    public static synchronized void setIsReadyToReceivePreview(boolean flag) {
-        Log.d(TAG, "setIsReadyToReceivePreview = " + flag);
-        MediaHandler.mIsReadyToReceivePreview = flag;
+    public static short getNegotiatedFps() {
+        return mNegotiatedFps;
     }
 
     /**
@@ -218,11 +252,47 @@ public class MediaHandler extends Handler {
                 break;
             case START_READY_EVT:
                 Log.d(TAG, "Received START_READY_EVT. Camera frames can be sent now");
-                setIsReadyToReceivePreview(true);
+                if (mMediaEventListener != null) {
+                    mMediaEventListener.onStartReadyEvent();
+                }
+                break;
+            case DISPLAY_MODE_EVT:
+                mUIOrientationMode = nativeGetUIOrientationMode();
+                processUIOrientationMode();
+                if (mMediaEventListener != null) {
+                    mMediaEventListener.onDisplayModeEvent();
+                }
                 break;
             default:
                 Log.e(TAG, "Received unknown event id=" + eventId);
         }
 
+    }
+
+    private void processUIOrientationMode() {
+        mCvoModeOnRegistrant.notifyRegistrants(new AsyncResult(null,
+                isCvoModeEnabled(), null));
+    }
+
+    /**
+     * Register for mode change notification from IMS media library to determine
+     * if CVO mode needs to be activated or deactivated
+     */
+    public void registerForCvoModeRequestChanged(Handler h, int what, Object obj) {
+        Registrant r = new Registrant(h, what, obj);
+        mCvoModeOnRegistrant.add(r);
+    }
+
+    /**
+     * TODO Call all unregister methods Unregister for mode change notification
+     * from IMS media library to determine if CVO mode needs to be activated or
+     * deactivated
+     */
+    public void unregisterForCvoModeRequestChanged(Handler h) {
+        mCvoModeOnRegistrant.remove(h);
+    }
+
+    public boolean isCvoModeEnabled() {
+        return mUIOrientationMode == CVO_MODE;
     }
 }

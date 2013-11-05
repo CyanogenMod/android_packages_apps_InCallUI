@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,34 +26,59 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef VT_JNI_INTERFACE_H
-#define VT_JNI_INTERFACE_H
+#ifndef VT_CAMERA_JNI_INTERFACE_H
+#define VT_CAMERA_JNI_INTERFACE_H
 
 #include <jni.h>
 #include <cutils/log.h>
 
-jclass gClassMediaHandler;
+typedef int16_t (*ImsCameraOpenFun)(uint32_t);
+typedef int16_t (*ImsCamImplInt16VoidFunc)();
+typedef int16_t (*ImsCameraSetPreviewSurface)(JNIEnv *, jobject);
+typedef int16_t (*ImsCameraSetDisplayOrientation)(uint32_t);
 
-typedef void (*IMS_EVENT_NOTIFY_CALLBACK)(uint16_t);
-typedef void (*VtImplRegisterCbFun)(IMS_EVENT_NOTIFY_CALLBACK);
-typedef int16_t (*VtImplInitFun)(void);
-typedef int16_t (*VtImplFrameFun)(uint16_t *, uint32_t);
-typedef int16_t (*VtImplSetSurfFun)(JNIEnv *, jobject);
-typedef void (*VtImplSetDeviceOrient)(uint32_t);
-typedef int16_t (*VtImplDeinitFun)(void);
-typedef uint32_t (*VtImplUint32VoidFunc)(void);
+typedef bool (*ImsCameraIsZoomSupported)();
+typedef void (*ImsCameraSetZoom)(uint32_t);
 
-struct VtImplApis {
-    VtImplRegisterCbFun registerAppEventCallback;
-    VtImplInitFun initImsThinClient;
-    VtImplFrameFun frameToEncode;
-    VtImplSetSurfFun setFarEndSurface;
-    VtImplSetDeviceOrient setDeviceOrientation;
-    VtImplDeinitFun deInitImsThinClient;
-    VtImplUint32VoidFunc getNegotiatedFPS;
-    VtImplUint32VoidFunc getNegotiatedHeight;
-    VtImplUint32VoidFunc getNegotiatedWidth;
-    VtImplUint32VoidFunc getUIOrientationMode;
+typedef struct {
+        int width;
+        int height;
+}Resolution;
+
+typedef enum {
+        INVALID_PARAM = 0,
+        SET_FPS,
+        SET_RESOLUTION
+}eParamType;
+
+typedef union {
+        int fps;
+        Resolution cameraResolution;
+}CameraParams;
+
+typedef struct {
+        eParamType type;
+        CameraParams params;
+}CameraParamContainer;
+
+
+typedef int16_t (*ImsCameraSetParameter)(CameraParamContainer);
+typedef CameraParams (*ImsCameraGetParameter)(jobject);
+
+struct ImsCameraImplApis {
+        ImsCameraOpenFun cameraOpen;
+        ImsCamImplInt16VoidFunc cameraRelease;
+        ImsCamImplInt16VoidFunc startCameraPreview;
+        ImsCamImplInt16VoidFunc stopCameraPreview;
+        ImsCamImplInt16VoidFunc startCameraRecording;
+        ImsCamImplInt16VoidFunc stopCameraRecording;
+        ImsCameraSetPreviewSurface setPreviewTexture;
+        ImsCameraSetDisplayOrientation setDisplayOrientation;
+        ImsCameraSetParameter setCameraParameter;
+        ImsCameraGetParameter getCameraParameter;
+        ImsCameraIsZoomSupported isZoomSupported;
+        ImsCamImplInt16VoidFunc getMaxZoom;
+        ImsCameraSetZoom setZoom;
 };
 
 #endif

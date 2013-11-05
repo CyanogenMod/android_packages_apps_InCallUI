@@ -28,12 +28,9 @@
 
 package com.android.incallui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.hardware.Camera.Parameters;
-import android.hardware.Camera.Size;
 import android.os.SystemProperties;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -47,17 +44,19 @@ import com.android.incallui.CameraHandler.CameraState;
 import com.android.services.telephony.common.CallDetails;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Helper class to initialize and run the InCallScreen's "Video Call" UI.
  */
 public class VideoCallPanel extends RelativeLayout implements TextureView.SurfaceTextureListener, View.OnClickListener {
+    private static final int LOOPBACK_MODE_HEIGHT = 144;
+    private static final int LOOPBACK_MODE_WIDTH = 176;
     private static final int CAMERA_UNKNOWN = -1;
     private static final String LOG_TAG = "VideoCallPanel";
     private static final boolean DBG = true;
 
     private static final int MEDIA_TO_CAMERA_CONV_UNIT = 1000;
+    private static final int DEFAULT_CAMERA_ZOOM_VALUE = 0;
 
     private Context mContext;
     private VideoCallManager mVideoCallManager;
@@ -71,11 +70,8 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private SurfaceTexture mFarEndSurface;
     private ImageView mCameraPicker;
 
-    // Camera related
-    private Parameters mParameters;
     private int mZoomMax;
     private int mZoomValue;  // The current zoom value
-    Size mPreviewSize;
 
     // Multiple cameras support
     private int mNumberOfCameras;
@@ -112,15 +108,39 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
                 // If camera is already capturing stop preview, reset the
                 // parameters and then start preview again
                 try {
+                    mVideoCallManager.stopCameraRecording();
                     mVideoCallManager.stopCameraPreview();
                     initializeCameraParams();
                     mVideoCallManager.startCameraPreview(mCameraSurface);
+                    mVideoCallManager.startCameraRecording();
                 } catch (IOException ioe) {
                     loge("Exception onParamReadyEvent stopping and starting preview "
                             + ioe.toString());
                 }
             }
+        }
 
+        @Override
+        public void onDisplayModeEvent() {
+            // NO-OP
+        }
+
+        @Override
+        public void onStartReadyEvent() {
+         // NO-OP
+        }
+
+    }
+
+    public class CvoListener implements CvoHandler.CvoEventListener {
+        @Override
+        public void onDeviceOrientationChanged(int rotation) {
+            int requiredSurfaceRotation = 360 - rotation;
+            if (DBG) {
+                log("onDeviceOrientationChanged: Local sensor rotation =" + rotation +
+                        " Rotate far end based on local sensor by " + requiredSurfaceRotation);
+            }
+            mFarEndView.setRotation(requiredSurfaceRotation);
         }
     }
 
@@ -181,6 +201,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
         // Set media event listener
         mVideoCallManager.setOnParamReadyListener(new ParamReadyListener());
+        mVideoCallManager.setCvoEventListener(new CvoListener());
     }
 
     public void setCameraNeeded(boolean mCameraNeeded) {
@@ -251,12 +272,16 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         }
         initializeZoom();
         initializeCameraParams();
-        // Start camera preview
-        startPreview();
+        startPreviewAndRecording();
     }
 
     public boolean isCameraInitNeeded() {
-        return mCameraNeeded
+        if (DBG) {
+            log("isCameraInitNeeded mCameraNeeded=" + mCameraNeeded + " mCameraSurface= "
+                    + mCameraSurface + " camera state = "
+                    + mVideoCallManager.getCameraState());
+        }
+        return mCameraNeeded && mCameraSurface != null
                 && mVideoCallManager.getCameraState() == CameraState.CAMERA_CLOSED;
     }
 
@@ -278,19 +303,6 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     /**
-     * This method starts the camera preview
-     */
-    private void startPreview() {
-        try {
-            mCameraPreview.setVisibility(View.VISIBLE);
-            mVideoCallManager.startCameraPreview(mCameraSurface);
-        } catch (IOException ioe) {
-            closeCamera();
-            loge("Exception while setting preview texture, " + ioe.toString());
-        }
-    }
-
-    /**
      * This method disconnect and releases the camera
      */
     private void closeCamera() {
@@ -298,10 +310,25 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     /**
-     * This method stops the camera preview
+     * This method starts the camera preview and recording
      */
-    private void stopPreview() {
-        mCameraPreview.setVisibility(View.GONE);
+    private void startPreviewAndRecording() {
+        try {
+            mCameraPreview.setVisibility(View.VISIBLE);
+            mVideoCallManager.startCameraPreview(mCameraSurface);
+            mVideoCallManager.startCameraRecording();
+        } catch (IOException ioe) {
+            closeCamera();
+            loge("Exception startPreviewAndRecording, " + ioe.toString());
+        }
+    }
+
+    /**
+     * This method stops the camera recording and preview
+     */
+    private void stopRecordingAndPreview() {
+        mCameraPreview.setVisibility(View.INVISIBLE);
+        mVideoCallManager.stopCameraRecording();
         mVideoCallManager.stopCameraPreview();
     }
 
@@ -314,11 +341,6 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
             mCameraSurface = surface;
             if (isCameraInitNeeded()) {
                 initializeCamera();
-            } else {
-                // Set preview display if the surface is being created and preview
-                // was already started. That means preview display was set to null
-                // and we need to set it now.
-                mVideoCallManager.setDisplay(mCameraSurface);
             }
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
             if (DBG) log("Video surface texture created");
@@ -331,7 +353,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
         if (surface.equals(mCameraPreview.getSurfaceTexture())) {
             if (DBG) log("CameraPreview surface texture destroyed");
-            stopPreview();
+            stopRecordingAndPreview();
             closeCamera();
             mCameraSurface = null;
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
@@ -369,7 +391,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
                 // Stop the preview and close the camera now because other
                 // activities may need to use it
                 if (mVideoCallManager.getCameraState() != CameraState.CAMERA_CLOSED) {
-                    stopPreview();
+                    stopRecordingAndPreview();
                     closeCamera();
                 }
                 break;
@@ -407,22 +429,21 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
      * initialized the zoom control
      */
     private void initializeZoom() {
-        // Get the parameter to make sure we have the up-to-date zoom value.
-        mParameters = mVideoCallManager.getCameraParameters();
-        if(mParameters == null) {
+        ImsCamera imsCamera = mVideoCallManager.getImsCameraInstance();
+        if (imsCamera == null) {
             return;
         }
-        if (!mParameters.isZoomSupported()) {
+        if (!imsCamera.isZoomSupported()) {
             mZoomControl.setVisibility(View.GONE); // Disable ZoomControl
             return;
         }
 
         mZoomControl.setVisibility(View.VISIBLE); // Enable ZoomControl
-        mZoomMax = mParameters.getMaxZoom();
+        mZoomMax = imsCamera.getMaxZoom();
         // Currently we use immediate zoom for fast zooming to get better UX and
         // there is no plan to take advantage of the smooth zoom.
         mZoomControl.setZoomMax(mZoomMax);
-        mZoomControl.setZoomIndex(mParameters.getZoom());
+        mZoomControl.setZoomIndex(DEFAULT_CAMERA_ZOOM_VALUE);
         mZoomControl.setOnZoomChangeListener(new ZoomChangeListener());
     }
 
@@ -433,11 +454,10 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
      */
     private void onZoomValueChanged(int index) {
         mZoomValue = index;
-
+        ImsCamera imsCamera = mVideoCallManager.getImsCameraInstance();
         // Set zoom
-        if (mParameters.isZoomSupported()) {
-            mParameters.setZoom(mZoomValue);
-            mVideoCallManager.setCameraParameters(mParameters);
+        if (imsCamera.isZoomSupported()) {
+            imsCamera.setZoom(mZoomValue);
         }
     }
 
@@ -447,26 +467,22 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private void initializeCameraParams() {
         try {
             // Get the parameter to make sure we have the up-to-date value.
-            mParameters = mVideoCallManager.getCameraParameters();
+            ImsCamera imsCamera = mVideoCallManager.getImsCameraInstance();
             // Set the camera preview size
             if (mIsMediaLoopback) {
                 // In loopback mode the IMS is hard coded to render the
                 // camera frames of only the size 176x144 on the far end surface
-                mParameters.setPreviewSize(176, 144);
+                imsCamera.setPreviewSize(LOOPBACK_MODE_WIDTH, LOOPBACK_MODE_HEIGHT);
             } else {
-                log("Supported Preview Sizes = " + mParameters.getSupportedPreviewSizes());
                 log("Set Preview Size directly with negotiated Height = "
                         + mVideoCallManager.getNegotiatedHeight()
                         + " negotiated width= " + mVideoCallManager.getNegotiatedWidth());
-                mParameters.setPreviewSize(mVideoCallManager.getNegotiatedWidth(),
+                imsCamera.setPreviewSize(mVideoCallManager.getNegotiatedWidth(),
                         mVideoCallManager.getNegotiatedHeight());
-                setFpsRange();
+                imsCamera.setPreviewFpsRange(mVideoCallManager.getNegotiatedFps());
             }
-
-            mVideoCallManager.setCameraParameters(mParameters);
         } catch (RuntimeException e) {
-            log("Error setting Camera preview size/fps exception=" + e);
-            log("Supported Preview sizes = " + mParameters.getSupportedPreviewSizes());
+            loge("Error setting Camera preview size/fps exception=" + e);
         }
     }
 
@@ -494,7 +510,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
                 // Stop the preview and close the camera now because other
                 // activities may need to use it
                 if (mVideoCallManager.getCameraState() != CameraState.CAMERA_CLOSED) {
-                    stopPreview();
+                    stopRecordingAndPreview();
                     closeCamera();
                 }
                 mCameraPreview.setVisibility(View.GONE);
@@ -510,68 +526,17 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     /**
-     * Select the best possible fps range from the supported list of fps ranges.
-     * Find the auto mode range that camera supports and use low value of that
-     * range and high value as negotiated value For eg. if supported values are
-     * (7.5,30), (20,20), (10,10), (30,30) and negotiated fps is 25 then fps
-     * should be set to (7.5,25).
-     */
-    void setFpsRange() {
-        // Camera apis need the FPS values scaled by 1000
-        int negotiatedFPS = mVideoCallManager.getNegotiatedFPS() * MEDIA_TO_CAMERA_CONV_UNIT;
-        List<int[]> fpsRangeList = mParameters.getSupportedPreviewFpsRange();
-
-        // Initialize bestFpsRange low and high values to 0
-        int bestFpsLow = 0;
-        int bestFpsHigh = 0;
-
-        for (int i = 0; i < fpsRangeList.size(); i++) {
-            int currFpsHigh = fpsRangeList.get(i)[1];
-            int currFpsLow = fpsRangeList.get(i)[0];
-            if (DBG) {
-                Log.d(LOG_TAG, "Supported FPS range = " + currFpsLow + " : "
-                        + currFpsHigh);
-            }
-
-            if (currFpsHigh != currFpsLow
-                    && currFpsLow <= negotiatedFPS
-                    && negotiatedFPS <= currFpsHigh) {
-                bestFpsLow = currFpsLow;
-                bestFpsHigh = negotiatedFPS;
-                break;
-            }
-        }
-
-        if (!(bestFpsHigh == 0 && bestFpsLow == 0 )) {
-            if (DBG) {
-                Log.d(LOG_TAG, "Best FPS range for the negotiated FPS of " + negotiatedFPS + " is "
-                        + bestFpsLow + " : " + bestFpsHigh);
-            }
-            mParameters.setPreviewFpsRange(bestFpsLow, bestFpsHigh);
-        } else {
-            Log.e(LOG_TAG, "Best FPS range for the negotiated FPS of " + negotiatedFPS
-                    + " is not found");
-        }
-    }
-
-    /**
-     * This method resizes the camera preview based on the aspect ratio
-     * supported by camera and the size of VideoCallPanel
-     *
+     * This method resizes the camera preview based on the size of the
+     * VideoCallPanel
      * @param targetSize
      */
     private void resizeCameraPreview(int targetSize) {
-        if (DBG) log("resizeCameraPreview");
-
+        if (DBG) log("resizeCameraPreview targetSize=" + targetSize);
         // For now, set the preview size to be 1/4th of the VideoCallPanel
-        mPreviewSize = mVideoCallManager.getCameraPreviewSize(targetSize / 4, true);
-        if (mPreviewSize != null) {
-            log("Camera view width:" + mPreviewSize.width + ", height:" + mPreviewSize.height);
-            ViewGroup.LayoutParams cameraPreivewLp = mCameraPreview.getLayoutParams();
-            cameraPreivewLp.height = mPreviewSize.height;
-            cameraPreivewLp.width = mPreviewSize.width;
-            mCameraPreview.setLayoutParams(cameraPreivewLp);
-        }
+        ViewGroup.LayoutParams cameraPreivewLp = mCameraPreview.getLayoutParams();
+        cameraPreivewLp.height = targetSize / 4;
+        cameraPreivewLp.width = targetSize / 4;
+        mCameraPreview.setLayoutParams(cameraPreivewLp);
     }
 
     /**
@@ -602,7 +567,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
         // Stop camera preview if already running
         if (mVideoCallManager.getCameraState() != CameraState.CAMERA_CLOSED) {
-            stopPreview();
+            stopRecordingAndPreview();
             closeCamera();
         }
 
@@ -629,6 +594,10 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         if (mCameraId == CAMERA_UNKNOWN) {
             loge("chooseCamera " + chooseFrontCamera + " Both camera ids unknown");
         }
+    }
+
+    public void startOrientationListener(boolean start) {
+        mVideoCallManager.startOrientationListener(start);
     }
 
     private void log(String msg) {

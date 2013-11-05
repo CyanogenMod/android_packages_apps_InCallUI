@@ -3,6 +3,7 @@
 }
 
 -keep public class com.android.incallui.MediaHandler
+-keep public class com.android.incallui.ImsCamera
 
 -keepclasseswithmembers class * {
     native <methods>;

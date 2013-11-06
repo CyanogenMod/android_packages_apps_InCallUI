@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Looper;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
 import com.android.incallui.service.PhoneNumberService;
@@ -34,11 +35,13 @@ import com.android.services.telephony.common.CallIdentification;
 import com.android.services.telephony.common.MoreStrings;
 import com.google.android.collect.Lists;
 import com.google.android.collect.Maps;
+import com.google.android.collect.Sets;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class responsible for querying Contact Information for Call objects. Can perform asynchronous
@@ -54,8 +57,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
     private final Context mContext;
     private final PhoneNumberService mPhoneNumberService;
     private final HashMap<Integer, ContactCacheEntry> mInfoMap = Maps.newHashMap();
-    private final HashMap<Integer, List<ContactInfoCacheCallback>> mCallBacks =
-        Maps.newHashMap();
+    private final HashMap<Integer, Set<ContactInfoCacheCallback>> mCallBacks = Maps.newHashMap();
 
     private static ContactInfoCache sCache = null;
 
@@ -115,7 +117,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
 
         final int callId = identification.getCallId();
         final ContactCacheEntry cacheEntry = mInfoMap.get(callId);
-        List<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);
+        Set<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);
 
         // If we have a previously obtained intermediate result return that now
         if (cacheEntry != null) {
@@ -135,7 +137,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         }
         Log.d(TAG, "Contact lookup. In memory cache miss; searching provider.");
         // New lookup
-        callBacks = Lists.newArrayList();
+        callBacks = Sets.newHashSet();
         callBacks.add(callback);
         mCallBacks.put(callId, callBacks);
 
@@ -170,8 +172,8 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
             if (!callerInfo.contactExists && cacheEntry.name == null &&
                     mPhoneNumberService != null) {
                 Log.d(TAG, "Contact lookup. Local contacts miss, checking remote");
-                mPhoneNumberService.getPhoneNumberInfo(cacheEntry.number,
-                        new PhoneNumberServiceListener(callId));
+                final PhoneNumberServiceListener listener = new PhoneNumberServiceListener(callId);
+                mPhoneNumberService.getPhoneNumberInfo(cacheEntry.number, listener, listener);
             } else if (cacheEntry.personUri != null) {
                 Log.d(TAG, "Contact lookup. Local contact found, starting image load");
                 // Load the image with a callback to update the image state.
@@ -232,17 +234,19 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 entry.location = oldEntry.location;
             }
 
+            // If no image and it's a business, switch to using the default business avatar.
+            if (info.getImageUrl() == null && info.isBusiness()) {
+                Log.d(TAG, "Business has no image. Using default.");
+                entry.photo = mContext.getResources().getDrawable(R.drawable.business_unknown);
+            }
+
             // Add the contact info to the cache.
             mInfoMap.put(mCallId, entry);
             sendInfoNotifications(mCallId, entry);
 
-            // If there's an associated image, fetch that
-            if (info.getImageUrl() != null) {
-                Log.d(TAG, "Contact lookup. Remote contact found, loading image.");
-                mPhoneNumberService.fetchImage(info.getImageUrl(), this);
-            } else {
-                // Otherwise, we're done, so clear callbacks
-                Log.d(TAG, "Contact lookup. Remote contact found, no image.");
+            // If there is no image then we should not expect another callback.
+            if (info.getImageUrl() == null) {
+                // We're done, so clear callbacks
                 clearCallbacks(mCallId);
             }
         }
@@ -263,8 +267,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         Log.d(this, "Image load complete with context: ", mContext);
         // TODO: may be nice to update the image view again once the newer one
         // is available on contacts database.
-        // TODO (klp): What is this, and why does it need the write_contacts permission?
-        // CallerInfoUtils.sendViewNotificationAsync(mContext, mLoadingPersonUri);
 
         final int callId = (Integer) cookie;
         final ContactCacheEntry entry = mInfoMap.get(callId);
@@ -276,7 +278,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         }
         Log.d(this, "setting photo for entry: ", entry);
 
-        // TODO (klp): Handle conference calls
+        // Conference call icons are being handled in CallCardPresenter.
         if (photo != null) {
             Log.v(this, "direct drawable: ", photo);
             entry.photo = photo;
@@ -329,12 +331,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 photo = context.getResources().getDrawable(R.drawable.picture_unknown);
             } else {
                 cce.personUri = personUri;
-
-                // If the image load is too slow, we show a default avatar icon afterward.
-                // If it is fast enough, this message will be canceled on onImageLoadComplete().
-                // TODO (klp): Figure out if this handler is still needed.
-                // mHandler.removeMessages(MESSAGE_SHOW_UNKNOWN_PHOTO);
-                // mHandler.sendEmptyMessageDelayed(MESSAGE_SHOW_UNKNOWN_PHOTO, MESSAGE_DELAY);
             }
         }
 
@@ -352,6 +348,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         String displayNumber = null;
         String displayLocation = null;
         String label = null;
+        boolean isSipCall = false;
 
             // It appears that there is a small change in behaviour with the
             // PhoneUtils' startGetCallerInfo whereby if we query with an
@@ -376,8 +373,12 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
             // Then we could remove this hack, and instead ask the CallerInfo
             // for a "user visible" form of the SIP address.
             String number = info.phoneNumber;
-            if (number != null && number.startsWith("sip:")) {
-                number = number.substring(4);
+
+            if (!TextUtils.isEmpty(number)) {
+                isSipCall = PhoneNumberUtils.isUriNumber(number);
+                if (number.startsWith("sip:")) {
+                    number = number.substring(4);
+                }
             }
 
             if (TextUtils.isEmpty(info.name)) {
@@ -402,7 +403,8 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                     displayName = info.cnapName;
                     info.name = info.cnapName;
                     displayNumber = number;
-                    Log.d(TAG, "  ==> cnapName available: displayName '" + displayName + "', displayNumber '" + displayNumber + "'");
+                    Log.d(TAG, "  ==> cnapName available: displayName '" + displayName +
+                            "', displayNumber '" + displayNumber + "'");
                 } else {
                     // No name; all we have is a number. This is the typical
                     // case when an incoming call doesn't match any contact,
@@ -432,8 +434,8 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                     // AND a restricted presentation. However we leave it here in case of weird
                     // network behavior
                     displayName = getPresentationString(context, presentation);
-                    Log.d(TAG,
-                            "  ==> valid name, but presentation not allowed!" + " displayName = " + displayName);
+                    Log.d(TAG, "  ==> valid name, but presentation not allowed!" +
+                            " displayName = " + displayName);
                 } else {
                     displayName = info.name;
                     displayNumber = number;
@@ -447,13 +449,14 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         cce.number = displayNumber;
         cce.location = displayLocation;
         cce.label = label;
+        cce.isSipCall = isSipCall;
     }
 
     /**
      * Sends the updated information to call the callbacks for the entry.
      */
     private void sendInfoNotifications(int callId, ContactCacheEntry entry) {
-        final List<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);;
+        final Set<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);
         if (callBacks != null) {
             for (ContactInfoCacheCallback callBack : callBacks) {
                 callBack.onContactInfoComplete(callId, entry);
@@ -462,21 +465,16 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
     }
 
     private void sendImageNotifications(int callId, ContactCacheEntry entry) {
-        final List<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);;
-        if (callBacks != null) {
+        final Set<ContactInfoCacheCallback> callBacks = mCallBacks.get(callId);
+        if (callBacks != null && entry.photo != null) {
             for (ContactInfoCacheCallback callBack : callBacks) {
-                if (entry.photo == null) {
-                    callBack.onImageLoadComplete(callId, null);
-                } else {
-                    callBack.onImageLoadComplete(callId, ((BitmapDrawable) entry.photo)
-                            .getBitmap());
-                }
+                callBack.onImageLoadComplete(callId, entry);
             }
         }
     }
 
     private void clearCallbacks(int callId) {
-        mCallBacks.remove(callId);;
+        mCallBacks.remove(callId);
     }
 
     /**
@@ -497,7 +495,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
      */
     public interface ContactInfoCacheCallback {
         public void onContactInfoComplete(int callId, ContactCacheEntry entry);
-        public void onImageLoadComplete(int callId, Bitmap photo);
+        public void onImageLoadComplete(int callId, ContactCacheEntry entry);
     }
 
     public static class ContactCacheEntry {
@@ -506,6 +504,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         public String location;
         public String label;
         public Drawable photo;
+        public boolean isSipCall;
         public Uri personUri; // Used for local photo load
 
         @Override
@@ -516,6 +515,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                     .add("location", MoreStrings.toSafeString(location))
                     .add("label", label)
                     .add("photo", photo)
+                    .add("isSipCall", isSipCall)
                     .toString();
         }
     }

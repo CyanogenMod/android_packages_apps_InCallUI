@@ -29,10 +29,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.services.telephony.common.Call;
+
+import java.util.List;
 
 /**
  * Fragment for call card.
@@ -45,6 +48,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private TextView mNumberLabel;
     private TextView mPrimaryName;
     private TextView mCallStateLabel;
+    private TextView mCallTypeLabel;
     private ImageView mPhoto;
     private TextView mElapsedTime;
     private View mProviderInfo;
@@ -74,6 +78,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         final CallList calls = CallList.getInstance();
         final Call call = calls.getFirstCall();
@@ -100,6 +110,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mSecondaryCallInfo = (ViewStub) view.findViewById(R.id.secondary_call_info);
         mPhoto = (ImageView) view.findViewById(R.id.photo);
         mCallStateLabel = (TextView) view.findViewById(R.id.callStateLabel);
+        mCallTypeLabel = (TextView) view.findViewById(R.id.callTypeLabel);
         mElapsedTime = (TextView) view.findViewById(R.id.elapsedTime);
         mProviderInfo = view.findViewById(R.id.providerInfo);
         mProviderLabel = (TextView) view.findViewById(R.id.providerLabel);
@@ -134,9 +145,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
-    public void setPrimaryImage(Bitmap image) {
+    public void setPrimaryImage(Drawable image) {
         if (image != null) {
-            setDrawableToImageView(mPhoto, new BitmapDrawable(getResources(), image));
+            setDrawableToImageView(mPhoto, image);
         }
     }
 
@@ -165,31 +176,17 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
-    public void setPrimaryGateway(String gatewayLabel, String gatewayNumber) {
-        if (!TextUtils.isEmpty(gatewayLabel) && !TextUtils.isEmpty(gatewayNumber)) {
-            mProviderLabel.setText(gatewayLabel);
-            mProviderNumber.setText(gatewayNumber);
-            mProviderInfo.setVisibility(View.VISIBLE);
-        } else {
-            mProviderInfo.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void setPrimary(String number, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isConference, String gatewayLabel, String gatewayNumber) {
-        Log.d(this, "Setting primary call [" + gatewayLabel + "][" + gatewayNumber + "]");
+            Drawable photo, boolean isConference, boolean isGeneric, boolean isSipCall) {
+        Log.d(this, "Setting primary call");
 
         if (isConference) {
-            name = getView().getResources().getString(R.string.card_title_conf_call);
-            photo = getView().getResources().getDrawable(R.drawable.picture_conference);
+            name = getConferenceString(isGeneric);
+            photo = getConferencePhoto(isGeneric);
             nameIsNumber = false;
         }
 
         setPrimaryPhoneNumber(number);
-
-        // Set any gateway information
-        setPrimaryGateway(gatewayLabel, gatewayNumber);
 
         // set the name field.
         setPrimaryName(name, nameIsNumber);
@@ -197,17 +194,19 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         // Set the label (Mobile, Work, etc)
         setPrimaryLabel(label);
 
+        showInternetCallLabel(isSipCall);
+
         setDrawableToImageView(mPhoto, photo);
     }
 
     @Override
     public void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isConference) {
+            Drawable photo, boolean isConference, boolean isGeneric) {
 
         if (show) {
             if (isConference) {
-                name = getView().getResources().getString(R.string.card_title_conf_call);
-                photo = getView().getResources().getDrawable(R.drawable.picture_conference);
+                name = getConferenceString(isGeneric);
+                photo = getConferencePhoto(isGeneric);
                 nameIsNumber = false;
             }
 
@@ -227,40 +226,39 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
-    public void setSecondaryImage(Bitmap bitmap) {
-        if (bitmap != null) {
-            setDrawableToImageView(mSecondaryPhoto, new BitmapDrawable(getResources(), bitmap));
+    public void setSecondaryImage(Drawable image) {
+        if (image != null) {
+            setDrawableToImageView(mSecondaryPhoto, image);
         }
     }
 
     @Override
-    public void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn) {
+    public void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn,
+            String gatewayLabel, String gatewayNumber) {
         String callStateLabel = null;
 
         // States other than disconnected not yet supported
         callStateLabel = getCallStateLabelFromState(state, cause);
 
-        Log.v(this, "setCallState ", callStateLabel);
-        Log.v(this, "DisconnectCause ", cause);
-        Log.v(this, "bluetooth on ", bluetoothOn);
+        Log.v(this, "setCallState " + callStateLabel);
+        Log.v(this, "DisconnectCause " + cause);
+        Log.v(this, "bluetooth on " + bluetoothOn);
+        Log.v(this, "gateway " + gatewayLabel + gatewayNumber);
 
+        // There are cases where we totally skip the animation, in which case remove the transition
+        // animation here and restore it afterwards.
+        final boolean skipAnimation = (Call.State.isDialing(state)
+                || state == Call.State.DISCONNECTED || state == Call.State.DISCONNECTING);
+        LayoutTransition transition = null;
+        if (skipAnimation) {
+            transition = mSupplementaryInfoContainer.getLayoutTransition();
+            mSupplementaryInfoContainer.setLayoutTransition(null);
+        }
+
+        // Update the call state label.
         if (!TextUtils.isEmpty(callStateLabel)) {
-            // There are cases where we totally skip the animation
-            final boolean skipAnimation = (state == Call.State.DIALING
-                    || state == Call.State.DISCONNECTED);
-
-            LayoutTransition transition = null;
-            if (skipAnimation) {
-                transition = mSupplementaryInfoContainer.getLayoutTransition();
-                mSupplementaryInfoContainer.setLayoutTransition(null);
-            }
-
             mCallStateLabel.setVisibility(View.VISIBLE);
             mCallStateLabel.setText(callStateLabel);
-
-            if (skipAnimation) {
-                mSupplementaryInfoContainer.setLayoutTransition(transition);
-            }
 
             if (Call.State.INCOMING == state) {
                 setBluetoothOn(bluetoothOn);
@@ -275,6 +273,31 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 mCallStateLabel.setText("");
                 mCallStateLabel.setGravity(Gravity.END);
             }
+        }
+
+        // Provider info: (e.g. "Calling via <gatewayLabel>")
+        if (!TextUtils.isEmpty(gatewayLabel) && !TextUtils.isEmpty(gatewayNumber)) {
+            mProviderLabel.setText(gatewayLabel);
+            mProviderNumber.setText(gatewayNumber);
+            mProviderInfo.setVisibility(View.VISIBLE);
+        } else {
+            mProviderInfo.setVisibility(View.GONE);
+        }
+
+        // Restore the animation.
+        if (skipAnimation) {
+            mSupplementaryInfoContainer.setLayoutTransition(transition);
+        }
+    }
+
+    private void showInternetCallLabel(boolean show) {
+        if (show) {
+            final String label = getView().getContext().getString(
+                    R.string.incall_call_type_label_sip);
+            mCallTypeLabel.setVisibility(View.VISIBLE);
+            mCallTypeLabel.setText(label);
+        } else {
+            mCallTypeLabel.setVisibility(View.GONE);
         }
     }
 
@@ -302,15 +325,27 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             AnimationUtils.Fade.show(view);
         } else {
             AnimationUtils.startCrossFade(view, current, photo);
-            mPhoto.setVisibility(View.VISIBLE);
+            view.setVisibility(View.VISIBLE);
         }
+    }
+
+    private String getConferenceString(boolean isGeneric) {
+        Log.v(this, "isGenericString: " + isGeneric);
+        final int resId = isGeneric ? R.string.card_title_in_call : R.string.card_title_conf_call;
+        return getView().getResources().getString(resId);
+    }
+
+    private Drawable getConferencePhoto(boolean isGeneric) {
+        Log.v(this, "isGenericPhoto: " + isGeneric);
+        final int resId = isGeneric ? R.drawable.picture_dialing : R.drawable.picture_conference;
+        return getView().getResources().getDrawable(resId);
     }
 
     private void setBluetoothOn(boolean onOff) {
         // Also, display a special icon (alongside the "Incoming call"
         // label) if there's an incoming call and audio will be routed
         // to bluetooth when you answer it.
-        final int bluetoothIconId = R.drawable.ic_incoming_call_bluetooth;
+        final int bluetoothIconId = R.drawable.ic_in_call_bt_dk;
 
         if (onOff) {
             mCallStateLabel.setCompoundDrawablesWithIntrinsicBounds(bluetoothIconId, 0, 0, 0);
@@ -338,22 +373,21 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         } else if (Call.State.ONHOLD == state) {
             callStateLabel = context.getString(R.string.card_title_on_hold);
-
         } else if (Call.State.DIALING == state) {
             callStateLabel = context.getString(R.string.card_title_dialing);
-
+        } else if (Call.State.REDIALING == state) {
+            callStateLabel = context.getString(R.string.card_title_redialing);
         } else if (Call.State.INCOMING == state || Call.State.CALL_WAITING == state) {
             callStateLabel = context.getString(R.string.card_title_incoming_call);
 
-        // TODO(klp): Add a disconnecting state
-        //} else if (Call.State.DISCONNECTING) {
-                // While in the DISCONNECTING state we display a "Hanging up"
-                // message in order to make the UI feel more responsive.  (In
-                // GSM it's normal to see a delay of a couple of seconds while
-                // negotiating the disconnect with the network, so the "Hanging
-                // up" state at least lets the user know that we're doing
-                // something.  This state is currently not used with CDMA.)
-                //callStateLabel = context.getString(R.string.card_title_hanging_up);
+        } else if (Call.State.DISCONNECTING == state) {
+            // While in the DISCONNECTING state we display a "Hanging up"
+            // message in order to make the UI feel more responsive.  (In
+            // GSM it's normal to see a delay of a couple of seconds while
+            // negotiating the disconnect with the network, so the "Hanging
+            // up" state at least lets the user know that we're doing
+            // something.  This state is currently not used with CDMA.)
+            callStateLabel = context.getString(R.string.card_title_hanging_up);
 
         } else if (Call.State.DISCONNECTED == state) {
             callStateLabel = getCallFailedString(cause);
@@ -461,6 +495,33 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                     getPresenter().secondaryPhotoClicked();
                 }
             });
+            mSecondaryPhotoOverlay.setOnTouchListener(new SmallerHitTargetTouchListener());
+        }
+    }
+
+    public void dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+        if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            dispatchPopulateAccessibilityEvent(event, mPrimaryName);
+            dispatchPopulateAccessibilityEvent(event, mPhoneNumber);
+            return;
+        }
+        dispatchPopulateAccessibilityEvent(event, mCallStateLabel);
+        dispatchPopulateAccessibilityEvent(event, mPrimaryName);
+        dispatchPopulateAccessibilityEvent(event, mPhoneNumber);
+        dispatchPopulateAccessibilityEvent(event, mCallTypeLabel);
+        dispatchPopulateAccessibilityEvent(event, mSecondaryCallName);
+
+        return;
+    }
+
+    private void dispatchPopulateAccessibilityEvent(AccessibilityEvent event, View view) {
+        if (view == null) return;
+        final List<CharSequence> eventText = event.getText();
+        int size = eventText.size();
+        view.dispatchPopulateAccessibilityEvent(event);
+        // if no text added write null to keep relative position
+        if (size == eventText.size()) {
+            eventText.add(null);
         }
     }
 }

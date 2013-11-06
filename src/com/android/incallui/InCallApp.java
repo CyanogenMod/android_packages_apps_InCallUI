@@ -44,7 +44,6 @@ public class InCallApp extends Application {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        // TODO(klp): See what configuration changes we need for klp
         super.onConfigurationChanged(newConfig);
     }
 
@@ -58,13 +57,13 @@ public class InCallApp extends Application {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            Log.v(this, "Broadcast from Notification: ", action);
+            Log.i(this, "Broadcast from Notification: " + action);
 
             if (action.equals(ACTION_HANG_UP_ONGOING_CALL)) {
                 // TODO: Commands of this nature should exist in the CallList or a
                 //       CallController class that has access to CallCommandClient and
                 //       CallList.
-                InCallPresenter.getInstance().hangUpOngoingCall();
+                InCallPresenter.getInstance().hangUpOngoingCall(context);
             }
         }
     }

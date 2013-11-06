@@ -16,6 +16,7 @@
 
 package com.android.incallui;
 
+import com.android.incallui.service.PhoneNumberService;
 import com.google.android.collect.Sets;
 import com.google.common.base.Preconditions;
 
@@ -23,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.android.services.telephony.common.Call;
+import com.android.services.telephony.common.Call.Capabilities;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ import java.util.Set;
  * are disconnected.
  * Creates and manages the in-call state and provides a listener pattern for the presenters
  * that want to listen in on the in-call state changes.
- * TODO(klp): This class has become more of a state machine at this point.  Consider renaming.
+ * TODO: This class has become more of a state machine at this point.  Consider renaming.
  */
 public class InCallPresenter implements CallList.Listener {
 
@@ -50,9 +52,17 @@ public class InCallPresenter implements CallList.Listener {
     private Context mContext;
     private CallList mCallList;
     private InCallActivity mInCallActivity;
-    private boolean mServiceConnected = false;
     private InCallState mInCallState = InCallState.NO_CALLS;
     private ProximitySensor mProximitySensor;
+    private boolean mServiceConnected = false;
+
+    /**
+     * Is true when the activity has been previously started. Some code needs to know not just if
+     * the activity is currently up, but if it had been previously shown in foreground for this
+     * in-call session (e.g., StatusBarNotifier). This gets reset when the session ends in the
+     * tear-down method.
+     */
+    private boolean mIsActivityPreviouslyStarted = false;
 
     public static synchronized InCallPresenter getInstance() {
         if (sInCallPresenter == null) {
@@ -78,7 +88,6 @@ public class InCallPresenter implements CallList.Listener {
 
         mStatusBarNotifier = new StatusBarNotifier(context, mContactInfoCache, mCallList);
         addListener(mStatusBarNotifier);
-        addIncomingCallListener(mStatusBarNotifier);
 
         mAudioModeProvider = audioModeProvider;
 
@@ -111,6 +120,15 @@ public class InCallPresenter implements CallList.Listener {
         attemptCleanup();
     }
 
+    private void attemptFinishActivity() {
+        final boolean doFinish = (mInCallActivity != null && isActivityStarted());
+        Log.i(this, "Hide in call UI: " + doFinish);
+
+        if (doFinish) {
+            mInCallActivity.finish();
+        }
+    }
+
     /**
      * Called when the UI begins or ends. Starts the callstate callbacks if the UI just began.
      * Attempts to tear down everything if the UI just ended. See #tearDown for more insight on
@@ -118,6 +136,7 @@ public class InCallPresenter implements CallList.Listener {
      */
     public void setActivity(InCallActivity inCallActivity) {
         boolean updateListeners = false;
+        boolean doAttemptCleanup = false;
 
         if (inCallActivity != null) {
             if (mInCallActivity == null) {
@@ -132,13 +151,34 @@ public class InCallPresenter implements CallList.Listener {
             }
 
             mInCallActivity = inCallActivity;
+
+            // By the time the UI finally comes up, the call may already be disconnected.
+            // If that's the case, we may need to show an error dialog.
+            if (mCallList != null && mCallList.getDisconnectedCall() != null) {
+                maybeShowErrorDialogOnDisconnect(mCallList.getDisconnectedCall());
+            }
+
+            // When the UI comes up, we need to first check the in-call state.
+            // If we are showing NO_CALLS, that means that a call probably connected and
+            // then immediately disconnected before the UI was able to come up.
+            // If we dont have any calls, start tearing down the UI instead.
+            // NOTE: This code relies on {@link #mInCallActivity} being set so we run it after
+            // it has been set.
+            if (mInCallState == InCallState.NO_CALLS) {
+                Log.i(this, "UI Intialized, but no calls left.  shut down.");
+                attemptFinishActivity();
+                return;
+            }
         } else {
             Log.i(this, "UI Destroyed)");
             updateListeners = true;
             mInCallActivity = null;
-            attemptCleanup();
-        }
 
+            // We attempt cleanup for the destroy case but only after we recalculate the state
+            // to see if we need to come back up or stay shut down. This is why we do the cleanup
+            // after the call to onCallListChange() instead of directly here.
+            doAttemptCleanup = true;
+        }
 
         // Messages can come from the telephony layer while the activity is coming up
         // and while the activity is going down.  So in both cases we need to recalculate what
@@ -148,10 +188,19 @@ public class InCallPresenter implements CallList.Listener {
         //           (2) All calls could disconnect and then get a new incoming call before the
         //               activity is destroyed.
         //
-        // ... but only if we are still connected (or got a new connection) to the service.
-        // Otherwise the service will come back up when it needs us.
-        if (updateListeners && mServiceConnected) {
+        // b/1122139 - We previously had a check for mServiceConnected here as well, but there are
+        // cases where we need to recalculate the current state even if the service in not
+        // connected.  In particular the case where startOrFinish() is called while the app is
+        // already finish()ing. In that case, we skip updating the state with the knowledge that
+        // we will check again once the activity has finished. That means we have to recalculate the
+        // state here even if the service is disconnected since we may not have finished a state
+        // transition while finish()ing.
+        if (updateListeners) {
             onCallListChange(mCallList);
+        }
+
+        if (doAttemptCleanup) {
+            attemptCleanup();
         }
     }
 
@@ -163,8 +212,17 @@ public class InCallPresenter implements CallList.Listener {
      */
     @Override
     public void onCallListChange(CallList callList) {
+        if (callList == null) {
+            return;
+        }
         InCallState newState = getPotentialStateFromCallList(callList);
         newState = startOrFinishUi(newState);
+
+        // Renable notification shade and soft navigation buttons, if we are no longer in the
+        // incoming call screen
+        if (!newState.isIncoming()) {
+            CallCommandClient.getInstance().setSystemBarNavigationEnabled(true);
+        }
 
         // Set the new state before announcing it to the world
         Log.i(this, "Phone switching state: " + mInCallState + " -> " + newState);
@@ -189,24 +247,47 @@ public class InCallPresenter implements CallList.Listener {
         Log.i(this, "Phone switching state: " + mInCallState + " -> " + newState);
         mInCallState = newState;
 
-        for (IncomingCallListener listener : mIncomingCallListeners) {
-            listener.onIncomingCall(call);
+        // Disable notification shade and soft navigation buttons
+        if (newState.isIncoming()) {
+            CallCommandClient.getInstance().setSystemBarNavigationEnabled(false);
         }
+
+        for (IncomingCallListener listener : mIncomingCallListeners) {
+            listener.onIncomingCall(mInCallState, call);
+        }
+    }
+
+    /**
+     * Called when a call becomes disconnected. Called everytime an existing call
+     * changes from being connected (incoming/outgoing/active) to disconnected.
+     */
+    @Override
+    public void onDisconnect(Call call) {
+        hideDialpadForDisconnect();
+        maybeShowErrorDialogOnDisconnect(call);
+
+        // We need to do the run the same code as onCallListChange.
+        onCallListChange(CallList.getInstance());
     }
 
     /**
      * Given the call list, return the state in which the in-call screen should be.
      */
     public static InCallState getPotentialStateFromCallList(CallList callList) {
+
         InCallState newState = InCallState.NO_CALLS;
 
+        if (callList == null) {
+            return newState;
+        }
         if (callList.getIncomingCall() != null) {
             newState = InCallState.INCOMING;
         } else if (callList.getOutgoingCall() != null) {
             newState = InCallState.OUTGOING;
         } else if (callList.getActiveCall() != null ||
                 callList.getBackgroundCall() != null ||
-                callList.getDisconnectedCall() != null) {
+                callList.getDisconnectedCall() != null ||
+                callList.getDisconnectingCall() != null) {
             newState = InCallState.INCALL;
         }
 
@@ -216,6 +297,11 @@ public class InCallPresenter implements CallList.Listener {
     public void addIncomingCallListener(IncomingCallListener listener) {
         Preconditions.checkNotNull(listener);
         mIncomingCallListeners.add(listener);
+    }
+
+    public void removeIncomingCallListener(IncomingCallListener listener) {
+        Preconditions.checkNotNull(listener);
+        mIncomingCallListeners.remove(listener);
     }
 
     public void addListener(InCallStateListener listener) {
@@ -243,7 +329,18 @@ public class InCallPresenter implements CallList.Listener {
     /**
      * Hangs up any active or outgoing calls.
      */
-    public void hangUpOngoingCall() {
+    public void hangUpOngoingCall(Context context) {
+        // By the time we receive this intent, we could be shut down and call list
+        // could be null.  Bail in those cases.
+        if (mCallList == null) {
+            if (mStatusBarNotifier == null) {
+                // The In Call UI has crashed but the notification still stayed up. We should not
+                // come to this stage.
+                StatusBarNotifier.clearInCallNotification(context);
+            }
+            return;
+        }
+
         Call call = mCallList.getOutgoingCall();
         if (call == null) {
             call = mCallList.getActiveOrBackgroundCall();
@@ -272,8 +369,12 @@ public class InCallPresenter implements CallList.Listener {
                 !mInCallActivity.isFinishing());
     }
 
+    public boolean isActivityPreviouslyStarted() {
+        return mIsActivityPreviouslyStarted;
+    }
+
     /**
-     * Called when the activity goes out of the foreground.
+     * Called when the activity goes in/out of the foreground.
      */
     public void onUiShowing(boolean showing) {
         // We need to update the notification bar when we leave the UI because that
@@ -285,25 +386,139 @@ public class InCallPresenter implements CallList.Listener {
         if (mProximitySensor != null) {
             mProximitySensor.onInCallShowing(showing);
         }
+
+        if (showing) {
+            mIsActivityPreviouslyStarted = true;
+        }
     }
 
     /**
      * Brings the app into the foreground if possible.
      */
-    public void bringToForeground() {
+    public void bringToForeground(boolean showDialpad) {
         // Before we bring the incall UI to the foreground, we check to see if:
-        // 1. there is an activity
-        // 2. the activity is not already in the foreground
+        // 1. We've already started the activity once for this session
+        // 2. If it exists, the activity is not already in the foreground
         // 3. We are in a state where we want to show the incall ui
-        if (isActivityStarted() &&
-                !isShowingInCallUi() &&
+        if (mIsActivityPreviouslyStarted && !isShowingInCallUi() &&
                 mInCallState != InCallState.NO_CALLS) {
-            showInCall();
+            showInCall(showDialpad);
         }
     }
 
     public void onPostDialCharWait(int callId, String chars) {
         mInCallActivity.showPostCharWaitDialog(callId, chars);
+    }
+
+    /**
+     * Handles the green CALL key while in-call.
+     * @return true if we consumed the event.
+     */
+    public boolean handleCallKey() {
+        Log.v(this, "handleCallKey");
+
+        // The green CALL button means either "Answer", "Unhold", or
+        // "Swap calls", or can be a no-op, depending on the current state
+        // of the Phone.
+
+        /**
+         * INCOMING CALL
+         */
+        final CallList calls = CallList.getInstance();
+        final Call incomingCall = calls.getIncomingCall();
+        Log.v(this, "incomingCall: " + incomingCall);
+
+        // (1) Attempt to answer a call
+        if (incomingCall != null) {
+            CallCommandClient.getInstance().answerCall(incomingCall.getCallId());
+            return true;
+        }
+
+        /**
+         * ACTIVE CALL
+         */
+        final Call activeCall = calls.getActiveCall();
+        if (activeCall != null) {
+            // TODO: This logic is repeated from CallButtonPresenter.java. We should
+            // consolidate this logic.
+            final boolean isGeneric = activeCall.can(Capabilities.GENERIC_CONFERENCE);
+            final boolean canMerge = activeCall.can(Capabilities.MERGE_CALLS);
+            final boolean canSwap = activeCall.can(Capabilities.SWAP_CALLS);
+
+            Log.v(this, "activeCall: " + activeCall + ", isGeneric: " + isGeneric + ", canMerge: " +
+                    canMerge + ", canSwap: " + canSwap);
+
+            // (2) Attempt actions on Generic conference calls
+            if (activeCall.isConferenceCall() && isGeneric) {
+                if (canMerge) {
+                    CallCommandClient.getInstance().merge();
+                    return true;
+                } else if (canSwap) {
+                    CallCommandClient.getInstance().swap();
+                    return true;
+                }
+            }
+
+            // (3) Swap calls
+            if (canSwap) {
+                CallCommandClient.getInstance().swap();
+                return true;
+            }
+        }
+
+        /**
+         * BACKGROUND CALL
+         */
+        final Call heldCall = calls.getBackgroundCall();
+        if (heldCall != null) {
+            // We have a hold call so presumeable it will always support HOLD...but
+            // there is no harm in double checking.
+            final boolean canHold = heldCall.can(Capabilities.HOLD);
+
+            Log.v(this, "heldCall: " + heldCall + ", canHold: " + canHold);
+
+            // (4) unhold call
+            if (heldCall.getState() == Call.State.ONHOLD && canHold) {
+                CallCommandClient.getInstance().hold(heldCall.getCallId(), false);
+                return true;
+            }
+        }
+
+        // Always consume hard keys
+        return true;
+    }
+
+    /**
+     * A dialog could have prevented in-call screen from being previously finished.
+     * This function checks to see if there should be any UI left and if not attempts
+     * to tear down the UI.
+     */
+    public void onDismissDialog() {
+        Log.i(this, "Dialog dismissed");
+        if (mInCallState == InCallState.NO_CALLS) {
+            attemptFinishActivity();
+            attemptCleanup();
+        }
+    }
+
+    /**
+     * For some disconnected causes, we show a dialog.  This calls into the activity to show
+     * the dialog if appropriate for the call.
+     */
+    private void maybeShowErrorDialogOnDisconnect(Call call) {
+        // For newly disconnected calls, we may want to show a dialog on specific error conditions
+        if (isActivityStarted() && call.getState() == Call.State.DISCONNECTED) {
+            mInCallActivity.maybeShowErrorDialogOnDisconnect(call.getDisconnectCause());
+        }
+    }
+
+    /**
+     * Hides the dialpad.  Called when a call is disconnected (Requires hiding dialpad).
+     */
+    private void hideDialpadForDisconnect() {
+        if (isActivityStarted()) {
+            mInCallActivity.hideDialpadForDisconnect();
+        }
     }
 
     /**
@@ -313,7 +528,7 @@ public class InCallPresenter implements CallList.Listener {
     private InCallState startOrFinishUi(InCallState newState) {
         Log.d(this, "startOrFinishUi: " + mInCallState + " -> " + newState);
 
-        // TODO(klp): Consider a proper state machine implementation
+        // TODO: Consider a proper state machine implementation
 
         // If the state isn't changing, we have already done any starting/stopping of
         // activities in a previous pass...so lets cut out early
@@ -370,22 +585,43 @@ public class InCallPresenter implements CallList.Listener {
 
         if (showCallUi) {
             Log.i(this, "Start in call UI");
-            showInCall();
+            showInCall(false);
         } else if (startStartupSequence) {
             Log.i(this, "Start Full Screen in call UI");
-            mStatusBarNotifier.updateNotificationAndLaunchIncomingCallUi(newState, mCallList);
-        } else if (newState == InCallState.NO_CALLS) {
-            Log.i(this, "Hide in call UI");
 
-            // The new state is the no calls state.  Tear everything down.
-            if (mInCallActivity != null) {
-                if (isActivityStarted()) {
-                    mInCallActivity.finish();
-                }
+            // We're about the bring up the in-call UI for an incoming call. If we still have
+            // dialogs up, we need to clear them out before showing incoming screen.
+            if (isActivityStarted()) {
+                mInCallActivity.dismissPendingDialogs();
             }
+            startUi(newState);
+        } else if (newState == InCallState.NO_CALLS) {
+            // The new state is the no calls state.  Tear everything down.
+            attemptFinishActivity();
         }
 
         return newState;
+    }
+
+    private void startUi(InCallState inCallState) {
+        final Call incomingCall = mCallList.getIncomingCall();
+        final boolean isCallWaiting = (incomingCall != null &&
+                incomingCall.getState() == Call.State.CALL_WAITING);
+
+        // If the screen is off, we need to make sure it gets turned on for incoming calls.
+        // This normally works just fine thanks to FLAG_TURN_SCREEN_ON but that only works
+        // when the activity is first created. Therefore, to ensure the screen is turned on
+        // for the call waiting case, we finish() the current activity and start a new one.
+        // There should be no jank from this since the screen is already off and will remain so
+        // until our new activity is up.
+        if (mProximitySensor.isScreenReallyOff() && isCallWaiting) {
+            if (isActivityStarted()) {
+                mInCallActivity.finish();
+            }
+            mInCallActivity = null;
+        }
+
+        mStatusBarNotifier.updateNotificationAndLaunchIncomingCallUi(inCallState, mCallList);
     }
 
     /**
@@ -393,45 +629,61 @@ public class InCallPresenter implements CallList.Listener {
      * down.
      */
     private void attemptCleanup() {
-        boolean shouldCleanup = (mInCallActivity == null && !mServiceConnected);
+        boolean shouldCleanup = (mInCallActivity == null && !mServiceConnected &&
+                mInCallState == InCallState.NO_CALLS);
         Log.i(this, "attemptCleanup? " + shouldCleanup);
 
         if (shouldCleanup) {
+            mIsActivityPreviouslyStarted = false;
 
             // blow away stale contact info so that we get fresh data on
             // the next set of calls
-            mContactInfoCache.clearCache();
+            if (mContactInfoCache != null) {
+                mContactInfoCache.clearCache();
+            }
             mContactInfoCache = null;
 
+            if (mProximitySensor != null) {
+                removeListener(mProximitySensor);
+                mProximitySensor.tearDown();
+            }
             mProximitySensor = null;
 
             mAudioModeProvider = null;
 
-            removeListener(mStatusBarNotifier);
+            if (mStatusBarNotifier != null) {
+                removeListener(mStatusBarNotifier);
+            }
             mStatusBarNotifier = null;
 
-            mCallList.removeListener(this);
+            if (mCallList != null) {
+                mCallList.removeListener(this);
+            }
             mCallList = null;
 
             mContext = null;
             mInCallActivity = null;
 
             mListeners.clear();
+            mIncomingCallListeners.clear();
 
             Log.d(this, "Finished InCallPresenter.CleanUp");
         }
     }
 
-    private void showInCall() {
-        mContext.startActivity(getInCallIntent());
+    private void showInCall(boolean showDialpad) {
+        mContext.startActivity(getInCallIntent(showDialpad));
     }
 
-    private Intent getInCallIntent() {
+    public Intent getInCallIntent(boolean showDialpad) {
         final Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
                 | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         intent.setClass(mContext, InCallActivity.class);
+        if (showDialpad) {
+            intent.putExtra(InCallActivity.SHOW_DIALPAD_EXTRA, true);
+        }
 
         return intent;
     }
@@ -473,11 +725,11 @@ public class InCallPresenter implements CallList.Listener {
      * Interface implemented by classes that need to know about the InCall State.
      */
     public interface InCallStateListener {
-        // TODO(klp): Enhance state to contain the call objects instead of passing CallList
+        // TODO: Enhance state to contain the call objects instead of passing CallList
         public void onStateChange(InCallState state, CallList callList);
     }
 
     public interface IncomingCallListener {
-        public void onIncomingCall(Call call);
+        public void onIncomingCall(InCallState state, Call call);
     }
 }

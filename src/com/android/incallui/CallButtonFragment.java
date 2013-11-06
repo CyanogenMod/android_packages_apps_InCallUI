@@ -22,8 +22,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -41,9 +41,9 @@ public class CallButtonFragment
         implements CallButtonPresenter.CallButtonUi, OnMenuItemClickListener, OnDismissListener,
         View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    private ToggleButton mMuteButton;
-    private ToggleButton mAudioButton;
-    private ToggleButton mHoldButton;
+    private ImageButton mMuteButton;
+    private ImageButton mAudioButton;
+    private ImageButton mHoldButton;
     private ToggleButton mShowDialpadButton;
     private ImageButton mMergeButton;
     private ImageButton mAddCallButton;
@@ -54,7 +54,7 @@ public class CallButtonFragment
     private View mEndCallButton;
     private View mExtraRowButton;
     private View mManageConferenceButton;
-    private View mCDMAMergeButton;
+    private View mGenericMergeButton;
 
     @Override
     CallButtonPresenter createPresenter() {
@@ -87,7 +87,13 @@ public class CallButtonFragment
                 getPresenter().manageConferenceButtonClicked();
             }
         });
-        mCDMAMergeButton = parent.findViewById(R.id.cdmaMergeButton);
+        mGenericMergeButton = parent.findViewById(R.id.cdmaMergeButton);
+        mGenericMergeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPresenter().mergeClicked();
+            }
+        });
 
         mEndCallButton = parent.findViewById(R.id.endButton);
         mEndCallButton.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +103,20 @@ public class CallButtonFragment
             }
         });
 
-        mMuteButton = (ToggleButton) parent.findViewById(R.id.muteButton);
-        mMuteButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // make the hit target smaller for the end button so that is creates a deadzone
+        // along the inside perimeter of the button.
+        mEndCallButton.setOnTouchListener(new SmallerHitTargetTouchListener());
+
+        mMuteButton = (ImageButton) parent.findViewById(R.id.muteButton);
+        mMuteButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                getPresenter().muteClicked(isChecked);
+            public void onClick(View v) {
+                final ImageButton button = (ImageButton) v;
+                getPresenter().muteClicked(!button.isSelected());
             }
         });
 
-        mAudioButton = (ToggleButton) parent.findViewById(R.id.audioButton);
+        mAudioButton = (ImageButton) parent.findViewById(R.id.audioButton);
         mAudioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,11 +124,12 @@ public class CallButtonFragment
             }
         });
 
-        mHoldButton = (ToggleButton) parent.findViewById(R.id.holdButton);
-        mHoldButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mHoldButton = (ImageButton) parent.findViewById(R.id.holdButton);
+        mHoldButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                getPresenter().holdClicked(isChecked);
+            public void onClick(View v) {
+                final ImageButton button = (ImageButton) v;
+                getPresenter().holdClicked(!button.isSelected());
             }
         });
 
@@ -139,6 +151,14 @@ public class CallButtonFragment
 
         // set the buttons
         updateAudioButtons(getPresenter().getSupportedAudio());
+    }
+
+    @Override
+    public void onResume() {
+        if (getPresenter() != null) {
+            getPresenter().refreshMuteState();
+        }
+        super.onResume();
     }
 
     @Override
@@ -170,27 +190,48 @@ public class CallButtonFragment
     }
 
     @Override
-    public void setVisible(boolean on) {
-        if (on) {
-            getView().setVisibility(View.VISIBLE);
-        } else {
-            getView().setVisibility(View.INVISIBLE);
+    public void setEnabled(boolean isEnabled) {
+        View view = getView();
+        if (view.getVisibility() != View.VISIBLE) {
+            view.setVisibility(View.VISIBLE);
         }
+
+        // The main end-call button spanning across the screen.
+        mEndCallButton.setEnabled(isEnabled);
+
+        // The smaller buttons laid out horizontally just below the end-call button.
+        mMuteButton.setEnabled(isEnabled);
+        mAudioButton.setEnabled(isEnabled);
+        mHoldButton.setEnabled(isEnabled);
+        mShowDialpadButton.setEnabled(isEnabled);
+        mMergeButton.setEnabled(isEnabled);
+        mAddCallButton.setEnabled(isEnabled);
+        mSwapButton.setEnabled(isEnabled);
     }
 
     @Override
     public void setMute(boolean value) {
-        mMuteButton.setChecked(value);
+        mMuteButton.setSelected(value);
+    }
+
+    @Override
+    public void enableMute(boolean enabled) {
+        mMuteButton.setEnabled(enabled);
     }
 
     @Override
     public void setHold(boolean value) {
-        mHoldButton.setChecked(value);
+        mHoldButton.setSelected(value);
     }
 
     @Override
     public void showHold(boolean show) {
         mHoldButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void enableHold(boolean enabled) {
+        mHoldButton.setEnabled(enabled);
     }
 
     @Override
@@ -206,6 +247,11 @@ public class CallButtonFragment
     @Override
     public void showAddCall(boolean show) {
         mAddCallButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void enableAddCall(boolean enabled) {
+        mAddCallButton.setEnabled(enabled);
     }
 
     @Override
@@ -377,7 +423,7 @@ public class CallButtonFragment
         final int VISIBLE = 255;
 
         mAudioButton.setEnabled(audioButtonEnabled);
-        mAudioButton.setChecked(audioButtonChecked);
+        mAudioButton.setSelected(audioButtonChecked);
 
         final LayerDrawable layers = (LayerDrawable) mAudioButton.getBackground();
         Log.d(this, "'layers' drawable: " + layers);
@@ -485,14 +531,14 @@ public class CallButtonFragment
     public void showManageConferenceCallButton() {
         mExtraRowButton.setVisibility(View.VISIBLE);
         mManageConferenceButton.setVisibility(View.VISIBLE);
-        mCDMAMergeButton.setVisibility(View.GONE);
+        mGenericMergeButton.setVisibility(View.GONE);
     }
 
     @Override
-    public void showCDMAMergeButton() {
+    public void showGenericMergeButton() {
         mExtraRowButton.setVisibility(View.VISIBLE);
         mManageConferenceButton.setVisibility(View.GONE);
-        mCDMAMergeButton.setVisibility(View.VISIBLE);
+        mGenericMergeButton.setVisibility(View.VISIBLE);
     }
 
     @Override

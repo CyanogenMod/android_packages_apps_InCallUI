@@ -29,6 +29,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     private static final String TAG = AnswerPresenter.class.getSimpleName();
 
     private int mCallId = Call.INVALID_CALL_ID;
+    private Call mCall = null;
 
     @Override
     public void onUiReady(AnswerUi ui) {
@@ -64,9 +65,15 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     @Override
+    public void onDisconnect(Call call) {
+        // no-op
+    }
+
+    @Override
     public void onIncomingCall(Call call) {
         // TODO: Ui is being destroyed when the fragment detaches.  Need clean up step to stop
         // getting updates here.
+        Log.d(this, "onIncomingCall: " + this);
         if (getUi() != null) {
             if (call.getCallId() != mCallId) {
                 // A new call is coming in.
@@ -77,18 +84,19 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     private void processIncomingCall(Call call) {
         mCallId = call.getCallId();
+        mCall = call;
 
         // Listen for call updates for the current call.
         CallList.getInstance().addCallUpdateListener(mCallId, this);
 
-        Log.d(TAG, "Showing incoming for call id: " + mCallId);
+        Log.d(TAG, "Showing incoming for call id: " + mCallId + " " + this);
         final ArrayList<String> textMsgs = CallList.getInstance().getTextResponses(
                 call.getCallId());
         getUi().showAnswerUi(true);
 
         if (call.can(Call.Capabilities.RESPOND_VIA_TEXT) && textMsgs != null) {
             getUi().showTextButton(true);
-            getUi().configureMessageDialogue(textMsgs);
+            getUi().configureMessageDialog(textMsgs);
         } else {
             getUi().showTextButton(false);
         }
@@ -97,12 +105,15 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     @Override
     public void onCallStateChanged(Call call) {
-        Log.d(this, "onCallStateChange() " + call);
+        Log.d(this, "onCallStateChange() " + call + " " + this);
         if (call.getState() != Call.State.INCOMING && call.getState() != Call.State.CALL_WAITING) {
             // Stop listening for updates.
             CallList.getInstance().removeCallUpdateListener(mCallId, this);
 
             getUi().showAnswerUi(false);
+
+            // mCallId will hold the state of the call. We don't clear the mCall variable here as
+            // it may be useful for sending text messages after phone disconnects.
             mCallId = Call.INVALID_CALL_ID;
         }
     }
@@ -118,35 +129,33 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     public void onDecline() {
-        if (mCallId == Call.INVALID_CALL_ID) {
-            return;
-        }
-
         Log.d(this, "onDecline " + mCallId);
 
-        CallCommandClient.getInstance().rejectCall(mCallId, false, null);
+        CallCommandClient.getInstance().rejectCall(mCall, false, null);
     }
 
     public void onText() {
         if (getUi() != null) {
-            getUi().showMessageDialogue();
+            getUi().showMessageDialog();
         }
     }
 
     public void rejectCallWithMessage(String message) {
         Log.d(this, "sendTextToDefaultActivity()...");
-        if (getUi() != null) {
-            getUi().dismissPopup();
-        }
-        CallCommandClient.getInstance().rejectCall(mCallId, true, message);
+
+        CallCommandClient.getInstance().rejectCall(mCall, true, message);
+
+        onDismissDialog();
+    }
+
+    public void onDismissDialog() {
+        InCallPresenter.getInstance().onDismissDialog();
     }
 
     interface AnswerUi extends Ui {
         public void showAnswerUi(boolean show);
         public void showTextButton(boolean show);
-        public boolean isMessageDialogueShowing();
-        public void showMessageDialogue();
-        public void dismissPopup();
-        public void configureMessageDialogue(ArrayList<String> textResponses);
+        public void showMessageDialog();
+        public void configureMessageDialog(ArrayList<String> textResponses);
     }
 }

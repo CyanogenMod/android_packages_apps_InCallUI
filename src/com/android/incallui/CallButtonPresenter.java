@@ -19,20 +19,27 @@ package com.android.incallui;
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
+import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.Capabilities;
+
+import android.telephony.PhoneNumberUtils;
 
 /**
  * Logic for call buttons.
  */
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
-        implements InCallStateListener, AudioModeListener {
+        implements InCallStateListener, AudioModeListener, IncomingCallListener {
 
     private Call mCall;
-    private ProximitySensor mProximitySensor;
     private boolean mAutomaticallyMuted = false;
     private boolean mPreviousMuteState = false;
+
+    private boolean mShowGenericMerge = false;
+    private boolean mShowManageConference = false;
+
+    private InCallState mPreviousState = null;
 
     public CallButtonPresenter() {
     }
@@ -41,11 +48,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     public void onUiReady(CallButtonUi ui) {
         super.onUiReady(ui);
 
-        mProximitySensor = InCallPresenter.getInstance().getProximitySensor();
         AudioModeProvider.getInstance().addListener(this);
 
         // register for call state changes last
         InCallPresenter.getInstance().addListener(this);
+        InCallPresenter.getInstance().addIncomingCallListener(this);
     }
 
     @Override
@@ -54,21 +61,39 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         InCallPresenter.getInstance().removeListener(this);
         AudioModeProvider.getInstance().removeListener(this);
-
-        mProximitySensor = null;
+        InCallPresenter.getInstance().removeIncomingCallListener(this);
     }
 
     @Override
     public void onStateChange(InCallState state, CallList callList) {
+
         if (state == InCallState.OUTGOING) {
             mCall = callList.getOutgoingCall();
         } else if (state == InCallState.INCALL) {
             mCall = callList.getActiveOrBackgroundCall();
+
+            // When connected to voice mail, automatically shows the dialpad.
+            // (On previous releases we showed it when in-call shows up, before waiting for
+            // OUTGOING.  We may want to do that once we start showing "Voice mail" label on
+            // the dialpad too.)
+            if (mPreviousState == InCallState.OUTGOING
+                    && mCall != null && PhoneNumberUtils.isVoiceMailNumber(mCall.getNumber())) {
+                getUi().displayDialpad(true);
+            }
+        } else if (state == InCallState.INCOMING) {
+            getUi().displayDialpad(false);
+            mCall = null;
         } else {
             mCall = null;
         }
-
         updateUi(state, mCall);
+
+        mPreviousState = state;
+    }
+
+    @Override
+    public void onIncomingCall(InCallState state, Call call) {
+        onStateChange(state, CallList.getInstance());
     }
 
     @Override
@@ -138,7 +163,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             return;
         }
 
-        // TODO(klp): hook up call id.
         CallCommandClient.getInstance().disconnectCall(mCall.getCallId());
     }
 
@@ -159,9 +183,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         Log.d(this, "holding: " + mCall.getCallId());
 
-        // TODO(klp): use appropriate hold callId.
         CallCommandClient.getInstance().hold(mCall.getCallId(), checked);
-        getUi().setHold(checked);
     }
 
     public void mergeClicked() {
@@ -172,7 +194,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         // Automatically mute the current call
         mAutomaticallyMuted = true;
         mPreviousMuteState = AudioModeProvider.getInstance().getMute();
-        getUi().setMute(true);
+        // Simulate a click on the mute button
+        muteClicked(true);
 
         CallCommandClient.getInstance().addCall();
     }
@@ -184,7 +207,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     public void showDialpadClicked(boolean checked) {
         Log.v(this, "Show dialpad " + String.valueOf(checked));
         getUi().displayDialpad(checked);
-        mProximitySensor.onDialpadVisible(checked);
+        updateExtraButtonRow();
     }
 
     private void updateUi(InCallState state, Call call) {
@@ -193,32 +216,72 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             return;
         }
 
-        final boolean isVisible = state.isConnectingOrConnected() &&
+        final boolean isEnabled = state.isConnectingOrConnected() &&
                 !state.isIncoming() && call != null;
 
-        ui.setVisible(isVisible);
+        ui.setEnabled(isEnabled);
 
         Log.d(this, "Updating call UI for call: ", call);
 
-        if (isVisible) {
-            Log.v(this, "Show hold ", call.can(Capabilities.HOLD));
+        if (isEnabled) {
+            Log.v(this, "Show hold ", call.can(Capabilities.SUPPORT_HOLD));
+            Log.v(this, "Enable hold", call.can(Capabilities.HOLD));
             Log.v(this, "Show merge ", call.can(Capabilities.MERGE_CALLS));
             Log.v(this, "Show swap ", call.can(Capabilities.SWAP_CALLS));
             Log.v(this, "Show add call ", call.can(Capabilities.ADD_CALL));
+            Log.v(this, "Show mute ", call.can(Capabilities.MUTE));
 
-            ui.setHold(call.getState() == Call.State.ONHOLD);
+            final boolean canMerge = call.can(Capabilities.MERGE_CALLS);
+            final boolean canAdd = call.can(Capabilities.ADD_CALL);
+            final boolean isGenericConference = call.can(Capabilities.GENERIC_CONFERENCE);
 
-            ui.showHold(call.can(Capabilities.HOLD));
-            ui.showMerge(call.can(Capabilities.MERGE_CALLS));
-            ui.showSwap(call.can(Capabilities.SWAP_CALLS));
-            ui.showAddCall(call.can(Capabilities.ADD_CALL));
 
-            // Restore the previous mute state
-            if (mAutomaticallyMuted &&
-                    AudioModeProvider.getInstance().getMute() != mPreviousMuteState) {
-                ui.setMute(mPreviousMuteState);
-                mAutomaticallyMuted = false;
+            final boolean showMerge = !isGenericConference && canMerge;
+
+            if (showMerge) {
+                ui.showMerge(true);
+                ui.showAddCall(false);
+            } else {
+                ui.showMerge(false);
+                ui.showAddCall(true);
+                ui.enableAddCall(canAdd);
             }
+
+            final boolean canHold = call.can(Capabilities.HOLD);
+            final boolean canSwap = call.can(Capabilities.SWAP_CALLS);
+            final boolean supportHold = call.can(Capabilities.SUPPORT_HOLD);
+
+            if (canHold) {
+                ui.showHold(true);
+                ui.setHold(call.getState() == Call.State.ONHOLD);
+                ui.enableHold(true);
+                ui.showSwap(false);
+            } else if (canSwap) {
+                ui.showHold(false);
+                ui.showSwap(true);
+            } else {
+                // Neither "Hold" nor "Swap" is available.  This can happen for two
+                // reasons:
+                //   (1) this is a transient state on a device that *can*
+                //       normally hold or swap, or
+                //   (2) this device just doesn't have the concept of hold/swap.
+                //
+                // In case (1), show the "Hold" button in a disabled state.  In case
+                // (2), remove the button entirely.  (This means that the button row
+                // will only have 4 buttons on some devices.)
+
+                if (supportHold) {
+                    ui.showHold(true);
+                    ui.enableHold(false);
+                    ui.setHold(call.getState() == Call.State.ONHOLD);
+                    ui.showSwap(false);
+                } else {
+                    ui.showHold(false);
+                    ui.showSwap(false);
+                }
+            }
+
+            ui.enableMute(call.can(Capabilities.MUTE));
 
             // Finally, update the "extra button row": It's displayed above the
             // "End" button, but only if necessary.  Also, it's never displayed
@@ -228,42 +291,61 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             //
             // - "Manage conference" (used only on GSM devices)
             // - "Merge" button (used only on CDMA devices)
-            // TODO(klp) Add cdma merge button
-            final boolean showCdmaMerge = false;
-//                    (phoneType == PhoneConstants.PHONE_TYPE_CDMA) && inCallControlState.canMerge;
-            final boolean showExtraButtonRow =
-                    (showCdmaMerge || call.isConferenceCall()) && !getUi().isDialpadVisible();
-            if (showExtraButtonRow) {
-                // Need to set up mCdmaMergeButton and mManageConferenceButton if this is the first
-                // time they're visible.
-                // TODO(klp) add cdma merge button
-//                if (mCdmaMergeButton == null) {
-//                    setupExtraButtons();
-//                }
-//                mCdmaMergeButton.setVisibility(showCdmaMerge ? View.VISIBLE : View.GONE);
-                if (call.isConferenceCall()) {
-                    getUi().showManageConferenceCallButton();
-                }
-            } else {
-                getUi().hideExtraRow();
-            }
+
+            mShowGenericMerge = isGenericConference && canMerge;
+            mShowManageConference = (call.isConferenceCall() && !isGenericConference);
+
+            updateExtraButtonRow();
         }
     }
 
+    private void updateExtraButtonRow() {
+        final boolean showExtraButtonRow = (mShowGenericMerge || mShowManageConference) &&
+                !getUi().isDialpadVisible();
+
+        Log.d(this, "isGeneric: " + mShowGenericMerge);
+        Log.d(this, "mShowManageConference : " + mShowManageConference);
+        Log.d(this, "mShowGenericMerge: " + mShowGenericMerge);
+        if (showExtraButtonRow) {
+            if (mShowGenericMerge) {
+                getUi().showGenericMergeButton();
+            } else if (mShowManageConference) {
+                getUi().showManageConferenceCallButton();
+            }
+        } else {
+            getUi().hideExtraRow();
+        }
+    }
+
+    public void refreshMuteState() {
+        // Restore the previous mute state
+        if (mAutomaticallyMuted &&
+                AudioModeProvider.getInstance().getMute() != mPreviousMuteState) {
+            if (getUi() == null) {
+                return;
+            }
+            muteClicked(mPreviousMuteState);
+        }
+        mAutomaticallyMuted = false;
+    }
+
     public interface CallButtonUi extends Ui {
-        void setVisible(boolean on);
+        void setEnabled(boolean on);
         void setMute(boolean on);
+        void enableMute(boolean enabled);
         void setHold(boolean on);
         void showHold(boolean show);
+        void enableHold(boolean enabled);
         void showMerge(boolean show);
         void showSwap(boolean show);
         void showAddCall(boolean show);
+        void enableAddCall(boolean enabled);
         void displayDialpad(boolean on);
         boolean isDialpadVisible();
         void setAudio(int mode);
         void setSupportedAudio(int mask);
         void showManageConferenceCallButton();
-        void showCDMAMergeButton();
+        void showGenericMergeButton();
         void hideExtraRow();
         void displayManageConferencePanel(boolean on);
     }

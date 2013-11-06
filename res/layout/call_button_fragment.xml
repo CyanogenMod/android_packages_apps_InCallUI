@@ -51,7 +51,8 @@
     <ImageButton android:id="@+id/endButton"
                  style="@style/InCallEndButton"
                  android:layout_width="match_parent"
-                 android:src="@drawable/ic_dial_end_call"
+                 android:layout_marginTop="2dp"
+                 android:src="@drawable/ic_in_call_phone_hangup"
                  android:background="@drawable/end_call_background"
                  android:contentDescription="@string/onscreenEndCallText"/>
 
@@ -63,9 +64,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/dialpad_background"
             android:paddingStart="@dimen/button_cluster_side_padding"
             android:paddingEnd="@dimen/button_cluster_side_padding"
+            android:background="@color/button_background"
             >
 
         <!-- This row has either 4 or 5 buttons, depending on
@@ -100,8 +101,8 @@
              action button that brings up a popup menu; see
              btn_compound_audio.xml and InCallTouchUi.updateAudioButton()
              for the full details. -->
-        <ToggleButton android:id="@+id/audioButton"
-                      style="@style/InCallCompoundButton"
+        <ImageButton android:id="@+id/audioButton"
+                      style="@style/InCallButton"
                       android:background="@drawable/btn_compound_audio"
                       android:contentDescription="@string/onscreenAudioText"
                 />
@@ -111,9 +112,9 @@
 
         <!-- "Mute" -->
         <!-- This is a "compound button": it has checked and unchecked states. -->
-        <ToggleButton android:id="@+id/muteButton"
-                      style="@style/InCallCompoundButton"
-                      android:background="@drawable/btn_compound_mute"
+        <ImageButton android:id="@+id/muteButton"
+                      style="@style/InCallButton"
+                      android:background="@drawable/btn_fake_compound_mute"
                       android:contentDescription="@string/onscreenMuteText"
                 />
 
@@ -125,9 +126,9 @@
              must always be set to GONE. -->
         <!-- "Hold" -->
         <!-- This is a "compound button": it has checked and unchecked states. -->
-        <ToggleButton android:id="@+id/holdButton"
-                      style="@style/InCallCompoundButton"
-                      android:background="@drawable/btn_compound_hold"
+        <ImageButton android:id="@+id/holdButton"
+                      style="@style/InCallButton"
+                      android:background="@drawable/btn_fake_compound_hold"
                       android:contentDescription="@string/onscreenHoldText"
                 />
         <!-- "Swap" (or "Manage calls" in some CDMA states) -->
@@ -135,6 +136,7 @@
                      style="@style/InCallButton"
                      android:src="@drawable/ic_incall_switch_holo_dark"
                      android:contentDescription="@string/onscreenSwapCallsText"
+                     android:visibility="gone"
                 />
 
         <!-- Separator between 4th and 5th button (if 5th exists) -->
@@ -149,6 +151,7 @@
                      style="@style/InCallButton"
                      android:src="@drawable/ic_add_contact_holo_dark"
                      android:contentDescription="@string/onscreenAddCallText"
+                     android:visibility="gone"
                 />
         <!-- "Merge calls" -->
         <!-- This button is used only on GSM devices, where we know
@@ -158,6 +161,7 @@
                      style="@style/InCallButton"
                      android:src="@drawable/ic_merge_holo_dark"
                      android:contentDescription="@string/onscreenMergeCallsText"
+                     android:visibility="gone"
                 />
 
         <!-- Separator between 4th (or 5th) button and right padding -->

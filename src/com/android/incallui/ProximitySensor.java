@@ -68,6 +68,16 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
         mAudioModeProvider.addListener(this);
     }
 
+    public void tearDown() {
+        mAudioModeProvider.removeListener(this);
+
+        mAccelerometerListener.enable(false);
+
+        if (mProximityWakeLock != null && mProximityWakeLock.isHeld()) {
+            mProximityWakeLock.release();
+        }
+    }
+
     /**
      * Called to identify when the device is laid down flat.
      */
@@ -144,11 +154,20 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
     }
 
     /**
+     * TODO: There is no way to determine if a screen is off due to proximity or if it is
+     * legitimately off, but if ever we can do that in the future, it would be useful here.
+     * Until then, this function will simply return true of the screen is off.
+     */
+    public boolean isScreenReallyOff() {
+        return !mPowerManager.isScreenOn();
+    }
+
+    /**
      * @return true if this device supports the "proximity sensor
      * auto-lock" feature while in-call (see updateProximitySensorMode()).
      */
     private boolean proximitySensorModeEnabled() {
-        // TODO(klp): Do we disable notification's expanded view when app is in foreground and
+        // TODO: Do we disable notification's expanded view when app is in foreground and
         // proximity sensor is on? Is it even possible to do this any more?
         return (mProximityWakeLock != null);
     }
@@ -206,8 +225,9 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
                         .add("keybrd", mIsHardKeyboardOpen ? 1 : 0)
                         .add("dpad", mDialpadVisible ? 1 : 0)
                         .add("offhook", mIsPhoneOffhook ? 1 : 0)
-                        .add("aud", audioMode)
-                        .add("hor", horizontal ? 1 : 0).toString());
+                        .add("hor", horizontal ? 1 : 0)
+                        .add("ui", mUiShowing ? 1 : 0)
+                        .add("aud", AudioMode.toString(audioMode)).toString());
 
                 if (mIsPhoneOffhook && !screenOnImmediately) {
                     final String logStr = "turning on proximity sensor: ";

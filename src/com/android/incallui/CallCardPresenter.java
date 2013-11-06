@@ -30,8 +30,10 @@ import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
+import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
+import com.android.services.telephony.common.Call.Capabilities;
 import com.android.services.telephony.common.CallIdentification;
 import com.google.common.base.Preconditions;
 
@@ -41,7 +43,7 @@ import com.google.common.base.Preconditions;
  * This class listens for changes to InCallState and passes it along to the fragment.
  */
 public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
-        implements InCallStateListener, AudioModeListener {
+        implements InCallStateListener, AudioModeListener, IncomingCallListener {
 
     private static final String TAG = CallCardPresenter.class.getSimpleName();
     private static final long CALL_TIME_UPDATE_INTERVAL = 1000; // in milliseconds
@@ -73,15 +75,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
             final CallIdentification identification = call.getIdentification();
 
-            // TODO(klp): Logic to determine which ui field get what data resides in
-            // contactInfoCache.
-            // It needs to be moved so it can be re-used.
-            mPrimaryContactInfo = ContactInfoCache.buildCacheEntryFromCall(mContext, identification,
-                    call.getState() == Call.State.INCOMING);
-
             // start processing lookups right away.
-            startContactInfoSearch(identification, true, false,
-                    call.getState() == Call.State.INCOMING);
+            if (!call.isConferenceCall()) {
+                startContactInfoSearch(identification, true,
+                        call.getState() == Call.State.INCOMING);
+            } else {
+                updateContactEntry(null, true, true);
+            }
         }
     }
 
@@ -93,11 +93,12 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         // Contact search may have completed before ui is ready.
         if (mPrimaryContactInfo != null) {
-            updatePrimaryDisplayInfo(mPrimaryContactInfo, false);
+            updatePrimaryDisplayInfo(mPrimaryContactInfo, isConference(mPrimary));
         }
 
         // Register for call state changes last
         InCallPresenter.getInstance().addListener(this);
+        InCallPresenter.getInstance().addIncomingCallListener(this);
     }
 
     @Override
@@ -106,12 +107,19 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         // stop getting call state changes
         InCallPresenter.getInstance().removeListener(this);
+        InCallPresenter.getInstance().removeIncomingCallListener(this);
 
         AudioModeProvider.getInstance().removeListener(this);
 
         mPrimary = null;
         mPrimaryContactInfo = null;
         mSecondaryContactInfo = null;
+    }
+
+    @Override
+    public void onIncomingCall(InCallState state, Call call) {
+        // same logic should happen as with onStateChange()
+        onStateChange(state, CallList.getInstance());
     }
 
     @Override
@@ -141,34 +149,30 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         Log.d(this, "Primary call: " + primary);
         Log.d(this, "Secondary call: " + secondary);
 
-        if (primary != null) {
-            if (mPrimary == null || mPrimary.getCallId() != primary.getCallId()) {
-                // primary call has changed
-                mPrimaryContactInfo = ContactInfoCache.buildCacheEntryFromCall(mContext,
-                        primary.getIdentification(), primary.getState() == Call.State.INCOMING);
-                updatePrimaryDisplayInfo(mPrimaryContactInfo, isConference(primary));
-                startContactInfoSearch(primary.getIdentification(), true,
-                        primary.isConferenceCall(), primary.getState() == Call.State.INCOMING);
-            }
+        final boolean primaryChanged = !areCallsSame(mPrimary, primary);
+        final boolean secondaryChanged = !areCallsSame(mSecondary, secondary);
+        mSecondary = secondary;
+        mPrimary = primary;
+
+        if (primaryChanged && mPrimary != null) {
+            // primary call has changed
+            mPrimaryContactInfo = ContactInfoCache.buildCacheEntryFromCall(mContext,
+                    mPrimary.getIdentification(), mPrimary.getState() == Call.State.INCOMING);
+            updatePrimaryDisplayInfo(mPrimaryContactInfo, isConference(mPrimary));
+            maybeStartSearch(mPrimary, true);
         }
 
-        if (secondary == null) {
+        if (mSecondary == null) {
             // Secondary call may have ended.  Update the ui.
             mSecondaryContactInfo = null;
             updateSecondaryDisplayInfo(false);
-        } else {
-            if (mSecondary == null || mSecondary.getCallId() != secondary.getCallId()) {
-                // secondary call has changed
-                mSecondaryContactInfo = ContactInfoCache.buildCacheEntryFromCall(mContext,
-                        secondary.getIdentification(), secondary.getState() == Call.State.INCOMING);
-                updateSecondaryDisplayInfo(secondary.isConferenceCall());
-                startContactInfoSearch(secondary.getIdentification(), false,
-                        secondary.isConferenceCall(), secondary.getState() == Call.State.INCOMING);
-            }
+        } else if (secondaryChanged) {
+            // secondary call has changed
+            mSecondaryContactInfo = ContactInfoCache.buildCacheEntryFromCall(mContext,
+                    mSecondary.getIdentification(), mSecondary.getState() == Call.State.INCOMING);
+            updateSecondaryDisplayInfo(mSecondary.isConferenceCall());
+            maybeStartSearch(mSecondary, false);
         }
-
-        mPrimary = primary;
-        mSecondary = secondary;
 
         // Start/Stop the call time update timer
         if (mPrimary != null && mPrimary.getState() == Call.State.ACTIVE) {
@@ -184,9 +188,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         if (mPrimary != null) {
             final boolean bluetoothOn =
                     (AudioModeProvider.getInstance().getAudioMode() == AudioMode.BLUETOOTH);
-            ui.setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn);
+            ui.setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn,
+                    getGatewayLabel(), getGatewayNumber());
         } else {
-            ui.setCallState(Call.State.IDLE, Call.DisconnectCause.UNKNOWN, false);
+            ui.setCallState(Call.State.IDLE, Call.DisconnectCause.UNKNOWN, false, null, null);
         }
     }
 
@@ -195,7 +200,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         if (mPrimary != null && getUi() != null) {
             final boolean bluetoothOn = (AudioMode.BLUETOOTH == mode);
 
-            getUi().setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn);
+            getUi().setCallState(mPrimary.getState(), mPrimary.getDisconnectCause(), bluetoothOn,
+                    getGatewayLabel(), getGatewayNumber());
         }
     }
 
@@ -222,39 +228,66 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
     }
 
+    private boolean areCallsSame(Call call1, Call call2) {
+        if (call1 == null && call2 == null) {
+            return true;
+        } else if (call1 == null || call2 == null) {
+            return false;
+        }
+
+        // otherwise compare call Ids
+        return call1.getCallId() == call2.getCallId();
+    }
+
+    private void maybeStartSearch(Call call, boolean isPrimary) {
+        // no need to start search for conference calls which show generic info.
+        if (call != null && !call.isConferenceCall()) {
+            startContactInfoSearch(call.getIdentification(), isPrimary,
+                    call.getState() == Call.State.INCOMING);
+        }
+    }
+
     /**
      * Starts a query for more contact data for the save primary and secondary calls.
      */
     private void startContactInfoSearch(final CallIdentification identification,
-            final boolean isPrimary, final boolean isConference, boolean isIncoming) {
-
+            final boolean isPrimary, boolean isIncoming) {
         final ContactInfoCache cache = ContactInfoCache.getInstance(mContext);
 
         cache.findInfo(identification, isIncoming, new ContactInfoCacheCallback() {
                 @Override
                 public void onContactInfoComplete(int callId, ContactCacheEntry entry) {
-                    updateContactEntry(entry, isPrimary, isConference);
+                    updateContactEntry(entry, isPrimary, false);
                     if (entry.name != null) {
                         Log.d(TAG, "Contact found: " + entry);
+                    }
+                    if (entry.personUri != null) {
+                        CallerInfoUtils.sendViewNotification(mContext, entry.personUri);
                     }
                 }
 
                 @Override
-                public void onImageLoadComplete(int callId, Bitmap photo) {
-                    if (mPrimary != null && callId == mPrimary.getCallId()) {
-                        getUi().setPrimaryImage(photo);
-                    } else if (mSecondary != null && callId == mSecondary.getCallId()) {
-                        getUi().setSecondaryImage(photo);
+                public void onImageLoadComplete(int callId, ContactCacheEntry entry) {
+                    if (getUi() == null) {
+                        return;
+                    }
+                    if (entry.photo != null) {
+                        if (mPrimary != null && callId == mPrimary.getCallId()) {
+                            getUi().setPrimaryImage(entry.photo);
+                        } else if (mSecondary != null && callId == mSecondary.getCallId()) {
+                            getUi().setSecondaryImage(entry.photo);
+                        }
                     }
                 }
             });
     }
 
-    private boolean isConference(Call call) {
-        if (call == null) {
-            return false;
-        }
-        return call.isConferenceCall();
+    private static boolean isConference(Call call) {
+        return call != null && call.isConferenceCall();
+    }
+
+    private static boolean isGenericConference(Call call) {
+        return call != null && call.can(Capabilities.GENERIC_CONFERENCE);
     }
 
     private void updateContactEntry(ContactCacheEntry entry, boolean isPrimary,
@@ -288,6 +321,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // to let user know quickly what call has disconnected. Disconnected
         // calls are very short lived.
         if (!skipDisconnected) {
+            retval = callList.getDisconnectingCall();
+            if (retval != null && retval != ignore) {
+                return retval;
+            }
             retval = callList.getDisconnectedCall();
             if (retval != null && retval != ignore) {
                 return retval;
@@ -316,19 +353,15 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return;
         }
 
+        final boolean isGenericConf = isGenericConference(mPrimary);
         if (entry != null) {
             final String name = getNameForCall(entry);
             final String number = getNumberForCall(entry);
             final boolean nameIsNumber = name != null && name.equals(entry.number);
-            final String gatewayLabel = getGatewayLabel();
-            final String gatewayNumber = getGatewayNumber();
-
             ui.setPrimary(number, name, nameIsNumber, entry.label,
-                    entry.photo, isConference, gatewayLabel,
-                    gatewayNumber);
+                    entry.photo, isConference, isGenericConf, entry.isSipCall);
         } else {
-            // reset to nothing (like at end of call)
-            ui.setPrimary(null, null, false, null, null, false, null, null);
+            ui.setPrimary(null, null, false, null, null, isConference, isGenericConf, false);
         }
 
     }
@@ -340,6 +373,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return;
         }
 
+        final boolean isGenericConf = isGenericConference(mSecondary);
         if (mSecondaryContactInfo != null) {
             Log.d(TAG, "updateSecondaryDisplayInfo() " + mSecondaryContactInfo);
             final String nameForCall = getNameForCall(mSecondaryContactInfo);
@@ -347,10 +381,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             final boolean nameIsNumber = nameForCall != null && nameForCall.equals(
                     mSecondaryContactInfo.number);
             ui.setSecondary(true, nameForCall, nameIsNumber, mSecondaryContactInfo.label,
-                    mSecondaryContactInfo.photo, isConference);
+                    mSecondaryContactInfo.photo, isConference, isGenericConf);
         } else {
             // reset to nothing so that it starts off blank next time we use it.
-            ui.setSecondary(false, null, false, null, null, false);
+            ui.setSecondary(false, null, false, null, null, isConference, isGenericConf);
         }
     }
 
@@ -390,7 +424,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         if (mPrimary == null) {
             return false;
         }
-        return (mPrimary.getState() == Call.State.DIALING &&
+        return (Call.State.isDialing(mPrimary.getState()) &&
                 !TextUtils.isEmpty(mPrimary.getGatewayNumber()) &&
                 !TextUtils.isEmpty(mPrimary.getGatewayPackage()));
     }
@@ -424,16 +458,16 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     public interface CallCardUi extends Ui {
         void setVisible(boolean on);
         void setPrimary(String number, String name, boolean nameIsNumber, String label,
-                Drawable photo, boolean isConference, String gatewayLabel, String gatewayNumber);
+                Drawable photo, boolean isConference, boolean isGeneric, boolean isSipCall);
         void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
-                Drawable photo, boolean isConference);
-        void setSecondaryImage(Bitmap bitmap);
-        void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn);
+                Drawable photo, boolean isConference, boolean isGeneric);
+        void setSecondaryImage(Drawable image);
+        void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn,
+                String gatewayLabel, String gatewayNumber);
         void setPrimaryCallElapsedTime(boolean show, String duration);
         void setPrimaryName(String name, boolean nameIsNumber);
-        void setPrimaryImage(Bitmap bitmap);
+        void setPrimaryImage(Drawable image);
         void setPrimaryPhoneNumber(String phoneNumber);
         void setPrimaryLabel(String label);
-        void setPrimaryGateway(String label, String number);
     }
 }

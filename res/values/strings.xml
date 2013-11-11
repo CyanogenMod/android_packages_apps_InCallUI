@@ -1530,4 +1530,9 @@
 
     <!-- Label for "Manage conference call" panel [CHAR LIMIT=40] -->
     <string name="manageConferenceLabel">Manage conference call</string>
+
+    <!-- Set Subscription screen: label sub 1 -->
+    <string name="sub_1">SUB 1</string>
+    <!-- Set Subscription screen: label sub 2 -->
+    <string name="sub_2">SUB 2</string>
 </resources>

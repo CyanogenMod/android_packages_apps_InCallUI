@@ -49,6 +49,16 @@
                   android:exported="false">
         </activity>
 
+        <activity android:name=".MSimInCallActivity"
+                  android:theme="@style/Theme.InCallScreen"
+                  android:label="@string/inCallLabel"
+                  android:excludeFromRecents="true"
+                  android:launchMode="singleInstance"
+                  android:screenOrientation="nosensor"
+                  android:configChanges="keyboardHidden"
+                  android:exported="false">
+        </activity>
+
         <service android:name="CallHandlerService">
             <intent-filter>
                 <action android:name="com.android.services.telephony.common.ICallHandlerService" />

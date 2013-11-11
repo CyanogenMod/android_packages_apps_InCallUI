@@ -32,6 +32,5 @@
     <application
         android:persistent="true"
         android:hasCode="false"
-        >
-    </application>
+        />
 </manifest>

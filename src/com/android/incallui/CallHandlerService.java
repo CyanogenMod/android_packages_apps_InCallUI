@@ -51,7 +51,7 @@ public class CallHandlerService extends Service {
     private static final int ON_ACTIVE_SUB_CHANGE = 11;
     private static final int ON_UNSOL_CALLMODIFY = 12;
 
-    private static final int LARGEST_MSG_ID = ON_DESTROY;
+    private static final int LARGEST_MSG_ID = ON_ACTIVE_SUB_CHANGE;
 
 
     private CallList mCallList;

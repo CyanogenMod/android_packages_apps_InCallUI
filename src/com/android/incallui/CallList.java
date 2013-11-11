@@ -24,6 +24,8 @@ import com.google.common.base.Preconditions;
 import android.os.Handler;
 import android.os.Message;
 
+import android.telephony.MSimTelephonyManager;
+import com.android.internal.telephony.MSimConstants;
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.DisconnectCause;
 
@@ -44,6 +46,7 @@ public class CallList {
     private static final int DISCONNECTED_CALL_LONG_TIMEOUT_MS = 5000;
 
     private static final int EVENT_DISCONNECTED_TIMEOUT = 1;
+    private static final int EVENT_NOTIFY_CHANGE = 2;
 
     private static CallList sInstance = new CallList();
 
@@ -55,6 +58,8 @@ public class CallList {
             .newHashMap();
 
     private int mSubscription = 0;
+    private final ArrayList<ActiveSubChangeListener> mActiveSubChangeListeners =
+            Lists.newArrayList();
 
     /**
      * Static singleton accessor method.
@@ -74,6 +79,8 @@ public class CallList {
      */
     public void onUpdate(Call call) {
         Log.d(this, "onUpdate - ", call);
+
+        updateActiveSuscription();
 
         updateCallInMap(call);
         notifyListenersOfChange();
@@ -102,6 +109,8 @@ public class CallList {
     public void onIncoming(Call call, List<String> textMessages) {
         Log.d(this, "onIncoming - " + call);
 
+        updateActiveSuscription();
+
         updateCallInMap(call);
         updateCallTextMap(call, textMessages);
 
@@ -115,6 +124,8 @@ public class CallList {
      */
     public void onUpdate(List<Call> callsToUpdate) {
         Log.d(this, "onUpdate(...)");
+
+        updateActiveSuscription();
 
         Preconditions.checkNotNull(callsToUpdate);
         for (Call call : callsToUpdate) {
@@ -284,6 +295,11 @@ public class CallList {
      * TODO: Improve this logic to sort by call time.
      */
     public Call getCallWithState(int state, int positionToFind) {
+        if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA) {
+            return getCallWithState(state, positionToFind, getActiveSubscription());
+        }
+
         Call retval = null;
         int position = 0;
         for (Call call : mCallMap.values()) {
@@ -439,6 +455,13 @@ public class CallList {
                     Log.d(this, "EVENT_DISCONNECTED_TIMEOUT ", msg.obj);
                     finishDisconnectedCall((Call) msg.obj);
                     break;
+                case EVENT_NOTIFY_CHANGE:
+                    Log.d(this, "EVENT_NOTIFY_CHANGE: ");
+                    notifyListenersOfChange();
+                    for (ActiveSubChangeListener listener : mActiveSubChangeListeners) {
+                        listener.onActiveSubChanged(getActiveSubscription());
+                    }
+                    break;
                 default:
                     Log.wtf(this, "Message not expected: " + msg.what);
                     break;
@@ -484,12 +507,103 @@ public class CallList {
      * Called when active subscription changes.
      */
     public void onActiveSubChanged(int activeSub) {
-        Log.d(this, "onActiveSubChanged: old = " + mSubscription + " new = " + activeSub);
-
-        mSubscription = activeSub;
+        Log.d(this, "onActiveSubChanged  = " + activeSub);
+        if (existsLiveCall(activeSub)) {
+            setActiveSubscription(activeSub);
+        }
     }
 
     public int getActiveSubscription() {
         return mSubscription;
+    }
+
+    /**
+     * Called to update the latest active subscription id, and also it
+     * notifies the registred clients about subscription change information.
+     */
+    public void setActiveSubscription(int subscription) {
+        if (subscription != mSubscription) {
+            Log.i(this, "setActiveSubscription, old = " + mSubscription + " new = " + subscription);
+            mSubscription = subscription;
+            final Message msg = mHandler.obtainMessage(EVENT_NOTIFY_CHANGE, null);
+            mHandler.sendMessage(msg);
+        }
+    }
+
+    /**
+     * Returns true, if any voice call in ACTIVE on the provided subscription.
+     */
+    public boolean existsLiveCall(int subscription) {
+        for (Call call : mCallMap.values()) {
+            if (!isCallDead(call) && (call.getSubscription() == subscription)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * This method checks whether any other subscription currently has active voice
+     * call other than current active subscription, if yes it makes that other
+     * subscription as active subscription i.e user visible subscription.
+     */
+    public boolean switchToOtherActiveSubscription() {
+        int activeSub = getActiveSubscription();
+        boolean subSwitched = false;
+
+        for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
+            if ((i != activeSub) && existsLiveCall(i)) {
+                Log.i(this, "switchToOtherActiveSubscription, sub = " + i);
+                subSwitched = true;
+                setActiveSubscription(i);
+                break;
+            }
+        }
+        return subSwitched;
+    }
+
+    /**
+     * Its a utility, gets the current active subscription from TeleService and
+     * updates the mSubscription member variable.
+     */
+    public void updateActiveSuscription() {
+        if (!MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+            return;
+        }
+        setActiveSubscription(CallCommandClient.getInstance().getActiveSubscription());
+    }
+
+    /**
+     * Returns the [position]th call which belongs to provided subscription and
+     * found in the call map with the specified state.
+     */
+    public Call getCallWithState(int state, int positionToFind, int subscription) {
+        Call retval = null;
+        int position = 0;
+        for (Call call : mCallMap.values()) {
+            if ((call.getState() == state) && (call.getSubscription() == subscription)) {
+                if (position >= positionToFind) {
+                    retval = call;
+                    break;
+                } else {
+                    position++;
+                }
+            }
+        }
+        return retval;
+    }
+
+    public void addActiveSubChangeListener(ActiveSubChangeListener listener) {
+        Preconditions.checkNotNull(listener);
+        mActiveSubChangeListeners.add(listener);
+    }
+
+    public void removeActiveSubChangeListener(ActiveSubChangeListener listener) {
+        Preconditions.checkNotNull(listener);
+        mActiveSubChangeListeners.remove(listener);
+    }
+
+    public interface ActiveSubChangeListener {
+        public void onActiveSubChanged(int subscription);
     }
 }

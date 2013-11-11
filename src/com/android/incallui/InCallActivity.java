@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.telephony.MSimTelephonyManager;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,13 +54,13 @@ public class InCallActivity extends Activity {
 
     private static final int INVALID_RES_ID = -1;
 
-    private CallButtonFragment mCallButtonFragment;
-    private CallCardFragment mCallCardFragment;
+    protected CallButtonFragment mCallButtonFragment;
+    protected CallCardFragment mCallCardFragment;
     private AnswerFragment mAnswerFragment;
-    private DialpadFragment mDialpadFragment;
-    private ConferenceManagerFragment mConferenceManagerFragment;
+    protected DialpadFragment mDialpadFragment;
+    protected ConferenceManagerFragment mConferenceManagerFragment;
     private boolean mIsForegroundActivity;
-    private AlertDialog mDialog;
+    protected AlertDialog mDialog;
     private AlertDialog mModifyCallPromptDialog;
 
     /** Use to pass 'showDialpad' from {@link #onNewIntent} to {@link #onResume} */
@@ -70,6 +71,11 @@ public class InCallActivity extends Activity {
         Log.d(this, "onCreate()...  this = " + this);
 
         super.onCreate(icicle);
+
+        if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA) {
+            return;
+        }
 
         // set this flag so this activity will stay in front of the keyguard
         // Have the WindowManager filter out touch events that are "too fat".
@@ -95,6 +101,11 @@ public class InCallActivity extends Activity {
     protected void onStart() {
         Log.d(this, "onStart()...");
         super.onStart();
+
+        if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA) {
+            return;
+        }
 
         // setting activity should be last thing in setup process
         InCallPresenter.getInstance().setActivity(this);
@@ -150,7 +161,7 @@ public class InCallActivity extends Activity {
         return mIsForegroundActivity;
     }
 
-    private boolean hasPendingErrorDialog() {
+    protected boolean hasPendingErrorDialog() {
         return mDialog != null;
     }
     /**
@@ -170,6 +181,11 @@ public class InCallActivity extends Activity {
      */
     @Override
     public void finish() {
+        if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA) {
+            super.finish();
+            return;
+        }
         Log.i(this, "finish().  Dialog showing: " + (mDialog != null));
 
         // skip finish if we are still showing a dialog.
@@ -375,7 +391,7 @@ public class InCallActivity extends Activity {
         }
     }
 
-    private void initializeInCall() {
+    protected void initializeInCall() {
         if (mCallButtonFragment == null) {
             mCallButtonFragment = (CallButtonFragment) getFragmentManager()
                     .findFragmentById(R.id.callButtonFragment);
@@ -697,4 +713,7 @@ public class InCallActivity extends Activity {
         Log.e(this, msg);
     }
 
+    public void updateDsdaTab() {
+        Log.e(this, "updateDsdaTab : Not supported ");
+    }
 }

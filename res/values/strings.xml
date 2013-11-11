@@ -1540,4 +1540,9 @@
 
     <!-- This can be used in any application wanting to disable the text "Emergency number" -->
     <string name="emergency_call_dialog_number_for_display">Emergency number</string>
+
+    <!-- Set Subscription screen: label sub 1 -->
+    <string name="sub_1">SIM 1</string>
+    <!-- Set Subscription screen: label sub 2 -->
+    <string name="sub_2">SIM 2</string>
 </resources>

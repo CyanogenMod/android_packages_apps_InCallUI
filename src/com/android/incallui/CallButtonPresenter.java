@@ -38,7 +38,8 @@ import android.telephony.PhoneNumberUtils;
  * Logic for call buttons.
  */
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
-        implements InCallStateListener, AudioModeListener, IncomingCallListener {
+        implements InCallStateListener, AudioModeListener, IncomingCallListener,
+        CallList.ActiveSubChangeListener {
 
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
@@ -61,6 +62,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         // register for call state changes last
         InCallPresenter.getInstance().addListener(this);
         InCallPresenter.getInstance().addIncomingCallListener(this);
+        CallList.getInstance().addActiveSubChangeListener(this);
     }
 
     @Override
@@ -70,6 +72,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().removeListener(this);
         AudioModeProvider.getInstance().removeListener(this);
         InCallPresenter.getInstance().removeIncomingCallListener(this);
+        CallList.getInstance().removeActiveSubChangeListener(this);
     }
 
     @Override
@@ -400,5 +403,13 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void displayModifyCallOptions(int callId);
         void enableModifyCall(boolean enabled);
         void showModifyCall(boolean show);
+    }
+
+    @Override
+    public void onActiveSubChanged(int subscription) {
+        InCallState state = InCallPresenter.getInstance()
+                .getPotentialStateFromCallList(CallList.getInstance());
+
+        onStateChange(state, CallList.getInstance());
     }
 }

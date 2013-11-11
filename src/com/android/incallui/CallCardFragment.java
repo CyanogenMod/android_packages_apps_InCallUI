@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.telephony.MSimTelephonyManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private View mProviderInfo;
     private TextView mProviderLabel;
     private TextView mProviderNumber;
+    private TextView mSubscriptionId;
     private ViewGroup mSupplementaryInfoContainer;
 
     // Secondary caller info
@@ -115,6 +117,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mProviderInfo = view.findViewById(R.id.providerInfo);
         mProviderLabel = (TextView) view.findViewById(R.id.providerLabel);
         mProviderNumber = (TextView) view.findViewById(R.id.providerAddress);
+        mSubscriptionId = (TextView) view.findViewById(R.id.subId);
         mSupplementaryInfoContainer =
             (ViewGroup) view.findViewById(R.id.supplementary_info_container);
     }
@@ -198,6 +201,15 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         showCallTypeLabel(isSipCall, isForwarded);
 
         setDrawableToImageView(mPhoto, photo);
+
+        if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
+            String[] sub = {"SUB 1", "SUB 2", "SUB 3"};
+            int subscription = getPresenter().getActiveSubscription();
+
+            if (subscription != -1) {
+                showSubscriptionInfo(sub[subscription]);
+            }
+        }
     }
 
     @Override
@@ -313,6 +325,15 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         } else {
             // hide() animation has no effect if it is already hidden.
             AnimationUtils.Fade.hide(mElapsedTime, View.INVISIBLE);
+        }
+    }
+
+    private void showSubscriptionInfo(String subString) {
+        if (!TextUtils.isEmpty(subString)) {
+            mSubscriptionId.setText(subString);
+            mSubscriptionId.setVisibility(View.VISIBLE);
+        } else {
+            mSubscriptionId.setVisibility(View.GONE);
         }
     }
 
@@ -515,6 +536,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         dispatchPopulateAccessibilityEvent(event, mPrimaryName);
         dispatchPopulateAccessibilityEvent(event, mPhoneNumber);
         dispatchPopulateAccessibilityEvent(event, mCallTypeLabel);
+        dispatchPopulateAccessibilityEvent(event, mSubscriptionId);
         dispatchPopulateAccessibilityEvent(event, mSecondaryCallName);
 
         return;

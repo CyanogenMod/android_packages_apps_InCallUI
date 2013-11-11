@@ -482,4 +482,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setPrimaryPhoneNumber(String phoneNumber);
         void setPrimaryLabel(String label);
     }
+
+    public int getActiveSubscription() {
+        return CallCommandClient.getInstance().getActiveSubscription();
+    }
 }

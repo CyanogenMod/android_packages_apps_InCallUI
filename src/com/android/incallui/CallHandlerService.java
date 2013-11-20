@@ -60,6 +60,8 @@ public class CallHandlerService extends Service {
     private AudioModeProvider mAudioModeProvider;
     private boolean mServiceStarted = false;
 
+    private final String LOG_TAG = "CallHandlerService";
+
     @Override
     public void onCreate() {
         Log.i(TAG, "onCreate");

@@ -163,9 +163,16 @@
                      android:contentDescription="@string/onscreenMergeCallsText"
                      android:visibility="gone"
                 />
+        <!-- Separator between 5th (or 6th) button and right padding -->
+        <View style="@style/VerticalSeparator" />
 
-        <!-- Separator between 4th (or 5th) button and right padding -->
-        <View style="@style/VerticalSeparator"/>
+        <ImageButton
+            android:id="@+id/addParticipant"
+            style="@style/InCallButton"
+            android:background="@drawable/ic_add_group_holo_dark"
+            android:contentDescription="@string/onscreenAddParticipant" />
+
+        <View style="@style/VerticalSeparator" />
 
     </LinearLayout>
 

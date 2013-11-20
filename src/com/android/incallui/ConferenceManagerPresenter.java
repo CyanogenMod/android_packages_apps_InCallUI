@@ -22,6 +22,7 @@ import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.services.telephony.common.Call;
+import com.android.services.telephony.common.CallDetails;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSortedSet;
@@ -37,7 +38,9 @@ public class ConferenceManagerPresenter
 
     private int mNumCallersInConference;
     private Integer[] mCallerIds;
+    private String[] mParticipantList;
     private Context mContext;
+    private static String LOG_TAG = "ConferenceManagerPresenter";
 
     @Override
     public void onUiReady(ConferenceManagerUi ui) {
@@ -79,10 +82,34 @@ public class ConferenceManagerPresenter
         update(callList);
     }
 
-    private void update(CallList callList) {
-        mCallerIds = null;
+    private boolean isImsCall(Call call) {
+        return call != null && call.getCallDetails() != null
+                && call.getCallDetails().getCallDomain() == CallDetails.CALL_DOMAIN_PS;
+    }
+
+    private void initParticipantList(CallList callList) {
+        mParticipantList = null;
+        Call call = callList.getActiveOrBackgroundCall();
+
+        if (isImsCall(call)) {
+            String[] confParticipantList = call.getCallDetails().getConfParticipantList();
+            // If conference refresh info xml is present use that information
+            if (confParticipantList != null
+                    && confParticipantList.length > 0) {
+                mParticipantList = confParticipantList;
+                mNumCallersInConference = mParticipantList.length;
+                return;
+            }
+        }
         mCallerIds = callList.getActiveOrBackgroundCall().getChildCallIds().toArray(new Integer[0]);
         mNumCallersInConference = mCallerIds.length;
+    }
+
+    private void update(CallList callList) {
+        mCallerIds = null;
+        // set mNumCallersInConference and mParticipantList
+        initParticipantList(callList);
+
         Log.v(this, "Number of calls is " + String.valueOf(mNumCallersInConference));
 
         // Users can split out a call from the conference call if there either the active call
@@ -95,10 +122,13 @@ public class ConferenceManagerPresenter
         for (int i = 0; i < MAX_CALLERS_IN_CONFERENCE; i++) {
             if (i < mNumCallersInConference) {
                 // Fill in the row in the UI for this caller.
-
-                final ContactCacheEntry contactCache = ContactInfoCache.getInstance(mContext).
-                        getInfo(mCallerIds[i]);
-                updateManageConferenceRow(i, contactCache, canSeparate);
+                if (mParticipantList == null) {
+                    final ContactCacheEntry contactCache = ContactInfoCache.getInstance(mContext).
+                            getInfo(mCallerIds[i]);
+                    updateManageConferenceRow(i, contactCache, canSeparate);
+                } else {
+                    updateManageConferenceRow(i, mParticipantList[i]);
+                }
             } else {
                 // Blank out this row in the UI
                 updateManageConferenceRow(i, null, false);
@@ -140,6 +170,17 @@ public class ConferenceManagerPresenter
         }
     }
 
+    public void updateManageConferenceRow(final int i, final String url) {
+        if (url != null) {
+            getUi().setRowVisible(i, true);
+            getUi().setupEndButtonForRowWithUrl(i, url);
+            getUi().displayCallerInfoForConferenceRow(i, "", url, "");
+        } else {
+            // Disable this row of the Manage conference panel:
+            getUi().setRowVisible(i, false);
+        }
+    }
+
     public void manageConferenceDoneClicked() {
         getUi().setVisible(false);
     }
@@ -156,6 +197,11 @@ public class ConferenceManagerPresenter
         CallCommandClient.getInstance().disconnectCall(mCallerIds[rowId]);
     }
 
+    public void endConferenceConnectionUrl(int rowId , String url) {
+        CallCommandClient.getInstance().hangupWithReason(-1, url,
+                true, Call.DisconnectCause.NORMAL.ordinal(), "");
+    }
+
     public interface ConferenceManagerUi extends Ui {
         void setVisible(boolean on);
         boolean isFragmentVisible();
@@ -164,6 +210,8 @@ public class ConferenceManagerPresenter
                 String callerNumberType);
         void setCanSeparateButtonForRow(int rowId, boolean canSeparate);
         void setupEndButtonForRow(int rowId);
+
+        void setupEndButtonForRowWithUrl(int rowId, String url);
         void startConferenceTime(long base);
         void stopConferenceTime();
     }

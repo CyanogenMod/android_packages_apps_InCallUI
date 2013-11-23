@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,34 +26,11 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef VT_JNI_INTERFACE_H
-#define VT_JNI_INTERFACE_H
+#ifndef IMS_CAMERA_JNI_H_INCLUDED
+#define IMS_CAMERA_JNI_H_INCLUDED
 
 #include <jni.h>
-#include <cutils/log.h>
 
-jclass gClassMediaHandler;
+int register_videophone_ims_camera(JNIEnv *e);
 
-typedef void (*IMS_EVENT_NOTIFY_CALLBACK)(uint16_t);
-typedef void (*VtImplRegisterCbFun)(IMS_EVENT_NOTIFY_CALLBACK);
-typedef int16_t (*VtImplInitFun)(void);
-typedef int16_t (*VtImplFrameFun)(uint16_t *, uint32_t);
-typedef int16_t (*VtImplSetSurfFun)(JNIEnv *, jobject);
-typedef void (*VtImplSetDeviceOrient)(uint32_t);
-typedef int16_t (*VtImplDeinitFun)(void);
-typedef uint32_t (*VtImplUint32VoidFunc)(void);
-
-struct VtImplApis {
-    VtImplRegisterCbFun registerAppEventCallback;
-    VtImplInitFun initImsThinClient;
-    VtImplFrameFun frameToEncode;
-    VtImplSetSurfFun setFarEndSurface;
-    VtImplSetDeviceOrient setDeviceOrientation;
-    VtImplDeinitFun deInitImsThinClient;
-    VtImplUint32VoidFunc getNegotiatedFPS;
-    VtImplUint32VoidFunc getNegotiatedHeight;
-    VtImplUint32VoidFunc getNegotiatedWidth;
-    VtImplUint32VoidFunc getUIOrientationMode;
-};
-
-#endif
+#endif // IMS_CAMERA_JNI_H_INCLUDED

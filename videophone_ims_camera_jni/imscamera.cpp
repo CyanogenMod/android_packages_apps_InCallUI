@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation nor the names of its
+ *     * Neither the name of The Linux Foundation. nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -26,34 +26,24 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef VT_JNI_INTERFACE_H
-#define VT_JNI_INTERFACE_H
-
 #include <jni.h>
-#include <cutils/log.h>
+#include <utils/Log.h>
+#include <ims_camera_jni.h>
 
-jclass gClassMediaHandler;
+jint JNI_OnLoad(JavaVM *jvm, void *reserved) {
+    JNIEnv *e;
 
-typedef void (*IMS_EVENT_NOTIFY_CALLBACK)(uint16_t);
-typedef void (*VtImplRegisterCbFun)(IMS_EVENT_NOTIFY_CALLBACK);
-typedef int16_t (*VtImplInitFun)(void);
-typedef int16_t (*VtImplFrameFun)(uint16_t *, uint32_t);
-typedef int16_t (*VtImplSetSurfFun)(JNIEnv *, jobject);
-typedef void (*VtImplSetDeviceOrient)(uint32_t);
-typedef int16_t (*VtImplDeinitFun)(void);
-typedef uint32_t (*VtImplUint32VoidFunc)(void);
+    ALOGD("%s\n", __func__);
+    if (jvm->GetEnv((void **) &e, JNI_VERSION_1_6)) {
+        return JNI_ERR;
+    }
 
-struct VtImplApis {
-    VtImplRegisterCbFun registerAppEventCallback;
-    VtImplInitFun initImsThinClient;
-    VtImplFrameFun frameToEncode;
-    VtImplSetSurfFun setFarEndSurface;
-    VtImplSetDeviceOrient setDeviceOrientation;
-    VtImplDeinitFun deInitImsThinClient;
-    VtImplUint32VoidFunc getNegotiatedFPS;
-    VtImplUint32VoidFunc getNegotiatedHeight;
-    VtImplUint32VoidFunc getNegotiatedWidth;
-    VtImplUint32VoidFunc getUIOrientationMode;
-};
+    if (register_videophone_ims_camera(e)) {
+        return JNI_ERR;
+    }
 
-#endif
+    return JNI_VERSION_1_6;
+}
+
+
+

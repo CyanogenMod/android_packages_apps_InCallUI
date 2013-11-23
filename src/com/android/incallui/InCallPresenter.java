@@ -1,4 +1,8 @@
 /*
+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
+ *
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,12 +63,38 @@ public class InCallPresenter implements CallList.Listener {
     private static String LOG_TAG = "InCallPresenter";
 
     /**
+     * This table is for deciding whether consent is
+     * required while upgrade/downgrade from one calltype
+     * to other
+     * Read calltype transition from row to column
+     * 1 => Consent of user is required
+     * 0 => No consent required
+     * eg. from VOLTE to VT-TX, consent is needed so
+     * row 0, col 1 is set to 1
+     *
+     * User consent is needed for all upgrades and not
+     * needed for downgrades
+     *
+     *         VOLTE     VT-TX      VT-RX      VT
+     * VOLTE |   0    |    1   |     1   |     1
+     * VT-TX |   0    |    0   |     1   |     1
+     * VT-RX |   0    |    1   |     0   |     1
+     * VT    |   0    |    0   |     0   |     0
+     */
+    private int[][] mVideoConsentTable = {{0, 1, 1, 1},
+                                          {0, 0, 1, 1},
+                                          {0, 1, 0, 1},
+                                          {0, 0, 0, 0}};
+
+    /**
      * Is true when the activity has been previously started. Some code needs to know not just if
      * the activity is currently up, but if it had been previously shown in foreground for this
      * in-call session (e.g., StatusBarNotifier). This gets reset when the session ends in the
      * tear-down method.
      */
     private boolean mIsActivityPreviouslyStarted = false;
+
+    private boolean isImsMediaInitialized = false;
 
     public static synchronized InCallPresenter getInstance() {
         if (sInCallPresenter == null) {
@@ -105,6 +135,9 @@ public class InCallPresenter implements CallList.Listener {
         // will kick off an update and the whole process can start.
         mCallList.addListener(this);
 
+        // Initialize VideoCallManager. Instantiates the singleton.
+        VideoCallManager.getInstance(mContext);
+
         Log.d(this, "Finished InCallPresenter.setUp");
     }
 
@@ -128,6 +161,65 @@ public class InCallPresenter implements CallList.Listener {
 
         if (doFinish) {
             mInCallActivity.finish();
+        }
+    }
+
+    /**
+     * Sends modify call request to the other party.
+     * @param callId id of the call to modify.
+     * @param callType Proposed call type.
+     */
+    public void sendModifyCallRequest(int callId, int callType) {
+        log("VideoCall: Sending modify call request. callId=" + callId + " callType=" + callType);
+        // CallCommandClient.getInstance().modifyCall(callId, callType);
+    }
+
+    /**
+     * Accepts/Rejects modify call request.
+     *
+     * @param accept true if the proposed call type is accepted, false otherwise.
+     * @param call Call which call type change to be confirmed/rejected.
+     */
+    public void modifyCallConfirm(boolean accept, Call call) {
+        log("VideoCall: ModifyCallConfirm: accept=" + accept + " call=" + call);
+        final int callId = call.getCallId();
+        int callType = accept ? CallUtils.getProposedCallType(call) : CallUtils.getCallType(call);
+        // CallCommandClient.getInstance().modifyCallConfirm(call.getCallId(), callType);
+    }
+
+    /**
+     * Handles modify call request and shows dialog to user for accepting or
+     * rejecting the modify call
+     */
+    public void onModifyCallRequest(int callId) {
+        final Call call = CallList.getInstance().getCall(callId);
+        if (call != null) {
+
+            final int currCallType = CallUtils.getCallType(call);
+            final int proposedCallType = CallUtils.getProposedCallType(call);
+            final boolean error = CallUtils.hasCallModifyFailed(call);
+
+            log("VideoCall onMoifyCallRequest: CallId = " + callId + " currCallType= "
+                    + currCallType
+                    + " proposedCallType= " + proposedCallType + " error=" + error);
+            if (isUserConsentRequired(proposedCallType, currCallType)) {
+                if (mInCallActivity != null) {
+                    mInCallActivity.displayModifyCallConsentDialog(call);
+                } else {
+                    Log.e(this, "VideoCall: onMoifyCallRequest: InCallActivity is null.");
+                }
+            }
+        } else {
+            loge("onModifyCallRequest: Can't find call with callId="+callId);
+        }
+    }
+
+    public void onAvpUpgradeFailure(String errorString) {
+        if (mInCallActivity != null) {
+            mInCallActivity.onAvpUpgradeFailure(errorString);
+        } else {
+            Log.e(this, "VideoCall: onAvpUpgradeFailure: InCallActivity is null.");
+            Log.e(this, "VideoCall: onAvpUpgradeFailure: error=" + errorString);
         }
     }
 
@@ -226,6 +318,8 @@ public class InCallPresenter implements CallList.Listener {
             CallCommandClient.getInstance().setSystemBarNavigationEnabled(true);
         }
 
+        onPhoneStateChange(newState, mInCallState);
+
         // Set the new state before announcing it to the world
         Log.i(this, "Phone switching state: " + mInCallState + " -> " + newState);
         mInCallState = newState;
@@ -245,6 +339,8 @@ public class InCallPresenter implements CallList.Listener {
     @Override
     public void onIncomingCall(Call call) {
         InCallState newState = startOrFinishUi(InCallState.INCOMING);
+
+        onPhoneStateChange(newState, mInCallState);
 
         Log.i(this, "Phone switching state: " + mInCallState + " -> " + newState);
         mInCallState = newState;
@@ -753,5 +849,37 @@ public class InCallPresenter implements CallList.Listener {
 
     public interface IncomingCallListener {
         public void onIncomingCall(InCallState state, Call call);
+    }
+
+    private void onPhoneStateChange(InCallState newState, InCallState oldState) {
+        if ( newState != oldState) {
+            initMediaHandler(newState);
+        }
+    }
+
+    private void initMediaHandler(InCallState newState) {
+        boolean hasImsCall = CallUtils.hasImsCall(CallList.getInstance());
+        Log.i(this, "initMediaHandler: hasImsCall: " + hasImsCall + " isImsMediaInitialized: " +
+                isImsMediaInitialized);
+
+        if (hasImsCall && !isImsMediaInitialized) {
+            isImsMediaInitialized = true;
+            VideoCallManager.getInstance(mContext).onMediaRequest(isImsMediaInitialized);
+        } else if (isImsMediaInitialized && !hasImsCall) {
+            isImsMediaInitialized = false;
+            VideoCallManager.getInstance(mContext).onMediaRequest(isImsMediaInitialized);
+        }
+    }
+
+    private boolean isUserConsentRequired(int callType, int prevCallType) {
+        return mVideoConsentTable[prevCallType][callType] == 1;
+    }
+
+    private void log(String msg) {
+        Log.d(this, msg);
+    }
+
+    private void loge(String msg) {
+        Log.e(this, msg);
     }
 }

@@ -247,6 +247,19 @@ public class CallHandlerService extends Service {
         mAudioModeProvider = null;
     }
 
+    public void doModifyCall(Call call) {
+        Log.d(TAG, "doModifyCall: Call:" + call);
+        if (call != null && mInCallPresenter != null && mCallList != null) {
+            Log.d(TAG, "doModifyCall: Updating CallList:" + mCallList.getCall(call.getCallId()));
+            mCallList.onUpdate(call);
+            mInCallPresenter.onModifyCallRequest(call);
+        } else {
+            Log.e(TAG, "doModifyCall: isCallValid=" + (call != null));
+            Log.e(TAG, "doModifyCall: isInCallPresenterValid=" + (mInCallPresenter != null));
+            Log.e(TAG, "doModifyCall: isCallListValid=" + (mCallList != null));
+        }
+    }
+
     /**
      * Handles messages from the service so that they get executed on the main thread, where they
      * can interact with UI.
@@ -323,6 +336,9 @@ public class CallHandlerService extends Service {
                 doStop();
                 break;
             case ON_UNSOL_CALLMODIFY:
+                Call call = (Call) msg.obj;
+                Log.i(TAG, "ON_UNSOL_CALLMODIFY: Call=" + call);
+                doModifyCall(call);
                 break;
             case ON_ACTIVE_SUB_CHANGE:
                 Log.i(TAG, "ON_ACTIVE_SUB_CHANGE: " + msg.obj);

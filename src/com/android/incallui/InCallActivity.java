@@ -493,13 +493,13 @@ public class InCallActivity extends Activity {
             public void onClick(DialogInterface dialog, int item) {
                 Toast.makeText(getApplicationContext(), items.get(item), Toast.LENGTH_SHORT).show();
                 final int selCallType = itemToCallType.get(item);
-                Log.d("Videocall",
-                        "ModifyCall called: upgrade to " + CallUtils.fromCallType(selCallType));
+                log("Videocall: ModifyCall: upgrade/downgrade to "
+                        + CallUtils.fromCallType(selCallType));
                 InCallPresenter.getInstance().sendModifyCallRequest(callId, selCallType);
                 dialog.dismiss();
             }
         };
-        int currCallType = CallUtils.getCallType( CallList.getInstance().getCall(callId));
+        int currCallType = CallUtils.getCallType(CallList.getInstance().getCall(callId));
         int index = itemToCallType.indexOf(currCallType);
         builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
         alert = builder.create();

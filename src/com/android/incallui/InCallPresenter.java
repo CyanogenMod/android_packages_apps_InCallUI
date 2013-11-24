@@ -32,6 +32,7 @@ import android.content.ActivityNotFoundException;
 
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.Capabilities;
+import com.android.services.telephony.common.CallDetails;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -181,12 +182,20 @@ public class InCallPresenter implements CallList.Listener {
 
     /**
      * Sends modify call request to the other party.
+     *
      * @param callId id of the call to modify.
      * @param callType Proposed call type.
      */
     public void sendModifyCallRequest(int callId, int callType) {
-        log("VideoCall: Sending modify call request. callId=" + callId + " callType=" + callType);
-        // CallCommandClient.getInstance().modifyCall(callId, callType);
+        log("VideoCall: Sending modify call request, callId=" + callId + " callType=" + callType);
+        Call call = CallList.getInstance().getCall(callId);
+        if (call != null && call.getCallModifyDetails() != null) {
+            CallDetails cd = call.getCallModifyDetails();
+            cd.setCallType(callType);
+            CallCommandClient.getInstance().modifyCallInitiate(callId, callType);
+        } else {
+            loge("VideoCall: Sending modify call request failed: call=" + call);
+        }
     }
 
     /**
@@ -197,26 +206,24 @@ public class InCallPresenter implements CallList.Listener {
      */
     public void modifyCallConfirm(boolean accept, Call call) {
         log("VideoCall: ModifyCallConfirm: accept=" + accept + " call=" + call);
-        final int callId = call.getCallId();
-        int callType = accept ? CallUtils.getProposedCallType(call) : CallUtils.getCallType(call);
-        // CallCommandClient.getInstance().modifyCallConfirm(call.getCallId(), callType);
+        CallCommandClient.getInstance().modifyCallConfirm(accept, call.getCallId());
     }
 
     /**
      * Handles modify call request and shows dialog to user for accepting or
      * rejecting the modify call
      */
-    public void onModifyCallRequest(int callId) {
-        final Call call = CallList.getInstance().getCall(callId);
-        if (call != null) {
+    public void onModifyCallRequest(Call call) {
+        Preconditions.checkNotNull(call);
+        final int callId = call.getCallId();
+        final int currCallType = CallUtils.getCallType(call);
+        final int proposedCallType = CallUtils.getProposedCallType(call);
+        final boolean error = CallUtils.hasCallModifyFailed(call);
 
-            final int currCallType = CallUtils.getCallType(call);
-            final int proposedCallType = CallUtils.getProposedCallType(call);
-            final boolean error = CallUtils.hasCallModifyFailed(call);
-
-            log("VideoCall onMoifyCallRequest: CallId = " + callId + " currCallType= "
-                    + currCallType
-                    + " proposedCallType= " + proposedCallType + " error=" + error);
+        log("VideoCall onMoifyCallRequest: CallId =" + callId + " currCallType="
+                + currCallType
+                + " proposedCallType= " + proposedCallType + " error=" + error);
+        try {
             if (isUserConsentRequired(proposedCallType, currCallType)) {
                 if (mInCallActivity != null) {
                     mInCallActivity.displayModifyCallConsentDialog(call);
@@ -224,8 +231,8 @@ public class InCallPresenter implements CallList.Listener {
                     Log.e(this, "VideoCall: onMoifyCallRequest: InCallActivity is null.");
                 }
             }
-        } else {
-            loge("onModifyCallRequest: Can't find call with callId="+callId);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Log.e(this, "VideoCall: onModifyCallRequest failed. ", e);
         }
     }
 

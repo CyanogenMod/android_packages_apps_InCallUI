@@ -191,6 +191,17 @@ public class InCallActivity extends Activity {
     public void onBackPressed() {
         Log.d(this, "onBackPressed()...");
 
+        if (mAnswerFragment.isVisible()) {
+            // The Back key, just like the Home key, is always disabled
+            // while an incoming call is ringing.  (The user *must* either
+            // answer or reject the call before leaving the incoming-call
+            // screen.)
+            Log.d(this, "BACK key while ringing: ignored");
+
+            // And consume this event; *don't* call super.onBackPressed().
+            return;
+        }
+
         // BACK is also used to exit out of any "special modes" of the
         // in-call UI:
 

@@ -608,7 +608,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
         switch (callState) {
             case Call.State.INCOMING:
-                //break; // TODO: Uncomment this once SurfaceTexuture issue is fixed.
+                break;
 
             case Call.State.DIALING:
             case Call.State.REDIALING:
@@ -646,6 +646,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mVideoCallPanel.setVisibility(View.VISIBLE);
         mVideoCallPanel.setPanelElementsVisibility(callType);
         mVideoCallPanel.startOrientationListener(true);
+        mVideoCallPanel.requestLayout();
     }
 
     /**

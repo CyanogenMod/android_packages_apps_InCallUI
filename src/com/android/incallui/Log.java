@@ -24,9 +24,8 @@ public class Log {
     // Generic tag for all In Call logging
     private static final String TAG = "InCall";
 
-    public static final boolean DEBUG = android.util.Log.isLoggable(TAG, android.util.Log.DEBUG);
-    public static final boolean VERBOSE = android.util.Log.isLoggable(TAG,
-            android.util.Log.VERBOSE);
+    public static final boolean DEBUG = true;
+    public static final boolean VERBOSE = true;
     public static final String TAG_DELIMETER = " - ";
 
     public static void d(String tag, String msg) {

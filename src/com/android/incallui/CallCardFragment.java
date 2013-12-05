@@ -149,6 +149,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mVideoCallPanel!=null) {
+            mVideoCallPanel.onDestroy();
+            mVideoCallPanel = null;
+        }
+    }
+
+    @Override
     public void setVisible(boolean on) {
         if (on) {
             getView().setVisibility(View.VISIBLE);

@@ -65,6 +65,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     // "Video Call" UI elements and state
     private ViewGroup mVideoCallPanel;
     private ZoomControlBar mZoomControl;
+
     private TextureView mFarEndView;
     private TextureView mCameraPreview;
     private SurfaceTexture mCameraSurface;
@@ -227,6 +228,14 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         // Set media event listener
         mVideoCallManager.setMediaEventListener(new MediaEventListener());
         mVideoCallManager.setCvoEventListener(new CvoListener());
+
+        releaseCachedSurfaces();
+    }
+
+    // The function must be called from the parent's onDestroy function.
+    public void onDestroy() {
+        log("onDestroy...");
+        releaseCachedSurfaces();
     }
 
     public void setCameraNeeded(boolean mCameraNeeded) {
@@ -317,7 +326,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
     public boolean isCameraInitNeeded() {
         if (DBG) {
-            log("isCameraInitNeeded mCameraNeeded=" + mCameraNeeded + " mCameraSurface= "
+            log("isCameraInitNeeded mCameraNeeded=" + mCameraNeeded + " CameraSurface= "
                     + mCameraSurface + " camera state = "
                     + mVideoCallManager.getCameraState());
         }
@@ -376,13 +385,32 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         if (surface.equals(mCameraPreview.getSurfaceTexture())) {
             if (DBG) log("Camera surface texture created");
-            mCameraSurface = surface;
+
+            // Use cached surface texture.
+            if (mCameraSurface==null) {
+                log("Caching camera surface texture.");
+                mCameraSurface = surface;
+            } else {
+                log("Resetting camera surface texture");
+                mCameraPreview.setSurfaceTexture(mCameraSurface);
+            }
+
+            // Initialize Camera as needed.
             if (isCameraInitNeeded()) {
                 initializeCamera();
             }
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
+
+            // Use cached surface texture.
             if (DBG) log("Video surface texture created");
-            mFarEndSurface = surface;
+            if (mFarEndSurface==null) {
+                log("Caching video surface texture.");
+                mFarEndSurface = surface;
+            } else {
+                log("Resetting video surface texture.");
+                mFarEndView.setSurfaceTexture(mFarEndSurface);
+            }
+
             mVideoCallManager.setFarEndSurface(mFarEndSurface);
         }
     }
@@ -393,11 +421,10 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
             if (DBG) log("CameraPreview surface texture destroyed");
             stopRecordingAndPreview();
             closeCamera();
-            mCameraSurface = null;
+            return false;
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
             if (DBG) log("FarEndView surface texture destroyed");
-            mFarEndSurface = null;
-            mVideoCallManager.setFarEndSurface(null);
+            return false;
         }
         return true;
     }
@@ -646,6 +673,22 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         if (mCameraId == CAMERA_UNKNOWN) {
             loge("chooseCamera " + chooseFrontCamera + " Both camera ids unknown");
         }
+    }
+
+    // Releases surface texture if it's not null.
+    private void release(SurfaceTexture s) {
+        if (s == null) return;
+        log("VideoCall: Releasing surface texture, " + s);
+        s.release();
+    }
+
+    private void releaseCachedSurfaces() {
+        release(mCameraSurface);
+        mCameraSurface = null;
+
+        release(mFarEndSurface);
+        mFarEndSurface = null;
+        mVideoCallManager.setFarEndSurface(mFarEndSurface);
     }
 
     public void startOrientationListener(boolean start) {

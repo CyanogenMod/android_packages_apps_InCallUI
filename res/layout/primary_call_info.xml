@@ -32,10 +32,6 @@
                android:contentDescription="@string/contactPhoto"
                android:src="@drawable/picture_unknown"/>
 
-    <!-- Layout to replace the InCallContactPhoto with the video call panel
-         for a VT call. By default this view is not visible -->
-    <include layout="@layout/invideocall_panel" />
-
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -193,6 +189,10 @@
                       android:singleLine="true"
                       android:ellipsize="end"/>
         </LinearLayout>
+
+        <!-- Layout to replace the InCallContactPhoto with the video call panel
+             for a VT call. By default this view is not visible -->
+        <include layout="@layout/invideocall_panel" />
 
     </LinearLayout>
 

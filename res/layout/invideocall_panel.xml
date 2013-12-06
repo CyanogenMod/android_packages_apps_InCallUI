@@ -30,7 +30,6 @@
  -->
 <com.android.incallui.VideoCallPanel xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/videoCallPanel"
-    android:layout_below="@+id/primary_call_banner"
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,15 +39,15 @@
     <!-- Row 1: The camera preview and the video stream from far end. -->
     <TextureView
         android:id="@+id/video_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
     <TextureView
         android:id="@+id/camera_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 

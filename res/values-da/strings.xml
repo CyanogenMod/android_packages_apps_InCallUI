@@ -590,7 +590,7 @@
     <string name="respond_via_sms_canned_response_2" msgid="4074450431532859214">"Jeg ringer tilbage lige om lidt."</string>
     <string name="respond_via_sms_canned_response_3" msgid="3496079065723960450">"Jeg ringer til dig senere."</string>
     <string name="respond_via_sms_canned_response_4" msgid="1698989243040062190">"Kan ikke tale nu. Ringer du senere?"</string>
-    <string name="respond_via_sms_custom_message" msgid="6158880869935281078">"Skriv dit eget..."</string>
+    <string name="respond_via_sms_custom_message" msgid="6158880869935281078">"Skriv dit eget svar..."</string>
     <string name="custom_message_cancel" msgid="7516406059429609296">"Annuller"</string>
     <string name="custom_message_send" msgid="5795754217085747742">"Send"</string>
     <string name="respond_via_sms_setting_title" msgid="3754000371039709383">"Hurtige svar"</string>
@@ -618,6 +618,9 @@
     <string name="description_target_answer" msgid="7205604197797472471">"Svar"</string>
     <string name="description_target_send_sms" msgid="2098326025587950144">"Send sms"</string>
     <string name="description_target_decline" msgid="4789834364389731957">"Afvis"</string>
+    <string name="description_direction_up" msgid="4441409581444516690">"Skub op for at <xliff:g id="TARGET_DESCRIPTION">%s</xliff:g>."</string>
+    <string name="description_direction_left" msgid="7129873384376533287">"Skub til venstre for at <xliff:g id="TARGET_DESCRIPTION">%s</xliff:g>."</string>
+    <string name="description_direction_right" msgid="2122584234531957308">"Skub til højre for at <xliff:g id="TARGET_DESCRIPTION">%s</xliff:g>."</string>
     <string name="voicemail_notification_vibrate_when_title" msgid="8361970092063604886">"Vibration"</string>
     <string name="voicemail_notification_vibarte_when_dialog_title" msgid="5739583146522136440">"Vibration"</string>
     <string name="voicemail_notification_ringtone_title" msgid="2609519527849101590">"Lyd"</string>
@@ -628,4 +631,5 @@
     <string name="dial_pad_autocomplete" msgid="494525952035761075">"Autofuldfør på num. tastatur"</string>
     <string name="preference_category_ringtone" msgid="5197960752529332721">"Ringetone og vibration"</string>
     <string name="manageConferenceLabel" msgid="4691922394301969053">"Administrer telefonmøde"</string>
+    <string name="emergency_call_dialog_number_for_display" msgid="8373041754188879871">"Nødnummer"</string>
 </resources>

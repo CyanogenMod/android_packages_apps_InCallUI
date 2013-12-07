@@ -1480,6 +1480,12 @@
     <string name="description_direction_up_left">Up Left</string>
     <string name="description_direction_down_left">Down Left</string>
     <string name="description_direction_down_right">Down Right</string>
+    <!-- Description of the up direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
+    <string name="description_direction_up">Slide up for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+    <!-- Description of the left direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
+    <string name="description_direction_left">"Slide left for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+    <!-- Description of the right direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
+    <string name="description_direction_right">Slide right for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
 
     <!-- Dialog title for the vibration settings for voicemail notifications [CHAR LIMIT=40] -->
     <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">Vibrate</string>
@@ -1535,4 +1541,6 @@
     <string name="sub_1">SUB 1</string>
     <!-- Set Subscription screen: label sub 2 -->
     <string name="sub_2">SUB 2</string>
+    <!-- This can be used in any application wanting to disable the text "Emergency number" -->
+    <string name="emergency_call_dialog_number_for_display">Emergency number</string>
 </resources>

@@ -78,10 +78,11 @@ public class InCallActivity extends Activity {
 
         // set this flag so this activity will stay in front of the keyguard
         // Have the WindowManager filter out touch events that are "too fat".
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+        int flags = WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-                | WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES);
+                | WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES;
+
+        getWindow().addFlags(flags);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -225,6 +226,13 @@ public class InCallActivity extends Activity {
             return;
         } else if (mConferenceManagerFragment.isVisible()) {
             mConferenceManagerFragment.setVisible(false);
+            return;
+        }
+
+        // Always disable the Back key while an incoming call is ringing
+        final Call call = CallList.getInstance().getIncomingCall();
+        if (call != null) {
+            Log.d(this, "Consume Back press for an inconing call");
             return;
         }
 
@@ -405,6 +413,14 @@ public class InCallActivity extends Activity {
      */
     public void hideDialpadForDisconnect() {
         mCallButtonFragment.displayDialpad(false);
+    }
+
+    public void dismissKeyguard(boolean dismiss) {
+        if (dismiss) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        }
     }
 
     public void displayDialpad(boolean showDialpad) {

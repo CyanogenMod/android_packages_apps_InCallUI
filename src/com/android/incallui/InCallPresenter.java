@@ -106,6 +106,14 @@ public class InCallPresenter implements CallList.Listener {
         return sInCallPresenter;
     }
 
+    public InCallState getInCallState() {
+        return mInCallState;
+    }
+
+    public CallList getCallList() {
+        return mCallList;
+    }
+
     public void setUp(Context context, CallList callList, AudioModeProvider audioModeProvider) {
         if (mServiceConnected) {
             Log.i(this, "New service connection replacing existing one.");
@@ -121,7 +129,7 @@ public class InCallPresenter implements CallList.Listener {
 
         mContactInfoCache = ContactInfoCache.getInstance(context);
 
-        mStatusBarNotifier = new StatusBarNotifier(context, mContactInfoCache, mCallList);
+        mStatusBarNotifier = new StatusBarNotifier(context, mContactInfoCache);
         addListener(mStatusBarNotifier);
 
         mAudioModeProvider = audioModeProvider;
@@ -348,6 +356,11 @@ public class InCallPresenter implements CallList.Listener {
                 == MSimTelephonyManager.MultiSimVariants.DSDA && (mInCallActivity != null)) {
             mInCallActivity.updateDsdaTab();
         }
+        if (isActivityStarted()) {
+            final boolean hasCall = callList.getActiveOrBackgroundCall() != null ||
+                    callList.getOutgoingCall() != null;
+            mInCallActivity.dismissKeyguard(hasCall);
+        }
     }
 
     /**
@@ -390,6 +403,10 @@ public class InCallPresenter implements CallList.Listener {
 
         // We need to do the run the same code as onCallListChange.
         onCallListChange(CallList.getInstance());
+
+        if (isActivityStarted()) {
+            mInCallActivity.dismissKeyguard(false);
+        }
     }
 
     /**
@@ -720,6 +737,7 @@ public class InCallPresenter implements CallList.Listener {
         } else if (newState == InCallState.NO_CALLS) {
             // The new state is the no calls state.  Tear everything down.
             attemptFinishActivity();
+            attemptCleanup();
         }
 
         return newState;

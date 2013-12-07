@@ -641,7 +641,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mVideoCallPanel.setVisibility(View.VISIBLE);
         mVideoCallPanel.setPanelElementsVisibility(callType);
         mVideoCallPanel.startOrientationListener(true);
-        mVideoCallPanel.requestLayout();
     }
 
     /**

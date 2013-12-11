@@ -367,16 +367,27 @@ public class CallList {
         if (call.getState() == Call.State.DISCONNECTED) {
             // update existing (but do not add!!) disconnected calls
             if (mCallMap.containsKey(id)) {
+                final Call.DisconnectCause disconnCause = call.getDisconnectCause();
+                Log.d(this, "disconnect cause: " + disconnCause);
+                if (disconnCause == Call.DisconnectCause.SRVCC_CALL_DROP) {
+                    Log.d(this, "SRVCC call so silently removing call entry");
+                    //silently remove the call entry
+                    call.setState(Call.State.IDLE);
+                    mCallMap.remove(id);
+                    updated = false;
+                } else {
 
-                // For disconnected calls, we want to keep them alive for a few seconds so that the
-                // UI has a chance to display anything it needs when a call is disconnected.
+                    // For disconnected calls, we want to keep them alive for a few seconds
+                    // so that the UI has a chance to display anything it needs when a
+                    // call is disconnected.
 
-                // Set up a timer to destroy the call after X seconds.
-                final Message msg = mHandler.obtainMessage(EVENT_DISCONNECTED_TIMEOUT, call);
-                mHandler.sendMessageDelayed(msg, getDelayForDisconnect(call));
+                    // Set up a timer to destroy the call after X seconds.
+                    final Message msg = mHandler.obtainMessage(EVENT_DISCONNECTED_TIMEOUT, call);
+                    mHandler.sendMessageDelayed(msg, getDelayForDisconnect(call));
 
-                mCallMap.put(id, call);
-                updated = true;
+                    mCallMap.put(id, call);
+                    updated = true;
+               }
             }
         } else if (!isCallDead(call)) {
             mCallMap.put(id, call);

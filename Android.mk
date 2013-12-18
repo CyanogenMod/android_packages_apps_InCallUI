@@ -4,6 +4,9 @@ include $(CLEAR_VARS)
 LOCAL_STATIC_JAVA_LIBRARIES := com.android.services.telephony.common \
         guava \
 
+LOCAL_JNI_SHARED_LIBRARIES := libvt_jni libimscamera_jni
+LOCAL_REQUIRED_MODULES := libvt_jni libimscamera_jni
+
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 LOCAL_PACKAGE_NAME := InCallUI

@@ -42,6 +42,9 @@ import android.util.Log;
  */
 public class MediaHandler extends Handler {
 
+    //Use QVGA as default resolution
+    private static final int DEFAULT_WIDTH = 240;
+    private static final int DEFAULT_HEIGHT = 320;
     public static final int DPL_INIT_SUCCESSFUL = 0;
     public static final int DPL_INIT_FAILURE = -1;
     public static final int DPL_INIT_MULTIPLE = -2;
@@ -61,11 +64,17 @@ public class MediaHandler extends Handler {
     private static native int nativeGetNegotiatedHeight();
     private static native int nativeGetNegotiatedWidth();
     private static native int nativeGetUIOrientationMode();
+    private static native int nativeGetPeerHeight();
+    private static native int nativeGetPeerWidth();
     private static native void nativeRegisterForMediaEvents(MediaHandler instance);
 
+    public static final int MEDIA_EVENT = 0;
+
+    //Following values are from the IMS VT API documentation
     public static final int PARAM_READY_EVT = 1;
     public static final int START_READY_EVT = 2;
     public static final int DISPLAY_MODE_EVT = 5;
+    public static final int PEER_RESOLUTION_CHANGE_EVT = 6;
 
     protected final RegistrantList mDisplayModeEventRegistrants
             = new RegistrantList();
@@ -84,7 +93,9 @@ public class MediaHandler extends Handler {
     private static int mUIOrientationMode = PORTRAIT_MODE;
     private static short mNegotiatedFps = 20;
 
-    private MediaEventListener mMediaEventListener;
+    private int mPeerHeight = DEFAULT_HEIGHT;
+    private int mPeerWidth = DEFAULT_WIDTH;
+    private IMediaEventListener mMediaEventListener;
     public RegistrantList mCvoModeOnRegistrant = new RegistrantList();
 
     // Use a singleton
@@ -106,10 +117,11 @@ public class MediaHandler extends Handler {
     private MediaHandler() {
     }
 
-    public interface MediaEventListener {
+    public interface IMediaEventListener {
         void onParamReadyEvent();
         void onDisplayModeEvent();
         void onStartReadyEvent();
+        void onPeerResolutionChangeEvent();
     }
 
     static {
@@ -223,6 +235,22 @@ public class MediaHandler extends Handler {
     }
 
     /**
+     * Get Peer Height
+     */
+    public int getPeerHeight() {
+        Log.d(TAG, "Peer Height = " + mPeerHeight);
+        return mPeerHeight;
+    }
+
+    /**
+     * Get Peer Width
+     */
+    public int getPeerWidth() {
+        Log.d(TAG, "Peer Width = " + mPeerWidth);
+        return mPeerWidth;
+    }
+
+    /**
      * Register for event that will invoke
      * {@link MediaHandler#onMediaEvent(int)}
      */
@@ -231,15 +259,11 @@ public class MediaHandler extends Handler {
         nativeRegisterForMediaEvents(instance);
     }
 
-    public void setMediaEventListener(MediaEventListener listener) {
+    public void setMediaEventListener(IMediaEventListener listener) {
         mMediaEventListener = listener;
     }
 
-    /**
-     * Callback method that is invoked when Media events occur
-     */
-    public void onMediaEvent(int eventId) {
-        Log.d(TAG, "onMediaEvent eventId = " + eventId);
+    private void doOnMediaEvent(int eventId) {
         switch (eventId) {
             case PARAM_READY_EVT:
                 Log.d(TAG, "Received PARAM_READY_EVT. Updating negotiated values");
@@ -248,6 +272,15 @@ public class MediaHandler extends Handler {
                 mNegotiatedFps = nativeGetNegotiatedFPS();
                 if (mMediaEventListener != null) {
                     mMediaEventListener.onParamReadyEvent();
+                }
+                break;
+            case PEER_RESOLUTION_CHANGE_EVT:
+                mPeerHeight = nativeGetPeerHeight();
+                mPeerWidth = nativeGetPeerWidth();
+                Log.d(TAG, "Received PEER_RESOLUTION_CHANGE_EVENT. Updating peer values"
+                        + " mPeerHeight=" + mPeerHeight + " mPeerWidth=" + mPeerWidth);
+                if (mMediaEventListener != null) {
+                    mMediaEventListener.onPeerResolutionChangeEvent();
                 }
                 break;
             case START_READY_EVT:
@@ -266,7 +299,25 @@ public class MediaHandler extends Handler {
             default:
                 Log.e(TAG, "Received unknown event id=" + eventId);
         }
+    }
 
+    /**
+     * Callback method that is invoked when Media events occur
+     */
+    public void onMediaEvent(int eventId) {
+        Log.d(TAG, "onMediaEvent eventId = " + eventId);
+        final Message msg = obtainMessage(MEDIA_EVENT, eventId, 0);
+        sendMessage(msg);
+    }
+
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+            case MEDIA_EVENT:
+                doOnMediaEvent(msg.arg1);
+                break;
+            default:
+                Log.e(TAG, "Received unknown msg id = " + msg.what);
+        }
     }
 
     private void processUIOrientationMode() {

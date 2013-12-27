@@ -249,7 +249,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
 
         // otherwise compare call Ids
-        return call1.getCallId() == call2.getCallId();
+        return (call1.getCallId() == call2.getCallId()) &&
+                call1.getCallDetails().isMpty() == call2.getCallDetails().isMpty();
     }
 
     private void maybeStartSearch(Call call, boolean isPrimary) {

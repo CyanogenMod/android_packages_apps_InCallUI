@@ -68,14 +68,13 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
         mContext = context;
         mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
-        updateProximitySensorBySetting();
-        Log.d(this, "onCreate: mProximityWakeLock: ", mProximityWakeLock);
-        context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI, true,
-                settingsObserver);
-
         mAccelerometerListener = new AccelerometerListener(context, this);
         mProximityListener = new ProximityListener(context);
         mAudioModeProvider = audioModeProvider;
+        context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI, true,
+                settingsObserver);
+        updateProximitySensorBySetting();
+        Log.d(this, "onCreate: mProximityWakeLock: ", mProximityWakeLock);
         mAudioModeProvider.addListener(this);
     }
 

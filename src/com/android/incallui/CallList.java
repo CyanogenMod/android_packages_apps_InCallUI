@@ -574,6 +574,22 @@ public class CallList {
     }
 
     /**
+     * Method to check if there is any live call in a sub other than the one supplied.
+     * @param currentSub  The subscription to exclude while checking for active calls.
+     */
+    public boolean isAnyOtherSubActive(int currentSub) {
+        boolean result = false;
+        for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
+            if ((i != currentSub) && existsLiveCall(i)) {
+                Log.d(this, "Live call found on another sub = " + i);
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Its a utility, gets the current active subscription from TeleService and
      * updates the mSubscription member variable.
      */

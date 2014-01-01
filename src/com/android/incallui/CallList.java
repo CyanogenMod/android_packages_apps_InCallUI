@@ -564,15 +564,18 @@ public class CallList {
      * This method checks whether any other subscription currently has active voice
      * call other than current active subscription, if yes it makes that other
      * subscription as active subscription i.e user visible subscription.
+     * @param retainLch  whether to retain the LCH state of the other active sub
      */
-    public boolean switchToOtherActiveSubscription() {
+    public boolean switchToOtherActiveSubscription(boolean retainLch) {
         int activeSub = getActiveSubscription();
         boolean subSwitched = false;
 
         for (int i = 0; i < MSimTelephonyManager.getDefault().getPhoneCount(); i++) {
             if ((i != activeSub) && existsLiveCall(i)) {
-                Log.i(this, "switchToOtherActiveSubscription, sub = " + i);
+                Log.i(this, "switchToOtherActiveSubscription, sub = " + i +
+                        " retainLch = " + retainLch);
                 subSwitched = true;
+                CallCommandClient.getInstance().setActiveSubscription(i, retainLch);
                 setActiveSubscription(i);
                 break;
             }

@@ -345,17 +345,25 @@ public class CallCommandClient {
         }
     }
 
-    public void setActiveSubscription(int subscriptionId) {
-        Log.i(this, "set active sub = " + subscriptionId);
+    public void setActiveSubscription(int subscriptionId, boolean retainLch) {
+        Log.i(this, "set active sub = " + subscriptionId + " retainLch = " + retainLch);
         if (mCommandService == null) {
             Log.e(this, "Cannot set active Sub; CallCommandService == null");
             return;
         }
         try {
-            mCommandService.setActiveSubscription(subscriptionId);
+            if (retainLch) {
+                mCommandService.setActiveSubRetainLch(subscriptionId);
+            } else {
+                mCommandService.setActiveSubscription(subscriptionId);
+            }
         } catch (RemoteException e) {
             Log.e(this, "Error setActiveSub.", e);
         }
+    }
+
+    public void setActiveSubscription(int subscriptionId) {
+        setActiveSubscription(subscriptionId, false);
     }
 
     public int getActiveSubscription() {

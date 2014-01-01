@@ -217,8 +217,12 @@ public class MSimInCallActivity extends InCallActivity {
 
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             ActionBar bar = getActionBar();
-
-            if (CallList.getInstance().existsLiveCall(mSubscription)) {
+            int tabCount = bar.getTabCount();
+            //Don't setActiveSubscription if tab count is 1.This is to avoid
+            //setting active subscription automatically when call on one sub
+            //ends and it's corresponding tab is removed.For such cases active
+            //subscription will be set by InCallPresenter.attemptFinishActivity.
+            if (tabCount != TAB_COUNT_ONE && CallList.getInstance().existsLiveCall(mSubscription)) {
                 CallCommandClient.getInstance().setActiveSubscription(mSubscription);
             }
         }

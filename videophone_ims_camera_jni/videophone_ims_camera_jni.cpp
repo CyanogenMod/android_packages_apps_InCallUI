@@ -47,6 +47,26 @@ static jint dpl_cameraOpen(JNIEnv *e, jobject o, jint cameraId) {
     return IMS_API_ACCESS_ERROR;
 }
 
+static jint dpl_cameraOpenWithPackage(JNIEnv *e, jobject o, jint cameraId, jstring packageName) {
+    ALOGD("%s", __func__);
+
+    jint status = IMS_API_ACCESS_ERROR;
+    if (e && ims_cam_apis && ims_cam_apis->cameraOpenWithPackage && cameraId >= 0) {
+
+        const char16_t* buffer = e->GetStringChars(packageName, NULL);
+        if (buffer != NULL) {
+            const jsize bufferLength = e->GetStringLength(packageName);
+            android::String16 pn(buffer, bufferLength);
+            e->ReleaseStringChars(packageName, buffer);
+
+            status = ims_cam_apis->cameraOpenWithPackage(cameraId, &pn);
+        } else {
+            ALOGD("%s: GetStringUTFChars failed", __func__);
+        }
+    }
+    return status;
+}
+
 short dpl_cameraRelease(JNIEnv *e, jobject o) {
     ALOGD("%s", __func__);
 
@@ -168,6 +188,7 @@ short dpl_cameraSetFpsRange(JNIEnv *e, jobject o, jint fps) {
 JNINativeMethod sMethods[] =
 {
     {"native_open", "(I)S", (void *)dpl_cameraOpen},
+    {"native_open", "(ILjava/lang/String;)S", (void *)dpl_cameraOpenWithPackage},
     {"native_release", "()S", (void *)dpl_cameraRelease},
     {"native_startPreview", "()S", (void *)dpl_cameraStartPreview},
     {"native_stopPreview", "()S", (void *)dpl_cameraStopPreview},
@@ -187,6 +208,7 @@ JNINativeMethod sMethods[] =
 #define IMPL_LIB_PROPERTY_NAME "imscamera.impl.lib"
 
 #define IMPL_CAM_SYM_OPEN    "cameraOpen"
+#define IMPL_CAM_SYM_OPEN_WITH_PACKAGE   "cameraOpen2"
 #define IMPL_CAM_SYM_RELEASE "cameraRelease"
 #define IMPL_CAM_SYM_START_PREVIEW "startCameraPreview"
 #define IMPL_CAM_SYM_STOP_PREVIEW "stopCameraPreview"
@@ -213,7 +235,8 @@ struct ImsCameraImplApis *ims_camera_load_impl_lib(const char *path)
     ret = (ImsCameraImplApis *)calloc(sizeof(struct ImsCameraImplApis), 1);
     if (!ret) goto close_and_finish;
 
-    ret->cameraOpen = (ImsCameraOpenFun) dlsym(handle, IMPL_CAM_SYM_OPEN);
+    ret->cameraOpen = (ImsCameraOpenFunc) dlsym(handle, IMPL_CAM_SYM_OPEN);
+    ret->cameraOpenWithPackage = (ImsCameraOpenFuncWithPackage) dlsym(handle, IMPL_CAM_SYM_OPEN_WITH_PACKAGE);
     ret->cameraRelease = (ImsCamImplInt16VoidFunc) dlsym(handle, IMPL_CAM_SYM_RELEASE);
     ret->startCameraPreview = (ImsCamImplInt16VoidFunc) dlsym(handle, IMPL_CAM_SYM_START_PREVIEW);
     ret->stopCameraPreview = (ImsCamImplInt16VoidFunc) dlsym(handle, IMPL_CAM_SYM_STOP_PREVIEW);

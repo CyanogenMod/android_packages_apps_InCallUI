@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Country;
 import android.location.CountryDetector;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.PhoneLookup;
@@ -517,7 +518,22 @@ public class CallerInfo {
      */
     public void updateGeoDescription(Context context, String fallbackNumber) {
         String number = TextUtils.isEmpty(phoneNumber) ? fallbackNumber : phoneNumber;
-        geoDescription = getGeoDescription(context, number);
+        Uri CONTENT_URI = Uri.parse("content://geocoded_location/location");
+        String METHOD_QUERY = "getLocation";
+        String RESULT_ADDRESS = "location";
+        String address = null;
+        if (context.getContentResolver().acquireProvider(CONTENT_URI) != null) {
+            Bundle result = context.getContentResolver().call(CONTENT_URI, METHOD_QUERY, number,
+                    null);
+            if (result != null) {
+                address = result.getString(RESULT_ADDRESS);
+            }
+        }
+        if (address != null) {
+            geoDescription = address;
+        } else {
+            geoDescription = getGeoDescription(context, number);
+        }
     }
 
     /**

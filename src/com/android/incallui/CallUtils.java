@@ -37,7 +37,8 @@ public class CallUtils {
     public static boolean isVideoCall(int callType) {
         return callType == CallDetails.CALL_TYPE_VT ||
                 callType == CallDetails.CALL_TYPE_VT_TX ||
-                callType == CallDetails.CALL_TYPE_VT_RX;
+                callType == CallDetails.CALL_TYPE_VT_RX ||
+                callType == CallDetails.CALL_TYPE_VT_NODIR;
     }
 
     public static int getCallType(Call call) {
@@ -98,8 +99,7 @@ public class CallUtils {
         if (call == null) return false;
         Preconditions.checkNotNull(call.getCallDetails());
         final int callType = call.getCallDetails().getCallType();
-        final boolean isImsVideoCall = isVideoCall(call) ||
-                (callType == CallDetails.CALL_TYPE_VT_NODIR);
+        final boolean isImsVideoCall = isVideoCall(call);
         final boolean isImsVoiceCall = (callType == CallDetails.CALL_TYPE_VOICE
                 && call.getCallDetails().getCallDomain() == CallDetails.CALL_DOMAIN_PS);
         return isImsVideoCall || isImsVoiceCall;

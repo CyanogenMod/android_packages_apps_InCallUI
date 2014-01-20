@@ -15,47 +15,19 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        android:sharedUserId="com.android.dialer"
         package="com.android.incallui"
         coreApp="true" >
 
-    <original-package android:name="com.android.incallui" />
-
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
+    <!--
+        The real code for InCallUI is included in Dialer. This APK only exists
+        to ensure that the com.android.incallui process is marked as persistent
+        since less powerful devices may not be able to initiate the process
+        in time when the process is killed and an incoming call is received.
+    -->
     <application
-            android:name="InCallApp"
-            android:label="@string/inCallLabel"
-            android:supportsRtl="true">
-
-        <!-- Main in-call UI activity.  This is never launched directly
-             from outside the phone app; instead, it's either launched by
-             the OutgoingCallBroadcaster (for outgoing calls), or as the
-             fullScreenIntent of a notification (for incoming calls.) -->
-        <activity android:name=".InCallActivity"
-                  android:theme="@style/Theme.InCallScreen"
-                  android:label="@string/inCallLabel"
-                  android:excludeFromRecents="true"
-                  android:launchMode="singleInstance"
-                  android:screenOrientation="nosensor"
-                  android:configChanges="keyboardHidden"
-                  android:exported="false">
-        </activity>
-
-        <service android:name="CallHandlerService">
-            <intent-filter>
-                <action android:name="com.android.services.telephony.common.ICallHandlerService" />
-            </intent-filter>
-        </service>
-
-        <!-- BroadcastReceiver for receiving Intents from Notification mechanism. -->
-        <receiver android:name="InCallApp$NotificationBroadcastReceiver" exported="false">
-            <intent-filter>
-                <action android:name="com.android.incallui.ACTION_HANG_UP_ONGOING_CALL" />
-            </intent-filter>
-        </receiver>
-
+        android:persistent="true"
+        android:hasCode="false"
+        >
     </application>
 </manifest>

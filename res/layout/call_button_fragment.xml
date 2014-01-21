@@ -164,7 +164,18 @@
         <ImageButton android:id="@+id/overflowButton"
             style="@style/InCallButton"
             android:background="@drawable/btn_overflow"
+<<<<<<< HEAD
             android:contentDescription="@string/onscreenOverflowText" />
+=======
+            android:contentDescription="@string/onscreenOverflowText"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/moreMenuButton"
+            style="@style/InCallButton"
+            android:background="@drawable/btn_overflow"
+            android:contentDescription="@string/onscreenMoreMenuText" />
+>>>>>>> InCallUI: Port "Add to blacklist" support to in-call ui (1 of 2)
 
     </LinearLayout>
 

@@ -24,6 +24,9 @@ import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.Capabilities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.telephony.PhoneNumberUtils;
 
 /**
@@ -202,6 +205,28 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     public void swapClicked() {
         CallCommandClient.getInstance().swap();
+    }
+
+    public void blacklistClicked(final Context context) {
+        if (mCall == null) {
+            return;
+        }
+
+        final String number = mCall.getNumber();
+        final String message = context.getString(R.string.blacklist_dialog_message, number);
+
+        new AlertDialog.Builder(context)
+            .setTitle(R.string.blacklist_dialog_title)
+            .setMessage(message)
+            .setPositiveButton(R.string.alert_dialog_yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d(this, "hanging up due to blacklist: " + mCall.getCallId());
+                    CallCommandClient.getInstance().blacklistAndHangup(mCall.getCallId());
+                }
+            })
+            .setNegativeButton(R.string.alert_dialog_no, null)
+            .show();
     }
 
     public void showDialpadClicked(boolean checked) {

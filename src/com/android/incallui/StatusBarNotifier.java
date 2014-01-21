@@ -30,6 +30,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.telecom.PhoneAccount;
+import android.telecom.PhoneCapabilities;
 import android.text.TextUtils;
 
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
@@ -437,13 +438,25 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         // different calls.  So if both lines are in use, display info
         // from the foreground call.  And if there's a ringing call,
         // display that regardless of the state of the other calls.
+        int resId;
+        boolean voicePrivacy = call.can(PhoneCapabilities.VOICE_PRIVACY);
         if (call.getState() == Call.State.ONHOLD) {
-            return R.drawable.ic_phone_paused_white_24dp;
+            if (voicePrivacy) {
+                resId = R.drawable.stat_sys_vp_phone_call_on_hold;
+            } else {
+                resId =  R.drawable.ic_phone_paused_white_24dp;
+            }
         } else if (call.getSessionModificationState()
                 == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
-            return R.drawable.ic_videocam;
+            resId =  R.drawable.ic_videocam;
+        } else {
+            if (voicePrivacy) {
+                resId =  R.drawable.stat_sys_vp_phone_call;
+            } else {
+                resId =  R.drawable.ic_call_white_24dp;
+            }
         }
-        return R.drawable.ic_call_white_24dp;
+        return resId;
     }
 
     /**

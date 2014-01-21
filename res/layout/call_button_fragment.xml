@@ -177,7 +177,7 @@
         <ImageButton
             android:id="@+id/moreMenuButton"
             style="@style/InCallButton"
-            android:src="@drawable/ic_menu_overflow_lt"
+            android:background="@drawable/btn_overflow"
             android:contentDescription="@string/onscreenMoreMenuText" />
 
     </LinearLayout>

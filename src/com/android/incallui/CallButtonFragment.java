@@ -21,9 +21,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
 import android.telecom.AudioState;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
@@ -41,6 +39,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import com.android.internal.telephony.util.BlacklistUtils;
 
 import java.util.ArrayList;
 
@@ -136,11 +135,13 @@ public class CallButtonFragment
         mMoreMenuButton = (ImageButton) parent.findViewById(R.id.moreMenuButton);
         if (mMoreMenuButton != null) {
             boolean canRecordCalls = ((InCallActivity)getActivity()).isCallRecorderEnabled();
-            if (canRecordCalls) {
+            boolean blacklistEnabled = BlacklistUtils.isBlacklistEnabled(getActivity());
+            if (canRecordCalls || blacklistEnabled) {
                 mMoreMenuButton.setOnClickListener(this);
-                mMoreMenu = new MorePopupMenu(parent.getContext(), mMoreMenuButton);
-
-                mMoreMenu.inflate(R.menu.incall_more_menu);
+                final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
+                        R.style.InCallPopupMenuStyle);
+                mMoreMenu = new MorePopupMenu(contextWrapper, mMoreMenuButton /* anchorView */);
+                mMoreMenu.getMenuInflater().inflate(R.menu.incall_more_menu, mMoreMenu.getMenu());
                 mMoreMenu.setOnMenuItemClickListener(this);
 
                 mMoreMenuButton.setOnTouchListener(mMoreMenu.getDragToOpenListener());
@@ -582,6 +583,10 @@ public class CallButtonFragment
             case R.id.menu_stop_record:
                 ((InCallActivity)getActivity()).stopInCallRecorder();
 
+                return true;
+
+            case R.id.menu_add_to_blacklist:
+                getPresenter().blacklistClicked(getActivity());
                 return true;
 
             default:

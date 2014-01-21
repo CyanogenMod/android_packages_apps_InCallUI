@@ -36,4 +36,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <item
         android:id="@+id/menu_stop_record"
         android:title="@string/menu_stop_record" />
+
+    <item
+        android:id="@+id/menu_add_to_blacklist"
+        android:title="@string/add_to_black_list"/>
 </menu>

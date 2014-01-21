@@ -451,10 +451,22 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         // different calls.  So if both lines are in use, display info
         // from the foreground call.  And if there's a ringing call,
         // display that regardless of the state of the other calls.
+        int resId;
+        int voicePrivacy = call.getCapabilities() & Call.Capabilities.VOICE_PRIVACY;
         if (call.getState() == Call.State.ONHOLD) {
-            return R.drawable.stat_sys_phone_call_on_hold;
+            if (voicePrivacy != 0) {
+                resId = R.drawable.stat_sys_vp_phone_call_on_hold;
+            } else {
+                resId = R.drawable.stat_sys_phone_call_on_hold;
+            }
+        } else {
+            if (voicePrivacy != 0) {
+                resId = R.drawable.stat_sys_vp_phone_call;
+            } else {
+                resId = R.drawable.stat_sys_phone_call;
+            }
         }
-        return R.drawable.stat_sys_phone_call;
+        return resId;
     }
 
     /**

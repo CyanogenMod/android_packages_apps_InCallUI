@@ -127,6 +127,17 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         }
 
         @Override
+        public void onPlayerStateChanged(int state) {
+            if (state == MediaHandler.PLAYER_STATE_STARTED) {
+                log("PLAYER_STARTED");
+            } else if (state == MediaHandler.PLAYER_STATE_STOPPED) {
+                log("PLAYER_STOPPED");
+            } else {
+                log("UNKOWN_STATE");
+            }
+        }
+
+        @Override
         public void onDisplayModeEvent() {
             // NO-OP
         }

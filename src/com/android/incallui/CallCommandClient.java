@@ -259,6 +259,19 @@ public class CallCommandClient {
         }
     }
 
+    public void deflectCall(int callId, String number) {
+        if (mCommandService == null) {
+            Log.e(this, "Cannot deflectCall(); CallCommandService == null");
+            return;
+        }
+        try{
+            Log.v(this, "deflectCall() ");
+            mCommandService.deflectCall(callId, number);
+        } catch (RemoteException e) {
+            Log.e(this, "Error on deflectCall().", e);
+        }
+    }
+
     public void modifyCallInitiate(int callId, int callType) {
         if (mCommandService == null) {
             Log.e(this, "Cannot modifyCall(); CallCommandService == null");

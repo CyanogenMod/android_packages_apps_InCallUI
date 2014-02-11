@@ -860,6 +860,12 @@ public class InCallPresenter implements CallList.Listener {
         }
     }
 
+    public void onSuppServiceFailed(int service) {
+        if (mInCallActivity != null) {
+            mInCallActivity.onSuppServiceFailed(service);
+        }
+    }
+
     /**
      * Private constructor. Must use getInstance() to get this singleton.
      */

@@ -908,7 +908,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         if (Call.State.ACTIVE == state) {
             mVBButton.setVisibility(View.VISIBLE);
-        } else if (Call.State.DISCONNECTED == state) {
+        } else if (Call.State.DISCONNECTED == state || Call.State.IDLE == state) {
             if (!CallList.getInstance().existsLiveCall()
                     && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
                 mVBButton.setVisibility(View.INVISIBLE);

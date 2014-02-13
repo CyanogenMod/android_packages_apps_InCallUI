@@ -375,6 +375,12 @@ public class CallHandlerService extends Service {
      * Whenever call audio device change, turn off volume boost function.
      * */
     private void updateVBStatus(int newMode) {
+        /* When normal call audio mode changed, disable the volume boost */
+        if (!(newMode == AudioMode.EARPIECE || newMode == AudioMode.BLUETOOTH
+                || newMode == AudioMode.WIRED_HEADSET || newMode == AudioMode.SPEAKER)) {
+            return;
+        }
+
         if (newMode != mAudioModeProvider.getAudioMode()
                 && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
             mAudioManager.setParameters(VOLUME_BOOST + "=off");

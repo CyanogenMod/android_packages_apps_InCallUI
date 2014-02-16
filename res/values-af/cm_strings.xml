@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="incall_call_type_label_forwarded">Aangestuurde oproep</string>
+    <string name="card_title_dialing_waiting">Skakel (wag\u2026)</string>
+    <string name="card_title_waiting_call">Gewagde oproep</string>
+    <string name="onscreenBlacklistText">Swartlys</string>
+    <string name="blacklist_dialog_title">Voeg by swartlys</string>
+    <string name="blacklist_dialog_message">Toekomstige oproepe van <xliff:g id="number">%s</xliff:g> sal geblokkeer word</string>
+    <string name="throttle_status_subtext"><xliff:g id="used">%1$s</xliff:g> (<xliff:g id="used">%2$d</xliff:g>\u066A) van <xliff:g id="used">%3$s</xliff:g> tydperk maksimum\nvolgende tydperk begin in <xliff:g id="used">%4$d</xliff:g> dae (<xliff:g id="used">%5$s</xliff:g>)</string>
+    <string name="throttle_time_frame_subtext"><xliff:g id="used">%1$d</xliff:g>\u066A van siklus verloop\nvolgende tydperk begin in <xliff:g id="used">%2$d</xliff:g> dae (<xliff:g id="used">%3$s</xliff:g>)</string>
+</resources>

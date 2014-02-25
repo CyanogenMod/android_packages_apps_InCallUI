@@ -370,8 +370,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             updateExtraButtonRow();
 
             boolean canRecord = CallRecorder.getInstance().isEnabled() &&
-                    CallList.getInstance().getActiveCall() != null;
+                CallList.getInstance().getActiveCall() != null;
             ui.showRecording(canRecord);
+        } else {
+            ui.enableAddParticipant(false);
+            ui.showModifyCall(false);
         }
     }
 

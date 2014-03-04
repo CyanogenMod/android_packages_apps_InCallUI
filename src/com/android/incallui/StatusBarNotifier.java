@@ -334,7 +334,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         if (contentResId == R.string.notification_dialing) {
             int sub = call.getSubscription();
             String name = Settings.System.getString(mContext.getContentResolver(),
-                    MULTI_SIM_NAME + sub);
+                    MULTI_SIM_NAME + (sub + 1));
             contentText +=  "  (" + name + ")";
         }
         builder.setContentText(contentText);

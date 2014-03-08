@@ -127,23 +127,23 @@
     <!-- In-call screen: button label on the "modify call" prompt dialog for IMS call-->
     <string name="modify_call_prompt_no">No</string>
     <!-- In-call screen: Modify call request failure. -->
-    <string name="modify_call_failure_str">Modify Call request failed\n</string>
+    <string name="modify_call_failure_str">Request to modify call failed\n</string>
 
     <!-- In-call screen: Modify Call Options for IMS call -->
-    <string name="modify_call_option_title">Which type of call?</string>
+    <string name="modify_call_option_title">Select type of call</string>
     <string name="modify_call_option_vt">VT</string>
     <string name="modify_call_option_vt_tx">Video transmit</string>
     <string name="modify_call_option_vt_rx">Video receive</string>
-    <string name="modify_call_option_voice">Voice Only</string>
+    <string name="modify_call_option_voice">Voice only</string>
 
     <!-- In-call screen: Incoming Modify Call for IMS call -->
-    <string name="accept_modify_call_request_prompt">Accept modify call request?</string>
+    <string name="accept_modify_call_request_prompt">Accept request to modify call?</string>
     <string name="upgrade_vt_prompt">Would you like to upgrade the call to video call?</string>
     <string name="upgrade_vt_tx_prompt">Would you like to upgrade the call to video transmit only call?</string>
     <string name="upgrade_vt_rx_prompt">Would you like to upgrade the call to video receive only call?</string>
 
     <!-- In-call screen: VT call dpl init failure. -->
-    <string name="vt_init_fail_str">VT initialization failed. Downgrading call to VoLTE\n</string>
+    <string name="vt_init_fail_str">Video transmit initialization failed. Downgrading call to VoLTE\n</string>
 
     <!-- missing voicemail number -->
     <!-- Title of the "Missing voicemail number" dialog -->
@@ -919,7 +919,7 @@
     <!-- Text for the onscreen "End call" button -->
     <string name="onscreenEndCallText">End</string>
     <!-- Text for the onscreen "Modify call" button -->
-    <string name="onscreenModifyCallText">Modify Call</string>
+    <string name="onscreenModifyCallText">Modify call</string>
     <!-- Text for the onscreen "Show Dialpad" button -->
     <string name="onscreenShowDialpadText">Dialpad</string>
     <!-- Text for the onscreen "Mute" button -->
@@ -941,7 +941,7 @@
          to a video call. [CHAR LIMIT=10] -->
     <string name="onscreenVideoCallText">Video call</string>
     <!-- Text for the onscreen "Add Participant" button -->
-    <string name="onscreenAddParticipant">Add Participant</string>
+    <string name="onscreenAddParticipant">Add participant</string>
 
     <!-- Menu item label in SIM Contacts: Import a single contact entry from the SIM card -->
     <string name="importSimEntry">Import</string>
@@ -1461,11 +1461,11 @@
     <!-- Description of the answer target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
     <string name="description_target_answer">Answer</string>
     <!-- Description of the answer voice only target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
-    <string name="description_target_answer_video">Answer with Video</string>
+    <string name="description_target_answer_video">Answer with video</string>
     <!-- Description of the answer voice only target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
-    <string name="description_target_answer_tx_video">Answer with TX Video</string>
+    <string name="description_target_answer_tx_video">Answer with TX video</string>
     <!-- Description of the answer voice only target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
-    <string name="description_target_answer_rx_video">Answer with RX Video</string>
+    <string name="description_target_answer_rx_video">Answer with RX video</string>
     <!-- Description of the send_sms target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
     <string name="description_target_send_sms">Send SMS</string>
     <!-- Description of the decline on target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
@@ -1479,10 +1479,10 @@
     <string name="description_direction_right">Slide right for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
 
     <!-- Description of the answer directions in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_up_right">Up Right</string>
-    <string name="description_direction_up_left">Up Left</string>
-    <string name="description_direction_down_left">Down Left</string>
-    <string name="description_direction_down_right">Down Right</string>
+    <string name="description_direction_up_right">Up right</string>
+    <string name="description_direction_up_left">Up left</string>
+    <string name="description_direction_down_left">Down left</string>
+    <string name="description_direction_down_right">Down right</string>
 
     <!-- Dialog title for the vibration settings for voicemail notifications [CHAR LIMIT=40] -->
     <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">Vibrate</string>

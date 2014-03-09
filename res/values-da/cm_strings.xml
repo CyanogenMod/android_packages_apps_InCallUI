@@ -21,7 +21,4 @@
     <string name="onscreenBlacklistText">Sortliste</string>
     <string name="blacklist_dialog_title">Føj til sortliste</string>
     <string name="blacklist_dialog_message">Fremtidige opkald fra <xliff:g id="number">%s</xliff:g> vil blive blokeret</string>
-    <string name="throttle_status_subtext"><xliff:g id="used">%1$s</xliff:g> (<xliff:g id="used">%2$d</xliff:g>\u066A) af <xliff:g id="used">%3$s</xliff:g> periode-maksimum\nNæste periode starter om <xliff:g id="used">%4$d</xliff:g> dage (<xliff:g id="used">%5$s</xliff:g>)</string>
-    <string name="throttle_data_usage_subtext"><xliff:g id="used">%1$s</xliff:g> (<xliff:g id="used">%2$d</xliff:g>\u066A) af <xliff:g id="used">%3$s</xliff:g> periode-maksimum</string>
-    <string name="throttle_time_frame_subtext"><xliff:g id="used">%1$d</xliff:g>\u066A af cyklus gået\nNæste periode starter om <xliff:g id="used">%2$d</xliff:g> dage (<xliff:g id="used">%3$s</xliff:g>)</string>
 </resources>

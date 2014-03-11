@@ -116,6 +116,8 @@ public class CallList {
         // will switch active sub to a wrong sub(which is not ringing)
         if (MSimTelephonyManager.getDefault().isMultiSimEnabled())
             CallCommandClient.getInstance().setActiveSubscription(call.getSubscription());
+        // will switch active sub to to a incorrect sub(which is not ringing)
+        CallCommandClient.getInstance().setActiveSubscription(call.getSubscription());
         updateActiveSuscription();
 
         updateCallInMap(call);

@@ -606,7 +606,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private void updateVideoCallState(int callState, int callType) {
         log("  - Videocall.state: " + callState);
 
-        // Null check
         if (mVideoCallPanel == null) {
             loge("VideocallPanel is null");
             return;

@@ -52,6 +52,8 @@ public class VideoCallManager {
     private CameraHandler mCameraHandler;
     private MediaHandler mMediaHandler;
     private CvoHandler mCvoHandler;
+    private final VideoPauseController mVideoPauseController;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -90,6 +92,7 @@ public class VideoCallManager {
         mCvoHandler = new CvoHandler(context);
         mMediaHandler.registerForCvoModeRequestChanged(mHandler, CVO_MODE_REQUEST_CHANGED, null);
         mCvoHandler.registerForCvoInfoChange(mHandler, CVO_INFO_CHANGED, null);
+        mVideoPauseController = new VideoPauseController(context, CallCommandClient.getInstance());
     }
 
     private void notifyCvoClient(int orientation) {
@@ -336,11 +339,15 @@ public class VideoCallManager {
         return aspectRatio;
     }
 
-    private void log(String msg) {
+    private static void log(String msg) {
         Log.d(TAG, msg);
     }
 
-    private void loge(String msg) {
+    private static void loge(String msg) {
         Log.e(TAG, msg);
+    }
+
+    public VideoPauseController getVideoPauseController() {
+        return mVideoPauseController;
     }
 }

@@ -386,14 +386,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         if (surface.equals(mCameraPreview.getSurfaceTexture())) {
             if (DBG) log("Camera surface texture created");
 
-            // Use cached surface texture.
-            if (mCameraSurface==null) {
-                log("Caching camera surface texture.");
-                mCameraSurface = surface;
-            } else {
-                log("Resetting camera surface texture");
-                mCameraPreview.setSurfaceTexture(mCameraSurface);
-            }
+            mCameraSurface = surface;
 
             // Initialize Camera as needed.
             if (isCameraInitNeeded()) {
@@ -421,7 +414,8 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
             if (DBG) log("CameraPreview surface texture destroyed");
             stopRecordingAndPreview();
             closeCamera();
-            return false;
+            mCameraSurface = null;
+            return true;
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
             if (DBG) log("FarEndView surface texture destroyed");
             return false;
@@ -683,9 +677,6 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     private void releaseCachedSurfaces() {
-        release(mCameraSurface);
-        mCameraSurface = null;
-
         release(mFarEndSurface);
         mFarEndSurface = null;
         mVideoCallManager.setFarEndSurface(mFarEndSurface);

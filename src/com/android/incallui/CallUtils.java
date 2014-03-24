@@ -73,8 +73,9 @@ public class CallUtils {
     }
 
     public static boolean isVideoCall(Call call) {
-        Preconditions.checkNotNull(call);
-        Preconditions.checkNotNull(call.getCallDetails());
+        if (call == null || call.getCallDetails() == null) {
+            return false;
+        }
         return isVideoCall(call.getCallDetails().getCallType());
     }
 

@@ -182,6 +182,11 @@ public class InCallActivity extends Activity {
             registerReceiver(mLidStateChangeReceiver, new IntentFilter(
                     WindowManagerPolicy.ACTION_LID_STATE_CHANGED));
         }
+
+        final Call call = CallList.getInstance().getIncomingCall();
+        if (call != null) {
+            CallCommandClient.getInstance().setSystemBarNavigationEnabled(false);
+        }
     }
 
     // onPause is guaranteed to be called when the InCallActivity goes
@@ -199,6 +204,8 @@ public class InCallActivity extends Activity {
         mDialpadFragment.onDialerKeyUp(null);
 
         InCallPresenter.getInstance().onUiShowing(false);
+
+        CallCommandClient.getInstance().setSystemBarNavigationEnabled(true);
     }
 
     @Override

@@ -23,7 +23,6 @@ package com.android.incallui;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import com.android.internal.telephony.Phone;
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.State;
 import com.android.services.telephony.common.CallDetails;
@@ -65,6 +64,11 @@ public class InCallActivity extends Activity {
 
     /** Use to pass 'showDialpad' from {@link #onNewIntent} to {@link #onResume} */
     private boolean mShowDialpadRequested;
+
+    // This enum maps to Phone.SuppService defined in telephony
+    private enum SuppService {
+        UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
+    }
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -617,7 +621,7 @@ public class InCallActivity extends Activity {
      */
     void onSuppServiceFailed(int service) {
         Log.d(this, "onSuppServiceFailed: " + service);
-        Phone.SuppService  result = Phone.SuppService.values()[service];
+        SuppService  result = SuppService.values()[service];
         int errorMessageResId;
 
         switch (result) {

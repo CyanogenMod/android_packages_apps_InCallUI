@@ -337,7 +337,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             String sub = getString(R.string.multi_sim_entry_format, operatorName,
                     subscription + 1);
 
-            if (subscription != -1) {
+            if ((subscription != -1) && (!isSipCall)){
                 showSubscriptionInfo(sub);
             }
         }

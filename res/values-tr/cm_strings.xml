@@ -16,10 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_call_type_label_forwarded">Viderestillet opkald</string>
-  <string name="card_title_dialing_waiting">Ringer op (venter\u2026)</string>
-  <string name="card_title_waiting_call">Ventende opkald</string>
-  <string name="onscreenBlacklistText">Sortliste</string>
-  <string name="blacklist_dialog_title">Føj til sortliste</string>
-  <string name="blacklist_dialog_message">Fremtidige opkald fra <xliff:g id="number">%s</xliff:g> vil blive blokeret</string>
+  <string name="incall_call_type_label_forwarded">Yönlendirilmiş çağrı</string>
+  <string name="card_title_dialing_waiting">Aranıyor (bekliyor\u2026)</string>
+  <string name="card_title_waiting_call">Arama bekletiliyor</string>
+  <string name="onscreenBlacklistText">Kara liste</string>
+  <string name="blacklist_dialog_title">Kara listeye ekle</string>
+  <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
 </resources>

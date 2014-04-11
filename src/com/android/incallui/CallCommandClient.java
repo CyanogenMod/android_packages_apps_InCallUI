@@ -114,6 +114,19 @@ public class CallCommandClient {
         }
     }
 
+    public void muteInternal(boolean onOff) {
+        Log.i(this, "muteInternal: " + onOff);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot mute call; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.muteInternal(onOff);
+        } catch (RemoteException e) {
+            Log.e(this, "Error muting phone.", e);
+        }
+    }
+
     public void hold(int callId, boolean onOff) {
         Log.i(this, "hold call(" + onOff + "): " + callId);
         if (mCommandService == null) {

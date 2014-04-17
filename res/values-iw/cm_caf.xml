@@ -16,6 +16,9 @@
      limitations under the License.
 -->
 <resources>
+  <string name="callFailed_dialToUssd">בקשת חיוג שונתה לבקשת USSD.</string>
+  <string name="callFailed_dialToSs">בקשת חיוג שונתה לבקשת SS.</string>
+  <string name="callFailed_dialToDial">בקשת חיוג שונתה לבקשת חיוג עם מספר שונה.</string>
   <string name="modify_call_prompt_yes">כן</string>
   <string name="modify_call_prompt_no">לא</string>
   <string name="modify_call_failure_str">בקשה לשינוי שיחה נכשלה\n</string>
@@ -26,6 +29,9 @@
   <string name="modify_call_option_voice">קול בלבד</string>
   <string name="accept_modify_call_request_prompt">לקבל את הבקשה לשינוי השיחה?</string>
   <string name="upgrade_vt_prompt">האם ברצונך לשדרג את השיחה לשיחת וידאו?</string>
+  <string name="stk_cc_ss_to_dial_error">בקשת SS שונתה לבקשת חיוג.</string>
+  <string name="stk_cc_ss_to_ussd_error">בקשת SS שונתה לבקשת USSD.</string>
+  <string name="stk_cc_ss_to_ss_error">בקשת SS שונתה לבקשת SS חדשה.</string>
   <string name="onscreenModifyCallText">שנה שיחה</string>
   <string name="onscreenAddParticipant">הוסף משתתף</string>
   <string name="description_target_answer_video">ענה עם וידאו</string>

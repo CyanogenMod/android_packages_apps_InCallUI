@@ -16,5 +16,22 @@
      limitations under the License.
 -->
 <resources>
-  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_failure_str">更改通话请求失败\n</string>
+  <string name="modify_call_option_title">选择呼叫类型</string>
+  <string name="modify_call_option_vt_tx">视频传输</string>
+  <string name="modify_call_option_vt_rx">视频接收</string>
+  <string name="modify_call_option_voice">仅声音</string>
+  <string name="accept_modify_call_request_prompt">允许更改通话请求？</string>
+  <string name="upgrade_vt_prompt">是否将该通话升级到视频通话？</string>
+  <string name="upgrade_vt_tx_prompt">是否将该通话升级到仅传出视频的通话？</string>
+  <string name="upgrade_vt_rx_prompt">是否将该通话升级到仅接受视频的通话？</string>
+  <string name="onscreenModifyCallText">更改通话</string>
+  <string name="onscreenAddParticipant">添加参与者</string>
+  <string name="description_target_answer_video">用视频应答</string>
+  <string name="description_target_answer_tx_video">用 TX 视频应答</string>
+  <string name="description_target_answer_rx_video">用 RX 视频应答</string>
+  <string name="description_direction_up_right">右上角</string>
+  <string name="description_direction_up_left">左上角</string>
+  <string name="description_direction_down_left">左下角</string>
+  <string name="description_direction_down_right">右下角</string>
 </resources>

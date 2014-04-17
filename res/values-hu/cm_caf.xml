@@ -16,5 +16,29 @@
      limitations under the License.
 -->
 <resources>
-  <string name="modify_call_option_vt">VT</string>
+  <string name="callFailed_dialToUssd">DIAL kérés módosítva USSD kérésre.</string>
+  <string name="callFailed_dialToSs">DIAL kérés módosítva SS kérésre.</string>
+  <string name="callFailed_dialToDial">DIAL kérés módosítva DIAL kérésre egy másik számmal.</string>
+  <string name="modify_call_failure_str">Kérés módosítása sikertelen\n</string>
+  <string name="modify_call_option_title">Válassza ki a hívás típusát</string>
+  <string name="modify_call_option_vt_tx">Videótovábbítás</string>
+  <string name="modify_call_option_vt_rx">Videófogadás</string>
+  <string name="modify_call_option_voice">Csak hang</string>
+  <string name="accept_modify_call_request_prompt">Elfogadja a hívás módosítási kérelmet?</string>
+  <string name="upgrade_vt_prompt">Szeretné videó beszélgetésként folytatni a hívást?</string>
+  <string name="upgrade_vt_tx_prompt">Szeretné, ha a másik fél látná önt hívás közben?</string>
+  <string name="upgrade_vt_rx_prompt">Szeretné, ha csak ön látná a másik félt hívás közben?</string>
+  <string name="vt_init_fail_str">Sikertelen VT inicializálás. Hívás visszaminősítése VoLTE-re\n</string>
+  <string name="stk_cc_ss_to_dial_error">SS kérés módosítva DIAL kérésre.</string>
+  <string name="stk_cc_ss_to_ussd_error">SS kérés módosítva USSD kérésre.</string>
+  <string name="stk_cc_ss_to_ss_error">SS kérés módosítva új SS kérésre.</string>
+  <string name="onscreenModifyCallText">Hívás módosítása</string>
+  <string name="onscreenAddParticipant">Résztvevő hozzáadása</string>
+  <string name="description_target_answer_video">Válasz videóval</string>
+  <string name="description_target_answer_tx_video">Válasz TX videóval</string>
+  <string name="description_target_answer_rx_video">Válasz RX videóval</string>
+  <string name="description_direction_up_right">Fel jobb</string>
+  <string name="description_direction_up_left">Fel bal</string>
+  <string name="description_direction_down_left">Le bal</string>
+  <string name="description_direction_down_right">Le jobb</string>
 </resources>

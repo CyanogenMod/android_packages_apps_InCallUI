@@ -23,7 +23,6 @@
   <string name="modify_call_prompt_no">Ne</string>
   <string name="modify_call_failure_str">Požadavek pro změnu volání selhal\n</string>
   <string name="modify_call_option_title">Zvolte typ volání</string>
-  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Vysílání videa</string>
   <string name="modify_call_option_vt_rx">Příjem videa</string>
   <string name="modify_call_option_voice">Pouze hlas</string>

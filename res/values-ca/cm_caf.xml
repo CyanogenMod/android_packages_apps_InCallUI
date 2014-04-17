@@ -23,7 +23,7 @@
   <string name="modify_call_prompt_no">No</string>
   <string name="modify_call_failure_str">La petició de modificar la trucada ha fallat\n</string>
   <string name="modify_call_option_title">Selecciona el tipus de trucada</string>
-  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt">Vídeotrucada</string>
   <string name="modify_call_option_vt_tx">Transmetre vídeo</string>
   <string name="modify_call_option_vt_rx">Rebre vídeo</string>
   <string name="modify_call_option_voice">Només veu</string>

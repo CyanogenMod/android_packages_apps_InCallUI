@@ -679,6 +679,21 @@ public class InCallPresenter implements CallList.Listener {
         }
     }
 
+    private void switchActiveSubIfNeed() {
+        Log.d(this, "startOrFinishUi call list:" + mCallList);
+        if (mCallList != null) {
+            int activeSub = mCallList.getActiveSubscription();
+            boolean hasActiveCall = mCallList.existsConnectedCall(activeSub);
+            Log.d(this, "startOrFinishUi active sub : " + activeSub);
+            Log.d(this, "has connected call in active sub:" + hasActiveCall);
+            if (!hasActiveCall) {
+                Log.d(this, "switch sub in non-dsda, cause " + mLastDisconnectCause);
+                boolean retainLch = mLastDisconnectCause == Call.DisconnectCause.NORMAL;
+                mCallList.switchToOtherActiveSubscription(retainLch);
+            }
+        }
+    }
+
     /**
      * When the state of in-call changes, this is the first method to get called. It determines if
      * the UI needs to be started or finished depending on the new state and does it.
@@ -686,6 +701,12 @@ public class InCallPresenter implements CallList.Listener {
     private InCallState startOrFinishUi(InCallState newState) {
         Log.d(this, "startOrFinishUi: " + mInCallState + " -> " + newState);
 
+        // If there is a CS call in sub2, and there is a SIP call in sub1
+        // disconnected, INCALL state will be got in non-dsda, so need switch
+        // active sub
+        if (newState == InCallState.INCALL) {
+            switchActiveSubIfNeed();
+        }
         // TODO: Consider a proper state machine implementation
 
         // If the state isn't changing, we have already done any starting/stopping of

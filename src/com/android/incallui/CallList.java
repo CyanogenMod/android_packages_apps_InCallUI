@@ -550,6 +550,16 @@ public class CallList {
         }
     }
 
+    public boolean existsConnectedCall(int subscription) {
+        for (Call call : mCallMap.values()) {
+            if (!isCallDead(call) && call.getState() != Call.State.DISCONNECTED
+                    && call.getSubscription() == subscription) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Returns true, if any voice call in ACTIVE on the provided subscription.
      */

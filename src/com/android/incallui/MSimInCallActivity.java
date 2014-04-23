@@ -24,6 +24,7 @@ import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.MSimTelephonyManager;
 import android.view.View;
 import android.view.Window;
@@ -44,6 +45,10 @@ public class MSimInCallActivity extends InCallActivity {
 
     private Tab[] mDsdaTab = new Tab[TAB_COUNT_TWO];
     private boolean[] mDsdaTabAdd = {false, false};
+
+    private static final String[] MULTI_SIM_NAME = {
+        "perferred_name_sub1", "perferred_name_sub2"
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -147,7 +152,8 @@ public class MSimInCallActivity extends InCallActivity {
                     .setBackground(icons.getDrawable(i));
 
             ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
-                    .setText(subString[i]);
+                    .setText(Settings.System.getString(getContentResolver(),
+                            MULTI_SIM_NAME[i]));
 
             mDsdaTab[i] = bar.newTab().setCustomView(mDsdaTabLayout[i])
                     .setTabListener(new TabListener(i));

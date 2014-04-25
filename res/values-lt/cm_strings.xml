@@ -16,10 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_call_type_label_forwarded">已转移的呼叫</string>
-  <string name="card_title_dialing_waiting">正在拨号 (等待中\u2026)</string>
-  <string name="card_title_waiting_call">呼叫等待</string>
-  <string name="onscreenBlacklistText">黑名单</string>
-  <string name="blacklist_dialog_title">添加到黑名单</string>
-  <string name="blacklist_dialog_message">今后将阻止 <xliff:g id="number">%s</xliff:g> 的来电</string>
+  <string name="incall_call_type_label_forwarded">Peradresuotas skambutis</string>
+  <string name="card_title_dialing_waiting">Renkamas numeris (laukiama\u2026)</string>
+  <string name="card_title_waiting_call">Laukiantis skambutis</string>
+  <string name="onscreenBlacklistText">Juodasis sąrašas</string>
+  <string name="blacklist_dialog_title">Pridėti į juodąjį sąrašą</string>
+  <string name="blacklist_dialog_message">Skambučiai iš <xliff:g id="number">%s</xliff:g> bus blokuojami</string>
 </resources>

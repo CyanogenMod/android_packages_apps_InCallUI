@@ -19,8 +19,11 @@
   <string name="callFailed_dialToUssd">Richiesta DIAL modificata in richiesta USSD.</string>
   <string name="callFailed_dialToSs">Richiesta DIAL modificata in richiesta SS.</string>
   <string name="callFailed_dialToDial">Richiesta DIAL modificata in richiesta DIAL con numero differente.</string>
+  <string name="modify_call_prompt_yes">Si</string>
+  <string name="modify_call_prompt_no">No</string>
   <string name="modify_call_failure_str">Richiesta di modifica della chiamata non riuscita\n</string>
   <string name="modify_call_option_title">Seleziona il tipo di chiamata</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Trasmissione video</string>
   <string name="modify_call_option_vt_rx">Ricezione video</string>
   <string name="modify_call_option_voice">Solo voce</string>
@@ -31,6 +34,7 @@
   <string name="vt_init_fail_str">Inizializzazione trasmissione video non riuscita. Declassamento chiamata a VoLTE\n</string>
   <string name="stk_cc_ss_to_dial_error">Richiesta SS modificata in richiesta DIAL.</string>
   <string name="stk_cc_ss_to_ussd_error">Richiesta SS modificata in richiesta USSD.</string>
+  <string name="stk_cc_ss_to_ss_error">Richiesta SS modificata in nuova richiesta SS.</string>
   <string name="onscreenModifyCallText">Modifica chiamata</string>
   <string name="onscreenAddParticipant">Aggiungi partecipante</string>
   <string name="description_target_answer_video">Rispondi con video</string>

@@ -19,8 +19,11 @@
   <string name="callFailed_dialToUssd">Requête d\'appel modifiée pour USSD.</string>
   <string name="callFailed_dialToSs">Requête d\'appel modifiée pour SS.</string>
   <string name="callFailed_dialToDial">Requête d\'appel modifiée pour appeler avec un numéro différent.</string>
+  <string name="modify_call_prompt_yes">Oui</string>
+  <string name="modify_call_prompt_no">Non</string>
   <string name="modify_call_failure_str">La demande visant à modifier l\'appel à échouée\n</string>
   <string name="modify_call_option_title">Sélectionnez le type d\'appel</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Transmission vidéo</string>
   <string name="modify_call_option_vt_rx">Réception de la vidéo</string>
   <string name="modify_call_option_voice">Voix uniquement</string>

@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Żądanie DIAL zmodyfikowane na USSD.</string>
   <string name="callFailed_dialToSs">Żądanie DIAL zmodyfikowane na SS.</string>
   <string name="callFailed_dialToDial">Żądanie DIAL zmodyfikowane na DIAL z innym numerem.</string>
+  <string name="modify_call_prompt_yes">Tak</string>
+  <string name="modify_call_prompt_no">Nie</string>
   <string name="modify_call_failure_str">Żądanie modyfikacji połączenia nieudane\n</string>
   <string name="modify_call_option_title">Wybierz typ połączenia</string>
   <string name="modify_call_option_vt_tx">Transmisja wideo</string>

@@ -16,6 +16,8 @@
      limitations under the License.
 -->
 <resources>
+  <string name="modify_call_prompt_yes">是</string>
+  <string name="modify_call_prompt_no">否</string>
   <string name="modify_call_failure_str">更改通话请求失败\n</string>
   <string name="modify_call_option_title">选择呼叫类型</string>
   <string name="modify_call_option_vt_tx">视频传输</string>
@@ -25,6 +27,7 @@
   <string name="upgrade_vt_prompt">是否将该通话升级到视频通话？</string>
   <string name="upgrade_vt_tx_prompt">是否将该通话升级到仅传出视频的通话？</string>
   <string name="upgrade_vt_rx_prompt">是否将该通话升级到仅接受视频的通话？</string>
+  <string name="vt_init_fail_str">视频传输初始化失败。通话降级到 VoLTE\n</string>
   <string name="onscreenModifyCallText">更改通话</string>
   <string name="onscreenAddParticipant">添加参与者</string>
   <string name="description_target_answer_video">用视频应答</string>

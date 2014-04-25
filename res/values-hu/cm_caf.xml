@@ -19,8 +19,11 @@
   <string name="callFailed_dialToUssd">DIAL kérés módosítva USSD kérésre.</string>
   <string name="callFailed_dialToSs">DIAL kérés módosítva SS kérésre.</string>
   <string name="callFailed_dialToDial">DIAL kérés módosítva DIAL kérésre egy másik számmal.</string>
+  <string name="modify_call_prompt_yes">Igen</string>
+  <string name="modify_call_prompt_no">Nem</string>
   <string name="modify_call_failure_str">Kérés módosítása sikertelen\n</string>
   <string name="modify_call_option_title">Válassza ki a hívás típusát</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Videótovábbítás</string>
   <string name="modify_call_option_vt_rx">Videófogadás</string>
   <string name="modify_call_option_voice">Csak hang</string>

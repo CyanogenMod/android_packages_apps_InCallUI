@@ -148,6 +148,16 @@ public class InCallActivity extends Activity {
                 false, mSettingsObserver);
         updateSettings();
 
+        // Handle the Intent we were launched with, but only if this is the
+        // the very first time we're being launched (ie. NOT if we're being
+        // re-initialized after previously being shut down.)
+        // Once we're up and running, any future Intents we need
+        // to handle will come in via the onNewIntent() method.
+        if (icicle == null) {
+            Log.d(this, "this is our very first launch, checking intent...");
+            internalResolveIntent(getIntent());
+        }
+
         Log.d(this, "onCreate(): exit");
     }
 

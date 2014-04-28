@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import static android.telephony.TelephonyManager.SIM_STATE_ABSENT;
 import android.telephony.MSimTelephonyManager;
 import android.os.SystemProperties;
 import android.text.TextUtils;
@@ -225,16 +226,19 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         setPrimaryLabel(label);
 
         showCallTypeLabel(isSipCall, isForwarded);
+        MSimTelephonyManager tm = MSimTelephonyManager.getDefault();
+        int numPhones = tm.getPhoneCount();
 
-
-        if (MSimTelephonyManager.getDefault().isMultiSimEnabled() &&
-                !(MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+        if (tm.isMultiSimEnabled() && !(tm.getMultiSimConfiguration()
                 == MSimTelephonyManager.MultiSimVariants.DSDA)) {
-            String[] sub = {"SUB 1", "SUB 2", "SUB 3"};
             int subscription = getPresenter().getActiveSubscription();
+            String operatorName = tm.getSimState(subscription) != SIM_STATE_ABSENT
+                    ? tm.getNetworkOperatorName(subscription) : getString(R.string.sub_no_sim);
+            String sub = getString(R.string.multi_sim_entry_format, operatorName,
+                    subscription + 1);
 
             if (subscription != -1) {
-                showSubscriptionInfo(sub[subscription]);
+                showSubscriptionInfo(sub);
             }
         }
 

@@ -189,6 +189,7 @@ public class MSimInCallActivity extends InCallActivity {
             bar.addTab(mDsdaTab[subscription], subscription, false);
         }
         mDsdaTabAdd[subscription] = true;
+        Log.d(this, "addDsdaTab, subscription = " + subscription + " tab count = " + tabCount);
     }
 
     private void removeDsdaTab(int subscription) {
@@ -202,6 +203,7 @@ public class MSimInCallActivity extends InCallActivity {
                 return;
             }
         }
+        Log.d(this, "removeDsdaTab, subscription = " + subscription + " tab count = " + tabCount);
     }
 
     private void updateDsdaTabSelection() {

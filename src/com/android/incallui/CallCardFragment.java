@@ -331,14 +331,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         if (tm.isMultiSimEnabled() && !(tm.getMultiSimConfiguration()
                 == MSimTelephonyManager.MultiSimVariants.DSDA)) {
+            final String multiSimName = "perferred_name_sub";
             int subscription = getPresenter().getActiveSubscription();
-            String operatorName = tm.getSimState(subscription) != SIM_STATE_ABSENT
-                    ? tm.getNetworkOperatorName(subscription) : getString(R.string.sub_no_sim);
-            String sub = getString(R.string.multi_sim_entry_format, operatorName,
-                    subscription + 1);
 
             if ((subscription != -1) && (!isSipCall)){
-                showSubscriptionInfo(sub);
+                final String simName = Settings.System.getString(getActivity()
+                        .getContentResolver(), multiSimName + (subscription + 1));
+                showSubscriptionInfo(simName);
             }
         }
 

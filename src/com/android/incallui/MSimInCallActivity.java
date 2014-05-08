@@ -63,6 +63,7 @@ public class MSimInCallActivity extends InCallActivity {
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES);
 
+        setTheme(R.style.InCallScreenWithActionBar);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
         getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Juodasis sąrašas</string>
   <string name="blacklist_dialog_title">Pridėti į juodąjį sąrašą</string>
   <string name="blacklist_dialog_message">Skambučiai iš <xliff:g id="number">%s</xliff:g> bus blokuojami</string>
+  <string name="sub_no_sim">Nėra SIM</string>
 </resources>

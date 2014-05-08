@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Zwarte lijst</string>
   <string name="blacklist_dialog_title">Toevoegen aan zwarte lijst</string>
   <string name="blacklist_dialog_message">Oproepen van <xliff:g id="number">%s</xliff:g> worden geblokkeerd</string>
+  <string name="sub_no_sim">Geen SIM</string>
 </resources>

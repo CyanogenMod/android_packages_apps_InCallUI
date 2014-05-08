@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Чёрный список</string>
   <string name="blacklist_dialog_title">Добавить в чёрный список</string>
   <string name="blacklist_dialog_message">Вызовы с <xliff:g id="number">%s</xliff:g> будут автоматически отклоняться</string>
+  <string name="sub_no_sim">Нет SIM-карты</string>
 </resources>

@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Llista prieta</string>
   <string name="blacklist_dialog_title">Amestar a la llista prieta</string>
   <string name="blacklist_dialog_message">Les llamaes de <xliff:g id="number">%s</xliff:g> van bloquiase</string>
+  <string name="sub_no_sim">Ensin tarxeta SIM</string>
 </resources>

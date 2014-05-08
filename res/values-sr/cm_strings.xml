@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Црна листа</string>
   <string name="blacklist_dialog_title">Додајте на црну листу</string>
   <string name="blacklist_dialog_message">Будући позиви од <xliff:g id="number">%s</xliff:g> ће бити блокирани</string>
+  <string name="sub_no_sim">Нема SIM картице</string>
 </resources>

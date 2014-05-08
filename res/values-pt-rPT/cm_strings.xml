@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Lista Negra</string>
   <string name="blacklist_dialog_title">Adicionar à lista negra</string>
   <string name="blacklist_dialog_message">Futuras chamadas de <xliff:g id="number">%s</xliff:g> serão bloqueadas</string>
+  <string name="sub_no_sim">Sem SIM</string>
 </resources>

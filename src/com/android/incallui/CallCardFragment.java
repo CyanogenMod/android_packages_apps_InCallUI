@@ -150,6 +150,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mVideoCallPanel!=null) {
+            mVideoCallPanel.onDestroy();
+            mVideoCallPanel = null;
+        }
+    }
+
+    @Override
     public void setVisible(boolean on) {
         if (on) {
             getView().setVisibility(View.VISIBLE);
@@ -239,6 +249,17 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
             if (subscription != -1) {
                 showSubscriptionInfo(sub);
+            }
+        }
+
+        if (MSimTelephonyManager.getDefault().isMultiSimEnabled() &&
+                !(MSimTelephonyManager.getDefault().getMultiSimConfiguration()
+                == MSimTelephonyManager.MultiSimVariants.DSDA)) {
+            String[] sub = {"SUB 1", "SUB 2", "SUB 3"};
+            int subscription = getPresenter().getActiveSubscription();
+
+            if (subscription != -1) {
+                showSubscriptionInfo(sub[subscription]);
             }
         }
 
@@ -605,7 +626,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private void updateVideoCallState(int callState, int callType) {
         log("  - Videocall.state: " + callState);
 
-        // Null check
         if (mVideoCallPanel == null) {
             loge("VideocallPanel is null");
             return;

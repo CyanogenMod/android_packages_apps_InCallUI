@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Kara liste</string>
   <string name="blacklist_dialog_title">Kara listeye ekle</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
+  <string name="sub_no_sim">SIM yok</string>
 </resources>

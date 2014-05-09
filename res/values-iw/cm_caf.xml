@@ -29,6 +29,9 @@
   <string name="modify_call_option_voice">קול בלבד</string>
   <string name="accept_modify_call_request_prompt">לקבל את הבקשה לשינוי השיחה?</string>
   <string name="upgrade_vt_prompt">האם ברצונך לשדרג את השיחה לשיחת וידאו?</string>
+  <string name="upgrade_vt_tx_prompt">האם ברצונך לשדרג את השיחה לשיחת וידאו בלבד?</string>
+  <string name="upgrade_vt_rx_prompt">האם ברצונך לשדרג את השיחה לקבלת שיחת וידאו?</string>
+  <string name="vt_init_fail_str">התחלת שידור הסרטונים נכשלה. מוריד שיחה ל-VoLTE\n</string>
   <string name="stk_cc_ss_to_dial_error">בקשת SS שונתה לבקשת חיוג.</string>
   <string name="stk_cc_ss_to_ussd_error">בקשת SS שונתה לבקשת USSD.</string>
   <string name="stk_cc_ss_to_ss_error">בקשת SS שונתה לבקשת SS חדשה.</string>

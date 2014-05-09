@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Černá listina</string>
   <string name="blacklist_dialog_title">Přidat na černou listinu</string>
   <string name="blacklist_dialog_message">Příští volání z čísla <xliff:g id="number">%s</xliff:g> bude blokováno</string>
+  <string name="sub_no_sim">Není SIM karta</string>
 </resources>

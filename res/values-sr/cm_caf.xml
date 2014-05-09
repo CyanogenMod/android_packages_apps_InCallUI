@@ -23,7 +23,7 @@
   <string name="modify_call_prompt_no">Не</string>
   <string name="modify_call_failure_str">Захтев да измените позив није успео\n</string>
   <string name="modify_call_option_title">Изаберите тип позива</string>
-  <string name="modify_call_option_vt">ВТ</string>
+  <string name="modify_call_option_vt">ВС</string>
   <string name="modify_call_option_vt_tx">Видео слање</string>
   <string name="modify_call_option_vt_rx">Видео примање</string>
   <string name="modify_call_option_voice">Само звук</string>

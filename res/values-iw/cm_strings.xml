@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">רשימה שחורה</string>
   <string name="blacklist_dialog_title">הוסף לרשימה שחורה</string>
   <string name="blacklist_dialog_message">שיחות עתידיות מ-<xliff:g id="number">%s</xliff:g> ייחסמו</string>
+  <string name="sub_no_sim">אין SIM</string>
 </resources>

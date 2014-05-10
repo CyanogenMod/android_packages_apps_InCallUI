@@ -237,8 +237,10 @@ public class MSimInCallActivity extends InCallActivity {
             //setting active subscription automatically when call on one sub
             //ends and it's corresponding tab is removed.For such cases active
             //subscription will be set by InCallPresenter.attemptFinishActivity.
-            if (tabCount != TAB_COUNT_ONE && CallList.getInstance().existsLiveCall(mSubscription)) {
-                CallCommandClient.getInstance().setActiveSubscription(mSubscription);
+            if (tabCount != TAB_COUNT_ONE && CallList.getInstance().existsLiveCall(mSubscription)
+                    && (CallList.getInstance().getActiveSubscription() != mSubscription)) {
+                Log.i(this, "setactivesub " + mSubscription);
+                CallCommandClient.getInstance().setActiveAndConversationSub(mSubscription);
             }
         }
 

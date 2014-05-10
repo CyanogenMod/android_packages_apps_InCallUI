@@ -370,25 +370,43 @@ public class CallCommandClient {
         }
     }
 
-    public void setActiveSubscription(int subscriptionId, boolean retainLch) {
-        Log.i(this, "set active sub = " + subscriptionId + " retainLch = " + retainLch);
+    public void setActiveSubscription(int subscriptionId) {
+        Log.i(this, "set active sub = " + subscriptionId);
         if (mCommandService == null) {
             Log.e(this, "Cannot set active Sub; CallCommandService == null");
             return;
         }
         try {
-            if (retainLch) {
-                mCommandService.setActiveSubRetainLch(subscriptionId);
-            } else {
-                mCommandService.setActiveSubscription(subscriptionId);
-            }
+            mCommandService.setActiveSubscription(subscriptionId);
         } catch (RemoteException e) {
             Log.e(this, "Error setActiveSub.", e);
         }
     }
 
-    public void setActiveSubscription(int subscriptionId) {
-        setActiveSubscription(subscriptionId, false);
+    public void setSubInConversation(int subscriptionId) {
+        Log.i(this, "set conversation sub = " + subscriptionId);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot set conversation Sub; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.setSubInConversation(subscriptionId);
+        } catch (RemoteException e) {
+            Log.e(this, "Error setSubInConversation.", e);
+        }
+    }
+
+    public void setActiveAndConversationSub(int subscriptionId) {
+        Log.i(this, "setActiveAndConversationSub = " + subscriptionId);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot set active Sub; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.setActiveAndConversationSub(subscriptionId);
+        } catch (RemoteException e) {
+            Log.e(this, "Error setActiveSub.", e);
+        }
     }
 
     public int getActiveSubscription() {

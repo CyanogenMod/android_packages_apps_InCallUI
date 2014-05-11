@@ -39,6 +39,7 @@ import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.Capabilities;
+import com.android.services.telephony.common.CallDetails;
 import com.android.services.telephony.common.CallIdentification;
 import com.google.common.base.Preconditions;
 import com.android.incallui.CallUtils;
@@ -158,8 +159,22 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         final boolean primaryChanged = !areCallsSame(mPrimary, primary);
         final boolean primaryForwardedChanged = isForwarded(mPrimary) != isForwarded(primary);
         final boolean secondaryChanged = !areCallsSame(mSecondary, secondary);
-        mSecondary = secondary;
-        mPrimary = primary;
+
+        if (primary != null && secondary != null &&
+                primary.getCallDetails().getCallDomain() != secondary.getCallDetails()
+                        .getCallDomain() && areCallsSameOnDifferentDomains(primary, secondary)) {
+            Log.d(this, "SRVCC scenario primary and secondary are same call Primary " +
+                    mPrimary + " Secondary " + mSecondary);
+            mSecondary = null;
+            if (primary.getCallDetails().getCallDomain() == CallDetails.CALL_DOMAIN_PS) {
+                mPrimary = secondary; //primary overwritten with CS
+            } else {
+                mPrimary = primary; //primary retains CS
+            }
+        } else {
+            mSecondary = secondary;
+            mPrimary = primary;
+        }
 
         if (primaryChanged && mPrimary != null) {
             // primary call has changed
@@ -251,6 +266,24 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // otherwise compare call Ids
         return (call1.getCallId() == call2.getCallId()) &&
                 call1.getCallDetails().isMpty() == call2.getCallDetails().isMpty();
+    }
+
+    private boolean areCallsSameOnDifferentDomains(Call call1, Call call2) {
+        if (call1 == null || call2 == null) {
+            return false;
+        }
+        boolean callsSame = false;
+        if (call1.getCallDetails().isMpty() && call2.getCallDetails().isMpty()) { //MPTY SRVCC
+            //Currently more than one conference call each on a different domain
+            //If we hit here it means SRVCC scenario for a conference call
+            callsSame = true;
+            Log.d (this, "areCallsSameOnDifferentDomains for Mpty SRVCC call");
+        } else if (call1.getNumber() != null && call1.getNumber().equals(call2.getNumber())) {
+            //Normal SRVCC
+            callsSame = true;
+            Log.d (this, "areCallsSameOnDifferentDomains for SRVCC call");
+        }
+        return callsSame;
     }
 
     private void maybeStartSearch(Call call, boolean isPrimary) {

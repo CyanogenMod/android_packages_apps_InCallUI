@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Pedido de DISCAGEM modificado para requisição USSD.</string>
   <string name="callFailed_dialToSs">Pedido de DISCAGEM modificado para requisição SS.</string>
   <string name="callFailed_dialToDial">Pedido de DISCAGEM modificado para DISCAGEM com número diferente.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Cima esquerdo</string>
   <string name="description_direction_down_left">Baixo esquerdo</string>
   <string name="description_direction_down_right">Baixo direito</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIAL-Anfrage wurde in USSD-Anfrage umgewandelt.</string>
   <string name="callFailed_dialToSs">DIAL-Anfrage wurde in SS-Anfrage umgewandelt.</string>
   <string name="callFailed_dialToDial">DIAL-Anfrage wurde in DIAL-Anfrage mit anderer Nummer umgewandelt.</string>

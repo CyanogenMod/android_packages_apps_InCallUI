@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIAL-begäran ändrades till USSD-begäran.</string>
   <string name="callFailed_dialToSs">DIAL-begäran ändrades till SS-begäran.</string>
   <string name="callFailed_dialToDial">DIAL-begäran ändrades till DIAL-begäran med annat nummer.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Uppe till vänster</string>
   <string name="description_direction_down_left">Nere till vänster</string>
   <string name="description_direction_down_right">Nere till höger</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

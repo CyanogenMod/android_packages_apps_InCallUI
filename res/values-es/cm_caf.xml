@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Solicitud DIAL modificada a solicitud USSD.</string>
   <string name="callFailed_dialToSs">Solicitud DIAL modificada a solicitud SS.</string>
   <string name="callFailed_dialToDial">Solicitud DIAL modificada a DIAL con número diferente.</string>
@@ -31,7 +31,7 @@
   <string name="upgrade_vt_prompt">¿Estás seguro de que quieres convertir la llamada en videollamada?</string>
   <string name="upgrade_vt_tx_prompt">¿Estás seguro de que quieres convertir la llamada en transmisión de vídeo?</string>
   <string name="upgrade_vt_rx_prompt">¿Estás seguro de que quieres convertir la llamada en recepción de vídeo?</string>
-  <string name="vt_init_fail_str">Falló la inicialización de videollamada. Convirtiendo llamada a VoLTE</string>
+  <string name="vt_init_fail_str">Falló la inicialización de videollamada. Convirtiendo llamada a VoLTE\n</string>
   <string name="stk_cc_ss_to_dial_error">Solicitud SS modificada a solicitud DIAL.</string>
   <string name="stk_cc_ss_to_ussd_error">Solicitud SS modificada a solicitud USSD.</string>
   <string name="stk_cc_ss_to_ss_error">Solicitud SS modificada a nueva solicitud SS.</string>

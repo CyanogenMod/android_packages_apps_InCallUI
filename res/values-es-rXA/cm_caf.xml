@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Solicitú DIAL modificada a solicitú USSD.</string>
   <string name="callFailed_dialToSs">Solicitú DIAL modificada a solicitú SS.</string>
   <string name="callFailed_dialToDial">Solicitú DIAL modificada a DIAL con númberu distintu.</string>

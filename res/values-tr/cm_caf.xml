@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">ARAMA isteği USSD isteğine dönüştürüldü.</string>
   <string name="callFailed_dialToSs">ARAMA isteği SS isteğine dönüştürüldü.</string>
   <string name="callFailed_dialToDial">ARAMA isteği başka bir numarayla ARAMA isteğine dönüştürüldü.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Yukarı sol</string>
   <string name="description_direction_down_left">Aşağı sol</string>
   <string name="description_direction_down_right">Aşağı sağ</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

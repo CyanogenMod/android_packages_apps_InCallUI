@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε αίτημα USSD.</string>
   <string name="callFailed_dialToSs">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε αίτημα SS.</string>
   <string name="callFailed_dialToDial">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε ΚΛΗΣΗ με διαφορετικό νούμερο.</string>
@@ -23,7 +23,7 @@
   <string name="modify_call_prompt_no">Όχι</string>
   <string name="modify_call_failure_str">Αποτυχία τροποποίησης αιτήματος κλήσης\n</string>
   <string name="modify_call_option_title">Επιλέξτε τύπο κλήσης</string>
-  <string name="modify_call_option_vt">ΜΒ</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Μετάδοση βίντεο</string>
   <string name="modify_call_option_vt_rx">Λήψη βίντεο</string>
   <string name="modify_call_option_voice">Μόνο φωνή</string>

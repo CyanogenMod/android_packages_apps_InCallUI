@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">تعديل طلب الاتصال الهاتفي لطلب (ussd).</string>
   <string name="callFailed_dialToSs">تعديل طلب الاتصال الهاتفي لطلب (SS).</string>
   <string name="callFailed_dialToDial">الطلب الهاتفي طلب تعديل للطلب مع رقم مختلف.</string>
@@ -23,7 +23,7 @@
   <string name="modify_call_prompt_no">لا</string>
   <string name="modify_call_failure_str">طلب تعديل الإتصال فشل\n</string>
   <string name="modify_call_option_title">حدد نوع الاتصال</string>
-  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt">فديو</string>
   <string name="modify_call_option_vt_tx">إرسال الفيديو</string>
   <string name="modify_call_option_vt_rx">تلقي الفيديو</string>
   <string name="modify_call_option_voice">صوت فقط</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">أعلى اليسار</string>
   <string name="description_direction_down_left">أسفل اليسار</string>
   <string name="description_direction_down_right">أسفل اليمين</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

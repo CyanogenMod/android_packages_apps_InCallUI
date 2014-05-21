@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Requête d\'appel modifiée pour USSD.</string>
   <string name="callFailed_dialToSs">Requête d\'appel modifiée pour SS.</string>
   <string name="callFailed_dialToDial">Requête d\'appel modifiée pour appeler avec un numéro différent.</string>
@@ -25,7 +25,7 @@
   <string name="modify_call_option_title">Sélectionnez le type d\'appel</string>
   <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Transmission vidéo</string>
-  <string name="modify_call_option_vt_rx">Réception de la vidéo</string>
+  <string name="modify_call_option_vt_rx">Réception vidéo</string>
   <string name="modify_call_option_voice">Voix uniquement</string>
   <string name="accept_modify_call_request_prompt">Accepter la demande de modification d\'appel ?</string>
   <string name="upgrade_vt_prompt">Voulez-vous passer de l\'appel vocal à l\'appel vidéo ?</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Haut gauche</string>
   <string name="description_direction_down_left">Bas gauche</string>
   <string name="description_direction_down_right">Bas à droite</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

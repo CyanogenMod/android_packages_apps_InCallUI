@@ -15,6 +15,36 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL 請求已修改為 USSD 請求。</string>
+  <string name="callFailed_dialToSs">DIAL 請求已修改為 SS 請求。</string>
+  <string name="callFailed_dialToDial">DIAL 請求已修改為不同號碼的 DIAL 請求。</string>
+  <string name="modify_call_prompt_yes">是</string>
+  <string name="modify_call_prompt_no">否</string>
+  <string name="modify_call_failure_str">更改通話請求失敗\n</string>
+  <string name="modify_call_option_title">選擇通話類型</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">影像傳輸</string>
+  <string name="modify_call_option_vt_rx">影像接收</string>
+  <string name="modify_call_option_voice">純語音</string>
+  <string name="accept_modify_call_request_prompt">接受修改通話的請求？</string>
+  <string name="upgrade_vt_prompt">是否將通話升級到視訊通話？
+</string>
+  <string name="upgrade_vt_tx_prompt">是否將該通話升級到僅傳出視訊通話？</string>
+  <string name="upgrade_vt_rx_prompt">是否將該通話升級到僅接受視訊通話？</string>
+  <string name="vt_init_fail_str">視訊傳輸初始化失敗。調降至 VoLTE 的通話模式\n</string>
+  <string name="stk_cc_ss_to_dial_error">SS 請求已修改為 DIAL 請求。</string>
+  <string name="stk_cc_ss_to_ussd_error">SS 請求已修改為 USSD 請求。</string>
+  <string name="stk_cc_ss_to_ss_error">SS 請求已修改為新的 SS 請求。</string>
   <string name="onscreenModifyCallText">修改通話</string>
+  <string name="onscreenAddParticipant">添加參與者</string>
+  <string name="description_target_answer_video">用視訊回答</string>
+  <string name="description_target_answer_tx_video">用 TX 視訊回答</string>
+  <string name="description_target_answer_rx_video">用 RX 視訊回答</string>
+  <string name="description_direction_up_right">右上方</string>
+  <string name="description_direction_up_left">左上方</string>
+  <string name="description_direction_down_left">左下方</string>
+  <string name="description_direction_down_right">右下方</string>
+  <string name="sub_1">SIM 卡 1</string>
+  <string name="sub_2">SIM 卡 2</string>
 </resources>

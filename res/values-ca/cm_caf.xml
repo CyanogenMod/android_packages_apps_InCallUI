@@ -15,10 +15,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-  <string name="callFailed_dialToUssd">Petició DIAL modificada a una petició USSD.</string>
-  <string name="callFailed_dialToSs">Petició DIAL modificada a una petició SS.</string>
-  <string name="callFailed_dialToDial">Petició DIAL modificada a una petició DIAL amb diferent número.</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">Petició DIAL modificada cap a una petició USSD.</string>
+  <string name="callFailed_dialToSs">Petició DIAL modificada cap a una petició SS.</string>
+  <string name="callFailed_dialToDial">Petició DIAL modificada cap a una petició DIAL amb diferent número.</string>
   <string name="modify_call_prompt_yes">Si</string>
   <string name="modify_call_prompt_no">No</string>
   <string name="modify_call_failure_str">La petició de modificar la trucada ha fallat\n</string>
@@ -31,10 +31,10 @@
   <string name="upgrade_vt_prompt">Vols convertir la trucada en una videotrucada?</string>
   <string name="upgrade_vt_tx_prompt">Vols convertir la trucada en una trucada de només transmissió de vídeo?</string>
   <string name="upgrade_vt_rx_prompt">Vols convertir la trucada en una trucada de només recepció de vídeo?</string>
-  <string name="vt_init_fail_str">Ha fallat la inicialització de la transmissió de vídeo. Convertint trucada a VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Petició SS modificada per una petició DIAL.</string>
-  <string name="stk_cc_ss_to_ussd_error">Petició SS modificada per una petició una petició USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Petició SS modificada per una petició una nova petició SS.</string>
+  <string name="vt_init_fail_str">Ha fallat la inicialització de la transmissió de vídeo. Convertint trucada cap a VoLTE\n</string>
+  <string name="stk_cc_ss_to_dial_error">Petició SS modificada cap a una petició DIAL.</string>
+  <string name="stk_cc_ss_to_ussd_error">Petició SS modificada cap a una petició USSD.</string>
+  <string name="stk_cc_ss_to_ss_error">Petició SS modificada cap a una nova petició SS.</string>
   <string name="onscreenModifyCallText">Modifica trucada</string>
   <string name="onscreenAddParticipant">Afegeix participant</string>
   <string name="description_target_answer_video">Respondre amb vídeo</string>

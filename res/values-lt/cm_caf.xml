@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIAL užklausa pakeista į USSD prašymą.</string>
   <string name="callFailed_dialToSs">DIAL užklausa pakeista į SS prašymą.</string>
   <string name="callFailed_dialToDial">DIAL užklausa pakeista į DIAL su skirtingu numeriu.</string>

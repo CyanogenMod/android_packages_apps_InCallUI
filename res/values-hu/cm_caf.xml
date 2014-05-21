@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIAL kérés módosítva USSD kérésre.</string>
   <string name="callFailed_dialToSs">DIAL kérés módosítva SS kérésre.</string>
   <string name="callFailed_dialToDial">DIAL kérés módosítva DIAL kérésre egy másik számmal.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Fel bal</string>
   <string name="description_direction_down_left">Le bal</string>
   <string name="description_direction_down_right">Le jobb</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

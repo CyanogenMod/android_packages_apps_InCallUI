@@ -22,4 +22,5 @@
   <string name="onscreenBlacklistText">Swartlys</string>
   <string name="blacklist_dialog_title">Voeg by swartlys</string>
   <string name="blacklist_dialog_message">Toekomstige oproepe van <xliff:g id="number">%s</xliff:g> sal geblokkeer word</string>
+  <string name="sub_no_sim">Geen SIM nie</string>
 </resources>

@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIAL захтев модификован на USSD захтев.</string>
   <string name="callFailed_dialToSs">DIAL захтев модификован на SS захтев.</string>
   <string name="callFailed_dialToDial">DIAL захтев модификован на DIAL са другачијим бројем.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Горе лево</string>
   <string name="description_direction_down_left">Доле лево</string>
   <string name="description_direction_down_right">Доле десно</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

@@ -16,11 +16,11 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_call_type_label_forwarded">Połączenie przekazane</string>
-  <string name="card_title_dialing_waiting">Wybieranie (proszę czekać\u2026)</string>
-  <string name="card_title_waiting_call">Połączenie oczekujące</string>
-  <string name="onscreenBlacklistText">Czarna lista</string>
-  <string name="blacklist_dialog_title">Dodaj do czarnej listy</string>
-  <string name="blacklist_dialog_message">Przyszłe połączenia od  <xliff:g id="number">%s</xliff:g> będą blokowane</string>
-  <string name="sub_no_sim">Brak karty SIM</string>
+  <string name="incall_call_type_label_forwarded">Panggilan diteruskan</string>
+  <string name="card_title_dialing_waiting">Memanggil (menunggu\u2026)</string>
+  <string name="card_title_waiting_call">Panggilan tunggu</string>
+  <string name="onscreenBlacklistText">Blacklist</string>
+  <string name="blacklist_dialog_title">Tambahkan ke blacklist</string>
+  <string name="blacklist_dialog_message">Panggilan mendatang dari <xliff:g id="number">%s</xliff:g> akan diblokir</string>
+  <string name="sub_no_sim">Tidak ada SIM</string>
 </resources>

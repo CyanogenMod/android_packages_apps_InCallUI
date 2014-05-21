@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">SKAKEL versoek verander na USSD versoek.</string>
   <string name="callFailed_dialToSs">DIAL versoek verander na SS versoek.</string>
   <string name="callFailed_dialToDial">SKAKEL versoek is verander om te skakel met \'n ander telefoonnommer.</string>
@@ -23,15 +23,15 @@
   <string name="modify_call_prompt_no">Nee</string>
   <string name="modify_call_failure_str">Versoek om oproep te verander het misluk\n</string>
   <string name="modify_call_option_title">Kies tipe oproep</string>
-  <string name="modify_call_option_vt">Video</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Video uitsaai</string>
   <string name="modify_call_option_vt_rx">Video ontvang</string>
   <string name="modify_call_option_voice">Stem alleenlik</string>
   <string name="accept_modify_call_request_prompt">Aanvaar versoek om oproep te verander?</string>
   <string name="upgrade_vt_prompt">Wil jy graag die oproep na video-oproep opgradeer?</string>
-  <string name="upgrade_vt_tx_prompt">Wil jy graag die oproep opgradeer na video uitsaai alleenlik oproep?</string>
-  <string name="upgrade_vt_rx_prompt">Wil jy graag die oproep opgradeer na video ontvang alleenlik oproep?</string>
-  <string name="vt_init_fail_str">Video uitsaai inisialisasie het misluk. Afgradering oproep na VoLTE\n</string>
+  <string name="upgrade_vt_tx_prompt">Wil jy graag die oproep alleenlik opgradeer na \'n video uitsaai oproep?</string>
+  <string name="upgrade_vt_rx_prompt">Wil jy graag die oproep alleenlik opgradeer na video ontvang oproep?</string>
+  <string name="vt_init_fail_str">Video uitsaai inisialisering het misluk. Afgradering oproep na VoLTE\n</string>
   <string name="stk_cc_ss_to_dial_error">SS versoek is verander na SKAKEL versoek.</string>
   <string name="stk_cc_ss_to_ussd_error">SS versoek verander na USSD versoek.</string>
   <string name="stk_cc_ss_to_ss_error">SS versoek verander na nuwe SS versoek.</string>
@@ -40,10 +40,10 @@
   <string name="description_target_answer_video">Antwoord met video</string>
   <string name="description_target_answer_tx_video">Antwoord met TX video</string>
   <string name="description_target_answer_rx_video">Antwoord met RX video</string>
-  <string name="description_direction_up_right">Regs op</string>
-  <string name="description_direction_up_left">Links op</string>
-  <string name="description_direction_down_left">Links af</string>
-  <string name="description_direction_down_right">Regs af</string>
+  <string name="description_direction_up_right">Op regs</string>
+  <string name="description_direction_up_left">Op links</string>
+  <string name="description_direction_down_left">Af links</string>
+  <string name="description_direction_down_right">Af regs</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

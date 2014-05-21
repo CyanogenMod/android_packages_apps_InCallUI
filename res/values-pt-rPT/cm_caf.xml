@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Pedido de marcação modificado para USSD.</string>
   <string name="callFailed_dialToSs">Pedido de marcação modificado para SS.</string>
   <string name="callFailed_dialToDial">Pedido de marcação modificado para marcar com número diferente.</string>
@@ -44,4 +44,6 @@
   <string name="description_direction_up_left">Em cima à esquerda</string>
   <string name="description_direction_down_left">Em baixo à esquerda</string>
   <string name="description_direction_down_right">Em baixo à direita</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

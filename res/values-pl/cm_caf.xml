@@ -15,7 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Żądanie DIAL zmodyfikowane na USSD.</string>
   <string name="callFailed_dialToSs">Żądanie DIAL zmodyfikowane na SS.</string>
   <string name="callFailed_dialToDial">Żądanie DIAL zmodyfikowane na DIAL z innym numerem.</string>
@@ -23,6 +23,7 @@
   <string name="modify_call_prompt_no">Nie</string>
   <string name="modify_call_failure_str">Żądanie modyfikacji połączenia nieudane\n</string>
   <string name="modify_call_option_title">Wybierz typ połączenia</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Transmisja wideo</string>
   <string name="modify_call_option_vt_rx">Odbiór wideo</string>
   <string name="modify_call_option_voice">Tylko głos</string>
@@ -36,11 +37,13 @@
   <string name="stk_cc_ss_to_ss_error">Żądanie SS zmodyfikowane na nowe żądanie SS.</string>
   <string name="onscreenModifyCallText">Modyfikowanie połączeń</string>
   <string name="onscreenAddParticipant">Dodaj uczestnika</string>
-  <string name="description_target_answer_video">Odpowiedz z wideo</string>
-  <string name="description_target_answer_tx_video">Odpowiedz z wideo TX</string>
-  <string name="description_target_answer_rx_video">Odpowiedz z wideo RX</string>
+  <string name="description_target_answer_video">Odpowiedz wideo</string>
+  <string name="description_target_answer_tx_video">Odpowiedz wideo TX</string>
+  <string name="description_target_answer_rx_video">Odpowiedz wideo RX</string>
   <string name="description_direction_up_right">Góra prawo</string>
   <string name="description_direction_up_left">Góra lewo</string>
   <string name="description_direction_down_left">Dół lewo</string>
   <string name="description_direction_down_right">Dół w prawo</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

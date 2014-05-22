@@ -104,6 +104,9 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
 
     @Override
     public void showAnswerUi(boolean show) {
+        if (show && getActivity() != null && getActivity() instanceof InCallActivity) {
+            ((InCallActivity) getActivity()).displayManageConferencePanel(false);
+        }
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);

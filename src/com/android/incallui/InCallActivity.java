@@ -600,6 +600,8 @@ public class InCallActivity extends Activity {
             mConferenceManagerFragment.setVisible(true);
             mConferenceManagerShown = true;
             updateSystemBarTranslucency();
+        } else {
+            mConferenceManagerFragment.setVisible(false);
         }
     }
 

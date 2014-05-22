@@ -102,6 +102,9 @@ public class MSimAnswerFragment extends BaseFragment<MSimAnswerPresenter,
 
     @Override
     public void showAnswerUi(boolean show) {
+        if (show && getActivity() != null && getActivity() instanceof MSimInCallActivity) {
+            ((MSimInCallActivity) getActivity()).displayManageConferencePanel(false);
+        }
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);

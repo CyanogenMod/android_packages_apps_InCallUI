@@ -16,11 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="incall_call_type_label_forwarded">已轉發通話</string>
-  <string name="card_title_dialing_waiting">正在撥號 (等待中\ u2026)</string>
-  <string name="card_title_waiting_call">正在等待通話</string>
   <string name="onscreenBlacklistText">黑名單</string>
-  <string name="blacklist_dialog_title">新增到黑名單</string>
-  <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的電話將列入黑名單</string>
+  <string name="blacklist_dialog_title">新增至黑名單</string>
   <string name="sub_no_sim">沒有 SIM 卡</string>
 </resources>

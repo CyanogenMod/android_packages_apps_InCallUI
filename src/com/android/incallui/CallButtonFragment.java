@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -56,6 +55,7 @@ public class CallButtonFragment
     private ImageButton mSwapButton;
     private ImageButton mBlacklistButton;
     private ImageButton mAddParticipantButton;
+    private ImageButton mModifyCallButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -63,8 +63,6 @@ public class CallButtonFragment
     private View mExtraRowButton;
     private View mManageConferenceButton;
     private View mGenericMergeButton;
-
-    private Button mModifyCallButton;
 
     @Override
     CallButtonPresenter createPresenter() {
@@ -163,7 +161,7 @@ public class CallButtonFragment
             mBlacklistButton.setVisibility(View.GONE);
         }
 
-        mModifyCallButton = (Button) parent.findViewById(R.id.modifyCallButton);
+        mModifyCallButton = (ImageButton) parent.findViewById(R.id.modifyCallButton);
         mModifyCallButton.setOnClickListener(this);
 
         return parent;

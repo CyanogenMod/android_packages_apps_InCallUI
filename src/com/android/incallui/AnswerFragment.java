@@ -182,6 +182,7 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
             }
         });
         mCannedResponsePopup = builder.create();
+        mCannedResponsePopup.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         mCannedResponsePopup.show();
     }
 
@@ -294,6 +295,7 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
         // Keyboard up, show the dialog
         mCustomMessagePopup.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        mCustomMessagePopup.getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         mCustomMessagePopup.show();
 
         // Send button starts out disabled

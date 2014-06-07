@@ -50,8 +50,9 @@ public class CallHandlerService extends Service {
     private static final int ON_DESTROY = 10;
     private static final int ON_ACTIVE_SUB_CHANGE = 11;
     private static final int ON_UNSOL_CALLMODIFY = 12;
+    private static final int ON_SUPP_SERVICE_FAIL = 13;
 
-    private static final int LARGEST_MSG_ID = ON_ACTIVE_SUB_CHANGE;
+    private static final int LARGEST_MSG_ID = ON_SUPP_SERVICE_FAIL;
 
 
     private CallList mCallList;
@@ -204,6 +205,11 @@ public class CallHandlerService extends Service {
             mMainHandler.sendMessage(mMainHandler.obtainMessage(ON_ACTIVE_SUB_CHANGE, activeSub));
         }
 
+        @Override
+        public void onSuppServiceFailed(int service) {
+            mMainHandler.sendMessage(mMainHandler.obtainMessage(ON_SUPP_SERVICE_FAIL, service));
+        }
+
     };
 
     private void doStart(ICallCommandService service) {
@@ -343,6 +349,10 @@ public class CallHandlerService extends Service {
             case ON_ACTIVE_SUB_CHANGE:
                 Log.i(TAG, "ON_ACTIVE_SUB_CHANGE: " + msg.obj);
                 mCallList.onActiveSubChanged((Integer) msg.obj);
+                break;
+            case ON_SUPP_SERVICE_FAIL:
+                Log.i(TAG, "ON_SUPP_SERVICE_FAIL: ");
+                mInCallPresenter.onSuppServiceFailed((Integer) msg.obj);
                 break;
 
             default:

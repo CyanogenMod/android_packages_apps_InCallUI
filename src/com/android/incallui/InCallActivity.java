@@ -67,6 +67,11 @@ public class InCallActivity extends Activity {
     /** Use to pass 'showDialpad' from {@link #onNewIntent} to {@link #onResume} */
     private boolean mShowDialpadRequested;
 
+    // This enum maps to Phone.SuppService defined in telephony
+    private enum SuppService {
+        UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
+    }
+
     @Override
     protected void onCreate(Bundle icicle) {
         Log.d(this, "onCreate()...  this = " + this);
@@ -612,11 +617,12 @@ public class InCallActivity extends Activity {
         return super.dispatchPopulateAccessibilityEvent(event);
     }
 
-    public void maybeShowErrorDialogOnDisconnect(Call.DisconnectCause cause) {
-        Log.d(this, "maybeShowErrorDialogOnDisconnect");
+    public void maybeShowErrorDialogOnDisconnect(Call call) {
+        Log.d(this, "maybeShowErrorDialogOnDisconnect: Call=" + call);
 
-        if (!isFinishing()) {
-            final int resId = getResIdForDisconnectCause(cause);
+        if (!isFinishing() && call != null) {
+            final int resId = getResIdForDisconnectCause(call.getDisconnectCause(),
+                    call.getSuppServNotification());
             if (resId != INVALID_RES_ID) {
                 showErrorDialog(resId);
             }
@@ -634,6 +640,62 @@ public class InCallActivity extends Activity {
             mModifyCallPromptDialog.dismiss();
             mModifyCallPromptDialog = null;
         }
+    }
+
+    /**
+     * Handle a failure notification for a supplementary service
+     * (i.e. conference, switch, separate, transfer, etc.).
+     */
+    void onSuppServiceFailed(int service) {
+        Log.d(this, "onSuppServiceFailed: " + service);
+        SuppService  result = SuppService.values()[service];
+        int errorMessageResId;
+
+        switch (result) {
+            case SWITCH:
+                // Attempt to switch foreground and background/incoming calls failed
+                // ("Failed to switch calls")
+                errorMessageResId = R.string.incall_error_supp_service_switch;
+                break;
+
+            case SEPARATE:
+                // Attempt to separate a call from a conference call
+                // failed ("Failed to separate out call")
+                errorMessageResId = R.string.incall_error_supp_service_separate;
+                break;
+
+            case TRANSFER:
+                // Attempt to connect foreground and background calls to
+                // each other (and hanging up user's line) failed ("Call
+                // transfer failed")
+                errorMessageResId = R.string.incall_error_supp_service_transfer;
+                break;
+
+            case CONFERENCE:
+                // Attempt to add a call to conference call failed
+                // ("Conference call failed")
+                errorMessageResId = R.string.incall_error_supp_service_conference;
+                break;
+
+            case REJECT:
+                // Attempt to reject an incoming call failed
+                // ("Call rejection failed")
+                errorMessageResId = R.string.incall_error_supp_service_reject;
+                break;
+
+            case HANGUP:
+                // Attempt to release a call failed ("Failed to release call(s)")
+                errorMessageResId = R.string.incall_error_supp_service_hangup;
+                break;
+
+            case UNKNOWN:
+            default:
+                // Attempt to use a service we don't recognize or support
+                // ("Unsupported service" or "Selected service failed")
+                errorMessageResId = R.string.incall_error_supp_service_unknown;
+                break;
+        }
+        showErrorDialog(errorMessageResId);
     }
 
     /**
@@ -663,11 +725,30 @@ public class InCallActivity extends Activity {
         mDialog.show();
     }
 
-    private int getResIdForDisconnectCause(Call.DisconnectCause cause) {
+    private int getResIdForDisconnectCause(Call.DisconnectCause cause,
+            Call.SsNotification notification) {
         int resId = INVALID_RES_ID;
 
-        if (cause == Call.DisconnectCause.CALL_BARRED) {
-            resId = R.string.callFailed_cb_enabled;
+        if (cause == Call.DisconnectCause.INCOMING_MISSED) {
+            // If the network sends SVC Notification then this dialog will be displayed
+            // in case of B when the incoming call at B is not answered and gets forwarded
+            // to C
+            if (notification != null && notification.notificationType == 1 &&
+                    notification.code ==
+                    Call.SsNotification.MT_CODE_ADDITIONAL_CALL_FORWARDED) {
+                resId = R.string.callUnanswered_forwarded;
+            }
+        } else if (cause == Call.DisconnectCause.CALL_BARRED) {
+            // When call is disconnected with this code then it can either be barring from
+            // MO side or MT side.
+            // In MT case, if network sends SVC Notification then this dialog will be
+            // displayed when A is calling B & incoming is barred on B.
+            if (notification != null && notification.notificationType == 0 &&
+                    notification.code == Call.SsNotification.MO_CODE_INCOMING_CALLS_BARRED) {
+                resId = R.string.callFailed_incoming_cb_enabled;
+            } else {
+                resId = R.string.callFailed_cb_enabled;
+            }
         } else if (cause == Call.DisconnectCause.FDN_BLOCKED) {
             resId = R.string.callFailed_fdn_only;
         } else if (cause == Call.DisconnectCause.CS_RESTRICTED) {

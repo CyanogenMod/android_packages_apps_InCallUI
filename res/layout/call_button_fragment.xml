@@ -168,6 +168,22 @@
                      android:contentDescription="@string/onscreenMergeCallsText"
                      android:visibility="gone"
                 />
+        <!-- Separator between 5th (or 6th) button and right padding -->
+        <View style="@style/VerticalSeparator" />
+
+        <ImageButton android:id="@+id/addParticipant"
+                     style="@style/InCallButton"
+                     android:src="@drawable/ic_add_group_holo_dark"
+                     android:contentDescription="@string/onscreenAddParticipant"
+                />
+
+        <View style="@style/VerticalSeparator" />
+
+        <ImageButton android:id="@+id/modifyCallButton"
+                     style="@style/InCallButton"
+                     android:src="@drawable/ic_switch_video_holo_dark"
+                     android:contentDescription="@string/onscreenModifyCallText"
+                />
 
         <!-- Separator between 3rd (or 4th) and 4th (or 6th) button -->
         <View android:id="@+id/blacklistSpacer"
@@ -179,25 +195,6 @@
                     style="@style/InCallButton"
                     android:src="@drawable/ic_block_contact_holo_dark"
                     android:contentDescription="@string/onscreenBlacklistText"
-                />
-
-        <!-- Separator between 5th (or 6th) button and right padding -->
-        <View style="@style/VerticalSeparator" />
-
-        <ImageButton android:id="@+id/addParticipant"
-                     style="@style/InCallButton"
-                     android:src="@drawable/ic_add_group_holo_dark"
-                     android:contentDescription="@string/onscreenAddParticipant"
-                />
-
-
-        <!-- Separator between 5th (or 6th) button and right padding -->
-        <View style="@style/VerticalSeparator" />
-
-        <ImageButton android:id="@+id/modifyCallButton"
-                     style="@style/InCallButton"
-                     android:src="@drawable/ic_switch_video_holo_dark"
-                     android:contentDescription="@string/onscreenModifyCallText"
                 />
 
         <!-- Separator between 4th (or 5th) button and right padding -->

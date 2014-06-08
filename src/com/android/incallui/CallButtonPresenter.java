@@ -230,14 +230,14 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         new AlertDialog.Builder(context)
             .setTitle(R.string.blacklist_dialog_title)
             .setMessage(message)
-            .setPositiveButton(R.string.alert_dialog_yes, new DialogInterface.OnClickListener() {
+            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Log.d(this, "hanging up due to blacklist: " + mCall.getCallId());
                     CallCommandClient.getInstance().blacklistAndHangup(mCall.getCallId());
                 }
             })
-            .setNegativeButton(R.string.alert_dialog_no, null)
+            .setNegativeButton(android.R.string.no, null)
             .show();
     }
 

@@ -76,9 +76,9 @@
     <!-- In-call screen: call failure reason (call denied because call barring is on) -->
     <string name="callFailed_cb_enabled">You can\'t make outgoing calls while call barring is on.</string>
     <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
-    <string name="callFailed_incoming_cb_enabled">Party has barred all Incoming calls.</string>
+    <string name="callFailed_incoming_cb_enabled">Party has barred all incoming calls.</string>
     <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
-    <string name="callUnanswered_forwarded">Call Unanswered and Forwarded</string>
+    <string name="callUnanswered_forwarded">Call unanswered and forwarded</string>
     <!-- In-call screen: call failure reason (call denied because domain specific access control is on) -->
     <string name="callFailed_dsac_restricted">All calls are restricted by access control.</string>
     <!-- In-call screen: call failure reason (Emergency call denied because domain specific access control is on)-->
@@ -504,10 +504,10 @@
     <string name="description_target_decline">Decline</string>
 
     <!-- Description of the answer directions in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_up_right">Up Right</string>
-    <string name="description_direction_up_left">Up Left</string>
-    <string name="description_direction_down_left">Down Left</string>
-    <string name="description_direction_down_right">Down Right</string>
+    <string name="description_direction_up_right">Up right</string>
+    <string name="description_direction_up_left">Up left</string>
+    <string name="description_direction_down_left">Down left</string>
+    <string name="description_direction_down_right">Down right</string>
     <!-- Description of the up direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
     <string name="description_direction_up">Slide up for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
     <!-- Description of the left direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->

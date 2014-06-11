@@ -252,17 +252,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             }
         }
 
-        if (MSimTelephonyManager.getDefault().isMultiSimEnabled() &&
-                !(MSimTelephonyManager.getDefault().getMultiSimConfiguration()
-                == MSimTelephonyManager.MultiSimVariants.DSDA)) {
-            String[] sub = {"SUB 1", "SUB 2", "SUB 3"};
-            int subscription = getPresenter().getActiveSubscription();
-
-            if (subscription != -1) {
-                showSubscriptionInfo(sub[subscription]);
-            }
-        }
-
         if (! isVideo) {
             setDrawableToImageView(mPhoto, photo);
         }

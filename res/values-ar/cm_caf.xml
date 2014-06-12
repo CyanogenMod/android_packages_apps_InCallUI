@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">تعديل طلب الاتصال الهاتفي لطلب (ussd).</string>
   <string name="callFailed_dialToSs">تعديل طلب الاتصال الهاتفي لطلب (SS).</string>
   <string name="callFailed_dialToDial">الطلب الهاتفي طلب تعديل للطلب مع رقم مختلف.</string>
+  <string name="callFailed_incoming_cb_enabled">وقد منعت الحفله جميع المكالمات الواردة.</string>
+  <string name="callUnanswered_forwarded">الاتصال بدون إجابة وتم إعادة توجيهها</string>
   <string name="modify_call_prompt_yes">نعم</string>
   <string name="modify_call_prompt_no">لا</string>
   <string name="modify_call_failure_str">طلب تعديل الإتصال فشل\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">هل ترغب في الترقية يحيل الدعوة للفيديو فقط من المكالمة؟</string>
   <string name="upgrade_vt_rx_prompt">هل ترغب في الترقية تلقي الدعوة للفيديو فقط من المكالمة؟</string>
   <string name="vt_init_fail_str">إرسال الفيديو فشل تهيئة. تخفيض رتبة الدعوة إلى VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Ss طلب تعديل للطلب الهاتفي.</string>
-  <string name="stk_cc_ss_to_ussd_error">Ss طلب تعديل للطلب (ussd).</string>
-  <string name="stk_cc_ss_to_ss_error">طلب SS معدلة جديدة ss طلب.</string>
   <string name="onscreenModifyCallText">تعديل الإتصال</string>
   <string name="onscreenAddParticipant">إضافة مشترك</string>
   <string name="description_target_answer_video">الإجابة بالفيديو</string>

@@ -32,18 +32,11 @@
   <string name="upgrade_vt_tx_prompt">Vil du opgradere opkaldet til et videoopkald, hvor du kun sender?</string>
   <string name="upgrade_vt_rx_prompt">Vil du opgradere opkaldet til et videoopkald, hvor du kun modtager?</string>
   <string name="vt_init_fail_str">Kunne ikke initialisere videooverførsel. Nedgraderer opkald til VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-anmodning ændret til DIAL-anmodning.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-anmodning ændret til USSD-anmodning.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-anmodning ændret til ny SS-anmodning.</string>
   <string name="onscreenModifyCallText">Ændre opkald</string>
   <string name="onscreenAddParticipant">Tilføj deltager</string>
   <string name="description_target_answer_video">Svar med video</string>
   <string name="description_target_answer_tx_video">Svar med TX-video</string>
   <string name="description_target_answer_rx_video">Svar med RX-video</string>
-  <string name="description_direction_up_right">Op og til højre</string>
-  <string name="description_direction_up_left">Op og til venstre</string>
-  <string name="description_direction_down_left">Ned og til venstre</string>
-  <string name="description_direction_down_right">Ned og til højre</string>
   <string name="sub_1">SIM-kort 1</string>
   <string name="sub_2">SIM-kort 2</string>
 </resources>

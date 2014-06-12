@@ -32,9 +32,6 @@
   <string name="upgrade_vt_tx_prompt">Soll der Anruf zu einem nur sendenden Videoanruf geändert werden?</string>
   <string name="upgrade_vt_rx_prompt">Soll der Anruf zu einem nur empfangenden Videoanruf geändert werden?</string>
   <string name="vt_init_fail_str">Start der Videoverbindung fehlgeschlagen. Der Anruf wird zu einem Sprachanruf geändert\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-Anfrage wurde in DIAL-Anfrage umgewandelt.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-Anfrage wurde in USSD-Anfrage umgewandelt.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-Anfrage wurde in neue SS-Anfrage umgewandelt.</string>
   <string name="onscreenModifyCallText">Anruftyp ändern</string>
   <string name="onscreenAddParticipant">Teilnehmer hinzufügen</string>
   <string name="description_target_answer_video">Mit Video antworten</string>

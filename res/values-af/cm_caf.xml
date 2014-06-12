@@ -32,18 +32,11 @@
   <string name="upgrade_vt_tx_prompt">Wil jy graag die oproep alleenlik opgradeer na \'n video uitsaai oproep?</string>
   <string name="upgrade_vt_rx_prompt">Wil jy graag die oproep alleenlik opgradeer na video ontvang oproep?</string>
   <string name="vt_init_fail_str">Video uitsaai inisialisering het misluk. Afgradering oproep na VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS versoek is verander na SKAKEL versoek.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS versoek verander na USSD versoek.</string>
-  <string name="stk_cc_ss_to_ss_error">SS versoek verander na nuwe SS versoek.</string>
   <string name="onscreenModifyCallText">Verander oproep</string>
   <string name="onscreenAddParticipant">Voeg by deelnemer</string>
   <string name="description_target_answer_video">Antwoord met video</string>
   <string name="description_target_answer_tx_video">Antwoord met TX video</string>
   <string name="description_target_answer_rx_video">Antwoord met RX video</string>
-  <string name="description_direction_up_right">Op regs</string>
-  <string name="description_direction_up_left">Op links</string>
-  <string name="description_direction_down_left">Af links</string>
-  <string name="description_direction_down_right">Af regs</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

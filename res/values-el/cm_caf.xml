@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε αίτημα USSD.</string>
   <string name="callFailed_dialToSs">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε αίτημα SS.</string>
   <string name="callFailed_dialToDial">Αίτημα ΚΛΗΣΗΣ τροποποιήθηκε σε ΚΛΗΣΗ με διαφορετικό νούμερο.</string>
+  <string name="callFailed_incoming_cb_enabled">Ο συνομιλητής έχει μπλοκάρει όλες τις εισερχόμενες κλήσεις.</string>
+  <string name="callUnanswered_forwarded">Η κλήση δεν απαντήθηκε και προωθήθηκε</string>
   <string name="modify_call_prompt_yes">Ναι</string>
   <string name="modify_call_prompt_no">Όχι</string>
   <string name="modify_call_failure_str">Αποτυχία τροποποίησης αιτήματος κλήσης\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Θέλετε να αναβαθμιστεί η κλήση σε κλήση μετάδοσης βίντεο μόνο;</string>
   <string name="upgrade_vt_rx_prompt">Θέλετε να αναβαθμιστεί η κλήση σε κλήση λήψης βίντεο μόνο;</string>
   <string name="vt_init_fail_str">Αποτυχία αρχικοποίησης μετάδοσης βίντεο. Υποβάθμιση κλήσης σε VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Αίτημα SS τροποποιήθηκε σε αίτημα ΚΛΗΣΗΣ.</string>
-  <string name="stk_cc_ss_to_ussd_error">Αίτημα SS τροποποιήθηκε σε αίτημα USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Αίτημα SS τροποποιήθηκε σε νέο αίτημα SS.</string>
   <string name="onscreenModifyCallText">Τροποποίηση κλήσης</string>
   <string name="onscreenAddParticipant">Προσθήκη συμμετέχοντος</string>
   <string name="description_target_answer_video">Απάντηση με βίντεο</string>

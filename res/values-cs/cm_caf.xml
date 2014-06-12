@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Požadavek DIAL změněn na požadavek USSD.</string>
   <string name="callFailed_dialToSs">Požadavek DIAL změněn na požadavek SS.</string>
   <string name="callFailed_dialToDial">Požadavek DIAL změněn na požadavek DIAL s jiným číslem.</string>
+  <string name="callFailed_incoming_cb_enabled">Volaná skupina odmítá všechny příchozí hovory?</string>
+  <string name="callUnanswered_forwarded">Zavolat na nepřijaté a přposlané</string>
   <string name="modify_call_prompt_yes">Ano</string>
   <string name="modify_call_prompt_no">Ne</string>
   <string name="modify_call_failure_str">Požadavek pro změnu volání selhal\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Chcete povýšit volání na pouze vysílání videa?</string>
   <string name="upgrade_vt_rx_prompt">Chcete povýšit volání na pouze přijímání videa?</string>
   <string name="vt_init_fail_str">Selhalo vysílání videa. Volání se ponižuje na VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Požadavek SS změněn na požadavek DIAL.</string>
-  <string name="stk_cc_ss_to_ussd_error">Požadavek SS změněn na požadavek USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Požadavek SS změněn na nový požadavek SS.</string>
   <string name="onscreenModifyCallText">Změnit volání</string>
   <string name="onscreenAddParticipant">Přidat účastníka</string>
   <string name="description_target_answer_video">Přijmout s videem</string>
@@ -42,8 +41,8 @@
   <string name="description_target_answer_rx_video">Přijmout s přijímáním videa</string>
   <string name="description_direction_up_right">Nahoru vpravo</string>
   <string name="description_direction_up_left">Nahoru vlevo</string>
-  <string name="description_direction_down_left">Dolu vlevo</string>
-  <string name="description_direction_down_right">Dolu vpravo</string>
+  <string name="description_direction_down_left">Dolů vlevo</string>
+  <string name="description_direction_down_right">Dolů vpravo</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-verzoek veranderd naar USSD-verzoek.</string>
   <string name="callFailed_dialToSs">DIAL-verzoek veranderd naar SS-verzoek.</string>
   <string name="callFailed_dialToDial">DIAL-verzoek veranderd naar DIAL met ander nummer.</string>
+  <string name="callFailed_incoming_cb_enabled">Andere partij blokkeert alle oproepen.</string>
+  <string name="callUnanswered_forwarded">Gesprek onbeantwoord en doorgeschakeld</string>
   <string name="modify_call_prompt_yes">Ja</string>
   <string name="modify_call_prompt_no">Nee</string>
   <string name="modify_call_failure_str">Verzoek om oproep te wijzigen mislukt\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Wilt u het gesprek opwaarderen naar een alleen-verzenden-videogesprek?</string>
   <string name="upgrade_vt_rx_prompt">Wilt u het gesprek opwaarderen naar een alleen-ontvangen-videogesprek?</string>
   <string name="vt_init_fail_str">Kan geen videogesprek starten. Overschakelen naar VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-verzoek veranderd naar DIAL-verzoek.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-verzoek veranderd naar USSD-verzoek.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-verzoek veranderd naar nieuw SS-verzoek.</string>
   <string name="onscreenModifyCallText">Gesprek veranderen</string>
   <string name="onscreenAddParticipant">Deelnemer toevoegen</string>
   <string name="description_target_answer_video">Beantwoorden met video</string>

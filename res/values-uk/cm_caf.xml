@@ -32,18 +32,11 @@
   <string name="upgrade_vt_tx_prompt">Переключитися в режим відеодзвінка? (Буде передаватися тільки зображення з камери цього пристрою)</string>
   <string name="upgrade_vt_rx_prompt">Переключитися в режим відеодзвінка? (Буде показано тільки зображення з камери співрозмовника)</string>
   <string name="vt_init_fail_str">Не вдалося ініціалізувати відеодзвінок. Перехід в режим VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-запит перетворений в DIAL-запит.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-запит перетворений в USSD-запит.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-запит перетворений в новий SS-запит.</string>
   <string name="onscreenModifyCallText">Змінити виклик</string>
   <string name="onscreenAddParticipant">Додати учасника</string>
   <string name="description_target_answer_video">Відповісти з відео</string>
   <string name="description_target_answer_tx_video">Відповісти з TX відео</string>
   <string name="description_target_answer_rx_video">Відповісти з RX відео</string>
-  <string name="description_direction_up_right">Вгору праворуч</string>
-  <string name="description_direction_up_left">Вгору ліворуч</string>
-  <string name="description_direction_down_left">Вниз ліворуч</string>
-  <string name="description_direction_down_right">Вниз праворуч</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

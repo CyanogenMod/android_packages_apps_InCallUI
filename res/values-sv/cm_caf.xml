@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-begäran ändrades till USSD-begäran.</string>
   <string name="callFailed_dialToSs">DIAL-begäran ändrades till SS-begäran.</string>
   <string name="callFailed_dialToDial">DIAL-begäran ändrades till DIAL-begäran med annat nummer.</string>
+  <string name="callFailed_incoming_cb_enabled">Parten har spärrat alla inkommande samtal.</string>
+  <string name="callUnanswered_forwarded">Samtalet obesvarat och vidarebefordrat</string>
   <string name="modify_call_prompt_yes">Ja</string>
   <string name="modify_call_prompt_no">Nej</string>
   <string name="modify_call_failure_str">Begäran att modifiera samtal misslyckades\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Vill du uppgradera samtalet till samtal med enbart videosändning?</string>
   <string name="upgrade_vt_rx_prompt">Vill du uppgradera samtalet till samtal med enbart videomottagning?</string>
   <string name="vt_init_fail_str">Initiering av videosändning misslyckades. Nedgraderar samtal till VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-begäran ändrades till DIAL-begäran.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-begäran ändrades till USSD-begäran.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-begäran ändrades till ny SS-begäran.</string>
   <string name="onscreenModifyCallText">Modifiera samtal</string>
   <string name="onscreenAddParticipant">Lägg till deltagare</string>
   <string name="description_target_answer_video">Svara med video</string>

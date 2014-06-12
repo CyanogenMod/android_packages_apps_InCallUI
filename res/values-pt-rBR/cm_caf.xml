@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Pedido de DISCAGEM modificado para requisição USSD.</string>
   <string name="callFailed_dialToSs">Pedido de DISCAGEM modificado para requisição SS.</string>
   <string name="callFailed_dialToDial">Pedido de DISCAGEM modificado para DISCAGEM com número diferente.</string>
+  <string name="callFailed_incoming_cb_enabled">Todas as chamadas recebidas foram bloqueadas por terceiros.</string>
+  <string name="callUnanswered_forwarded">Chamada não respondida e reencaminhada</string>
   <string name="modify_call_prompt_yes">Sim</string>
   <string name="modify_call_prompt_no">Não</string>
   <string name="modify_call_failure_str">Falha na requisição para modificar chamada\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Você gostaria de atualizar a chamada para somente transmissão de vídeo?</string>
   <string name="upgrade_vt_rx_prompt">Você gostaria de atualizar a chamada para somente recepção de vídeo?</string>
   <string name="vt_init_fail_str">Falha na inicialização de transmissão de vídeo. Rebaixando chamada para VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Pedido de SS modificado para requisição DIAL.</string>
-  <string name="stk_cc_ss_to_ussd_error">Pedido de SS modificado para requisição USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Pedido de SS modificado para nova requisição SS.</string>
   <string name="onscreenModifyCallText">Modificar chamada</string>
   <string name="onscreenAddParticipant">Adicionar participante</string>
   <string name="description_target_answer_video">Resposta com vídeo</string>

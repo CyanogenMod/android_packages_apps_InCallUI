@@ -32,18 +32,11 @@
   <string name="upgrade_vt_tx_prompt">Czy chcesz aktywować funkcję wideorozmowy (przesyłanie obrazu)?</string>
   <string name="upgrade_vt_rx_prompt">Czy chcesz aktywować funkcję wideorozmowy (odbieranie obrazu)?</string>
   <string name="vt_init_fail_str">Nie udało się zainicjować wideorozmowy. Przywracanie połączenia VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Żądanie SS zmodyfikowane na DIAL.</string>
-  <string name="stk_cc_ss_to_ussd_error">Żądanie SS zmodyfikowane na USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Żądanie SS zmodyfikowane na nowe żądanie SS.</string>
   <string name="onscreenModifyCallText">Modyfikowanie połączeń</string>
   <string name="onscreenAddParticipant">Dodaj uczestnika</string>
   <string name="description_target_answer_video">Odpowiedz wideo</string>
   <string name="description_target_answer_tx_video">Odpowiedz wideo TX</string>
   <string name="description_target_answer_rx_video">Odpowiedz wideo RX</string>
-  <string name="description_direction_up_right">Góra prawo</string>
-  <string name="description_direction_up_left">Góra lewo</string>
-  <string name="description_direction_down_left">Dół lewo</string>
-  <string name="description_direction_down_right">Dół w prawo</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

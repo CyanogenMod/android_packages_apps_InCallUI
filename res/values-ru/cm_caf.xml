@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-запрос преобразован в USSD-запрос.</string>
   <string name="callFailed_dialToSs">DIAL-запрос преобразован в SS-запрос.</string>
   <string name="callFailed_dialToDial">DIAL-запрос преобразован в новый DIAL-запрос с другим номером.</string>
+  <string name="callFailed_incoming_cb_enabled">Участник запретил все входящие вызовы.</string>
+  <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
   <string name="modify_call_prompt_yes">Да</string>
   <string name="modify_call_prompt_no">Нет</string>
   <string name="modify_call_failure_str">Запрос на изменение типа вызова не удался\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Переключиться в режим видеозвонка? (будет передаваться только изображение с камеры этого устройства)</string>
   <string name="upgrade_vt_rx_prompt">Переключиться в режим видеозвонка? (будет показано только изображение с камеры собеседника)</string>
   <string name="vt_init_fail_str">Не удалось инициализировать видеозвонок. Переход в режим VoLTE...\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-запрос преобразован в DIAL-запрос.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-запрос преобразован в USSD-запрос.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-запрос преобразован в новый SS-запрос.</string>
   <string name="onscreenModifyCallText">Изменить вызов</string>
   <string name="onscreenAddParticipant">Добавить участника</string>
   <string name="description_target_answer_video">Ответить с видео</string>

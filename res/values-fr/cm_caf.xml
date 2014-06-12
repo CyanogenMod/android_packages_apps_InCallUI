@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Requête d\'appel modifiée pour USSD.</string>
   <string name="callFailed_dialToSs">Requête d\'appel modifiée pour SS.</string>
   <string name="callFailed_dialToDial">Requête d\'appel modifiée pour appeler avec un numéro différent.</string>
+  <string name="callFailed_incoming_cb_enabled">Le groupe a interdit tous les appels entrants.</string>
+  <string name="callUnanswered_forwarded">Appel sans réponse et transmis</string>
   <string name="modify_call_prompt_yes">Oui</string>
   <string name="modify_call_prompt_no">Non</string>
   <string name="modify_call_failure_str">La demande visant à modifier l\'appel à échouée\n</string>
@@ -32,18 +34,15 @@
   <string name="upgrade_vt_tx_prompt">Voulez-vous passer de l\'appel vidéo à l\'appel vocal ?</string>
   <string name="upgrade_vt_rx_prompt">Voulez-vous recevoir uniquement l\'appel vocal à la place de l\'appel vidéo ?</string>
   <string name="vt_init_fail_str">L\'initialisation de la transmission vidéo a échoué. Déclassement de l\'appel à VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">La requête SS a été modifiée en requête d\'appel.</string>
-  <string name="stk_cc_ss_to_ussd_error">La requête SS a été modifié en requête USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">La requête SS a été modifiée en une nouvelle requête SS.</string>
   <string name="onscreenModifyCallText">Modifiez l\'appel</string>
   <string name="onscreenAddParticipant">Ajouter un participant</string>
   <string name="description_target_answer_video">Répondre avec vidéo</string>
   <string name="description_target_answer_tx_video">Répondre avec vidéo TX</string>
   <string name="description_target_answer_rx_video">Répondre avec vidéo RX</string>
-  <string name="description_direction_up_right">Haut droit</string>
-  <string name="description_direction_up_left">Haut gauche</string>
-  <string name="description_direction_down_left">Bas gauche</string>
-  <string name="description_direction_down_right">Bas à droite</string>
+  <string name="description_direction_up_right">En haut à droite</string>
+  <string name="description_direction_up_left">En haut à gauche</string>
+  <string name="description_direction_down_left">En bas à gauche</string>
+  <string name="description_direction_down_right">En bas à droite</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

@@ -32,18 +32,11 @@
   <string name="upgrade_vt_tx_prompt">是否将该通话升级到仅传出视频的通话？</string>
   <string name="upgrade_vt_rx_prompt">是否将该通话升级到仅接受视频的通话？</string>
   <string name="vt_init_fail_str">视频传输初始化失败。通话降级到 VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS 请求已修改为 DIAL 请求。</string>
-  <string name="stk_cc_ss_to_ussd_error">SS 请求已修改为 USSD 请求。</string>
-  <string name="stk_cc_ss_to_ss_error">SS 请求已修改为新的 SS 请求。</string>
   <string name="onscreenModifyCallText">更改通话</string>
   <string name="onscreenAddParticipant">添加参与者</string>
   <string name="description_target_answer_video">用视频应答</string>
   <string name="description_target_answer_tx_video">用 TX 视频应答</string>
   <string name="description_target_answer_rx_video">用 RX 视频应答</string>
-  <string name="description_direction_up_right">右上角</string>
-  <string name="description_direction_up_left">左上角</string>
-  <string name="description_direction_down_left">左下角</string>
-  <string name="description_direction_down_right">右下角</string>
   <string name="sub_1">SIM 卡 1</string>
   <string name="sub_2">SIM 卡 2</string>
 </resources>

@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-pyyntö muutettiin USSD-pyynnöksi.</string>
   <string name="callFailed_dialToSs">DIAL-pyyntö muutettiin SS-pyynnöksi.</string>
   <string name="callFailed_dialToDial">DIAL-pyyntö muutettiin DIAL-pyynnöksi eri numerolla.</string>
+  <string name="callFailed_incoming_cb_enabled">Ryhmä on estänyt kaikki tulevat puhelut.</string>
+  <string name="callUnanswered_forwarded">Puheluun ei vastattu ja se siirrettiin</string>
   <string name="modify_call_prompt_yes">Kyllä</string>
   <string name="modify_call_prompt_no">Ei</string>
   <string name="modify_call_failure_str">Puhelun muuttamispyyntö epäonnistui\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Haluatko vaihtaa puhelun videon lähetykseksi?</string>
   <string name="upgrade_vt_rx_prompt">Haluatko vaihtaa puhelun videon vastaanottamiseksi?</string>
   <string name="vt_init_fail_str">Videon välittäminen epäonnistui. Alennetaan puhelu VoLTE:ksi\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS-pyyntö muutettiin DIAL-pyynnöksi.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS-pyyntö muutettiin USSD-pyynnöksi.</string>
-  <string name="stk_cc_ss_to_ss_error">SS-pyyntö muutettiin uudeksi SS-pyynnöksi.</string>
   <string name="onscreenModifyCallText">Muokkaa puhelua</string>
   <string name="onscreenAddParticipant">Lisää osallistuja</string>
   <string name="description_target_answer_video">Vastaa videolla</string>

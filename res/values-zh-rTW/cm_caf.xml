@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL 請求已修改為 USSD 請求。</string>
   <string name="modify_call_prompt_yes">是</string>
   <string name="modify_call_prompt_no">否</string>
   <string name="modify_call_option_vt">VT</string>

@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL අයදුම USSD අයදුමක් බවට වෙනස් කෙරුණි.</string>
   <string name="callFailed_dialToSs">DIAL අයදුම SS අයදුමක් බවට වෙනස් කෙරුණි.</string>
   <string name="callFailed_dialToDial">DIAL අයදුම වෙනස් අංකයක් සහිත DIAL අයදුමක් බවට වෙනස් කෙරුණි.</string>
+  <string name="callFailed_incoming_cb_enabled">පාර්ශ්වකරු සියලු පැමිණෙන ඇමතුම් වළක්වා ඇත.</string>
+  <string name="callUnanswered_forwarded">ඇමතුමට ප්‍රතිචාර නොදුණි එවිට ඉදිරියට යැවුනි</string>
   <string name="modify_call_prompt_yes">ඔව්</string>
   <string name="modify_call_prompt_no">නැහැ</string>
   <string name="modify_call_failure_str">ඇමතුම වෙනස් කිරීමේ අයදුම අසමත්විය\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">ඇමතුම වීඩියෝ සම්ප්‍රේෂණය පමණක්වූ ඇමතුමකට උත්ශ්‍රේණි කිරීමට ඔබ කැමතිද?</string>
   <string name="upgrade_vt_rx_prompt">ඇමතුම වීඩියෝ ග්‍රහණය පමණක්වූ ඇමතුමකට උත්ශ්‍රේණි කිරීමට ඔබ කැමතිද?</string>
   <string name="vt_init_fail_str">වීඩියෝ සම්ප්‍රේෂණය ඇරඹීමට අසමත්විය. ඇමතුම VoLTE බවට පහත්ශ්‍රේණි කෙරේ\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS ආයාචනය DIAL ආයාචනයක් බවට වෙනස් කෙරුණි.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS ආයාචනය USSD ආයාචනයක් බවට වෙනස් කෙරුණි.</string>
-  <string name="stk_cc_ss_to_ss_error">SS ආයාචනය නව SS ආයාචනයක් බවට වෙනස් කෙරුණි.</string>
   <string name="onscreenModifyCallText">ඇමතුම වෙනස් කරන්න</string>
   <string name="onscreenAddParticipant">සහභාගියෙක් එක් කරන්න</string>
   <string name="description_target_answer_video">වීඩියෝ සමග ප්‍රතිචාර දක්වන්න</string>

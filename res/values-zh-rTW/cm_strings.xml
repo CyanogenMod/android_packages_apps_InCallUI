@@ -16,6 +16,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <string name="onscreenBlacklistText">黑名單</string>
   <string name="blacklist_dialog_title">新增至黑名單</string>
   <string name="sub_no_sim">沒有 SIM 卡</string>

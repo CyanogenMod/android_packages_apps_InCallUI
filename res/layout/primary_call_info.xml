@@ -35,7 +35,9 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/incall_call_banner_background"
+            android:fitsSystemWindows="true">
 
         <!-- "Call Banner" for primary call, the foregound or ringing call.
          The "call banner" is a block of info about a single call,
@@ -50,8 +52,7 @@
             android:paddingStart="@dimen/call_banner_side_padding"
             android:paddingEnd="@dimen/call_banner_side_padding"
             android:paddingTop="@dimen/call_banner_top_bottom_padding"
-            android:paddingBottom="@dimen/call_banner_top_bottom_padding"
-            android:background="@color/incall_call_banner_background">
+            android:paddingBottom="@dimen/call_banner_top_bottom_padding">
 
             <!-- Subscription id: it displays current subscription(SUB1/SUB2/SUB3) information
                  on which currently voice call is active(in foreground). -->

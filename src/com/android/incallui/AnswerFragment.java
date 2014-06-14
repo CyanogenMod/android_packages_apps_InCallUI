@@ -29,6 +29,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -102,13 +103,16 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
 
     @Override
     public void showAnswerUi(boolean show) {
+        final Window window = getActivity().getWindow();
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);
         if (show) {
             mGlowpad.startPing();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         } else {
             mGlowpad.stopPing();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 

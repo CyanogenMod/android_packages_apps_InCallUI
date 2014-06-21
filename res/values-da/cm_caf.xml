@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-anmodning ændret til USSD-anmodning.</string>
   <string name="callFailed_dialToSs">DIAL-anmodning ændret til SS-anmodning.</string>
   <string name="callFailed_dialToDial">DIAL-anmodning ændret til DIAL-anmodning med et andet nummer.</string>
+  <string name="callFailed_incoming_cb_enabled">Part har udelukket alle indgående opkald.</string>
+  <string name="callUnanswered_forwarded">Opkald ubesvaret og videresendt</string>
   <string name="modify_call_prompt_yes">Ja</string>
   <string name="modify_call_prompt_no">Nej</string>
   <string name="modify_call_failure_str">Anmodning om ændring af opkald mislykkedes\n</string>
@@ -37,6 +39,10 @@
   <string name="description_target_answer_video">Svar med video</string>
   <string name="description_target_answer_tx_video">Svar med TX-video</string>
   <string name="description_target_answer_rx_video">Svar med RX-video</string>
+  <string name="description_direction_up_right">Op og til højre</string>
+  <string name="description_direction_up_left">Op og til venstre</string>
+  <string name="description_direction_down_left">Ned og til venstre</string>
+  <string name="description_direction_down_right">Ned og til højre</string>
   <string name="sub_1">SIM-kort 1</string>
   <string name="sub_2">SIM-kort 2</string>
 </resources>

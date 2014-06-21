@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-Anfrage wurde in USSD-Anfrage umgewandelt.</string>
   <string name="callFailed_dialToSs">DIAL-Anfrage wurde in SS-Anfrage umgewandelt.</string>
   <string name="callFailed_dialToDial">DIAL-Anfrage wurde in DIAL-Anfrage mit anderer Nummer umgewandelt.</string>
+  <string name="callFailed_incoming_cb_enabled">Alle eingehenden Anrufe sind auf der Gegenstelle blockiert.</string>
+  <string name="callUnanswered_forwarded">Anruf unbeantwortet und weitergeleitet</string>
   <string name="modify_call_prompt_yes">Ja</string>
   <string name="modify_call_prompt_no">Nein</string>
   <string name="modify_call_failure_str">Änderung des Anruftyps ist fehlgeschlagen\n</string>

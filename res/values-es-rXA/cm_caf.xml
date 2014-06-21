@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Solicitú DIAL modificada a solicitú USSD.</string>
   <string name="callFailed_dialToSs">Solicitú DIAL modificada a solicitú SS.</string>
   <string name="callFailed_dialToDial">Solicitú DIAL modificada a DIAL con númberu distintu.</string>
+  <string name="callFailed_incoming_cb_enabled">La multi-conferencia tien prohibíes toles llamaes entrantes.</string>
+  <string name="callUnanswered_forwarded">Llamada non respondida y reunviada</string>
   <string name="modify_call_prompt_yes">Sí</string>
   <string name="modify_call_prompt_no">Non</string>
   <string name="modify_call_failure_str">Falló la solicitú de modificación de llamada\n</string>
@@ -37,6 +39,10 @@
   <string name="description_target_answer_video">Contestar con videollamada</string>
   <string name="description_target_answer_tx_video">Contestar con tresmisión de videu</string>
   <string name="description_target_answer_rx_video">Contestar con recepción de videu</string>
+  <string name="description_direction_up_right">Arriba a mandrecha</string>
+  <string name="description_direction_up_left">Arriba a manzorga</string>
+  <string name="description_direction_down_left">Abaxo a manzorga</string>
+  <string name="description_direction_down_right">Abaxo a mandrecha</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

@@ -26,6 +26,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.MSimTelephonyManager;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -148,14 +149,20 @@ public class MSimInCallActivity extends InCallActivity {
         for (int i = 0; i < phoneCount; i++) {
             mDsdaTabLayout[i] = getLayoutInflater()
                     .inflate(R.layout.msim_tab_sub_info, null);
+            if (MSimTelephonyManager.getDefault().getSimState(i)
+                    == TelephonyManager.SIM_STATE_ABSENT) {
+                ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
+                    .setVisibility(View.INVISIBLE);
+                ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
+                    .setVisibility(View.INVISIBLE);
+            } else {
+                ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
+                        .setBackground(icons.getDrawable(i));
 
-            ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
-                    .setBackground(icons.getDrawable(i));
-
-            ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
-                    .setText(Settings.System.getString(getContentResolver(),
-                            MULTI_SIM_NAME[i]));
-
+                ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
+                        .setText(Settings.System.getString(getContentResolver(),
+                                MULTI_SIM_NAME[i]));
+            }
             mDsdaTab[i] = bar.newTab().setCustomView(mDsdaTabLayout[i])
                     .setTabListener(new TabListener(i));
         }

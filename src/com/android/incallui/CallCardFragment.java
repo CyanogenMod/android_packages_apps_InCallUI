@@ -29,6 +29,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import static android.telephony.TelephonyManager.SIM_STATE_ABSENT;
 import android.telephony.MSimTelephonyManager;
+import android.telephony.TelephonyManager;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -334,7 +335,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             final String multiSimName = "perferred_name_sub";
             int subscription = getPresenter().getActiveSubscription();
 
-            if ((subscription != -1) && (!isSipCall)){
+            if ((subscription != -1) && (!isSipCall)
+                    && MSimTelephonyManager.getDefault().getSimState(subscription)
+                            != TelephonyManager.SIM_STATE_ABSENT) {
                 final String simName = Settings.System.getString(getActivity()
                         .getContentResolver(), multiSimName + (subscription + 1));
                 showSubscriptionInfo(simName);

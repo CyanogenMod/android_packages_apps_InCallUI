@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">SKAKEL versoek verander na USSD versoek.</string>
   <string name="callFailed_dialToSs">DIAL versoek verander na SS versoek.</string>
   <string name="callFailed_dialToDial">SKAKEL versoek is verander om te skakel met \'n ander telefoonnommer.</string>
+  <string name="callFailed_incoming_cb_enabled">Party het alle inkomende oproepe verbied.</string>
+  <string name="callUnanswered_forwarded">Oproep was onbeantwoord en aangestuur</string>
   <string name="modify_call_prompt_yes">Ja</string>
   <string name="modify_call_prompt_no">Nee</string>
   <string name="modify_call_failure_str">Versoek om oproep te verander het misluk\n</string>
@@ -37,6 +39,10 @@
   <string name="description_target_answer_video">Antwoord met video</string>
   <string name="description_target_answer_tx_video">Antwoord met TX video</string>
   <string name="description_target_answer_rx_video">Antwoord met RX video</string>
+  <string name="description_direction_up_right">Regs op</string>
+  <string name="description_direction_up_left">Links op</string>
+  <string name="description_direction_down_left">Links af</string>
+  <string name="description_direction_down_right">Regs af</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

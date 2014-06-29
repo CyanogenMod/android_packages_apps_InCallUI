@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Żądanie DIAL zmodyfikowane na USSD.</string>
   <string name="callFailed_dialToSs">Żądanie DIAL zmodyfikowane na SS.</string>
   <string name="callFailed_dialToDial">Żądanie DIAL zmodyfikowane na DIAL z innym numerem.</string>
+  <string name="callFailed_incoming_cb_enabled">Strona posiada przedawnione wszystkie połączenia przychodzące.</string>
+  <string name="callUnanswered_forwarded">Połączenie nieodebrane i przekazane dalej</string>
   <string name="modify_call_prompt_yes">Tak</string>
   <string name="modify_call_prompt_no">Nie</string>
   <string name="modify_call_failure_str">Żądanie modyfikacji połączenia nieudane\n</string>
@@ -37,6 +39,10 @@
   <string name="description_target_answer_video">Odpowiedz wideo</string>
   <string name="description_target_answer_tx_video">Odpowiedz wideo TX</string>
   <string name="description_target_answer_rx_video">Odpowiedz wideo RX</string>
+  <string name="description_direction_up_right">Na górze po prawej</string>
+  <string name="description_direction_up_left">Na górze po lewej</string>
+  <string name="description_direction_down_left">Na dole po lewej</string>
+  <string name="description_direction_down_right">Na dole po prawej</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

@@ -17,6 +17,7 @@
 package com.android.incallui;
 
 import android.os.RemoteException;
+import android.os.SystemProperties;
 
 import com.android.internal.telephony.MSimConstants;
 
@@ -252,10 +253,44 @@ public class CallCommandClient {
             return;
         }
         try {
-            Log.v(this, "acceptCall() " );
-            mCommandService.answerCallWithCallType(callId,callType);
+            /*
+             * To test call deflection this property has to be set with the
+             * number to which the call should be deflected. If this property is
+             * set to a number, on pressing the UI answer button, call deflect
+             * request will be sent. This is done to provide hooks to test call
+             * deflection through the UI answer button. For commercialization UI
+             * should be customized to call this API through the Call deflect UI
+             * button By default this property is not set and Answer button will
+             * work as expected
+             * Example:
+             * To deflect call to number 12345
+             * adb shell setprop persist.radio.deflect.number 12345
+             *
+             * Toggle above property and to invoke answerCallWithCallType
+             * adb shell setprop persist.radio.deflect.number ""
+             */
+            String deflectcall = SystemProperties.get("persist.radio.deflect.number");
+            if (deflectcall != null && !deflectcall.isEmpty()) {
+                mCommandService.deflectCall(callId, deflectcall);
+            } else {
+                Log.v(this, "acceptCall() ");
+                mCommandService.answerCallWithCallType(callId, callType);
+            }
         } catch (RemoteException e) {
             Log.e(this, "Error on acceptCall().", e);
+        }
+    }
+
+    public void deflectCall(int callId, String number) {
+        if (mCommandService == null) {
+            Log.e(this, "Cannot deflectCall(); CallCommandService == null");
+            return;
+        }
+        try{
+            Log.v(this, "deflectCall() ");
+            mCommandService.deflectCall(callId, number);
+        } catch (RemoteException e) {
+            Log.e(this, "Error on deflectCall().", e);
         }
     }
 

@@ -29,6 +29,7 @@ import com.android.services.telephony.common.CallDetails;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnCancelListener;
@@ -65,6 +66,12 @@ public class InCallActivity extends Activity {
 
     /** Use to pass 'showDialpad' from {@link #onNewIntent} to {@link #onResume} */
     private boolean mShowDialpadRequested;
+    private boolean mConferenceManagerShown;
+
+    // This enum maps to Phone.SuppService defined in telephony
+    private enum SuppService {
+        UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
+    }
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -123,6 +130,7 @@ public class InCallActivity extends Activity {
             mCallButtonFragment.displayDialpad(true);
             mShowDialpadRequested = false;
         }
+        updateSystemBarTranslucency();
     }
 
     // onPause is guaranteed to be called when the InCallActivity goes
@@ -238,6 +246,8 @@ public class InCallActivity extends Activity {
             return;
         } else if (mConferenceManagerFragment.isVisible()) {
             mConferenceManagerFragment.setVisible(false);
+            mConferenceManagerShown = false;
+            updateSystemBarTranslucency();
             return;
         }
 
@@ -354,6 +364,10 @@ public class InCallActivity extends Activity {
         return super.dispatchTouchEvent(event);
     }
 
+    public CallButtonFragment getCallButtonFragment() {
+        return mCallButtonFragment;
+    }
+
     private void internalResolveIntent(Intent intent) {
         final String action = intent.getAction();
 
@@ -411,7 +425,7 @@ public class InCallActivity extends Activity {
         if (mDialpadFragment == null) {
             mDialpadFragment = (DialpadFragment) getFragmentManager()
                     .findFragmentById(R.id.dialpadFragment);
-            mDialpadFragment.getView().setVisibility(View.INVISIBLE);
+            getFragmentManager().beginTransaction().hide(mDialpadFragment).commit();
         }
 
         if (mConferenceManagerFragment == null) {
@@ -444,13 +458,15 @@ public class InCallActivity extends Activity {
     }
 
     public void displayDialpad(boolean showDialpad) {
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
         if (showDialpad) {
-            mDialpadFragment.setVisible(true);
-            mCallCardFragment.setVisible(false);
+            ft.setCustomAnimations(R.anim.incall_dialpad_slide_in, 0);
+            ft.show(mDialpadFragment);
         } else {
-            mDialpadFragment.setVisible(false);
-            mCallCardFragment.setVisible(true);
+            ft.setCustomAnimations(0, R.anim.incall_dialpad_slide_out);
+            ft.hide(mDialpadFragment);
         }
+        ft.commitAllowingStateLoss();
 
         InCallPresenter.getInstance().getProximitySensor().onDialpadVisible(showDialpad);
     }
@@ -462,7 +478,28 @@ public class InCallActivity extends Activity {
     public void displayManageConferencePanel(boolean showPanel) {
         if (showPanel) {
             mConferenceManagerFragment.setVisible(true);
+            mConferenceManagerShown = true;
+            updateSystemBarTranslucency();
         }
+    }
+
+    public void onManageConferenceDoneClicked() {
+        if (mConferenceManagerShown && !mConferenceManagerFragment.isVisible()) {
+            mConferenceManagerShown = false;
+            updateSystemBarTranslucency();
+        }
+    }
+
+    private void updateSystemBarTranslucency() {
+        final boolean doTranslucency = !mConferenceManagerShown;
+        final Window window = getWindow();
+
+        if (doTranslucency) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        window.getDecorView().requestFitSystemWindows();
     }
 
     // The function is called when Modify Call button gets pressed.
@@ -605,11 +642,12 @@ public class InCallActivity extends Activity {
         return super.dispatchPopulateAccessibilityEvent(event);
     }
 
-    public void maybeShowErrorDialogOnDisconnect(Call.DisconnectCause cause) {
-        Log.d(this, "maybeShowErrorDialogOnDisconnect");
+    public void maybeShowErrorDialogOnDisconnect(Call call) {
+        Log.d(this, "maybeShowErrorDialogOnDisconnect: Call=" + call);
 
-        if (!isFinishing()) {
-            final int resId = getResIdForDisconnectCause(cause);
+        if (!isFinishing() && call != null) {
+            final int resId = getResIdForDisconnectCause(call.getDisconnectCause(),
+                    call.getSuppServNotification());
             if (resId != INVALID_RES_ID) {
                 showErrorDialog(resId);
             }
@@ -627,6 +665,62 @@ public class InCallActivity extends Activity {
             mModifyCallPromptDialog.dismiss();
             mModifyCallPromptDialog = null;
         }
+    }
+
+    /**
+     * Handle a failure notification for a supplementary service
+     * (i.e. conference, switch, separate, transfer, etc.).
+     */
+    void onSuppServiceFailed(int service) {
+        Log.d(this, "onSuppServiceFailed: " + service);
+        SuppService  result = SuppService.values()[service];
+        int errorMessageResId;
+
+        switch (result) {
+            case SWITCH:
+                // Attempt to switch foreground and background/incoming calls failed
+                // ("Failed to switch calls")
+                errorMessageResId = R.string.incall_error_supp_service_switch;
+                break;
+
+            case SEPARATE:
+                // Attempt to separate a call from a conference call
+                // failed ("Failed to separate out call")
+                errorMessageResId = R.string.incall_error_supp_service_separate;
+                break;
+
+            case TRANSFER:
+                // Attempt to connect foreground and background calls to
+                // each other (and hanging up user's line) failed ("Call
+                // transfer failed")
+                errorMessageResId = R.string.incall_error_supp_service_transfer;
+                break;
+
+            case CONFERENCE:
+                // Attempt to add a call to conference call failed
+                // ("Conference call failed")
+                errorMessageResId = R.string.incall_error_supp_service_conference;
+                break;
+
+            case REJECT:
+                // Attempt to reject an incoming call failed
+                // ("Call rejection failed")
+                errorMessageResId = R.string.incall_error_supp_service_reject;
+                break;
+
+            case HANGUP:
+                // Attempt to release a call failed ("Failed to release call(s)")
+                errorMessageResId = R.string.incall_error_supp_service_hangup;
+                break;
+
+            case UNKNOWN:
+            default:
+                // Attempt to use a service we don't recognize or support
+                // ("Unsupported service" or "Selected service failed")
+                errorMessageResId = R.string.incall_error_supp_service_unknown;
+                break;
+        }
+        showErrorDialog(errorMessageResId);
     }
 
     /**
@@ -656,11 +750,30 @@ public class InCallActivity extends Activity {
         mDialog.show();
     }
 
-    private int getResIdForDisconnectCause(Call.DisconnectCause cause) {
+    private int getResIdForDisconnectCause(Call.DisconnectCause cause,
+            Call.SsNotification notification) {
         int resId = INVALID_RES_ID;
 
-        if (cause == Call.DisconnectCause.CALL_BARRED) {
-            resId = R.string.callFailed_cb_enabled;
+        if (cause == Call.DisconnectCause.INCOMING_MISSED) {
+            // If the network sends SVC Notification then this dialog will be displayed
+            // in case of B when the incoming call at B is not answered and gets forwarded
+            // to C
+            if (notification != null && notification.notificationType == 1 &&
+                    notification.code ==
+                    Call.SsNotification.MT_CODE_ADDITIONAL_CALL_FORWARDED) {
+                resId = R.string.callUnanswered_forwarded;
+            }
+        } else if (cause == Call.DisconnectCause.CALL_BARRED) {
+            // When call is disconnected with this code then it can either be barring from
+            // MO side or MT side.
+            // In MT case, if network sends SVC Notification then this dialog will be
+            // displayed when A is calling B & incoming is barred on B.
+            if (notification != null && notification.notificationType == 0 &&
+                    notification.code == Call.SsNotification.MO_CODE_INCOMING_CALLS_BARRED) {
+                resId = R.string.callFailed_incoming_cb_enabled;
+            } else {
+                resId = R.string.callFailed_cb_enabled;
+            }
         } else if (cause == Call.DisconnectCause.FDN_BLOCKED) {
             resId = R.string.callFailed_fdn_only;
         } else if (cause == Call.DisconnectCause.CS_RESTRICTED) {

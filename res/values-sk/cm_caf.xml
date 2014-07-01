@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">Požiadavka DIAL bola upravená na požiadavku USSD.</string>
   <string name="callFailed_dialToSs">Požiadavka DIAL bola upravená na požiadavku SS.</string>
   <string name="callFailed_dialToDial">Požiadavka DIAL bola upravená na požiadavku DIAL s iným číslom.</string>
+  <string name="callFailed_incoming_cb_enabled">Strana má zamlčané všetky prichádzajúce hovory.</string>
+  <string name="callUnanswered_forwarded">Hovor bol neprijatý a presmerovaný</string>
   <string name="modify_call_prompt_yes">Áno</string>
   <string name="modify_call_prompt_no">Nie</string>
   <string name="modify_call_failure_str">Požiadavka na úpravu hovoru zlyhala\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Chcete zmeniť tento hovor na vysielanie videa?</string>
   <string name="upgrade_vt_rx_prompt">Chcete zmeniť tento hovor na príjem videa?</string>
   <string name="vt_init_fail_str">Vysielanie videa zlyhalo. Zmena hovoru na VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">Požiadavka SS bola upravená na požiadavku DIAL.</string>
-  <string name="stk_cc_ss_to_ussd_error">Požiadavka SS bola upravená na požiadavku USSD.</string>
-  <string name="stk_cc_ss_to_ss_error">Požiadavka SS bola upravená na novú požiadavku SS.</string>
   <string name="onscreenModifyCallText">Zmeniť hovor</string>
   <string name="onscreenAddParticipant">Pridať účastníka</string>
   <string name="description_target_answer_video">Prijať s videom</string>

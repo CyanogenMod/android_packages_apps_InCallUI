@@ -121,7 +121,12 @@ public class MSimAnswerPresenter extends Presenter<MSimAnswerPresenter.AnswerUi>
             // Stop listening for updates.
             CallList.getInstance().removeCallUpdateListener(mCallId[subscription], this);
 
-            getUi().showAnswerUi(false);
+            final Call incall = CallList.getInstance().getIncomingCall();
+            if (incall != null) {
+                getUi().showAnswerUi(true);
+            } else {
+                getUi().showAnswerUi(false);
+            }
 
             // mCallId will hold the state of the call. We don't clear the mCall variable here as
             // it may be useful for sending text messages after phone disconnects.

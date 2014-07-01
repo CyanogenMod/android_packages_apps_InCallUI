@@ -47,7 +47,10 @@ public class ImsCamera {
         System.loadLibrary("imscamera_jni");
     }
 
+    // @deprecated Use overloaded variant and explicitly pass the package name.
     public static native short native_open(int cameraId);
+
+    public static native short native_open(int cameraId, String packageName);
 
     public native short native_release();
 
@@ -73,15 +76,28 @@ public class ImsCamera {
 
     public native short native_setPreviewFpsRange(short fps);
 
+    // @deprecated Use overloaded variant and explicitly pass the package name.
     public static ImsCamera open(int cameraId) throws Exception {
         Log.d(TAG, "open cameraId=" + cameraId);
-        short error = native_open(cameraId);
-        if (error != IMS_CAMERA_OPERATION_SUCCESS) {
-            Log.e(TAG, "open cameraId=" + cameraId + " failed with error=" + error);
-            throw new Exception();
-        } else {
+        return openImpl(cameraId, null);
+    }
+
+    public static ImsCamera open(int cameraId, String packageName) throws Exception {
+        Log.d(TAG, "open cameraId=" + cameraId);
+        if (packageName == null) throw new IllegalArgumentException();
+        return openImpl(cameraId, packageName);
+    }
+
+    private static ImsCamera openImpl(int cameraId, String packageName) throws Exception {
+        final short error =
+                packageName == null ? native_open(cameraId) : native_open(cameraId, packageName);
+        if (error == IMS_CAMERA_OPERATION_SUCCESS) {
             return new ImsCamera();
         }
+
+        Log.e(TAG, "open cameraId=" + cameraId + " packageName=" + packageName
+                + " failed with error=" + error);
+        throw new Exception("Failed to open ImsCamera");
     }
 
     public short release() {

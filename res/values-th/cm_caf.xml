@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">คำขอ DIAL ถูกแก้ไขเป็น คำขอ USSD</string>
   <string name="callFailed_dialToSs">คำขอ DIAL ถูกแก้ไขเป็น คำขอ SS</string>
   <string name="callFailed_dialToDial">คำขอ DIAL ถูกเปลี่ยนเป็นคำขอ DIAL หมายเลขอื่น</string>
+  <string name="callFailed_incoming_cb_enabled">ปาร์ตี้ได้กีดกันสายเข้าทั้งหมด</string>
+  <string name="callUnanswered_forwarded">ไม่รับสายและส่งต่อ</string>
   <string name="modify_call_prompt_yes">ใช่</string>
   <string name="modify_call_prompt_no">ไม่ใช่</string>
   <string name="modify_call_failure_str">คำขอที่จะเปลี่ยนแปลงสายล้มเหลว\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">คุณต้องการจะอัพเกรดจาการโทรด้วยเสียงเป็นวิดีโอแบบส่งอย่างเดียวไหม?</string>
   <string name="upgrade_vt_rx_prompt">คุณต้องการจะอัพเกรดจาการโทรด้วยเสียงเป็นวิดีโอแบบรับอย่างเดียวไหม?</string>
   <string name="vt_init_fail_str">เตรียมการส่งวิดีโอล้มเหลว กำลังลดระดับไปยัง VoLTE\n</string>
-  <string name="stk_cc_ss_to_dial_error">คำขอ SS ถูกแก้ไขเป็นคำขอ DIAL</string>
-  <string name="stk_cc_ss_to_ussd_error">คำขอ SS ถูกแก้ไขเป็นคำขอ USSD</string>
-  <string name="stk_cc_ss_to_ss_error">คำขอ SS ถูกแก้ไขเป็นคำขอ SS ใหม่</string>
   <string name="onscreenModifyCallText">แก้ไขสาย</string>
   <string name="onscreenAddParticipant">เพิ่มผู้เข้าร่วม</string>
   <string name="description_target_answer_video">ตอบด้วยวิดีโอ</string>

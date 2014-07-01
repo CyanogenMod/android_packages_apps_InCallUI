@@ -58,6 +58,7 @@ public class CameraHandler {
     private CameraInfo[] mInfo;
     private CameraState mCameraState = CameraState.CAMERA_CLOSED;
     private Context mContext;
+    private String mPackageName;
 
     // Use a singleton.
     private static CameraHandler mInstance;
@@ -94,7 +95,10 @@ public class CameraHandler {
     private CameraHandler(Context context) {
         mContext = context;
         mNumberOfCameras = android.hardware.Camera.getNumberOfCameras();
+        mPackageName = context.getPackageName();
+
         log("Number of cameras supported is: " + mNumberOfCameras);
+        log("Package name: " + mPackageName);
         mInfo = new CameraInfo[mNumberOfCameras];
         for (int i = 0; i < mNumberOfCameras; i++) {
             mInfo[i] = new CameraInfo();
@@ -151,7 +155,7 @@ public class CameraHandler {
         if (mCameraDevice == null) {
             try {
                 if (DBG) log("opening camera " + cameraId);
-                mCameraDevice = ImsCamera.open(cameraId);
+                mCameraDevice = ImsCamera.open(cameraId, mPackageName);
                 mCameraId = cameraId;
             } catch (Exception e) {
                 loge("fail to connect Camera" + e);

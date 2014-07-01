@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">ARAMA isteği USSD isteğine dönüştürüldü.</string>
   <string name="callFailed_dialToSs">ARAMA isteği SS isteğine dönüştürüldü.</string>
   <string name="callFailed_dialToDial">ARAMA isteği başka bir numarayla ARAMA isteğine dönüştürüldü.</string>
+  <string name="callFailed_incoming_cb_enabled">Grup bütün gelen aramaları engelledi.</string>
+  <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
   <string name="modify_call_prompt_yes">Evet</string>
   <string name="modify_call_prompt_no">Hayır</string>
   <string name="modify_call_failure_str">Çağrı değiştirme isteği yapılamadı\n</string>
@@ -32,9 +34,6 @@
   <string name="upgrade_vt_tx_prompt">Sesli görüşmeden sadece görüntü aktarmalı görüşmeye  geçmek ister misiniz?</string>
   <string name="upgrade_vt_rx_prompt">Sesli görüşmeden sadece görüntü alımlı görüşmeye geçmek ister misiniz?</string>
   <string name="vt_init_fail_str">Video aktarımı başlatılamadı. Çağrı VoLTE\'ye geçiriliyor\n</string>
-  <string name="stk_cc_ss_to_dial_error">SS isteği ARAMA isteğine dönüştürüldü.</string>
-  <string name="stk_cc_ss_to_ussd_error">SS isteği USSD isteğine dönüştürüldü.</string>
-  <string name="stk_cc_ss_to_ss_error">SS isteği yeni bir SS isteğine dönüştürüldü.</string>
   <string name="onscreenModifyCallText">Çağrıda değişiklik yap</string>
   <string name="onscreenAddParticipant">Katılımcı ekle</string>
   <string name="description_target_answer_video">Video ile cevap ver</string>

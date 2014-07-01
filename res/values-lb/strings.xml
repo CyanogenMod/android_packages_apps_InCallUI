@@ -20,45 +20,15 @@
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ok">OK</string>
+  <string name="audio_mode_bluetooth">Bluetooth</string>
   <string name="send_button">Schécken</string>
   <string name="pause_prompt_yes">Jo</string>
   <string name="pause_prompt_no">Nee</string>
-  <string name="close_dialog">OK</string>
-  <string-array name="preferred_network_mode_choices">
-    <item>LTE / WCDMA</item>
-    <item>LTE</item>
-    <item>Global</item>
-    <item>GSM/WCDMA/LTE</item>
-    <item>CDMA + LTE/EvDo</item>
-    <item>CDMA/EvDo/GSM/WCDMA</item>
-    <item>EvDo only</item>
-    <item>CDMA w/o EvDo</item>
-    <item>CDMA/EvDo auto</item>
-    <item>GSM/WCDMA auto</item>
-    <item>WCDMA only</item>
-    <item>GSM only</item>
-    <item>GSM/WCDMA preferred</item>
-  </string-array>
-  <string-array name="list_language_values">
-    <item>"1"</item>
-    <item>"2"</item>
-    <item>"3"</item>
-    <item>"4"</item>
-    <item>"5"</item>
-    <item>"6"</item>
-    <item>"7"</item>
-  </string-array>
-  <string name="menu_add">Kontakt dobäisetzen</string>
-  <string name="menu_edit">Kontakt änneren</string>
-  <string name="name">Numm</string>
-  <string name="save">Späicheren</string>
-  <string name="ota_call_end">Zréck</string>
-  <string name="ota_next">Weider</string>
-  <string name="alert_dialog_yes">Jo</string>
-  <string name="alert_dialog_no">Nee</string>
+  <string name="notification_missedCallTitle">Verpassten Uruff</string>
+  <string name="emergency_enable_radio_dialog_title">Noutruff</string>
   <string name="contactPhoto">Kontaktfoto</string>
-  <string name="sip_menu_save">Späicheren</string>
-  <string name="alert_dialog_ok">OK</string>
+  <string name="custom_message_cancel">Ofbriechen</string>
+  <string name="custom_message_send">Schécken</string>
   <string name="respond_via_sms_setting_title">Séier Äntwerten</string>
   <string name="respond_via_sms_setting_title_2">Séier Äntwerten änneren</string>
   <string name="respond_via_sms_edittext_dialog_title">Séier Äntwert</string>
@@ -72,7 +42,24 @@
   <string name="description_image_button_eight">aacht</string>
   <string name="description_image_button_nine">néng</string>
   <string name="description_image_button_zero">null</string>
+  <string name="description_image_button_pound">Pond</string>
   <string name="description_dial_button">wielen</string>
   <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">Vibréieren</string>
   <string name="voicemail_notification_vibarte_when_dialog_title" msgid="8995274609647451109">Vibréieren</string>
+  <string name="emergency_call_dialog_number_for_display">Noutruffnummer</string>
+  <string name="dialpad_6_number">6</string>
+  <string name="dialpad_7_number">7</string>
+  <string name="dialpad_8_number">8</string>
+  <string name="dialpad_9_number">9</string>
+  <string name="dialpad_star_number">*</string>
+  <string name="dialpad_pound_number">#</string>
+  <string name="dialpad_0_letters">+</string>
+  <string name="dialpad_2_letters">ABC</string>
+  <string name="dialpad_3_letters">DEF</string>
+  <string name="dialpad_4_letters">GHI</string>
+  <string name="dialpad_5_letters">JKL</string>
+  <string name="dialpad_6_letters">MNO</string>
+  <string name="dialpad_7_letters">PQRS</string>
+  <string name="dialpad_8_letters">TUV</string>
+  <string name="dialpad_9_letters">WXYZ</string>
 </resources>

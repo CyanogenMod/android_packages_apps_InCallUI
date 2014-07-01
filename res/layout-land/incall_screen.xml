@@ -22,40 +22,38 @@
     android:background="@color/incall_button_background"
     android:id="@+id/main">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/in_call_and_button_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
+
+        <fragment
+            android:name="com.android.incallui.CallCardFragment"
+            android:id="@+id/callCardFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <RelativeLayout
-             android:id="@+id/in_call_card_container"
-             android:layout_width="0dp"
-             android:layout_height="match_parent"
-             android:layout_weight="1">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-            <fragment
-                android:name="com.android.incallui.CallCardFragment"
-                android:id="@+id/callCardFragment"
-                android:layout_width="match_parent"
+            <fragment android:name="com.android.incallui.CallButtonFragment"
+                android:id="@+id/callButtonFragment"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentEnd="true" />
+
             <fragment
                 android:name="com.android.incallui.DialpadFragment"
                 android:id="@+id/dialpadFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@id/callButtonFragment"
                 android:layout_alignParentStart="true" />
+
         </RelativeLayout>
 
-        <fragment android:name="com.android.incallui.CallButtonFragment"
-                  android:id="@+id/callButtonFragment"
-                  android:layout_width="wrap_content"
-                  android:layout_height="match_parent"/>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <fragment android:name="com.android.incallui.AnswerFragment"
               android:id="@+id/answerFragment"

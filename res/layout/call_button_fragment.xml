@@ -41,7 +41,7 @@
               android:padding="0dp"
               android:layout_height="wrap_content"
               android:layout_alignParentBottom="true"
-              android:visibility="invisible">
+              android:visibility="gone">
 
     <!-- Row 1, the "extra button row": A couple of relatively rare
          buttons used only in certain call states.

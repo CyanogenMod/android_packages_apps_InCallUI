@@ -19,6 +19,8 @@
   <string name="callFailed_dialToUssd">DIAL-запит перетворений в USSD-запит.</string>
   <string name="callFailed_dialToSs">DIAL-запит перетворений в SS-запит.</string>
   <string name="callFailed_dialToDial">DIAL-запит перетворений в новий DIAL-запит з іншим номером.</string>
+  <string name="callFailed_incoming_cb_enabled">Учасник заборонив усі вхідні виклики.</string>
+  <string name="callUnanswered_forwarded">Виклик без відповіді і переадресований</string>
   <string name="modify_call_prompt_yes">Так</string>
   <string name="modify_call_prompt_no">Ні</string>
   <string name="modify_call_failure_str">Запит на зміну типу виклику не вдався\n</string>
@@ -37,6 +39,10 @@
   <string name="description_target_answer_video">Відповісти з відео</string>
   <string name="description_target_answer_tx_video">Відповісти з TX відео</string>
   <string name="description_target_answer_rx_video">Відповісти з RX відео</string>
+  <string name="description_direction_up_right">Вгору праворуч</string>
+  <string name="description_direction_up_left">Вгору ліворуч</string>
+  <string name="description_direction_down_left">Вниз ліворуч</string>
+  <string name="description_direction_down_right">Вниз праворуч</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

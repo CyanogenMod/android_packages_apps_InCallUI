@@ -64,6 +64,7 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
     private ArrayAdapter<String> mTextResponsesAdapter = null;
 
     private GlowPadWrapper mGlowpad;
+    private boolean mUseTranslucentNavBar = true;
 
     public AnswerFragment() {
     }
@@ -101,17 +102,32 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
         super.onDestroyView();
     }
 
+    public void setUseTranslucentNavigationBar(boolean useTranslucent) {
+        mUseTranslucentNavBar = useTranslucent;
+        View v = getView();
+        if (v != null) {
+            updateNavBarTranslucency(v.getVisibility() == View.VISIBLE);
+        }
+    }
+
     @Override
     public void showAnswerUi(boolean show) {
-        final Window window = getActivity().getWindow();
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);
         if (show) {
             mGlowpad.startPing();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         } else {
             mGlowpad.stopPing();
+        }
+        updateNavBarTranslucency(show);
+    }
+
+    private void updateNavBarTranslucency(boolean enable) {
+        final Window window = getActivity().getWindow();
+        if (enable && mUseTranslucentNavBar) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        } else {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }

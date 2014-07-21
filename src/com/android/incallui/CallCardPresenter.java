@@ -148,7 +148,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             // getCallToDisplay doesn't go through outgoing or incoming calls. It will return the
             // highest priority call to display as the secondary call.
             secondary = getCallToDisplay(callList, null, true);
-        } else if (state == InCallState.INCALL) {
+        } else if (state == InCallState.INCALL || state == InCallState.DISCONNECTING) {
             primary = getCallToDisplay(callList, null, false);
             secondary = getCallToDisplay(callList, primary, true);
         }

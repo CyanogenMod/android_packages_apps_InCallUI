@@ -102,14 +102,6 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
         super.onDestroyView();
     }
 
-    public void setUseTranslucentNavigationBar(boolean useTranslucent) {
-        mUseTranslucentNavBar = useTranslucent;
-        View v = getView();
-        if (v != null) {
-            updateNavBarTranslucency(v.getVisibility() == View.VISIBLE);
-        }
-    }
-
     @Override
     public void showAnswerUi(boolean show) {
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
@@ -119,16 +111,6 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
             mGlowpad.startPing();
         } else {
             mGlowpad.stopPing();
-        }
-        updateNavBarTranslucency(show);
-    }
-
-    private void updateNavBarTranslucency(boolean enable) {
-        final Window window = getActivity().getWindow();
-        if (enable && mUseTranslucentNavBar) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 

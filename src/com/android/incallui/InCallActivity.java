@@ -72,6 +72,8 @@ public class InCallActivity extends Activity {
     private boolean mShowDialpadRequested;
     private boolean mConferenceManagerShown;
 
+    private boolean mUseFullScreenCallerPhoto;
+
     // This enum maps to Phone.SuppService defined in telephony
     private enum SuppService {
         UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
@@ -507,15 +509,21 @@ public class InCallActivity extends Activity {
         }
     }
 
-    private void updateSystemBarTranslucency() {
-        final boolean doTranslucency = !mConferenceManagerShown;
+    public void updateSystemBarTranslucency() {
+        int flags = 0;
         final Window window = getWindow();
+        final InCallPresenter.InCallState inCallState =
+                InCallPresenter.getInstance().getInCallState();
 
-        if (doTranslucency) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (!mConferenceManagerShown) {
+            flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         }
+        if (mUseFullScreenCallerPhoto && inCallState == InCallPresenter.InCallState.INCOMING) {
+            flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+        }
+
+        window.setFlags(flags, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         window.getDecorView().requestFitSystemWindows();
     }
 
@@ -819,10 +827,11 @@ public class InCallActivity extends Activity {
         int incomingCallStyle = Settings.System.getInt(getContentResolver(),
                 Settings.System.INCOMING_CALL_STYLE,
                 Settings.System.INCOMING_CALL_STYLE_FULLSCREEN_PHOTO);
-        boolean useFullscreenCallerPhoto =
+        mUseFullScreenCallerPhoto =
                 incomingCallStyle == Settings.System.INCOMING_CALL_STYLE_FULLSCREEN_PHOTO;
-        mCallButtonFragment.setHideMode(useFullscreenCallerPhoto ? View.GONE : View.INVISIBLE);
-        mAnswerFragment.setUseTranslucentNavigationBar(useFullscreenCallerPhoto);
+        mCallButtonFragment.setHideMode(mUseFullScreenCallerPhoto ? View.GONE : View.INVISIBLE);
+        mCallButtonFragment.getPresenter().setShowButtonsIfIdle(!mUseFullScreenCallerPhoto);
+        updateSystemBarTranslucency();
     }
 
     private void log(String msg) {

@@ -19,6 +19,12 @@
   ~ limitations under the License
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="phoneAppLabel" product="default">Telefon</string>
+  <string name="inCallLabel" translate="false">InCallUI</string>
+  <string name="private_num">Privat Nummer</string>
+  <string name="payphone">Telefonskabinn</string>
+  <string name="callFailed_userBusy">Nummer besat</string>
+  <string name="callFailed_noSignal">Kee Signal</string>
   <string name="ok">OK</string>
   <string name="audio_mode_bluetooth">Bluetooth</string>
   <string name="send_button">Schécken</string>

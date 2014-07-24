@@ -16,6 +16,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">داواکردنی لێدان گۆڕدرا بۆ داواکردنی USSD.</string>
+  <string name="callFailed_dialToSs">داواکردنی لێدان گۆڕدرا بۆ داواکردنی SS.</string>
+  <string name="callFailed_dialToDial">داواکردنی لێدان گۆڕدرا بۆ هه‌مان داواکردن به‌ ژماره‌یه‌کی تر.</string>
+  <string name="callFailed_incoming_cb_enabled">لایه‌نه‌ناوه‌کی ڕێگری کرد له‌ هه‌موو په‌یوه‌ندییه‌ هاتووه‌کان.</string>
   <string name="callUnanswered_forwarded">پەیوەندی وەڵام نەدرایەوە و پشتگوێخرا</string>
   <string name="modify_call_prompt_yes">بەڵێ</string>
   <string name="modify_call_prompt_no">نەخێر</string>
@@ -39,6 +43,6 @@
   <string name="description_direction_up_left">سەرەوە لای چەپ</string>
   <string name="description_direction_down_left">خوارەوە لای چەپ</string>
   <string name="description_direction_down_right">خوارەوە لای ڕاست</string>
-  <string name="sub_1">سیمکارتی ١</string>
-  <string name="sub_2">سیمکارتی ٢</string>
+  <string name="sub_1">سیمکارتی 1</string>
+  <string name="sub_2">سیمکارتی 2</string>
 </resources>

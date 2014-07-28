@@ -97,7 +97,7 @@ public class MSimInCallActivity extends InCallActivity {
         if (mCallButtonFragment == null) {
             mCallButtonFragment = (CallButtonFragment) getFragmentManager()
                     .findFragmentById(R.id.callButtonFragment);
-            mCallButtonFragment.getView().setVisibility(View.INVISIBLE);
+            mCallButtonFragment.getView().setVisibility(View.GONE);
         }
 
         if (mCallCardFragment == null) {

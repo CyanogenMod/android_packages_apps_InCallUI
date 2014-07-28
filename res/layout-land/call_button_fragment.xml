@@ -37,7 +37,7 @@
               android:orientation="horizontal"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
-              android:visibility="invisible">
+              android:visibility="gone">
 
     <!-- Row 1, the "extra button row": A couple of relatively rare
          buttons used only in certain call states.

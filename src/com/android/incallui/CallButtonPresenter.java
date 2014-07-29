@@ -47,8 +47,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     private boolean mShowGenericMerge = false;
     private boolean mShowManageConference = false;
+    private boolean mShowButtonsIfIdle = true;
 
     private InCallState mPreviousState = null;
+    private InCallState mStateBeforeDisconnect = null;
 
     public CallButtonPresenter() {
     }
@@ -77,6 +79,9 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     @Override
     public void onStateChange(InCallState state, CallList callList) {
+        if (state == InCallState.DISCONNECTING && mPreviousState != InCallState.DISCONNECTING) {
+            mStateBeforeDisconnect = mPreviousState;
+        }
 
         if (state == InCallState.OUTGOING) {
             mCall = callList.getOutgoingCall();
@@ -247,6 +252,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         updateExtraButtonRow();
     }
 
+    public void setShowButtonsIfIdle(boolean showIfIdle) {
+        mShowButtonsIfIdle = showIfIdle;
+    }
+
     public void modifyCallButtonClicked() {
         Call call = CallList.getInstance().getActiveCall();
         if (call != null) {
@@ -262,8 +271,19 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         final boolean isEnabled = state.isConnectingOrConnected() &&
                 !state.isIncoming() && call != null;
+        final boolean isVisible;
 
-        ui.setEnabled(isEnabled, !state.isIncoming());
+        if (state.isIncoming()) {
+            isVisible = false;
+        } else if (mShowButtonsIfIdle || state.isConnectingOrConnected()) {
+            isVisible = true;
+        } else { // DISCONNECTING, NO_CALLS
+            // Keep UI visible in case it was visible before, don't cause
+            // unneccessary layout changes
+            isVisible = mStateBeforeDisconnect == InCallState.INCALL;
+        }
+
+        ui.setEnabled(isEnabled, isVisible);
 
         Log.d(this, "Updating call UI for call: ", call);
 

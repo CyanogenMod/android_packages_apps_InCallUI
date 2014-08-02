@@ -280,7 +280,9 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         } else { // DISCONNECTING, NO_CALLS
             // Keep UI visible in case it was visible before, don't cause
             // unneccessary layout changes
-            isVisible = mStateBeforeDisconnect == InCallState.INCALL;
+            isVisible = mStateBeforeDisconnect != null &&
+                    !mStateBeforeDisconnect.isIncoming() &&
+                    mStateBeforeDisconnect.isConnectingOrConnected();
         }
 
         ui.setEnabled(isEnabled, isVisible);

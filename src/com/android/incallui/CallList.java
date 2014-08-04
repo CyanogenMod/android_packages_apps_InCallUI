@@ -27,11 +27,13 @@ import android.telecom.Phone;
 import android.telecom.PhoneAccountHandle;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import com.android.internal.telephony.PhoneConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -787,6 +789,15 @@ public class CallList implements InCallPhoneListener {
             }
         }
         return retval;
+    }
+
+    public Call getCallWithStateAndNumber(int state, String number) {
+        for (Call call : mCallById.values()) {
+            if (TextUtils.equals(call.getNumber(), number) && call.getState() == state) {
+                return call;
+            }
+        }
+        return null;
     }
 
     public void addActiveSubChangeListener(ActiveSubChangeListener listener) {

@@ -440,6 +440,11 @@ public final class Call {
         return mTelecommCall.getDetails().getConnectTimeMillis();
     }
 
+    /** Gets the time when call was first constructed */
+    public long getCreateTimeMillis() {
+        return mTelecommCall.getDetails().getCreateTimeMillis();
+    }
+
     public boolean isConferenceCall() {
         return hasProperty(CallProperties.CONFERENCE);
     }

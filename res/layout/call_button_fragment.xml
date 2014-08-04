@@ -166,7 +166,6 @@
             android:background="@drawable/btn_overflow"
             android:contentDescription="@string/onscreenOverflowText"
             android:visibility="gone" />
-
     </LinearLayout>
 
 </LinearLayout>

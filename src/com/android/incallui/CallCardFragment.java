@@ -43,6 +43,7 @@ import android.text.format.DateUtils;
 import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.Display;
+import android.text.format.DateUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -145,10 +146,38 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private int mVideoAnimationDuration;
 
-    private String mRecordingTime;
-
     private static final int TTY_MODE_OFF = 0;
     private static final int TTY_MODE_HCO = 2;
+
+    private CallRecorder.RecordingProgressListener mRecordingProgressListener =
+            new CallRecorder.RecordingProgressListener() {
+        @Override
+        public void onStartRecording() {
+            mRecordingTimeLabel.setText(DateUtils.formatElapsedTime(0));
+            if (mRecordingTimeLabel.getVisibility() != View.VISIBLE) {
+                AnimUtils.fadeIn(mRecordingTimeLabel, AnimUtils.DEFAULT_DURATION);
+            }
+            if (mRecordingIcon.getVisibility() != View.VISIBLE) {
+                AnimUtils.fadeIn(mRecordingIcon, AnimUtils.DEFAULT_DURATION);
+            }
+        }
+
+        @Override
+        public void onStopRecording() {
+            AnimUtils.fadeOut(mRecordingTimeLabel, AnimUtils.DEFAULT_DURATION);
+            AnimUtils.fadeOut(mRecordingIcon, AnimUtils.DEFAULT_DURATION);
+        }
+
+        @Override
+        public void onRecordingTimeProgress(final long elapsedTimeMs) {
+            long elapsedSeconds = (elapsedTimeMs + 500) / 1000;
+            mRecordingTimeLabel.setText(DateUtils.formatElapsedTime(elapsedSeconds));
+
+            // make sure this is visible in case we re-loaded the UI for a call in progress
+            mRecordingTimeLabel.setVisibility(View.VISIBLE);
+            mRecordingIcon.setVisibility(View.VISIBLE);
+        }
+    };
 
     private static final String VOLUME_BOOST = "volume_boost";
 
@@ -192,13 +221,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(RECORD_STATE_CHANGED);
-        getActivity().registerReceiver(recorderStateReceiver, filter);
 
         mInCallActivity = (InCallActivity)getActivity();
-
-        if (mInCallActivity.isCallRecording()) {
-            recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
-        }
     }
 
 
@@ -257,10 +281,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mMoreMenuButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Call call = CallList.getInstance().getActiveOrBackgroundCall();
+                if (call != null) {
+                    updateMoreMenuByCall(call.getState());
+                }
                 mMoreMenu.show();
             }
         });
 
+        CallRecorder recorder = CallRecorder.getInstance();
+        recorder.addRecordingProgressListener(mRecordingProgressListener);
 
         mFloatingActionButtonContainer = view.findViewById(
                 R.id.floating_end_call_action_button_container);
@@ -1198,11 +1228,14 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         final MenuItem stopRecord = menu.findItem(R.id.menu_stop_record);
         final MenuItem addToBlacklist = menu.findItem(R.id.menu_add_to_blacklist);
 
-        boolean isRecording = ((InCallActivity)getActivity()).isCallRecording();
-        boolean isRecordEnabled = ((InCallActivity)getActivity()).isCallRecorderEnabled();
-
-        boolean startEnabled = !isRecording && isRecordEnabled && state == Call.State.ACTIVE;
-        boolean stopEnabled = isRecording && isRecordEnabled && state == Call.State.ACTIVE;
+        CallRecorder callRecorder = CallRecorder.getInstance();
+        boolean startEnabled = false;
+        boolean stopEnabled = false;
+        if (callRecorder.isEnabled()) {
+            boolean isRecording = callRecorder.isRecording();
+            startEnabled = !isRecording && state == Call.State.ACTIVE;
+            stopEnabled = isRecording && state == Call.State.ACTIVE;
+        }
 
         boolean blacklistVisible = BlacklistUtils.isBlacklistEnabled(getActivity())
                 && Call.State.isConnectingOrConnected(state);
@@ -1256,62 +1289,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(recorderStateReceiver);
+        CallRecorder recorder = CallRecorder.getInstance();
+        recorder.removeRecordingProgressListener(mRecordingProgressListener);
     }
-
-    private void showCallRecordingElapsedTime() {
-        if (mRecordingTimeLabel.getVisibility() != View.VISIBLE) {
-            AnimUtils.fadeIn(mRecordingTimeLabel, AnimUtils.DEFAULT_DURATION);
-        }
-
-        mRecordingTimeLabel.setText(mRecordingTime);
-    }
-
-    private BroadcastReceiver recorderStateReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (!RECORD_STATE_CHANGED.equals(intent.getAction())) {
-                return;
-            }
-
-            if (mInCallActivity.isCallRecording()) {
-                recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
-            } else {
-                mRecordingTimeLabel.setVisibility(View.GONE);
-                mRecordingIcon.setVisibility(View.GONE);
-            }
-        }
-    };
-
-    private Handler recorderHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-
-            switch (msg.what) {
-            case MESSAGE_TIMER:
-                if (!mInCallActivity.isCallRecording()) {
-                    break;
-                }
-
-                String recordingTime = mInCallActivity.getCallRecordingTime();
-
-                if (!TextUtils.isEmpty(recordingTime)) {
-                    mRecordingTime = recordingTime;
-                    mRecordingTimeLabel.setVisibility(View.VISIBLE);
-                    showCallRecordingElapsedTime();
-                    mRecordingIcon.setVisibility(View.VISIBLE);
-                }
-
-                if (!recorderHandler.hasMessages(MESSAGE_TIMER)) {
-                    sendEmptyMessageDelayed(MESSAGE_TIMER, 1000);
-                }
-
-                break;
-            }
-        }
-    };
 
     private class MorePopupMenu extends PopupMenu implements PopupMenu.OnMenuItemClickListener {
         public MorePopupMenu(Context context, View anchor) {
@@ -1323,13 +1303,19 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         public boolean onMenuItemClick(MenuItem item) {
             switch(item.getItemId()) {
                 case R.id.menu_start_record:
-                    ((InCallActivity)getActivity()).startInCallRecorder();
-
+                    Call call = CallList.getInstance().getActiveCall();
+                    // can't start recording with no active call
+                    if (call != null) {
+                        CallRecorder.getInstance().startRecording(
+                                call.getNumber(), call.getCreateTimeMillis());
+                    }
                     return true;
 
                 case R.id.menu_stop_record:
-                    ((InCallActivity)getActivity()).stopInCallRecorder();
-
+                    CallRecorder callRecorder = CallRecorder.getInstance();
+                    if (callRecorder.isRecording()) {
+                        callRecorder.finishRecording();
+                    }
                     return true;
 
                 case R.id.menu_add_to_blacklist:

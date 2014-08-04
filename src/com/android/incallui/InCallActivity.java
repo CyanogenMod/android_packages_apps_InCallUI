@@ -72,14 +72,6 @@ public class InCallActivity extends Activity {
     private static final String ACTION_SUPP_SERVICE_FAILURE =
             "org.codeaurora.ACTION_SUPP_SERVICE_FAILURE";
 
-    private static final Uri URI_PHONE_FEATURE = Uri
-            .parse("content://com.qualcomm.qti.phonefeature.FEATURE_PROVIDER");
-
-    private static final String METHOD_START_CALL_RECORD = "start_call_record";
-    private static final String METHOD_STOP_CALL_RECORD = "stop_call_record";
-    private static final String METHOD_IS_CALL_RECORD_RUNNING = "is_call_record_running";
-    private static final String METHOD_IS_CALL_RECORD_AVAILABLE = "is_call_record_available";
-    private static final String METHOD_GET_CALL_RECORD_DURATION = "get_call_record_duration";
     private static final String EXTRA_RESULT = "result";
 
     private CallButtonFragment mCallButtonFragment;
@@ -986,56 +978,5 @@ public class InCallActivity extends Activity {
                 onSuppServiceFailed(service);
             }
         }
-    }
-
-    public Bundle callBinder(String method) {
-        if (getContentResolver().acquireProvider(URI_PHONE_FEATURE) == null) {
-            // Check whether phone feature enabled
-            return null;
-        }
-
-        return getContentResolver().call(URI_PHONE_FEATURE, method, null, null);
-    }
-
-    public boolean isCallRecording() {
-        boolean isRecording = false;
-        Bundle result = callBinder(METHOD_IS_CALL_RECORD_RUNNING);
-
-        if (result != null) {
-            isRecording = result.getBoolean(EXTRA_RESULT);
-        }
-
-        return isRecording;
-    }
-
-    public boolean isCallRecorderEnabled() {
-        boolean isCallRecorderEnabled = false;
-        Bundle result = callBinder(METHOD_IS_CALL_RECORD_AVAILABLE);
-
-        if (result != null) {
-            isCallRecorderEnabled = result.getBoolean(EXTRA_RESULT);
-        }
-        return isCallRecorderEnabled;
-    }
-
-    public void startInCallRecorder() {
-        callBinder(METHOD_START_CALL_RECORD);
-    }
-
-    public void stopInCallRecorder() {
-        callBinder(METHOD_STOP_CALL_RECORD);
-    }
-
-    public String getCallRecordingTime() {
-        long time = 0;
-        Bundle result = callBinder(METHOD_GET_CALL_RECORD_DURATION);
-
-        if (result != null) {
-            time = result.getLong(EXTRA_RESULT) / 1000;
-        }
-
-        String recordingTime = String.format("%02d:%02d", time / 60, time % 60);
-
-        return recordingTime;
     }
 }

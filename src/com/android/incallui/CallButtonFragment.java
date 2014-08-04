@@ -37,6 +37,7 @@ import android.widget.ToggleButton;
 
 import com.android.internal.telephony.util.BlacklistUtils;
 import com.android.services.telephony.common.AudioMode;
+import com.android.services.telephony.common.Call;
 
 /**
  * Fragment for call control buttons
@@ -56,6 +57,7 @@ public class CallButtonFragment
     private ImageButton mBlacklistButton;
     private ImageButton mAddParticipantButton;
     private ImageButton mModifyCallButton;
+    private CallRecordingButton mRecordButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -166,6 +168,9 @@ public class CallButtonFragment
         mModifyCallButton = (ImageButton) parent.findViewById(R.id.modifyCallButton);
         mModifyCallButton.setOnClickListener(this);
 
+        mRecordButton = (CallRecordingButton) parent.findViewById(R.id.recordButton);
+        mRecordButton.setOnClickListener(mRecordButton);
+
         return parent;
     }
 
@@ -239,6 +244,7 @@ public class CallButtonFragment
         mSwapButton.setEnabled(isEnabled);
         mBlacklistButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
+        mRecordButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -277,6 +283,11 @@ public class CallButtonFragment
     }
 
     @Override
+    public void showRecording(boolean show) {
+        mRecordButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
     public void showAddCall(boolean show) {
         mAddCallButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
@@ -286,6 +297,7 @@ public class CallButtonFragment
         mAddCallButton.setEnabled(enabled);
     }
 
+    @Override
     public void enableAddParticipant(boolean show) {
         mAddParticipantButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }

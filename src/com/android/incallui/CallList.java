@@ -23,6 +23,7 @@ import com.google.common.base.Preconditions;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
 import android.telephony.MSimTelephonyManager;
 import com.android.internal.telephony.MSimConstants;
@@ -30,6 +31,7 @@ import com.android.services.telephony.common.Call;
 import com.android.services.telephony.common.Call.DisconnectCause;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -623,6 +625,15 @@ public class CallList {
             }
         }
         return retval;
+    }
+
+    public Call getCallWithStateAndNumber(int state, String number) {
+        for (Call call : mCallMap.values()) {
+            if (TextUtils.equals(call.getNumber(), number) && call.getState() == state) {
+                return call;
+            }
+        }
+        return null;
     }
 
     public void addActiveSubChangeListener(ActiveSubChangeListener listener) {

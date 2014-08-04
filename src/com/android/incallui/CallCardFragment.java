@@ -22,14 +22,13 @@ package com.android.incallui;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import static android.telephony.TelephonyManager.SIM_STATE_ABSENT;
 import android.telephony.MSimTelephonyManager;
 import android.os.SystemProperties;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -65,6 +64,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private TextView mProviderNumber;
     private TextView mSubscriptionId;
     private ViewGroup mSupplementaryInfoContainer;
+    private TextView mCallRecordingTimer;
 
     // Secondary caller info
     private ViewStub mSecondaryCallInfo;
@@ -93,6 +93,29 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
      */
     static final String PROPERTY_IMS_AUDIO_OUTPUT =
                                 "persist.radio.ims.audio.output";
+
+    private CallRecorder.RecordingProgressListener mRecordingProgressListener =
+            new CallRecorder.RecordingProgressListener() {
+        @Override
+        public void onStartRecording() {
+            mCallRecordingTimer.setText(DateUtils.formatElapsedTime(0));
+            mCallRecordingTimer.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onStopRecording() {
+            mCallRecordingTimer.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onRecordingTimeProgress(final long elapsedTimeMs) {
+            long elapsedSeconds = (elapsedTimeMs + 500) / 1000;
+            mCallRecordingTimer.setText(DateUtils.formatElapsedTime(elapsedSeconds));
+
+            // make sure this is visible in case we re-loaded the UI for a call in progress
+            mCallRecordingTimer.setVisibility(View.VISIBLE);
+        }
+    };
 
     /**
      * A subclass of ImageView which allows animation by LayoutTransition
@@ -175,6 +198,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mSupplementaryInfoContainer =
             (ViewGroup) view.findViewById(R.id.supplementary_info_container);
         mVideoCallPanel = (VideoCallPanel) view.findViewById(R.id.videoCallPanel);
+        mCallRecordingTimer = (TextView) view.findViewById(R.id.callRecordingTimer);
+
+        CallRecorder recorder = CallRecorder.getInstance();
+        recorder.addRecordingProgressListener(mRecordingProgressListener);
 
         ViewGroup photoContainer = (ViewGroup) view.findViewById(R.id.photo_container);
         LayoutTransition transition = photoContainer.getLayoutTransition();
@@ -191,6 +218,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mVideoCallPanel.onDestroy();
             mVideoCallPanel = null;
         }
+
+        CallRecorder recorder = CallRecorder.getInstance();
+        recorder.removeRecordingProgressListener(mRecordingProgressListener);
     }
 
     @Override

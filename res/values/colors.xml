@@ -63,4 +63,8 @@
 
     <!-- Translucent shadow color -->
     <color name="translucent_shadow">#33999999</color>
+
+    <!-- Color of recording progrss timer -->
+    <color name="recording_progress_text_color">#f22121</color>
+    <color name="recording_progress_background">#40000000</color>
 </resources>

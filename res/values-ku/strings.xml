@@ -134,7 +134,7 @@
   <string name="respond_via_sms_setting_title">وه‌ڵامی خێرا</string>
   <string name="respond_via_sms_setting_title_2">ده‌ستکاریکردنی وه‌ڵامه‌ خێراکان</string>
   <string name="respond_via_sms_edittext_dialog_title">وه‌ڵامی خێرا</string>
-  <string name="respond_via_sms_menu_reset_default_activity">ڕێکخستنه‌وه‌ی به‌رنامه‌ بنه‌ڕه‌تییه‌کان</string>
+  <string name="respond_via_sms_menu_reset_default_activity">ڕێکخستنه‌وه‌ی به‌رنامه‌ بنێڕه‌تییه‌کان</string>
   <string name="respond_via_sms_confirmation_format">نامه‌ نێردرا بۆ <xliff:g id="phone_number">%s</xliff:g>.</string>
   <string name="description_image_button_one">یه‌ک</string>
   <string name="description_image_button_two">دوو</string>
@@ -161,7 +161,7 @@
   <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">لەرزین</string>
   <string name="voicemail_notification_vibarte_when_dialog_title" msgid="8995274609647451109">لەرزین</string>
   <string name="voicemail_notification_ringtone_title">دەنگ</string>
-  <string name="default_notification_description">ئاوازی بنه‌ڕه‌ت  (<xliff:g id="default_sound_title">%1$s</xliff:g>)</string>
+  <string name="default_notification_description">ئاوازی بنێڕه‌ت  (<xliff:g id="default_sound_title">%1$s</xliff:g>)</string>
   <string name="ringtone_title" msgid="5379026328015343686">زەنگی مۆبایل</string>
   <string name="vibrate_on_ring_title">له‌رینه‌وه‌ کاتێک زه‌نگ لێده‌دات</string>
   <string name="dtmf_tone_enable_title">دەنگەکانی لێدانی ژمارەگر</string>

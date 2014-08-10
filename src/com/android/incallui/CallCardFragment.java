@@ -356,7 +356,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     @Override
     public void setCallState(int state, Call.DisconnectCause cause, boolean bluetoothOn,
-            String gatewayLabel, String gatewayNumber, boolean isHeldRemotely, int callType) {
+            String gatewayLabel, String gatewayNumber, boolean isWaitingForRemoteSide,
+            int callType) {
         String callStateLabel = null;
 
         // If this is a video call then update the state of the VideoCallPanel
@@ -369,7 +370,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
 
         // States other than disconnected not yet supported
-        callStateLabel = getCallStateLabelFromState(state, cause, isHeldRemotely);
+        callStateLabel = getCallStateLabelFromState(state, cause, isWaitingForRemoteSide);
 
         Log.v(this, "setCallState " + callStateLabel);
         Log.v(this, "DisconnectCause " + cause);
@@ -502,7 +503,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
      * cause of disconnect
      */
     private String getCallStateLabelFromState(int state, Call.DisconnectCause cause,
-            boolean isHeldRemotely) {
+            boolean isWaitingForRemoteSide) {
         final Context context = getView().getContext();
         String callStateLabel = null;  // Label to display as part of the call banner
 
@@ -512,13 +513,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         } else if (Call.State.ACTIVE == state) {
             // We normally don't show a "call state label" at all in
             // this state (but see below for some special cases).
-            if (isHeldRemotely) {
+            if (isWaitingForRemoteSide) {
                 callStateLabel = context.getString(R.string.card_title_waiting_call);
             }
         } else if (Call.State.ONHOLD == state) {
             callStateLabel = context.getString(R.string.card_title_on_hold);
         } else if (Call.State.DIALING == state) {
-            callStateLabel = context.getString(isHeldRemotely
+            callStateLabel = context.getString(isWaitingForRemoteSide
                     ? R.string.card_title_dialing_waiting : R.string.card_title_dialing);
         } else if (Call.State.REDIALING == state) {
             callStateLabel = context.getString(R.string.card_title_redialing);

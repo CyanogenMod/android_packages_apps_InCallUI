@@ -148,6 +148,16 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
+    public void onDeflect(String number) {
+        int phoneId = getActivePhoneId();
+        Log.i(this, "onDeflect  mCallId:" + mCallId + "phoneId:" + phoneId + "to" + number);
+        if (mCallId == null || phoneId == -1 || number == null || number.isEmpty()) {
+            return;
+        }
+
+        TelecommAdapter.getInstance().deflectCall(mCall[phoneId].getId(), number);
+    }
+
     /**
      * TODO: We are using reject and decline interchangeably. We should settle on
      * reject since it seems to be more prevalent.

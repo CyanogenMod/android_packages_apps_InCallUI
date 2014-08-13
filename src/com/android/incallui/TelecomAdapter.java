@@ -81,6 +81,14 @@ final class TelecomAdapter implements InCallPhoneListener {
         }
     }
 
+    void deflectCall(String callId, String number) {
+        if (mPhone != null) {
+            getTelecommCallById(callId).deflectCall(number);
+        } else {
+            Log.e(this, "error deflectCall, mPhone is null");
+        }
+    }
+
     void rejectCall(String callId, boolean rejectWithMessage, String message) {
         if (mPhone != null) {
             final android.telecom.Call call = getTelecommCallById(callId);

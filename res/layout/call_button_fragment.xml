@@ -197,6 +197,10 @@
                     android:contentDescription="@string/onscreenBlacklistText"
                 />
 
+        <View android:id="@+id/recordSpacer"
+              style="@style/VerticalSeparator"
+              android:visibility="gone" />
+
         <com.android.incallui.CallRecordingButton
                      android:id="@+id/recordButton"
                      style="@style/InCallButton"

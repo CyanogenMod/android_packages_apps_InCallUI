@@ -28,14 +28,17 @@ public class CallRecordingButton extends ImageButton
 
     public CallRecordingButton(Context context) {
         super(context);
+        setOnClickListener(this);
     }
 
     public CallRecordingButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setOnClickListener(this);
     }
 
     public CallRecordingButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setOnClickListener(this);
     }
 
     @Override

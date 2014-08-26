@@ -904,9 +904,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     private void updateVBbyCall(int state) {
+        // If there is Ims call, disable volume boost
+        boolean hasImsCall = CallUtils.hasImsCall(CallList.getInstance());
+
         updateVBButton();
 
-        if (Call.State.ACTIVE == state) {
+        if (Call.State.ACTIVE == state && !hasImsCall) {
             mVBButton.setVisibility(View.VISIBLE);
         } else if (Call.State.DISCONNECTED == state || Call.State.IDLE == state) {
             if (!CallList.getInstance().existsLiveCall()

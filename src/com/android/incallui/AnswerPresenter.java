@@ -19,6 +19,7 @@ package com.android.incallui;
 import android.telecom.PhoneCapabilities;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.os.SystemProperties;
 
 import java.util.List;
 
@@ -178,6 +179,29 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         int phoneId = getActivePhoneId();
         Log.i(this, "onAnswer  mCallId:" + mCallId + "phoneId:" + phoneId);
         if (mCallId == null || phoneId == -1) {
+            return;
+        }
+
+        /**
+         * To test call deflection this property has to be set with the
+         * number to which the call should be deflected. If this property is
+         * set to a number, on pressing the UI answer button, call deflect
+         * request will be sent. This is done to provide hooks to test call
+         * deflection through the UI answer button. For commercialization UI
+         * should be customized to call this API through the Call deflect UI
+         * button By default this property is not set and Answer button will
+         * work as expected.
+         * Example:
+         * To deflect call to number 12345
+         * adb shell setprop persist.radio.deflect.number 12345
+         *
+         * Toggle above property and to invoke answerCallWithCallType
+         * adb shell setprop persist.radio.deflect.number ""
+         */
+        String deflectcall = SystemProperties.get("persist.radio.deflect.number");
+        if (deflectcall != null && !deflectcall.isEmpty()) {
+            Log.i(this, "deflectCall " + mCallId + "to" + deflectcall);
+            TelecommAdapter.getInstance().deflectCall(mCall[phoneId].getId(), deflectcall);
             return;
         }
 

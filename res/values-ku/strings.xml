@@ -83,7 +83,7 @@
   <string name="notification_network_selection_title">خزمەتگوزاری نیە</string>
   <string name="notification_network_selection_text">تۆڕی هه‌ڵبژێردراو (<xliff:g id="operator_name">%s</xliff:g>) ئاماده‌نییه‌</string>
   <string name="notification_action_end_call">هه‌ڵگرتن</string>
-  <string name="notification_missedCall_call_back">زەنگ لێدەرەوە</string>
+  <string name="notification_missedCall_call_back">زه‌نگی بۆ لێده‌وه‌</string>
   <string name="notification_missedCall_message">نامه‌</string>
   <string name="incall_error_power_off">بۆ په‌یوه‌ندی. سه‌ره‌تا باری ناو فڕۆکه‌ بکوژێنه‌وه‌.</string>
   <string name="incall_error_emergency_only">تۆمارنه‌کراویت له‌سه‌ر تۆڕه‌که‌.</string>

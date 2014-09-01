@@ -26,12 +26,13 @@ import java.util.List;
  * Presenter for the Incoming call widget.
  */
 public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
-        implements CallList.CallUpdateListener, CallList.Listener {
+        implements CallList.CallUpdateListener, CallList.Listener,
+        CallList.ActiveSubChangeListener {
 
     private static final String TAG = AnswerPresenter.class.getSimpleName();
 
-    private String mCallId;
-    private Call mCall = null;
+    private String mCallId[] = new String[CallList.PHONE_COUNT];
+    private Call mCall[] = new Call[CallList.PHONE_COUNT];
     private boolean mHasTextMessages = false;
 
     @Override
@@ -40,9 +41,15 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
         final CallList calls = CallList.getInstance();
         Call call;
-        call = calls.getIncomingCall();
-        if (call != null) {
-            processIncomingCall(call);
+        for (int i = 0; i < CallList.PHONE_COUNT; i++) {
+            long[] subId = CallList.getInstance().getSubId(i);
+            call = calls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
+            if (call == null) {
+                call = calls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
+            }
+            if (call != null) {
+                processIncomingCall(call);
+            }
         }
         call = calls.getVideoUpgradeRequestCall();
         if (call != null) {
@@ -51,6 +58,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
         // Listen for incoming calls.
         calls.addListener(this);
+        CallList.getInstance().addActiveSubChangeListener(this);
     }
 
     @Override
@@ -61,9 +69,12 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
         // This is necessary because the activity can be destroyed while an incoming call exists.
         // This happens when back button is pressed while incoming call is still being shown.
-        if (mCallId != null) {
-            CallList.getInstance().removeCallUpdateListener(mCallId, this);
+        for (int i = 0; i < CallList.PHONE_COUNT; i++) {
+            if (mCallId[i] != null) {
+                CallList.getInstance().removeCallUpdateListener(mCallId[i], this);
+            }
         }
+        CallList.getInstance().removeActiveSubChangeListener(this);
     }
 
     @Override
@@ -78,11 +89,13 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     @Override
     public void onIncomingCall(Call call) {
+        long subId = call.getSubId();
+        int phoneId = CallList.getInstance().getPhoneId(subId);
         // TODO: Ui is being destroyed when the fragment detaches.  Need clean up step to stop
         // getting updates here.
         Log.d(this, "onIncomingCall: " + this);
         if (getUi() != null) {
-            if (!call.getId().equals(mCallId)) {
+            if (!call.getId().equals(mCallId[phoneId])) {
                 // A new call is coming in.
                 processIncomingCall(call);
             }
@@ -90,24 +103,28 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     private void processIncomingCall(Call call) {
-        mCallId = call.getId();
-        mCall = call;
+        long subId = call.getSubId();
+        int phoneId = CallList.getInstance().getPhoneId(subId);
+        mCallId[phoneId] = call.getId();
+        mCall[phoneId] = call;
 
         // Listen for call updates for the current call.
-        CallList.getInstance().addCallUpdateListener(mCallId, this);
+        CallList.getInstance().addCallUpdateListener(mCallId[phoneId], this);
 
-        Log.d(TAG, "Showing incoming for call id: " + mCallId + " " + this);
+        Log.d(TAG, "Showing incoming for call id: " + mCallId[phoneId] + " " + this);
         final List<String> textMsgs = CallList.getInstance().getTextResponses(call.getId());
         getUi().showAnswerUi(true);
         configureAnswerTargetsForSms(call, textMsgs);
     }
 
     private void processVideoUpgradeRequestCall(Call call) {
-        mCallId = call.getId();
-        mCall = call;
+        long subId = call.getSubId();
+        int phoneId = CallList.getInstance().getPhoneId(subId);
+        mCallId[phoneId] = call.getId();
+        mCall[phoneId] = call;
 
         // Listen for call updates for the current call.
-        CallList.getInstance().addCallUpdateListener(mCallId, this);
+        CallList.getInstance().addCallUpdateListener(mCallId[phoneId], this);
         getUi().showAnswerUi(true);
 
         getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_UPGRADE_REQUEST);
@@ -117,14 +134,21 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     public void onCallChanged(Call call) {
         Log.d(this, "onCallStateChange() " + call + " " + this);
         if (call.getState() != Call.State.INCOMING) {
+            long subId = call.getSubId();
+            int phoneId = CallList.getInstance().getPhoneId(subId);
             // Stop listening for updates.
-            CallList.getInstance().removeCallUpdateListener(mCallId, this);
+            CallList.getInstance().removeCallUpdateListener(mCallId[phoneId], this);
 
-            getUi().showAnswerUi(false);
+            final Call incall = CallList.getInstance().getIncomingCall();
+            if (incall != null) {
+                getUi().showAnswerUi(true);
+            } else {
+                getUi().showAnswerUi(false);
+            }
 
             // mCallId will hold the state of the call. We don't clear the mCall variable here as
             // it may be useful for sending text messages after phone disconnects.
-            mCallId = null;
+            mCallId[phoneId] = null;
             mHasTextMessages = false;
         } else if (!mHasTextMessages) {
             final List<String> textMsgs = CallList.getInstance().getTextResponses(call.getId());
@@ -134,17 +158,34 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
+    // get active phoneId, for which call is visible to user
+    private int getActivePhoneId() {
+        int phoneId = -1;
+        if (CallList.getInstance().isDsdaEnabled()) {
+            long subId = CallList.getInstance().getActiveSubscription();
+            phoneId = CallList.getInstance().getPhoneId(subId);
+        } else {
+            for (int i = 0; i < mCall.length; i++) {
+                if (mCall[i] != null) {
+                    phoneId = i;
+                }
+            }
+        }
+        return phoneId;
+    }
+
     public void onAnswer(int videoState, Context context) {
-        if (mCallId == null) {
+        int phoneId = getActivePhoneId();
+        Log.i(this, "onAnswer  mCallId:" + mCallId + "phoneId:" + phoneId);
+        if (mCallId == null || phoneId == -1) {
             return;
         }
 
-        Log.d(this, "onAnswer " + mCallId);
-        if (mCall.getSessionModificationState()
+        if (mCall[phoneId].getSessionModificationState()
                 == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
             InCallPresenter.getInstance().acceptUpgradeRequest(context);
         } else {
-            TelecomAdapter.getInstance().answerCall(mCall.getId(), videoState);
+            TelecomAdapter.getInstance().answerCall(mCall[phoneId].getId(), videoState);
         }
     }
 
@@ -163,8 +204,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
      * reject since it seems to be more prevalent.
      */
     public void onDecline() {
-        Log.d(this, "onDecline " + mCallId);
-        TelecomAdapter.getInstance().rejectCall(mCall.getId(), false, null);
+        int phoneId = getActivePhoneId();
+        Log.i(this, "onDecline mCallId:" + mCallId + "phoneId:" + phoneId);
+        TelecommAdapter.getInstance().rejectCall(mCall[phoneId].getId(), false, null);
     }
 
     public void onText() {
@@ -174,8 +216,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     public void rejectCallWithMessage(String message) {
-        Log.d(this, "sendTextToDefaultActivity()...");
-        TelecomAdapter.getInstance().rejectCall(mCall.getId(), true, message);
+        int phoneId = getActivePhoneId();
+        Log.i(this, "sendTextToDefaultActivity()...phoneId:" + phoneId);
+        TelecommAdapter.getInstance().rejectCall(mCall[phoneId].getId(), true, message);
 
         onDismissDialog();
     }
@@ -212,5 +255,40 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         public void showMessageDialog();
         public void configureMessageDialog(List<String> textResponses);
         public Context getContext();
+    }
+
+    @Override
+    public void onActiveSubChanged(long subId) {
+        final CallList calls = CallList.getInstance();
+        final Call call = calls.getIncomingCall();
+        int phoneId = CallList.getInstance().getPhoneId(subId);
+        if ((call != null) && (call.getId() == mCallId[phoneId])) {
+            Log.i(this, "Show incoming for call id: " + mCallId[phoneId] + " " + this);
+            final List<String> textMsgs = CallList.getInstance().getTextResponses(
+                    call.getId());
+            getUi().showAnswerUi(true);
+
+            boolean withSms = call.can(PhoneCapabilities.RESPOND_VIA_TEXT) && textMsgs != null;
+            if (call.isVideoCall(getUi().getContext())) {
+                if (withSms) {
+                    getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS);
+                    getUi().configureMessageDialog(textMsgs);
+                } else {
+                    getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_WITHOUT_SMS);
+                }
+            } else {
+                if (withSms) {
+                    getUi().showTargets(AnswerFragment.TARGET_SET_FOR_AUDIO_WITH_SMS);
+                    getUi().configureMessageDialog(textMsgs);
+                } else {
+                    getUi().showTargets(AnswerFragment.TARGET_SET_FOR_AUDIO_WITHOUT_SMS);
+                }
+            }
+        } else if ((call == null) && (calls.hasAnyLiveCall(subId))) {
+            Log.i(this, "Hide incoming for call id: " + mCallId[phoneId] + " " + this);
+            getUi().showAnswerUi(false);
+        } else {
+            Log.i(this, "No incoming call present for sub = " + subId + " " + this);
+        }
     }
 }

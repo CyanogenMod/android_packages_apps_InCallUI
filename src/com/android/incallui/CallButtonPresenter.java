@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
         implements InCallStateListener, AudioModeListener, IncomingCallListener,
-        InCallDetailsListener {
+        InCallDetailsListener, CallList.ActiveSubChangeListener {
 
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
@@ -57,6 +57,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().addListener(this);
         InCallPresenter.getInstance().addIncomingCallListener(this);
         InCallPresenter.getInstance().addDetailsListener(this);
+        CallList.getInstance().addActiveSubChangeListener(this);
     }
 
     @Override
@@ -67,6 +68,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         AudioModeProvider.getInstance().removeListener(this);
         InCallPresenter.getInstance().removeIncomingCallListener(this);
         InCallPresenter.getInstance().removeDetailsListener(this);
+        CallList.getInstance().removeActiveSubChangeListener(this);
     }
 
     @Override
@@ -482,5 +484,13 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
                 boolean showHoldMenuOption, boolean showSwapMenuOption);
         Context getContext();
+    }
+
+    @Override
+    public void onActiveSubChanged(long subId) {
+        InCallState state = InCallPresenter.getInstance()
+                .getPotentialStateFromCallList(CallList.getInstance());
+
+        onStateChange(null, state, CallList.getInstance());
     }
 }

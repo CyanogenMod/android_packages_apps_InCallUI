@@ -551,4 +551,8 @@
 
     <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
     <string name="select_account_dialog_title">Select Account</string>
+    <!-- Set Subscription screen: label sub 1 -->
+    <string name="sub_1">SUB 1</string>
+    <!-- Set Subscription screen: label sub 2 -->
+    <string name="sub_2">SUB 2</string>
 </resources>

@@ -27,6 +27,7 @@ import android.telecom.GatewayInfo;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.VideoProfile;
+import android.telephony.SubscriptionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +120,7 @@ public final class Call {
 
     private static final String ID_PREFIX = Call.class.getSimpleName() + "_";
     private static int sIdCounter = 0;
+    public boolean mIsActiveSub = false;
 
     private android.telecom.Call.Listener mTelecommCallListener =
             new android.telecom.Call.Listener() {
@@ -209,6 +211,7 @@ public final class Call {
         Log.d(this, "updateFromTelecommCall: " + mTelecommCall);
         setState(translateState(mTelecommCall.getState()));
         setDisconnectCause(mTelecommCall.getDetails().getDisconnectCause());
+        mIsActiveSub = mTelecommCall.mIsActiveSub;
 
         if (mTelecommCall.getVideoCall() != null) {
             if (mVideoCallListener == null) {
@@ -345,6 +348,15 @@ public final class Call {
         return mTelecommCall.getDetails().getAccountHandle();
     }
 
+    public long getSubId() {
+        PhoneAccountHandle ph = getAccountHandle();
+        if (ph != null) {
+            return Long.parseLong(getAccountHandle().getId());
+        } else {
+            return SubscriptionManager.INVALID_SUB_ID;
+        }
+    }
+
     public VideoCall getVideoCall() {
         return mTelecommCall.getVideoCall();
     }
@@ -396,12 +408,13 @@ public final class Call {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "[%s, %s, %s, children:%s, parent:%s, videoState:%d]",
+        return String.format(Locale.US,
+                "[%s, %s, %s, children:%s, parent:%s, videoState:%d, mIsActivSub:%b]",
                 mId,
                 State.toString(getState()),
                 PhoneCapabilities.toString(mTelecommCall.getDetails().getCallCapabilities()),
                 mChildCallIds,
                 getParentId(),
-                mTelecommCall.getDetails().getVideoState());
+                mTelecommCall.getDetails().getVideoState(), mIsActiveSub);
     }
 }

@@ -29,6 +29,7 @@ import android.telecom.PhoneCapabilities;
 import android.telecom.Phone;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.VideoProfile;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Surface;
 import android.view.View;
@@ -141,6 +142,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     private boolean mIsActivityPreviouslyStarted = false;
 
     private Phone mPhone;
+    private int mLastDisconnectCause = DisconnectCause.ERROR;
 
     public static synchronized InCallPresenter getInstance() {
         if (sInCallPresenter == null) {
@@ -221,6 +223,15 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     private void attemptFinishActivity() {
         final boolean doFinish = (mInCallActivity != null && isActivityStarted());
         Log.i(this, "Hide in call UI: " + doFinish);
+
+        if ((mCallList != null)
+                && (CallList.getInstance().isDsdaEnabled())
+                && !(mCallList.hasAnyLiveCall(mCallList.getActiveSubscription()))) {
+            Log.d(this, "Switch active sub. Last disc cause = " + mLastDisconnectCause);
+            boolean retainLch = (mLastDisconnectCause == DisconnectCause.REMOTE)
+                    ? true: false;
+            if (mCallList.switchToOtherActiveSub(retainLch)) return;
+        }
 
         if (doFinish) {
             mInCallActivity.finish();
@@ -338,6 +349,9 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
                     callList.getOutgoingCall() != null;
             mInCallActivity.dismissKeyguard(hasCall);
         }
+        if (CallList.getInstance().isDsdaEnabled() && (mInCallActivity != null)) {
+            mInCallActivity.updateDsdaTab();
+        }
     }
 
     /**
@@ -356,6 +370,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         for (IncomingCallListener listener : mIncomingCallListeners) {
             listener.onIncomingCall(oldState, mInCallState, call);
         }
+
+        if (CallList.getInstance().isDsdaEnabled() && (mInCallActivity != null)) {
+            mInCallActivity.updateDsdaTab();
+        }
     }
 
     /**
@@ -364,6 +382,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      */
     @Override
     public void onDisconnect(Call call) {
+        mLastDisconnectCause = (call != null ) ? call.getDisconnectCause():
+                DisconnectCause.ERROR;
         hideDialpadForDisconnect();
         maybeShowErrorDialogOnDisconnect(call);
 
@@ -907,7 +927,13 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         // There should be no jank from this since the screen is already off and will remain so
         // until our new activity is up.
 
-        if (isCallWaiting) {
+        // In addition to call waiting scenario, we need to force finish() in case of DSDA when
+        // we get an incoming call on one sub and there is a live call in other sub and screen
+        // is off.
+        boolean anyOtherSubActive = (incomingCall != null &&
+                 mCallList.isAnyOtherSubActive(mCallList.getActiveSubscription()));
+        Log.i(this, "Start UI " + " anyOtherSubActive:" + anyOtherSubActive);
+        if (isCallWaiting || anyOtherSubActive) {
             if (mProximitySensor.isScreenReallyOff() && isActivityStarted()) {
                 mInCallActivity.finish();
                 // When the activity actually finishes, we will start it again if there are

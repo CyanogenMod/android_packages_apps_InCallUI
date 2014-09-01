@@ -158,6 +158,14 @@ final class TelecomAdapter implements InCallPhoneListener {
         }
     }
 
+    void switchToOtherActiveSub(String subId, boolean retainLch) {
+        if (mPhone != null) {
+            mPhone.switchToOtherActiveSub(subId, retainLch);
+        } else {
+            Log.e(this, "error switchToOtherActiveSub, mPhone is null");
+        }
+    }
+
     void separateCall(String callId) {
         if (mPhone != null) {
             getTelecommCallById(callId).splitFromConference();

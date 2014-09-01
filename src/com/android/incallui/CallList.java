@@ -16,6 +16,7 @@
 
 package com.android.incallui;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.base.Preconditions;
@@ -24,7 +25,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.telecom.DisconnectCause;
 import android.telecom.Phone;
+import android.telecomm.PhoneAccountHandle;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 
+import com.android.internal.telephony.PhoneConstants;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +51,7 @@ public class CallList implements InCallPhoneListener {
     private static final int DISCONNECTED_CALL_LONG_TIMEOUT_MS = 5000;
 
     private static final int EVENT_DISCONNECTED_TIMEOUT = 1;
+    private static final int EVENT_NOTIFY_CHANGE = 2;
 
     private static CallList sInstance = new CallList();
 
@@ -61,6 +69,11 @@ public class CallList implements InCallPhoneListener {
             .newHashMap();
 
     private Phone mPhone;
+    private long mSubId = SubscriptionManager.INVALID_SUB_ID;
+    private final ArrayList<ActiveSubChangeListener> mActiveSubChangeListeners =
+            Lists.newArrayList();
+
+    static final int PHONE_COUNT = TelephonyManager.getDefault().getPhoneCount();
 
     /**
      * Static singleton accessor method.
@@ -111,6 +124,14 @@ public class CallList implements InCallPhoneListener {
         mPhone = null;
     }
 
+    int getPhoneId(long subId) {
+        return SubscriptionManager.getPhoneId(subId);
+    }
+
+    long[] getSubId(int phoneId) {
+        return SubscriptionManager.getSubId(phoneId);
+    }
+
     /**
      * Called when a single call disconnects.
      */
@@ -128,6 +149,18 @@ public class CallList implements InCallPhoneListener {
      * Called when a single call has changed.
      */
     public void onIncoming(Call call, List<String> textMessages) {
+        Log.d(this, "onIncoming - " + call);
+
+        // Update active subscription from call object. it will be set by
+        // Telecomm service for incoming call and whenever active sub changes.
+        if (call.mIsActiveSub) {
+            long sub = Long.parseLong(call.getAccountHandle().getId());
+            Log.d(this, "onIncoming - sub:" + sub + " mSubId:" + mSubId);
+            if (sub != mSubId) {
+                setActiveSubscription(sub);
+            }
+        }
+
         if (updateCallInMap(call)) {
             Log.i(this, "onIncoming - " + call);
         }
@@ -142,6 +175,15 @@ public class CallList implements InCallPhoneListener {
      * Called when a single call has changed.
      */
     public void onUpdate(Call call) {
+        PhoneAccountHandle ph = call.getAccountHandle();
+        Log.d(this, "onUpdate - " + call  + " ph:" + ph);
+        if (call.mIsActiveSub && ph != null) {
+            long sub = Long.parseLong(ph.getId());
+            Log.i(this, "onUpdate - sub:" + sub + " mSubId:" + mSubId);
+            if(sub != mSubId) {
+                setActiveSubscription(sub);
+            }
+        }
         onUpdateCall(call);
         notifyGenericListeners();
     }
@@ -329,11 +371,23 @@ public class CallList implements InCallPhoneListener {
         return getCallWithState(state, 0);
     }
 
+    public boolean isDsdaEnabled() {
+        if (TelephonyManager.getDefault().getMultiSimConfiguration()
+                == TelephonyManager.MultiSimVariants.DSDA) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the [position]th call found in the call map with the specified state.
      * TODO: Improve this logic to sort by call time.
      */
     public Call getCallWithState(int state, int positionToFind) {
+        if (isDsdaEnabled()) {
+            return getCallWithState(state, positionToFind, getActiveSubscription());
+        }
+
         Call retval = null;
         int position = 0;
         for (Call call : mCallById.values()) {
@@ -489,6 +543,10 @@ public class CallList implements InCallPhoneListener {
         call.setState(Call.State.IDLE);
         updateCallInMap(call);
         notifyGenericListeners();
+        if (!hasAnyLiveCall()) {
+           // update to Telecomm service that no active sub
+           TelecommAdapter.getInstance().switchToOtherActiveSub(null, false);
+        }
     }
 
     /**
@@ -514,6 +572,13 @@ public class CallList implements InCallPhoneListener {
                 case EVENT_DISCONNECTED_TIMEOUT:
                     Log.d(this, "EVENT_DISCONNECTED_TIMEOUT ", msg.obj);
                     finishDisconnectedCall((Call) msg.obj);
+                    break;
+                case EVENT_NOTIFY_CHANGE:
+                    Log.d(this, "EVENT_NOTIFY_CHANGE: ");
+                    notifyGenericListeners();
+                    for (ActiveSubChangeListener listener : mActiveSubChangeListeners) {
+                        listener.onActiveSubChanged(getActiveSubscription());
+                    }
                     break;
                 default:
                     Log.wtf(this, "Message not expected: " + msg.what);
@@ -554,5 +619,145 @@ public class CallList implements InCallPhoneListener {
     public interface CallUpdateListener {
         // TODO: refactor and limit arg to be call state.  Caller info is not needed.
         public void onCallChanged(Call call);
+    }
+
+    /**
+     * Called when active subscription changes.
+     */
+    public void onActiveSubChanged(long activeSub) {
+        Log.i(this, "onActiveSubChanged  = " + activeSub);
+        if (hasAnyLiveCall(activeSub)) {
+            setActiveSubscription(activeSub);
+        }
+    }
+
+    public long getActiveSubscription() {
+        return mSubId;
+    }
+
+    /**
+     * Called to update the latest active subscription id, and also it
+     * notifies the registred clients about subscription change information.
+     */
+    public void setActiveSubscription(long subId) {
+        if (subId != mSubId) {
+            Log.i(this, "setActiveSubscription, old = " + mSubId + " new = " + subId);
+            mSubId = subId;
+            final Message msg = mHandler.obtainMessage(EVENT_NOTIFY_CHANGE, null);
+            mHandler.sendMessage(msg);
+        }
+    }
+
+    /**
+     * Returns true, if any voice call in ACTIVE on the provided subscription.
+     */
+    public boolean hasAnyLiveCall(long subId) {
+        for (Call call : mCallById.values()) {
+            PhoneAccountHandle ph = call.getAccountHandle();
+            if (!isCallDead(call) && ph != null && (Long.parseLong(ph.getId()) == subId)) {
+                Log.i(this, "hasAnyLiveCall sub = " + subId);
+                return true;
+            }
+        }
+        Log.i(this, "no active call ");
+        return false;
+    }
+
+    /**
+     * Returns true, if any call in ACTIVE on the provided subscription.
+     */
+    public boolean hasAnyLiveCall() {
+        for (Call call : mCallById.values()) {
+            if (!isCallDead(call)) {
+                Log.i(this, "hasAnyLiveCall call = " + call);
+                return true;
+            }
+        }
+        Log.i(this, "no active call ");
+        return false;
+    }
+
+    /**
+     * This method checks whether any other subscription currently has active voice
+     * call other than current active subscription, if yes it makes that other
+     * subscription as active subscription i.e user visible subscription.
+     * @param retainLch  whether to retain the LCH state of the other active sub
+     */
+    public boolean switchToOtherActiveSub(boolean retainLch) {
+        long activeSub = getActiveSubscription();
+        boolean subSwitched = false;
+
+        for (int i = 0; i < PHONE_COUNT; i++) {
+            long[] subId = getSubId(i);
+            if ((subId[0] != activeSub) && hasAnyLiveCall(subId[0])) {
+                Log.i(this, "switchToOtherActiveSub, subId = " + subId[0] +
+                        " retainLch = " + retainLch);
+                subSwitched = true;
+                TelecommAdapter.getInstance().switchToOtherActiveSub(
+                        String.valueOf(subId[0]), retainLch);
+                setActiveSubscription(subId[0]);
+                break;
+            }
+        }
+        return subSwitched;
+    }
+
+    /**
+     * Method to check if there is any live call in a sub other than the one supplied.
+     * @param currentSub  The subscription to exclude while checking for active calls.
+     */
+    public boolean isAnyOtherSubActive(long currentSub) {
+        boolean result = false;
+        if(!isDsdaEnabled()) {
+            return false;
+        }
+
+        for (int phoneId = 0; phoneId < PHONE_COUNT;
+                phoneId++) {
+            long[] subId = getSubId(phoneId);
+
+            if ((subId[0] != currentSub) && hasAnyLiveCall(subId[0])) {
+                Log.d(this, "Live call found on another sub = " + subId[0]);
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns the [position]th call which belongs to provided subscription and
+     * found in the call map with the specified state.
+     */
+    public Call getCallWithState(int state, int positionToFind, long subId) {
+        Call retval = null;
+        int position = 0;
+        for (Call call : mCallById.values()) {
+            PhoneAccountHandle ph = call.getAccountHandle();
+            if ((call.getState() == state) && ((ph == null) ||
+                     (ph != null && (Long.parseLong(ph.getId()) == subId)))) {
+                if (position >= positionToFind) {
+                    retval = call;
+                    break;
+                } else {
+                    position++;
+                }
+            }
+        }
+        return retval;
+    }
+
+    public void addActiveSubChangeListener(ActiveSubChangeListener listener) {
+        Preconditions.checkNotNull(listener);
+        mActiveSubChangeListeners.add(listener);
+    }
+
+    public void removeActiveSubChangeListener(ActiveSubChangeListener listener) {
+        Preconditions.checkNotNull(listener);
+        mActiveSubChangeListeners.remove(listener);
+    }
+
+    public interface ActiveSubChangeListener {
+        public void onActiveSubChanged(long subId);
     }
 }

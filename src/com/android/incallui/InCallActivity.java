@@ -17,6 +17,8 @@
 package com.android.incallui;
 
 import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -30,6 +32,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -48,6 +51,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
@@ -116,6 +121,13 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     private Animation mSlideOut;
     private boolean mDismissKeyguard = false;
 
+    private final int TAB_COUNT_ONE = 1;
+    private final int TAB_COUNT_TWO = 2;
+    private final int TAB_POSITION_FIRST = 0;
+
+    private Tab[] mDsdaTab = new Tab[TAB_COUNT_TWO];
+    private boolean[] mDsdaTabAdd = {false, false};
+
     AnimationListenerAdapter mSlideOutListener = new AnimationListenerAdapter() {
         @Override
         public void onAnimationEnd(Animation animation) {
@@ -149,14 +161,19 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
                 | WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES;
 
         getWindow().addFlags(flags);
-
-        // Setup action bar for the conference call manager.
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.hide();
+        boolean isDsdaEnabled = InCallServiceImpl.isDsdaEnabled();
+        if (isDsdaEnabled) {
+            requestWindowFeature(Window.FEATURE_ACTION_BAR);
+            getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            getActionBar().setDisplayShowTitleEnabled(false);
+            getActionBar().setDisplayShowHomeEnabled(false);
+        } else {
+            requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+            if (getActionBar() != null) {
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                getActionBar().setDisplayShowTitleEnabled(true);
+                getActionBar().hide();
+            }
         }
 
         // TODO(klp): Do we need to add this back when prox sensor is not available?
@@ -216,6 +233,9 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
 
         mInCallOrientationEventListener = new InCallOrientationEventListener(this);
 
+        if (isDsdaEnabled ) {
+            initializeDsdaSwitchTab();
+        }
         Log.d(this, "onCreate(): exit");
     }
 
@@ -856,6 +876,117 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
                     Log.e(TAG, "RuntimeException when excluding task from recents.", e);
                 }
             }
+        }
+    }
+
+    private void initializeDsdaSwitchTab() {
+        int phoneCount = InCallServiceImpl.sPhoneCount;
+        ActionBar bar = getActionBar();
+        View[] mDsdaTabLayout = new View[phoneCount];
+        TypedArray icons = getResources().obtainTypedArray(R.array.sim_icons);
+        int[] subString = {R.string.sub_1, R.string.sub_2};
+
+        for (int i = 0; i < phoneCount; i++) {
+            mDsdaTabLayout[i] = getLayoutInflater()
+                    .inflate(R.layout.msim_tab_sub_info, null);
+
+            ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
+                    .setBackground(icons.getDrawable(i));
+
+            ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
+                    .setText(subString[i]);
+
+            mDsdaTab[i] = bar.newTab().setCustomView(mDsdaTabLayout[i])
+                    .setTabListener(new TabListener(i));
+        }
+    }
+
+    public void updateDsdaTab() {
+        int phoneCount = InCallServiceImpl.sPhoneCount;
+        ActionBar bar = getActionBar();
+
+        for (int i = 0; i < phoneCount; i++) {
+            int[] subId = CallList.getInstance().getSubId(i);
+            if (subId != null && CallList.getInstance().hasAnyLiveCall(subId[0])) {
+                if (!mDsdaTabAdd[i]) {
+                    addDsdaTab(i);
+                }
+            } else {
+                removeDsdaTab(i);
+            }
+        }
+
+        updateDsdaTabSelection();
+    }
+
+    private void addDsdaTab(int subId) {
+        ActionBar bar = getActionBar();
+        int tabCount = bar.getTabCount();
+
+        if (tabCount < subId) {
+            bar.addTab(mDsdaTab[subId], false);
+        } else {
+            bar.addTab(mDsdaTab[subId], subId, false);
+        }
+        mDsdaTabAdd[subId] = true;
+        Log.d(this, "addDsdaTab, subId = " + subId + " tab count = " + tabCount);
+    }
+
+    private void removeDsdaTab(int subId) {
+        ActionBar bar = getActionBar();
+        int tabCount = bar.getTabCount();
+
+        for (int i = 0; i < tabCount; i++) {
+            if (bar.getTabAt(i).equals(mDsdaTab[subId])) {
+                bar.removeTab(mDsdaTab[subId]);
+                mDsdaTabAdd[subId] = false;
+                return;
+            }
+        }
+        Log.d(this, "removeDsdaTab, subId = " + subId + " tab count = " + tabCount);
+    }
+
+    private void updateDsdaTabSelection() {
+        ActionBar bar = getActionBar();
+        int barCount = bar.getTabCount();
+
+        if (barCount == TAB_COUNT_ONE) {
+            bar.selectTab(bar.getTabAt(TAB_POSITION_FIRST));
+        } else if (barCount == TAB_COUNT_TWO) {
+            int phoneId = CallList.getInstance().getPhoneId(CallList
+                    .getInstance().getActiveSubId());
+            bar.selectTab(bar.getTabAt(phoneId));
+        }
+    }
+
+    private class TabListener implements ActionBar.TabListener {
+        int mPhoneId;
+
+        public TabListener(int phoneId) {
+            mPhoneId = phoneId;
+        }
+
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            ActionBar bar = getActionBar();
+            int tabCount = bar.getTabCount();
+                Log.d(this, "onTabSelected mPhoneId:" + mPhoneId);
+            //Don't setActiveSubscription if tab count is 1.This is to avoid
+            //setting active subscription automatically when call on one sub
+            //ends and it's corresponding tab is removed.For such cases active
+            //subscription will be set by InCallPresenter.attemptFinishActivity.
+            int[] subId = CallList.getInstance().getSubId(mPhoneId);
+            if (tabCount != TAB_COUNT_ONE && CallList.getInstance().hasAnyLiveCall(subId[0])
+                    && (CallList.getInstance().getActiveSubId() != subId[0])) {
+                Log.d(this, "Switch to other active sub: " + subId[0]);
+                TelecomAdapter.getInstance().switchToOtherActiveSub(
+                        String.valueOf(subId[0]));
+            }
+        }
+
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        }
+
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
         }
     }
 

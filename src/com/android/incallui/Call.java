@@ -30,6 +30,7 @@ import android.telecom.GatewayInfo;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.VideoProfile;
+import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -241,6 +242,7 @@ public class Call {
                 }
             };
 
+    public boolean mIsActiveSub = false;
     private android.telecom.Call mTelecommCall;
     private final String mId;
     private int mState = State.INVALID;
@@ -300,6 +302,7 @@ public class Call {
         Log.d(this, "updateFromTelecommCall: " + mTelecommCall.toString());
         setState(translateState(mTelecommCall.getState()));
         setDisconnectCause(mTelecommCall.getDetails().getDisconnectCause());
+        mIsActiveSub = mTelecommCall.isActive();
 
         if (mTelecommCall.getVideoCall() != null) {
             if (mVideoCallCallback == null) {
@@ -416,9 +419,29 @@ public class Call {
         int supportedCapabilities = mTelecommCall.getDetails().getCallCapabilities();
 
         if ((capabilities & android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE) != 0) {
+            if (InCallServiceImpl.isDsdaEnabled()) {
+                List<android.telecom.Call> conferenceableCalls =
+                        mTelecommCall.getConferenceableCalls();
+                boolean hasConferenceableCall = false;
+                if (!conferenceableCalls.isEmpty()){
+                    int subId = getSubId();
+                    for (android.telecom.Call call : conferenceableCalls) {
+                        PhoneAccountHandle phHandle = call.getDetails().getAccountHandle();
+                        if ((phHandle != null) && ((Integer.parseInt(phHandle.getId())) == subId)) {
+                            hasConferenceableCall = true;
+                            break;
+                        }
+                    }
+                }
+                if (!hasConferenceableCall &&
+                    ((android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE
+                            & supportedCapabilities) == 0)) {
+                    // Cannot merge calls if there are no calls to merge with.
+                    return false;
+                }
             // We allow you to merge if the capabilities allow it or if it is a call with
             // conferenceable calls.
-            if (mTelecommCall.getConferenceableCalls().isEmpty() &&
+            } else if (mTelecommCall.getConferenceableCalls().isEmpty() &&
                 ((android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE
                         & supportedCapabilities) == 0)) {
                 // Cannot merge calls if there are no calls to merge with.
@@ -449,6 +472,22 @@ public class Call {
 
     public PhoneAccountHandle getAccountHandle() {
         return mTelecommCall == null ? null : mTelecommCall.getDetails().getAccountHandle();
+    }
+
+    public int getSubId() {
+        PhoneAccountHandle ph = getAccountHandle();
+        if (ph != null) {
+            try {
+                if (ph.getId() != null ) {
+                    return Integer.parseInt(getAccountHandle().getId());
+                }
+            } catch (NumberFormatException e) {
+                Log.w(this,"sub Id is not a number " + e);
+            }
+            return SubscriptionManager.getDefaultVoiceSubId();
+        } else {
+            return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+        }
     }
 
     public VideoCall getVideoCall() {
@@ -562,7 +601,7 @@ public class Call {
         }
 
         return String.format(Locale.US, "[%s, %s, %s, children:%s, parent:%s, conferenceable:%s, " +
-                "videoState:%s, mSessionModificationState:%d, VideoSettings:%s]",
+                "videoState:%s, mSessionModificationState:%d, VideoSettings:%s, mIsActivSub:%b]",
                 mId,
                 State.toString(getState()),
                 android.telecom.Call.Details
@@ -572,7 +611,7 @@ public class Call {
                 this.mTelecommCall.getConferenceableCalls(),
                 VideoProfile.videoStateToString(mTelecommCall.getDetails().getVideoState()),
                 mSessionModificationState,
-                getVideoSettings());
+                getVideoSettings(), mIsActiveSub);
     }
 
     public String toSimpleString() {

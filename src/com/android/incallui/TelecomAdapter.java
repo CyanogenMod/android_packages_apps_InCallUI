@@ -120,6 +120,14 @@ final class TelecomAdapter implements InCallServiceListener {
         }
     }
 
+    void switchToOtherActiveSub(String subId) {
+        if (mInCallService != null) {
+            mInCallService.switchToOtherActiveSub(subId);
+        } else {
+            Log.e(this, "error switchToOtherActiveSub, mPhone is null");
+        }
+    }
+
     void separateCall(String callId) {
         android.telecom.Call call = getTelecommCallById(callId);
         if (call != null) {

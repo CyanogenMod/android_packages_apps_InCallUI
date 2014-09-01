@@ -76,6 +76,10 @@
     <dimen name="call_button_margin_vertical">8dp</dimen>
     <dimen name="call_button_margin_horizontal">6dp</dimen>
 
+    <!-- Dimensions for DSDA switch tab -->
+    <dimen name="dsda_sub_icon_marginTop">14dp</dimen>
+    <dimen name="dsda_sub_text_marginTop">12dp</dimen>
+
     <!-- Dimensions for OTA Call Card -->
     <dimen name="otaactivate_layout_marginTop">10dp</dimen>
     <dimen name="otalistenprogress_layout_marginTop">5dp</dimen>

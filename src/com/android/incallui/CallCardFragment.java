@@ -21,6 +21,7 @@
 package com.android.incallui;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -76,6 +77,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private AudioManager mAudioManager;
     private Toast mVBNotify;
     private int mVBToastPosition;
+    private boolean mVBEnabled;
 
     // Secondary caller info
     private ViewStub mSecondaryCallInfo;
@@ -181,6 +183,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 .getSystemService(Context.AUDIO_SERVICE);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mVBEnabled = activity.getResources().getBoolean(R.bool.volume_boost_enabled);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -230,10 +237,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         transition.enableTransitionType(LayoutTransition.CHANGING);
         transition.setAnimateParentHierarchy(false);
         transition.setDuration(200);
-        
-        mVBButton = (Button) view.findViewById(R.id.volumeBoost);
-        if (null != mVBButton) {
-            mVBButton.setOnClickListener(mVBListener);
+
+        if (mVBEnabled) {
+            mVBButton = (Button) view.findViewById(R.id.volumeBoost);
+            if (null != mVBButton) {
+                mVBButton.setOnClickListener(mVBListener);
+                mVBButton.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -400,7 +410,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         // States other than disconnected not yet supported
         callStateLabel = getCallStateLabelFromState(state, cause, isWaitingForRemoteSide);
 
-        updateVBbyCall(state);
+        if (mVBEnabled) {
+            updateVBbyCall(state);
+        }
 
         Log.v(this, "setCallState " + callStateLabel);
         Log.v(this, "DisconnectCause " + cause);

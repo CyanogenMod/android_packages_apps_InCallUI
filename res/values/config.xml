@@ -28,4 +28,5 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <resources>
     <!-- Dismiss the Keyguard screen when there is active call. -->
     <bool name="config_incall_dismiss_keyguard">true</bool>
+    <bool name="volume_boost_enabled">false</bool>
 </resources>

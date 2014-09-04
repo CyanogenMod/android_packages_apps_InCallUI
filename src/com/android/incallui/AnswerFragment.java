@@ -64,6 +64,7 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
     private ArrayAdapter<String> mTextResponsesAdapter = null;
 
     private GlowPadWrapper mGlowpad;
+    private boolean mUseTranslucentNavBar = true;
 
     public AnswerFragment() {
     }
@@ -103,16 +104,13 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
 
     @Override
     public void showAnswerUi(boolean show) {
-        final Window window = getActivity().getWindow();
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);
         if (show) {
             mGlowpad.startPing();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         } else {
             mGlowpad.stopPing();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
 

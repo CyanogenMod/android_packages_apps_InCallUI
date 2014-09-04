@@ -137,4 +137,7 @@
 
     <!-- Dimensions for Video Call Panel -->
     <dimen name="indicator_bar_width">38dp</dimen>
+
+    <!-- Size of call recorder progress timer text -->
+    <dimen name="recording_progress_text_size">64dp</dimen>
 </resources>

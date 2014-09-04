@@ -26,7 +26,6 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
-import com.android.services.telephony.common.CallDetails;
 import com.android.services.telephony.common.Call.Capabilities;
 
 import android.app.AlertDialog;
@@ -47,8 +46,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     private boolean mShowGenericMerge = false;
     private boolean mShowManageConference = false;
+    private boolean mShowButtonsIfIdle = true;
 
     private InCallState mPreviousState = null;
+    private InCallState mStateBeforeDisconnect = null;
 
     public CallButtonPresenter() {
     }
@@ -77,6 +78,9 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     @Override
     public void onStateChange(InCallState state, CallList callList) {
+        if (state == InCallState.DISCONNECTING && mPreviousState != InCallState.DISCONNECTING) {
+            mStateBeforeDisconnect = mPreviousState;
+        }
 
         if (state == InCallState.OUTGOING) {
             mCall = callList.getOutgoingCall();
@@ -247,6 +251,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         updateExtraButtonRow();
     }
 
+    public void setShowButtonsIfIdle(boolean showIfIdle) {
+        mShowButtonsIfIdle = showIfIdle;
+    }
+
     public void modifyCallButtonClicked() {
         Call call = CallList.getInstance().getActiveCall();
         if (call != null) {
@@ -262,8 +270,21 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         final boolean isEnabled = state.isConnectingOrConnected() &&
                 !state.isIncoming() && call != null;
+        final boolean isVisible;
 
-        ui.setEnabled(isEnabled, !state.isIncoming());
+        if (state.isIncoming()) {
+            isVisible = false;
+        } else if (mShowButtonsIfIdle || state.isConnectingOrConnected()) {
+            isVisible = true;
+        } else { // DISCONNECTING, NO_CALLS
+            // Keep UI visible in case it was visible before, don't cause
+            // unneccessary layout changes
+            isVisible = mStateBeforeDisconnect != null &&
+                    !mStateBeforeDisconnect.isIncoming() &&
+                    mStateBeforeDisconnect.isConnectingOrConnected();
+        }
+
+        ui.setEnabled(isEnabled, isVisible);
 
         Log.d(this, "Updating call UI for call: ", call);
 
@@ -347,6 +368,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             mShowManageConference = (call.isConferenceCall() && !isGenericConference);
 
             updateExtraButtonRow();
+
+            boolean canRecord = CallRecorder.getInstance().isEnabled() &&
+                    CallList.getInstance().getActiveCall() != null;
+            ui.showRecording(canRecord);
         }
     }
 
@@ -389,6 +414,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void enableHold(boolean enabled);
         void showMerge(boolean show);
         void showSwap(boolean show);
+        void showRecording(boolean show);
         void showAddCall(boolean show);
         void enableAddCall(boolean enabled);
         void enableAddParticipant(boolean show);

@@ -87,6 +87,18 @@
         <!-- Separator between 4th (or 5th) button and right padding -->
         <View style="@style/VerticalSeparator" />
 
+        <com.android.incallui.CallRecordingButton
+                     android:id="@+id/recordButton"
+                     style="@style/InCallButton"
+                     android:src="@drawable/ic_record_holo_dark"
+                     android:contentDescription="@string/onscreenRecordText"
+                     android:visibility="gone"
+                     />
+
+        <View android:id="@+id/recordSpacer"
+              style="@style/VerticalSeparator"
+              android:visibility="gone" />
+
         <!-- "Blacklist" -->
         <!-- The button used for toggling blackist. -->
         <ImageButton android:id="@+id/addBlacklistButton"

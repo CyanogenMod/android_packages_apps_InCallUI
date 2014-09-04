@@ -30,20 +30,32 @@ import com.android.services.telephony.common.CallDetails;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.telephony.MSimTelephonyManager;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.WindowManagerPolicy;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 /**
@@ -68,10 +80,32 @@ public class InCallActivity extends Activity {
     private boolean mShowDialpadRequested;
     private boolean mConferenceManagerShown;
 
+    private boolean mUseFullScreenCallerPhoto;
+
     // This enum maps to Phone.SuppService defined in telephony
     private enum SuppService {
         UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
     }
+
+    private ContentObserver mSettingsObserver = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            updateSettings();
+        }
+    };
+
+    private int[] mCoverWindowCoords = null;
+    private BroadcastReceiver mLidStateChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (WindowManagerPolicy.ACTION_LID_STATE_CHANGED.equals(intent.getAction())) {
+                boolean on = intent.getIntExtra(WindowManagerPolicy.EXTRA_LID_STATE,
+                        WindowManagerPolicy.WindowManagerFuncs.LID_ABSENT)
+                        == WindowManagerPolicy.WindowManagerFuncs.LID_CLOSED;
+                showSmartCover(on);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -82,6 +116,13 @@ public class InCallActivity extends Activity {
         if (MSimTelephonyManager.getDefault().getMultiSimConfiguration()
                 == MSimTelephonyManager.MultiSimVariants.DSDA) {
             return;
+        }
+
+        mCoverWindowCoords = getResources().getIntArray(
+                com.android.internal.R.array.config_smartCoverWindowCoords);
+        if (mCoverWindowCoords != null && mCoverWindowCoords.length != 4) {
+            // make sure there are exactly 4 dimensions provided, or ignore
+            mCoverWindowCoords = null;
         }
 
         // set this flag so this activity will stay in front of the keyguard
@@ -101,6 +142,12 @@ public class InCallActivity extends Activity {
         setContentView(R.layout.incall_screen);
 
         initializeInCall();
+
+        getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.INCOMING_CALL_STYLE),
+                false, mSettingsObserver);
+        updateSettings();
+
         Log.d(this, "onCreate(): exit");
     }
 
@@ -131,6 +178,10 @@ public class InCallActivity extends Activity {
             mShowDialpadRequested = false;
         }
         updateSystemBarTranslucency();
+        if (mCoverWindowCoords != null) {
+            registerReceiver(mLidStateChangeReceiver, new IntentFilter(
+                    WindowManagerPolicy.ACTION_LID_STATE_CHANGED));
+        }
     }
 
     // onPause is guaranteed to be called when the InCallActivity goes
@@ -139,6 +190,9 @@ public class InCallActivity extends Activity {
     protected void onPause() {
         Log.d(this, "onPause()...");
         super.onPause();
+        if (mCoverWindowCoords != null) {
+            unregisterReceiver(mLidStateChangeReceiver);
+        }
 
         mIsForegroundActivity = false;
 
@@ -409,7 +463,7 @@ public class InCallActivity extends Activity {
         if (mCallButtonFragment == null) {
             mCallButtonFragment = (CallButtonFragment) getFragmentManager()
                     .findFragmentById(R.id.callButtonFragment);
-            mCallButtonFragment.getView().setVisibility(View.GONE);
+            mCallButtonFragment.setEnabled(false, false);
         }
 
         if (mCallCardFragment == null) {
@@ -433,6 +487,55 @@ public class InCallActivity extends Activity {
                     .findFragmentById(R.id.conferenceManagerFragment);
             mConferenceManagerFragment.getView().setVisibility(View.INVISIBLE);
         }
+    }
+
+    protected void showSmartCover(boolean show) {
+        mAnswerFragment.getView().setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        final int windowHeight = mCoverWindowCoords[2] - mCoverWindowCoords[0];
+        final int windowWidth = metrics.widthPixels - mCoverWindowCoords[1]
+                - (metrics.widthPixels - mCoverWindowCoords[3]);
+
+        final int stretch = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        View main = findViewById(R.id.main);
+        View callCard = mCallCardFragment.getView();
+        if (show) {
+            // clear bg color
+            main.setBackground(null);
+
+            // center
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(windowWidth, stretch);
+            lp.gravity = Gravity.TOP | Gravity.CENTER_HORIZONTAL;
+            main.setLayoutParams(lp);
+
+            // adjust callcard height
+            ViewGroup.LayoutParams params = callCard.getLayoutParams();
+            params.height = windowHeight;
+
+            callCard.setSystemUiVisibility(callCard.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+            // disable touches
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        } else {
+            // reset default parameters
+            main.setBackgroundColor(R.color.incall_button_background);
+
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(stretch, stretch);
+            main.setLayoutParams(lp);
+
+            ViewGroup.LayoutParams params = mCallCardFragment.getView().getLayoutParams();
+            params.height = stretch;
+
+            callCard.setSystemUiVisibility(callCard.getSystemUiVisibility()
+                    & ~View.SYSTEM_UI_FLAG_FULLSCREEN & ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        callCard.invalidate();
+        main.requestLayout();
     }
 
     private void toast(String text) {
@@ -490,15 +593,21 @@ public class InCallActivity extends Activity {
         }
     }
 
-    private void updateSystemBarTranslucency() {
-        final boolean doTranslucency = !mConferenceManagerShown;
+    public void updateSystemBarTranslucency() {
+        int flags = 0;
         final Window window = getWindow();
+        final InCallPresenter.InCallState inCallState =
+                InCallPresenter.getInstance().getInCallState();
 
-        if (doTranslucency) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        } else {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (!mConferenceManagerShown) {
+            flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         }
+        if (mUseFullScreenCallerPhoto && inCallState == InCallPresenter.InCallState.INCOMING) {
+            flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
+        }
+
+        window.setFlags(flags, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         window.getDecorView().requestFitSystemWindows();
     }
 
@@ -796,6 +905,17 @@ public class InCallActivity extends Activity {
     private void onDialogDismissed() {
         mDialog = null;
         InCallPresenter.getInstance().onDismissDialog();
+    }
+
+    private void updateSettings() {
+        int incomingCallStyle = Settings.System.getInt(getContentResolver(),
+                Settings.System.INCOMING_CALL_STYLE,
+                Settings.System.INCOMING_CALL_STYLE_FULLSCREEN_PHOTO);
+        mUseFullScreenCallerPhoto =
+                incomingCallStyle == Settings.System.INCOMING_CALL_STYLE_FULLSCREEN_PHOTO;
+        mCallButtonFragment.setHideMode(mUseFullScreenCallerPhoto ? View.GONE : View.INVISIBLE);
+        mCallButtonFragment.getPresenter().setShowButtonsIfIdle(!mUseFullScreenCallerPhoto);
+        updateSystemBarTranslucency();
     }
 
     private void log(String msg) {

@@ -33,6 +33,7 @@ import android.telecom.StatusHints;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -61,6 +62,11 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
     private static final String TAG = CallCardPresenter.class.getSimpleName();
     private static final long CALL_TIME_UPDATE_INTERVAL_MS = 1000;
+
+    private static final String IDP_IDN = "+62";
+    private static final String IDP_PLUS = "+";
+    private static final String IDP_ZERO = "0";
+    private static final String IDP_PREFIX = "01033";
 
     private Call mPrimary;
     private Call mSecondary;
@@ -475,12 +481,45 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             final String name = getNameForCall(entry);
             final String number = getNumberForCall(entry);
             final boolean nameIsNumber = name != null && name.equals(entry.number);
-            ui.setPrimary(number, name, nameIsNumber, entry.label,
+            boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
+            final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
+            ui.setPrimary(number, checkIdpName, nameIsNumber, entry.label,
                     entry.photo, isConference, canManageConference, entry.isSipCall);
         } else {
             ui.setPrimary(null, null, false, null, null, isConference, canManageConference, false);
         }
 
+    }
+
+    private final String checkIdp(String number, boolean nameIsNumber, boolean isIncoming) {
+        if (mContext.getResources().getBoolean(R.bool.def_incallui_checkidp_enabled)
+                && isCDMAPhone(getActiveSubscription()) && isIncoming && nameIsNumber) {
+            if (number.indexOf(IDP_PREFIX) == 0) {
+                return IDP_PLUS + number.substring(IDP_PREFIX.length());
+            } else if ((number.indexOf(IDP_IDN) == 0) && (!isRoaming(getActiveSubscription()))) {
+                return IDP_ZERO + number.substring(IDP_IDN.length());
+            }
+        }
+        return number;
+    }
+
+    private boolean isCDMAPhone(long subscription) {
+        boolean isCDMA = false;
+        int phoneType = TelephonyManager.getDefault().isMultiSimEnabled()
+                ? TelephonyManager.getDefault().getCurrentPhoneType(subscription)
+                        : TelephonyManager.getDefault().getPhoneType();
+        if (TelephonyManager.PHONE_TYPE_CDMA == phoneType) {
+            isCDMA = true;
+        }
+        return isCDMA;
+    }
+
+    private boolean isRoaming(long subscription) {
+        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
+            return TelephonyManager.getDefault().isNetworkRoaming(subscription);
+        } else {
+            return TelephonyManager.getDefault().isNetworkRoaming();
+        }
     }
 
     private void updateSecondaryDisplayInfo(boolean isConference) {
@@ -697,5 +736,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     (TelecomManager) mContext.getSystemService(Context.TELECOM_SERVICE);
         }
         return mTelecomManager;
+    }
+
+    public long getActiveSubscription() {
+        return SubscriptionManager.getDefaultSubId();
     }
 }

@@ -76,7 +76,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private Button mVBButton;
     private AudioManager mAudioManager;
     private Toast mVBNotify;
-    private int mVBToastPosition;
     private boolean mVBEnabled;
 
     // Secondary caller info
@@ -175,9 +174,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mVBToastPosition = Integer.parseInt(
-                getResources().getString(R.string.volume_boost_toast_position));
 
         mAudioManager = (AudioManager) getActivity()
                 .getSystemService(Context.AUDIO_SERVICE);
@@ -860,7 +856,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private OnClickListener mVBListener = new OnClickListener() {
         @Override
-        public void onClick(View arg0) {
+        public void onClick(View view) {
             if (isVBAvailable()) {
                 switchVBStatus();
             }
@@ -889,14 +885,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     private void updateVBButton() {
-        if (isVBAvailable()
-                && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
-
+        if (isVBAvailable()) {
+            if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
                 mVBButton.setBackgroundResource(R.drawable.volume_in_boost_sel);
-        } else if (isVBAvailable()
-                && !(mAudioManager.getParameters(VOLUME_BOOST).contains("=on"))) {
-
+            } else {
                 mVBButton.setBackgroundResource(R.drawable.volume_in_boost_nor);
+            }
         } else {
             mVBButton.setBackgroundResource(R.drawable.volume_in_boost_unavailable);
         }
@@ -907,22 +901,19 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mVBNotify.cancel();
         }
 
-        if (isVBAvailable()
-                && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+        int textResId;
 
-            mVBNotify = Toast.makeText(getView().getContext(),
-                    R.string.volume_boost_notify_enabled, Toast.LENGTH_SHORT);
-        } else if (isVBAvailable()
-                && !(mAudioManager.getParameters(VOLUME_BOOST).contains("=on"))) {
-
-            mVBNotify = Toast.makeText(getView().getContext(),
-                    R.string.volume_boost_notify_disabled, Toast.LENGTH_SHORT);
+        if (isVBAvailable()) {
+            if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+                textResId = R.string.volume_boost_notify_enabled;
+            } else {
+                textResId = R.string.volume_boost_notify_disabled;
+            }
         } else {
-            mVBNotify = Toast.makeText(getView().getContext(),
-                    R.string.volume_boost_notify_unavailable, Toast.LENGTH_SHORT);
+            textResId = R.string.volume_boost_notify_unavailable;
         }
 
-        mVBNotify.setGravity(Gravity.TOP, 0, mVBToastPosition);
+        mVBNotify = Toast.makeText(getActivity(), textResId, Toast.LENGTH_SHORT);
         mVBNotify.show();
     }
 

@@ -38,4 +38,13 @@
     <!-- CallCardFragement operator names -->
     <string name="sub_no_sim">No SIM</string>
     <string name="multi_sim_entry_format" translatable="false"><xliff:g id="operator">%1$s</xliff:g>-<xliff:g id="index">%2$d</xliff:g></string>
+
+    <!-- Set Subscription screen: label sub 1 -->
+    <string name="sub_1">SIM 1</string>
+    <!-- Set Subscription screen: label sub 2 -->
+    <string name="sub_2">SIM 2</string>
+
+    <string name="volume_boost_notify_enabled">Volume boost is now ON</string>
+    <string name="volume_boost_notify_disabled">Volume boost is now OFF"</string>
+    <string name="volume_boost_notify_unavailable">Extra volume is not available when using a headset</string>
 </resources>

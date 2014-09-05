@@ -617,14 +617,4 @@
     <string name="dialpad_star_letters"></string>
     <!--  Do not translate. -->
     <string name="dialpad_pound_letters"></string>
-
-    <!-- Set Subscription screen: label sub 1 -->
-    <string name="sub_1">SIM 1</string>
-    <!-- Set Subscription screen: label sub 2 -->
-    <string name="sub_2">SIM 2</string>
-
-    <string name="volume_boost_notify_enabled">"Volume boost ON."</string>
-    <string name="volume_boost_notify_disabled">"Volume boost OFF."</string>
-    <string name="volume_boost_notify_unavailable">"Extra volume is not available when Wired/Blue tooth headset is used."</string>
-    <string name="volume_boost_toast_position">180</string>
 </resources>

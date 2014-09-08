@@ -77,4 +77,8 @@
 
     <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
     <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
+
+    <!-- Text for the onscreen "Add Participant" button -->
+    <string name="onscreenAddParticipant">Add Participant</string>
+
 </resources>

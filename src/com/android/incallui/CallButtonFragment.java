@@ -89,6 +89,7 @@ public class CallButtonFragment
     private CompoundButton mPauseVideoButton;
     private ImageButton mOverflowButton;
     private ImageButton mManageVideoCallConferenceButton;
+    private ImageButton mAddParticipantButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -150,6 +151,8 @@ public class CallButtonFragment
         mMergeButton.setOnClickListener(this);
         mPauseVideoButton = (CompoundButton) parent.findViewById(R.id.pauseVideoButton);
         mPauseVideoButton.setOnClickListener(this);
+        mAddParticipantButton = (ImageButton) parent.findViewById(R.id.addParticipant);
+        mAddParticipantButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
@@ -205,6 +208,9 @@ public class CallButtonFragment
                 break;
             case R.id.dialpadButton:
                 getPresenter().showDialpadClicked(!mShowDialpadButton.isSelected());
+                break;
+            case R.id.addParticipant:
+                getPresenter().addParticipantClicked();
                 break;
             case R.id.changeToVideoButton:
                 getPresenter().changeToVideoClicked();
@@ -355,6 +361,7 @@ public class CallButtonFragment
         mPauseVideoButton.setEnabled(isEnabled);
         mOverflowButton.setEnabled(isEnabled);
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
+        mAddParticipantButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -418,6 +425,10 @@ public class CallButtonFragment
     @Override
     public void setVideoPaused(boolean isPaused) {
         mPauseVideoButton.setSelected(isPaused);
+    }
+
+    public void enableAddParticipant(boolean show) {
+        mAddParticipantButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

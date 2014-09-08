@@ -235,6 +235,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         TelecomAdapter.getInstance().merge(mCall.getId());
     }
 
+    public void addParticipantClicked() {
+        InCallPresenter.getInstance().sendAddParticipantIntent();
+    }
+
     public void addCallClicked() {
         // Automatically mute the current call
         mAutomaticallyMuted = true;
@@ -385,6 +389,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 && call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE_RX));
 
         final boolean showMute = call.can(android.telecom.Call.Details.CAPABILITY_MUTE);
+        final boolean showAddParticipant = call.can(
+                android.telecom.Call.Details.CAPABILITY_ADD_PARTICIPANT);
 
         ui.showButton(BUTTON_AUDIO, true);
         ui.showButton(BUTTON_SWAP, showSwap);
@@ -397,6 +403,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showButton(BUTTON_PAUSE_VIDEO, isVideo && !useExt);
         ui.showButton(BUTTON_DIALPAD, !isVideo || useExt);
         ui.showButton(BUTTON_MERGE, showMerge);
+        ui.enableAddParticipant(showAddParticipant);
 
         ui.updateButtonStates();
     }
@@ -437,6 +444,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void setHold(boolean on);
         void setCameraSwitched(boolean isBackFacingCamera);
         void setVideoPaused(boolean isPaused);
+        void enableAddParticipant(boolean show);
         void setAudio(int mode);
         void setSupportedAudio(int mask);
         void displayDialpad(boolean on, boolean animate);

@@ -293,6 +293,8 @@
     <string name="onscreenPauseVideoText">Pause video</string>
     <!-- Text for the onscreen overflow button, to see additional actions which can be done. -->
     <string name="onscreenOverflowText">More options</string>
+    <!-- Text for the onscreen "Add Participant" button -->
+    <string name="onscreenAddParticipant">Add Participant</string>
 
     <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->

@@ -216,6 +216,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         TelecomAdapter.getInstance().merge(mCall.getId());
     }
 
+    public void addParticipantClicked() {
+        InCallPresenter.getInstance().sendAddParticipantIntent();
+    }
+
     public void addCallClicked() {
         // Automatically mute the current call
         mAutomaticallyMuted = true;
@@ -429,6 +433,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             } else {
                 ui.showMergeButton(showMergeOption);
                 ui.showAddCallButton(showAddCallOption);
+                ui.enableAddParticipant(call.can(
+                        PhoneCapabilities.ADD_PARTICIPANT));
             }
 
             ui.showHoldButton(showHoldOption);
@@ -464,6 +470,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void showSwitchCameraButton(boolean show);
         void setSwitchCameraButton(boolean isBackFacingCamera);
         void showAddCallButton(boolean show);
+        void enableAddParticipant(boolean show);
         void showMergeButton(boolean show);
         void showPauseVideoButton(boolean show);
         void setPauseVideoButton(boolean isPaused);

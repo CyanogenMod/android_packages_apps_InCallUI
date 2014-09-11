@@ -126,6 +126,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * @param height The height of the surface.
          */
         public VideoCallSurface(int surfaceId, TextureView textureView, int width, int height) {
+            Log.d(this, "VideoCallSurface: surfaceId=" + surfaceId +
+                    " width=" + width + " height=" + height);
             mWidth = width;
             mHeight = height;
             mSurfaceId = surfaceId;
@@ -168,6 +170,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             // Where there is no saved {@link SurfaceTexture} available, use the newly created one.
             // If a saved {@link SurfaceTexture} is available, we are re-creating after an
             // orientation change.
+            Log.d(this, " onSurfaceTextureAvailable mSurfaceId=" + mSurfaceId + " surfaceTexture="
+                    + surfaceTexture + " width=" + width
+                    + " height=" + height + " mSavedSurfaceTexture=" + mSavedSurfaceTexture);
             if (mSavedSurfaceTexture == null) {
                 mSavedSurfaceTexture = surfaceTexture;
                 surfaceCreated = createSurface();
@@ -206,6 +211,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             /**
              * Destroying the surface texture; inform the presenter so it can null the surfaces.
              */
+            Log.d(this, " onSurfaceTextureDestroyed mSurfaceId=" + mSurfaceId + " surfaceTexture="
+                    + surfaceTexture + " SavedSurfaceTexture=" + mSavedSurfaceTexture
+                    + " SavedSurface=" + mSavedSurface);
             if (mSavedSurfaceTexture == null) {
                 getPresenter().onSurfaceDestroyed(mSurfaceId);
                 if (mSavedSurface != null) {
@@ -242,6 +250,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * change in video state.  Releases and clears out the saved surface and surface textures.
          */
         public void setDoneWithSurface() {
+            Log.d(this, "setDoneWithSurface: SavedSurface=" + mSavedSurface
+                    + " SavedSurfaceTexture=" + mSavedSurfaceTexture);
             if (mSavedSurface != null) {
                 mSavedSurface.release();
                 mSavedSurface = null;
@@ -268,10 +278,12 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * @param height The height of the surface, in pixels.
          */
         public void setSurfaceDimensions(int width, int height) {
+            Log.d(this, "setSurfaceDimensions, width=" + width + " height=" + height);
             mWidth = width;
             mHeight = height;
 
             if (mSavedSurfaceTexture != null) {
+                Log.d(this, "setSurfaceDimensions, mSavedSurfaceTexture is NOT equal to null.");
                 createSurface();
             }
         }
@@ -280,6 +292,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * Creates the {@link Surface}, adjusting the {@link SurfaceTexture} buffer size.
          */
         private boolean createSurface() {
+            Log.d(this, "createSurface mSavedSurfaceTexture=" + mSavedSurfaceTexture
+                    + " mSurfaceId =" + mSurfaceId + " mWidth " + mWidth + " mHeight=" + mHeight);
             if (mWidth != DIMENSIONS_NOT_SET && mHeight != DIMENSIONS_NOT_SET &&
                     mSavedSurfaceTexture != null) {
 
@@ -442,6 +456,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     @Override
     public void showVideoUi(boolean show) {
+        Log.d(this, "showVideoUi " + show);
         int visibility = show ? View.VISIBLE : View.GONE;
         getView().setVisibility(visibility);
 
@@ -463,6 +478,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     @Override
     public void cleanupSurfaces() {
+        Log.d(this, "cleanupSurfaces");
         if (sDisplaySurface != null) {
             sDisplaySurface.setDoneWithSurface();
             sDisplaySurface = null;
@@ -476,6 +492,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
 
     @Override
     public boolean isActivityRestart() {
+        Log.d(this, "isActivityRestart " + mIsActivityRestart);
         return mIsActivityRestart;
     }
 
@@ -484,7 +501,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     @Override
     public boolean isDisplayVideoSurfaceCreated() {
-        return sDisplaySurface != null && sDisplaySurface.getSurface() != null;
+        boolean ret = sDisplaySurface != null && sDisplaySurface.getSurface() != null;
+        Log.d(this, " isDisplayVideoSurfaceCreated returns " + ret);
+        return ret;
     }
 
     /**
@@ -492,7 +511,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     @Override
     public boolean isPreviewVideoSurfaceCreated() {
-        return sPreviewSurface != null && sPreviewSurface.getSurface() != null;
+        boolean ret = sPreviewSurface != null && sPreviewSurface.getSurface() != null;
+        Log.d(this, " isPreviewVideoSurfaceCreated returns " + ret);
+        return ret;
     }
 
     /**
@@ -522,6 +543,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     @Override
     public void setPreviewSize(int width, int height) {
+        Log.d(this, "setPreviewSize: width=" + width + " height=" + height);
         if (sPreviewSurface != null) {
             TextureView preview = sPreviewSurface.getTextureView();
 
@@ -543,6 +565,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      * and creates {@link VideoCallSurface} instances to track the surfaces.
      */
     private void inflateVideoCallViews() {
+        Log.d(this, "inflateVideoCallViews");
         if (mVideoViews == null ) {
             mVideoViews = mVideoViewsStub.inflate();
         }
@@ -550,12 +573,15 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         if (mVideoViews != null) {
             TextureView displaySurface = (TextureView) mVideoViews.findViewById(R.id.incomingVideo);
 
+            Log.d(this, "inflateVideoCallViews: sVideoSurfacesInUse=" + sVideoSurfacesInUse);
             Point screenSize = getScreenSize();
             setSurfaceSizeAndTranslation(displaySurface, screenSize);
 
             if (!sVideoSurfacesInUse) {
                 // Where the video surfaces are not already in use (first time creating them),
                 // setup new VideoCallSurface instances to track them.
+                Log.d(this, " inflateVideoCallViews screenSize" + screenSize);
+
                 sDisplaySurface = new VideoCallSurface(SURFACE_DISPLAY,
                         (TextureView) mVideoViews.findViewById(R.id.incomingVideo), screenSize.x,
                         screenSize.y);

@@ -108,7 +108,7 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
 
     @Override
     public void onTrigger(View v, int target) {
-        Log.d(this, "onTrigger()");
+        Log.d(this, "onTrigger() view=" + v + " target=" + target);
         final int resId = getResourceIdForTarget(target);
         switch (resId) {
             case R.drawable.ic_lockscreen_answer:

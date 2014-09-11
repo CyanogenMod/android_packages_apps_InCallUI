@@ -211,9 +211,12 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param surface The surface which was created.
      */
     public void onSurfaceCreated(int surface) {
+        Log.d(this, "onSurfaceCreated surface=" + surface + " mVideoCall=" + mVideoCall);
         final VideoCallUi ui = getUi();
 
         if (ui == null || mVideoCall == null) {
+            Log.e(this, "onSurfaceCreated: Error bad state VideoCallUi=" + ui + " mVideoCall="
+                    + mVideoCall);
             return;
         }
 
@@ -247,6 +250,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param surface The surface which was destroyed.
      */
     public void onSurfaceDestroyed(int surface) {
+        Log.d(this, "onSurfaceDestroyed mSurfaceId=" + surface);
         final VideoCallUi ui = getUi();
         if (ui == null || mVideoCall == null) {
             return;
@@ -294,6 +298,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     @Override
     public void onStateChange(InCallPresenter.InCallState oldState,
             InCallPresenter.InCallState newState, CallList callList) {
+        Log.d(this, "onStateChange oldState" + oldState + " newState=" + newState);
         // Bail if video calling is disabled for the device.
         if (!CallUtil.isVideoEnabled(mContext)) {
             return;
@@ -320,6 +325,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             if (primary != null) {
                 checkForVideoCallChange();
                 mIsVideoCall = mPrimaryCall.isVideoCall(mContext);
+                Log.d(this, "onStateChange mIsVideoCall= " + mIsVideoCall);
                 if (mIsVideoCall) {
                     enterVideoMode();
                 } else {
@@ -365,6 +371,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     private void checkForVideoStateChange() {
         boolean newVideoState = mPrimaryCall.isVideoCall(mContext);
 
+        Log.d(this, "checkForVideoStateChange mIsVideoCall= " + mIsVideoCall
+                + " newVideoState=" + newVideoState);
         // Check if video state changed
         if (mIsVideoCall != newVideoState) {
             mIsVideoCall = newVideoState;
@@ -384,6 +392,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param videoCall The new video call.
      */
     private void changeVideoCall(VideoCall videoCall) {
+        Log.d(this, "changeVideoCall to " + videoCall);
         // Null out the surfaces on the previous video call.
         if (mVideoCall != null) {
             mVideoCall.setDisplaySurface(null);
@@ -398,8 +407,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * TODO(vt): Need to adjust size and orientation of preview surface here.
      */
     private void enterVideoMode() {
+        Log.d(this, "enterVideoMode mVideoCall=" + mVideoCall);
         VideoCallUi ui = getUi();
         if (ui == null) {
+            Log.e(this, "Error VideoCallUi is null so returning");
             return;
         }
 
@@ -422,6 +433,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mVideoCall.requestCameraCapabilities();
 
             if (ui.isDisplayVideoSurfaceCreated()) {
+                Log.d(this, "Calling setDisplaySurface with " + ui.getDisplayVideoSurface());
                 mVideoCall.setDisplaySurface(ui.getDisplayVideoSurface());
             }
         }
@@ -434,6 +446,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * Exits video mode by hiding the video surfaces  and making other adjustments (eg. audio).
      */
     private void exitVideoMode() {
+        Log.d(this, "exitVideoMode");
         VideoCallUi ui = getUi();
         if (ui == null) {
             return;
@@ -489,12 +502,16 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     @Override
     public void onCameraDimensionsChange(Call call, int width, int height) {
+        Log.d(this, "onCameraDimensionsChange call=" + call + " width=" + width + " height="
+                + height);
         VideoCallUi ui = getUi();
         if (ui == null) {
+            Log.e(this, "onCameraDimensionsChange ui is null");
             return;
         }
 
         if (!call.equals(mPrimaryCall)) {
+            Log.e(this, "Call is primary call");
             return;
         }
 

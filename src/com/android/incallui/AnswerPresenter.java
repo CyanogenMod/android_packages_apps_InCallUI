@@ -177,7 +177,8 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     public void onAnswer(int videoState, Context context) {
         int phoneId = getActivePhoneId();
-        Log.i(this, "onAnswer  mCallId:" + mCallId + "phoneId:" + phoneId);
+        Log.i(this, "onAnswer  mCallId:" + mCallId + "phoneId:" + phoneId + " videoState="
+                + videoState);
         if (mCallId == null || phoneId == -1) {
             return;
         }

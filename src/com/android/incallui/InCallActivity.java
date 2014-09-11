@@ -507,8 +507,6 @@ public class InCallActivity extends Activity {
     }
 
     protected void showSmartCover(boolean show) {
-        mAnswerFragment.getView().setVisibility(show ? View.INVISIBLE : View.VISIBLE);
-
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         final int windowHeight = mCoverWindowCoords[2] - mCoverWindowCoords[0];
         final int windowWidth = metrics.widthPixels - mCoverWindowCoords[1]

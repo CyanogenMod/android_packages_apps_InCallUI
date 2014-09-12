@@ -177,7 +177,7 @@ public class CallList implements InCallPhoneListener {
     public void onUpdate(Call call) {
         PhoneAccountHandle ph = call.getAccountHandle();
         Log.d(this, "onUpdate - " + call  + " ph:" + ph);
-        if (call.mIsActiveSub && ph != null) {
+        if (call.mIsActiveSub && ph != null && (!ph.getId().equals("E"))) {
             long sub = Long.parseLong(ph.getId());
             Log.i(this, "onUpdate - sub:" + sub + " mSubId:" + mSubId);
             if(sub != mSubId) {
@@ -384,7 +384,7 @@ public class CallList implements InCallPhoneListener {
      * TODO: Improve this logic to sort by call time.
      */
     public Call getCallWithState(int state, int positionToFind) {
-        if (isDsdaEnabled()) {
+        if (state != Call.State.PRE_DIAL_WAIT && isDsdaEnabled()) {
             return getCallWithState(state, positionToFind, getActiveSubscription());
         }
 
@@ -546,6 +546,7 @@ public class CallList implements InCallPhoneListener {
         if (!hasAnyLiveCall()) {
            // update to Telecomm service that no active sub
            TelecommAdapter.getInstance().switchToOtherActiveSub(null, false);
+           mSubId = SubscriptionManager.INVALID_SUB_ID;
         }
     }
 
@@ -654,7 +655,8 @@ public class CallList implements InCallPhoneListener {
     public boolean hasAnyLiveCall(long subId) {
         for (Call call : mCallById.values()) {
             PhoneAccountHandle ph = call.getAccountHandle();
-            if (!isCallDead(call) && ph != null && (Long.parseLong(ph.getId()) == subId)) {
+            if (!isCallDead(call) && ph != null && (!ph.getId().equals("E"))
+                    && (Long.parseLong(ph.getId()) == subId)) {
                 Log.i(this, "hasAnyLiveCall sub = " + subId);
                 return true;
             }
@@ -734,7 +736,7 @@ public class CallList implements InCallPhoneListener {
         int position = 0;
         for (Call call : mCallById.values()) {
             PhoneAccountHandle ph = call.getAccountHandle();
-            if ((call.getState() == state) && ((ph == null) ||
+            if ((call.getState() == state) && ((ph == null) || ph.getId().equals("E") ||
                      (ph != null && (Long.parseLong(ph.getId()) == subId)))) {
                 if (position >= positionToFind) {
                     retval = call;

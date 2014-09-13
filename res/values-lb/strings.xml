@@ -67,6 +67,7 @@
   <string name="notification_dialing">Gëtt gewielt</string>
   <string name="notification_missedCallTitle">Verpassten Uruff</string>
   <string name="notification_missedCallTicker">Verpassten Uruff vum <xliff:g id="missed_call_from">%s</xliff:g></string>
+  <string name="notification_ongoing_call">Uruff am Gaang</string>
   <string name="notification_on_hold">Gehalen</string>
   <string name="notification_incoming_call">Erakommenden Uruff</string>
   <string name="notification_missedCall_call_back">Zréckuruffen</string>
@@ -124,6 +125,7 @@
   <string name="description_image_button_zero">null</string>
   <string name="description_image_button_pound">Pond</string>
   <string name="description_dial_button">wielen</string>
+  <string name="description_delete_button">Récktast</string>
   <string name="accessibility_call_muted">Uruff stomm geschalt.</string>
   <string name="description_target_answer">Äntweren</string>
   <string name="description_target_send_sms">SMS schécken</string>

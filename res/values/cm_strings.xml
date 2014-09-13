@@ -44,7 +44,7 @@
     <!-- Set Subscription screen: label sub 2 -->
     <string name="sub_2">SIM 2</string>
 
-    <string name="volume_boost_notify_enabled">Volume boost is now ON</string>
-    <string name="volume_boost_notify_disabled">Volume boost is now OFF"</string>
+    <string name="volume_boost_notify_enabled">Volume boost is enabled</string>
+    <string name="volume_boost_notify_disabled">Volume boost is disabled</string>
     <string name="volume_boost_notify_unavailable">Extra volume is not available when using a headset</string>
 </resources>

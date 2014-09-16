@@ -384,7 +384,8 @@ public class CallList implements InCallPhoneListener {
      * TODO: Improve this logic to sort by call time.
      */
     public Call getCallWithState(int state, int positionToFind) {
-        if (state != Call.State.PRE_DIAL_WAIT && isDsdaEnabled()) {
+        if (state != Call.State.PRE_DIAL_WAIT && getActiveSubscription()
+                != SubscriptionManager.INVALID_SUB_ID && isDsdaEnabled()) {
             return getCallWithState(state, positionToFind, getActiveSubscription());
         }
 

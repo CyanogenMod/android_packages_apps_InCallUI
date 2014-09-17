@@ -123,7 +123,7 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
                 mAnswerListener.onText();
                 mTargetTriggered = true;
                 break;
-            case R.drawable.ic_videocam:
+            case R.drawable.ic_lockscreen_answer_video:
                 mAnswerListener.onAnswer(VideoProfile.VideoState.BIDIRECTIONAL, getContext());
                 mTargetTriggered = true;
                 break;

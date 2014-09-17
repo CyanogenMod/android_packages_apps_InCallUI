@@ -278,6 +278,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                     mSavedSurfaceTexture != null) {
 
                 mSavedSurfaceTexture.setDefaultBufferSize(mWidth, mHeight);
+            }
+            if ( mSavedSurfaceTexture != null) {
                 mSavedSurface = new Surface(mSavedSurfaceTexture);
                 return true;
             }

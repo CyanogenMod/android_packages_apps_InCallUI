@@ -51,7 +51,7 @@
 
     </RelativeLayout>
 
-    <fragment android:name="com.android.incallui.MsimAnswerFragment"
+    <fragment android:name="com.android.incallui.MSimAnswerFragment"
               android:id="@+id/answerFragment"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"

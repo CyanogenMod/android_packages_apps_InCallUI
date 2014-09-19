@@ -331,8 +331,9 @@ public class CallerInfo {
     // should set the phone number to the dialed number and name to
     // 'Emergency Number' and let the UI make the decision about what
     // should be displayed.
-    /* package */ CallerInfo markAsEmergency(Context context) {
-        phoneNumber = context.getString(R.string.emergency_call_dialog_number_for_display);
+    /* package */ CallerInfo markAsEmergency(Context context, String number) {
+        phoneNumber = context.getString(R.string.emergency_call_dialog_number_for_display) + " "
+                + number;
         photoResource = R.drawable.img_phone;
         mIsEmergency = true;
         return this;

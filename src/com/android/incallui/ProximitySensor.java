@@ -19,6 +19,7 @@ package com.android.incallui;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.telecom.AudioState;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
@@ -39,6 +40,8 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
         InCallStateListener, AudioModeListener {
     private static final String TAG = ProximitySensor.class.getSimpleName();
 
+    private static final String PROXIMITY_SENSOR = "proximity_sensor";
+
     private final PowerManager mPowerManager;
     private final AudioModeProvider mAudioModeProvider;
     private final AccelerometerListener mAccelerometerListener;
@@ -46,12 +49,14 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
     private boolean mUiShowing = false;
     private boolean mIsPhoneOffhook = false;
     private boolean mDialpadVisible;
+    private Context mContext;
 
     // True if the keyboard is currently *not* hidden
     // Gets updated whenever there is a Configuration change
     private boolean mIsHardKeyboardOpen;
 
     public ProximitySensor(Context context, AudioModeProvider audioModeProvider) {
+        mContext = context;
         mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         mAccelerometerListener = new AccelerometerListener(context, this);
         mAudioModeProvider = audioModeProvider;
@@ -181,6 +186,8 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
                     || AudioState.ROUTE_SPEAKER == audioMode
                     || AudioState.ROUTE_BLUETOOTH == audioMode
                     || mIsHardKeyboardOpen);
+            screenOnImmediately |= Settings.System.getInt(mContext.getContentResolver(),
+                    PROXIMITY_SENSOR, 1) == 0;
 
             // We do not keep the screen off when the user is outside in-call screen and we are
             // horizontal, but we do not force it on when we become horizontal until the

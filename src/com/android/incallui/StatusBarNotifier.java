@@ -380,9 +380,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
             return mContext.getResources().getString(R.string.card_title_conf_call);
         }
         if (TextUtils.isEmpty(contactInfo.name)) {
-            return TextUtils.isEmpty(contactInfo.number) ? null
+            String contactNumberDisplayed = TextUtils.isEmpty(contactInfo.number) ?
+                "" : contactInfo.number.toString();
+            if (mContext.getResources().
+                getBoolean(R.bool.display_home_location_on_statusbar)) {
+                    contactNumberDisplayed =  contactNumberDisplayed + " " + contactInfo.location;
+            }
+            return TextUtils.isEmpty(contactNumberDisplayed) ? null
                     : BidiFormatter.getInstance().unicodeWrap(
-                            contactInfo.number.toString(), TextDirectionHeuristics.LTR);
+                            contactNumberDisplayed, TextDirectionHeuristics.LTR);
         }
 
         return contactInfo.name;

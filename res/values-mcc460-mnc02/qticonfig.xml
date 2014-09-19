@@ -29,4 +29,8 @@
 <resources>
     <!-- Determine whether emergency calls should be marked. -->
     <bool name="mark_emergency_call">true</bool>
+    <!-- Condition to check if home location should be enabled or not. -->
+    <bool name="enable_home_location">true</bool>
+    <!-- Flag to display home location on status bar-->
+    <bool name="display_home_location_on_statusbar">true</bool>
 </resources>

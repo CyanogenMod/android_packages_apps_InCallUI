@@ -250,7 +250,7 @@ public class CallerInfoAsyncQuery {
                     if (cw.event == EVENT_EMERGENCY_NUMBER) {
                         // Note we're setting the phone number here (refer to javadoc
                         // comments at the top of CallerInfo class).
-                        mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext);
+                        mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext, cw.number);
                     } else if (cw.event == EVENT_VOICEMAIL_NUMBER) {
                         mCallerInfo = new CallerInfo().markAsVoiceMail(mQueryContext);
                     } else {

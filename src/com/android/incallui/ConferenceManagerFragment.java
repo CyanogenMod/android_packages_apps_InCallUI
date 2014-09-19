@@ -145,7 +145,7 @@ public class ConferenceManagerFragment
 
         DefaultImageRequest imageRequest = (photoUri != null) ? null :
                 new DefaultImageRequest(callerName, lookupKey, true /* isCircularPhoto */);
-        mContactPhotoManager.loadDirectoryPhoto(photoView, photoUri, false, true, imageRequest);
+        mContactPhotoManager.loadDirectoryPhoto(photoView, photoUri, null, false, true, imageRequest);
 
         // set the caller name
         nameTextView.setText(callerName);

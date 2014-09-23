@@ -532,7 +532,11 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
      */
     private Drawable getCallProviderIcon(Call call) {
         PhoneAccount account = getAccountForCall(call);
-        if (account != null && getTelecomManager().hasMultipleCallCapableAccounts()) {
+
+        // on MSIM devices irrespective of number of enabled phone
+        // accounts pick icon from phone account and display on UI
+        if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
+                || (CallList.PHONE_COUNT > 1))) {
             return account.getIcon(mContext);
         }
         return null;
@@ -543,7 +547,11 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
      */
     private String getCallProviderLabel(Call call) {
         PhoneAccount account = getAccountForCall(call);
-        if (account != null && getTelecomManager().hasMultipleCallCapableAccounts()) {
+
+        // on MSIM devices irrespective of number of
+        // enabled phone accounts display label info on UI
+        if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
+                || (CallList.PHONE_COUNT > 1))) {
             return account.getLabel().toString();
         }
         return null;

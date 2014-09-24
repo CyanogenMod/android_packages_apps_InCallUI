@@ -135,7 +135,12 @@ public class InCallActivity extends Activity {
             getActionBar().setDisplayShowTitleEnabled(false);
             getActionBar().setDisplayShowHomeEnabled(false);
         } else {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+            if (getActionBar() != null) {
+                getActionBar().setDisplayHomeAsUpEnabled(true);
+                getActionBar().setDisplayShowTitleEnabled(true);
+                getActionBar().hide();
+            }
         }
 
         // TODO(klp): Do we need to add this back when prox sensor is not available?

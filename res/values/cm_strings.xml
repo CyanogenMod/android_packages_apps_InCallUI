@@ -48,9 +48,6 @@
     <string name="upgrade_vt_tx_prompt">Would you like to upgrade the call to video transmit only call?</string>
     <string name="upgrade_vt_rx_prompt">Would you like to upgrade the call to video receive only call?</string>
 
-    <!-- In-call screen: VT call dpl init failure. -->
-    <string name="vt_init_fail_str">Video transmit initialization failed. Downgrading call to VoLTE\n</string>
-
     <!-- Text for the onscreen "Modify call" button -->
     <string name="onscreenModifyCallText">Modify call</string>
 
@@ -89,10 +86,6 @@
     <!-- Blacklist confirmation dialog -->
     <string name="blacklist_dialog_title">Add to blacklist</string>
     <string name="blacklist_dialog_message">Future calls from <xliff:g id="number">%s</xliff:g> will be blocked</string>
-
-    <!-- CallCardFragement operator names -->
-    <string name="sub_no_sim">No SIM</string>
-    <string name="multi_sim_entry_format" translatable="false"><xliff:g id="operator">%1$s</xliff:g>-<xliff:g id="index">%2$d</xliff:g></string>
 
     <!-- Set Subscription screen: label sub 1 -->
     <string name="sub_1">SIM 1</string>

@@ -171,6 +171,12 @@ public class CallList implements InCallPhoneListener {
         }
     }
 
+    public void onUpgradeToVideo(Call call){
+        Log.d(this, "onUpgradeToVideo call=" + call);
+        for (Listener listener : mListeners) {
+            listener.onUpgradeToVideo(call);
+        }
+    }
     /**
      * Called when a single call has changed.
      */
@@ -602,7 +608,14 @@ public class CallList implements InCallPhoneListener {
          * incoming calls.
          */
         public void onIncomingCall(Call call);
-
+        /**
+         * Called when a new modify call request comes in
+         * This is the only method that gets called for modify requests. Listeners
+         * that want to perform an action on incoming call should respond in this method
+         * because {@link #onCallListChange} does not automatically get called for
+         * incoming calls.
+         */
+        public void onUpgradeToVideo(Call call);
         /**
          * Called anytime there are changes to the call list.  The change can be switching call
          * states, updating information, etc. This method will NOT be called for new incoming

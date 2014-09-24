@@ -16,12 +16,12 @@
 
 package com.android.incallui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.telecom.AudioState;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneCapabilities;
 import android.telecom.VideoProfile;
-
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.InCallPresenter.InCallState;
@@ -29,7 +29,10 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 
+import java.util.ArrayList;
+
 import android.telephony.PhoneNumberUtils;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -248,14 +251,20 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         getUi().displayDialpad(checked /* show */, true /* animate */);
     }
 
-    public void changeToVideoClicked() {
+    public void displayModifyCallOptions() {
+        getUi().displayModifyCallOptions();
+    }
+
+    public int getCurrentVideoState() {
+        return mCall.getVideoState();
+    }
+
+    public void changeToVideoClicked(VideoProfile videoProfile) {
         VideoCall videoCall = mCall.getVideoCall();
         if (videoCall == null) {
             return;
         }
 
-        VideoProfile videoProfile =
-                new VideoProfile(VideoProfile.VideoState.BIDIRECTIONAL);
         videoCall.sendSessionModifyRequest(videoProfile);
 
         mCall.setSessionModificationState(Call.SessionModificationState.REQUEST_FAILED);
@@ -339,6 +348,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
      */
     private void updateCallButtons(Call call, Context context) {
         if (call.isVideoCall(context)) {
+            updateVoiceCallButtons(call);
             updateVideoCallButtons();
         } else {
             updateVoiceCallButtons(call);
@@ -349,18 +359,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         Log.v(this, "Showing buttons for video call.");
         final CallButtonUi ui = getUi();
 
-        // Hide all voice-call-related buttons.
-        ui.showAudioButton(false);
-        ui.showDialpadButton(false);
-        ui.showHoldButton(false);
-        ui.showSwapButton(false);
-        ui.showChangeToVideoButton(false);
-        ui.showAddCallButton(false);
-        ui.showMergeButton(false);
-        ui.showOverflowButton(false);
-
         // Show all video-call-related buttons.
-        ui.showChangeToVoiceButton(true);
         ui.showSwitchCameraButton(true);
         ui.showPauseVideoButton(true);
     }
@@ -384,6 +383,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         Log.v(this, "Show swap ", call.can(PhoneCapabilities.SWAP_CONFERENCE));
         Log.v(this, "Show add call ", call.can(PhoneCapabilities.ADD_CALL));
         Log.v(this, "Show mute ", call.can(PhoneCapabilities.MUTE));
+        Log.v(this, "Show video call local:", call.can(PhoneCapabilities.SUPPORTS_VT_LOCAL)
+                + " remote: " + call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE));
 
         final boolean canAdd = call.can(PhoneCapabilities.ADD_CALL);
         final boolean enableHoldOption = call.can(PhoneCapabilities.HOLD);
@@ -391,7 +392,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         boolean canVideoCall = call.can(PhoneCapabilities.SUPPORTS_VT_LOCAL)
                 && call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE);
-        ui.showChangeToVideoButton(canVideoCall);
+        ui.showChangeToVideoButton(true); //TODO change after propagating VT capabilities
 
         final boolean showMergeOption = call.can(PhoneCapabilities.MERGE_CONFERENCE);
         final boolean showAddCallOption = canAdd;
@@ -478,6 +479,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void setPauseVideoButton(boolean isPaused);
         void showOverflowButton(boolean show);
         void displayDialpad(boolean on, boolean animate);
+        void displayModifyCallOptions();
         boolean isDialpadVisible();
         void setAudio(int mode);
         void setSupportedAudio(int mask);

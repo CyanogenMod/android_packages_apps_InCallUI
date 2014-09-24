@@ -17,6 +17,7 @@
 package com.android.incallui;
 
 import com.android.contacts.common.CallUtil;
+import com.android.incallui.CallList.Listener;
 
 import android.content.Context;
 import android.net.Uri;
@@ -126,12 +127,16 @@ public final class Call {
             new android.telecom.Call.Listener() {
                 @Override
                 public void onStateChanged(android.telecom.Call call, int newState) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call + " newState="
+                            + newState);
                     update();
                 }
 
                 @Override
                 public void onParentChanged(android.telecom.Call call,
                         android.telecom.Call newParent) {
+                    Log.d(this, "TelecommCallListener onParentChanged call=" + call + " newParent="
+                            + newParent);
                     update();
                 }
 
@@ -144,29 +149,38 @@ public final class Call {
                 @Override
                 public void onDetailsChanged(android.telecom.Call call,
                         android.telecom.Call.Details details) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call + " details="
+                            + details);
                     update();
                 }
 
                 @Override
                 public void onCannedTextResponsesLoaded(android.telecom.Call call,
                         List<String> cannedTextResponses) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call
+                            + " cannedTextResponses=" + cannedTextResponses);
                     update();
                 }
 
                 @Override
                 public void onPostDialWait(android.telecom.Call call,
                         String remainingPostDialSequence) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call
+                            + " remainingPostDialSequence=" + remainingPostDialSequence);
                     update();
                 }
 
                 @Override
                 public void onVideoCallChanged(android.telecom.Call call,
                         VideoCall videoCall) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call + " videoCall="
+                            + videoCall);
                     update();
                 }
 
                 @Override
                 public void onCallDestroyed(android.telecom.Call call) {
+                    Log.d(this, "TelecommCallListener onStateChanged call=" + call);
                     call.removeListener(mTelecommCallListener);
                 }
 
@@ -208,7 +222,7 @@ public final class Call {
     }
 
     private void updateFromTelecommCall() {
-        Log.d(this, "updateFromTelecommCall: " + mTelecommCall);
+        Log.d(this, "updateFromTelecommCall: " + mTelecommCall.toString());
         setState(translateState(mTelecommCall.getState()));
         setDisconnectCause(mTelecommCall.getDetails().getDisconnectCause());
         mIsActiveSub = mTelecommCall.mIsActiveSub;
@@ -379,12 +393,18 @@ public final class Call {
 
     public boolean isVideoCall(Context context) {
         return CallUtil.isVideoEnabled(context) &&
-                VideoProfile.VideoState.isBidirectional(getVideoState());
+                VideoProfile.VideoState.isVideo(getVideoState());
     }
 
     public void setSessionModificationState(int state) {
         boolean hasChanged = mSessionModificationState != state;
         mSessionModificationState = state;
+        Log.d(this, "setSessionModificationState" + state + " mSessionModificationState="
+                + mSessionModificationState);
+
+        if (state == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
+            CallList.getInstance().onUpgradeToVideo(this);
+        }
 
         if (hasChanged) {
             update();

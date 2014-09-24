@@ -127,6 +127,7 @@ public class InCallVideoCallListenerNotifier {
      * @param call The call.
      */
     public void upgradeToVideoRequest(Call call) {
+        Log.d(this, "upgradeToVideoRequest call=" + call);
         for (SessionModificationListener listener : mSessionModificationListeners) {
             listener.onUpgradeToVideoRequest(call);
         }

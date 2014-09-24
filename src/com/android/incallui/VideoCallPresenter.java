@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.telecom.AudioState;
 import android.telecom.CameraCapabilities;
 import android.telecom.InCallService.VideoCall;
+import android.telecom.VideoProfile;
 import android.view.Surface;
 
 import com.android.contacts.common.CallUtil;
@@ -122,7 +123,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     /**
      * Determines if the current UI state represents a video call.
      */
-    private boolean mIsVideoCall;
+    private int mCurrentVideoState;
 
     /**
      * Determines the device orientation (portrait/lanscape).
@@ -171,6 +172,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
         // Register for call state changes last
         InCallPresenter.getInstance().addListener(this);
+        InCallPresenter.getInstance().addDetailsListener(this);
         InCallPresenter.getInstance().addIncomingCallListener(this);
         InCallPresenter.getInstance().addOrientationListener(this);
 
@@ -178,7 +180,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallListenerNotifier.getInstance().addSurfaceChangeListener(this);
         InCallVideoCallListenerNotifier.getInstance().addVideoEventListener(this);
         InCallVideoCallListenerNotifier.getInstance().addSessionModificationListener(this);
-        mIsVideoCall = false;
+        mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
     }
 
     /**
@@ -320,22 +322,31 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
 
         final boolean primaryChanged = !Objects.equals(mPrimaryCall, primary);
+        Log.d(this, "onStateChange primaryChanged=" + primaryChanged);
+        Log.d(this, "onStateChange primary= " + primary);
+        Log.d(this, "onStateChange mPrimaryCall = " + mPrimaryCall);
         if (primaryChanged) {
             mPrimaryCall = primary;
 
             if (primary != null) {
                 checkForVideoCallChange();
-                mIsVideoCall = mPrimaryCall.isVideoCall(mContext);
-                Log.d(this, "onStateChange mIsVideoCall= " + mIsVideoCall);
-                if (mIsVideoCall) {
-                    enterVideoMode();
-                } else {
-                    exitVideoMode();
-                }
+                checkForVideoStateChange();
             } else if (primary == null) {
                 // If no primary call, ensure we exit video state and clean up the video surfaces.
                 exitVideoMode();
             }
+        } else if(mPrimaryCall!=null) {
+            checkForVideoStateChange();
+        }
+    }
+
+    private void checkForVideoStateChange() {
+        boolean isVideoCall = mPrimaryCall.isVideoCall(mContext);
+        Log.d(this, "isVideoCall= " + isVideoCall);
+        if (isVideoCall) {
+            enterVideoMode(mPrimaryCall.getVideoState());
+        } else {
+            exitVideoMode();
         }
     }
 
@@ -356,8 +367,12 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     @Override
     public void onDetailsChanged(Call call, android.telecom.Call.Details details) {
+        Log.d(this, " onDetailsChanged call=" + call + " details=" + details + " mPrimaryCall="
+                + mPrimaryCall);
         // If the details change is not for the currently active call no update is required.
         if (!call.equals(mPrimaryCall)) {
+            Log.d(this,
+                    " onDetailsChanged: Details not for current active call so returning. ");
             return;
         }
 
@@ -375,37 +390,18 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     }
 
     /**
-     * Checks to see if the current video state has changed and updates the UI if required.
-     */
-    private void checkForVideoStateChange() {
-        boolean newVideoState = mPrimaryCall.isVideoCall(mContext);
-
-        Log.d(this, "checkForVideoStateChange mIsVideoCall= " + mIsVideoCall
-                + " newVideoState=" + newVideoState);
-        // Check if video state changed
-        if (mIsVideoCall != newVideoState) {
-            mIsVideoCall = newVideoState;
-
-            if (mIsVideoCall) {
-                enterVideoMode();
-            } else {
-                exitVideoMode();
-            }
-        }
-    }
-
-    /**
      * Handles a change to the video call.  Sets the surfaces on the previous call to null and sets
      * the surfaces on the new video call accordingly.
      *
      * @param videoCall The new video call.
      */
     private void changeVideoCall(VideoCall videoCall) {
-        Log.d(this, "changeVideoCall to " + videoCall);
+        Log.d(this, "changeVideoCall to videoCall=" + videoCall + " mVideoCall=" + mVideoCall);
         // Null out the surfaces on the previous video call.
         if (mVideoCall != null) {
-            mVideoCall.setDisplaySurface(null);
-            mVideoCall.setPreviewSurface(null);
+            //Log.d(this, "Null out the surfaces on the previous video call.");
+            //mVideoCall.setDisplaySurface(null);
+            //mVideoCall.setPreviewSurface(null);
         }
 
         mVideoCall = videoCall;
@@ -415,7 +411,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * Enters video mode by showing the video surfaces and making other adjustments (eg. audio).
      * TODO(vt): Need to adjust size and orientation of preview surface here.
      */
-    private void enterVideoMode() {
+    private void enterVideoMode(int newVideoState) {
         Log.d(this, "enterVideoMode mVideoCall=" + mVideoCall);
         VideoCallUi ui = getUi();
         if (ui == null) {
@@ -431,24 +427,46 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         if (mVideoCall != null) {
             // Do not reset the surfaces if we just restarted the activity due to an orientation
             // change.
-            if (ui.isActivityRestart()) {
+//            if (ui.isActivityRestart()) {
+//                Log.e(this, "enterVideoMode: Activity Restarted so no action");
+//                return;
+//            }
+            int videoState = mPrimaryCall.getVideoState();
+            if (videoState == mCurrentVideoState) {
+                Log.d(this, "enterVideoMode: Nothing changed exiting...");
                 return;
             }
+            boolean wasCameraRequired = VideoProfile.VideoState.isBidirectional(mCurrentVideoState)
+                              || VideoProfile.VideoState.isTransmissionEnabled(mCurrentVideoState);
+            boolean isCameraRequired = VideoProfile.VideoState.isBidirectional(videoState)
+                              || VideoProfile.VideoState.isTransmissionEnabled(videoState);
 
-            mPreviewSurfaceState = PreviewSurfaceState.CAMERA_SET;
-            InCallCameraManager cameraManager = InCallPresenter.getInstance().
-                    getInCallCameraManager();
-            mVideoCall.setCamera(cameraManager.getActiveCameraId());
-            mVideoCall.requestCameraCapabilities();
+            if (wasCameraRequired != isCameraRequired) {
+                enableCamera(isCameraRequired);
+            }
 
             if (ui.isDisplayVideoSurfaceCreated()) {
                 Log.d(this, "Calling setDisplaySurface with " + ui.getDisplayVideoSurface());
                 mVideoCall.setDisplaySurface(ui.getDisplayVideoSurface());
             }
         }
+        mCurrentVideoState = newVideoState;
 
         mPreVideoAudioMode = AudioModeProvider.getInstance().getAudioMode();
         TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
+    }
+
+    private void enableCamera(boolean isCameraRequired) {
+        if (isCameraRequired) {
+            mPreviewSurfaceState = PreviewSurfaceState.CAMERA_SET;
+            InCallCameraManager cameraManager = InCallPresenter.getInstance().
+                    getInCallCameraManager();
+            mVideoCall.setCamera(cameraManager.getActiveCameraId());
+            mVideoCall.requestCameraCapabilities();
+        } else {
+            mPreviewSurfaceState = PreviewSurfaceState.NONE;
+            mVideoCall.setCamera(null);
+        }
     }
 
     /**
@@ -467,6 +485,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             TelecomAdapter.getInstance().setAudioRoute(mPreVideoAudioMode);
             mPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
         }
+        if (mVideoCall != null) {
+            mVideoCall.setCamera(null);
+        }
+        mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
     }
 
     /**
@@ -520,7 +542,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
 
         if (!call.equals(mPrimaryCall)) {
-            Log.e(this, "Call is primary call");
+            Log.e(this, "Call is not primary call");
             return;
         }
 
@@ -553,6 +575,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
     @Override
     public void onUpgradeToVideoRequest(Call call) {
+        Log.d(this, "onUpgradeToVideoRequest call=" + call);
         mPrimaryCall.setSessionModificationState(
                 Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST);
     }

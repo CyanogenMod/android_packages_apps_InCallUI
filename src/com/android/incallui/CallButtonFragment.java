@@ -16,10 +16,14 @@
 
 package com.android.incallui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.telecom.AudioState;
+import android.telecom.VideoProfile;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,8 +35,11 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+
+import java.util.ArrayList;
 
 /**
  * Fragment for call control buttons
@@ -42,6 +49,7 @@ public class CallButtonFragment
         implements CallButtonPresenter.CallButtonUi, OnMenuItemClickListener, OnDismissListener,
         View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
+    private static final int INVALID_INDEX = -1;
     private ImageButton mAudioButton;
     private ImageButton mChangeToVoiceButton;
     private ImageButton mMuteButton;
@@ -152,7 +160,7 @@ public class CallButtonFragment
                 getPresenter().addCallClicked();
                 break;
             case R.id.changeToVoiceButton:
-                getPresenter().changeToVoiceClicked();
+                getPresenter().displayModifyCallOptions();
                 break;
             case R.id.muteButton: {
                 final ImageButton button = (ImageButton) view;
@@ -177,7 +185,7 @@ public class CallButtonFragment
                 getPresenter().addParticipantClicked();
                 break;
             case R.id.changeToVideoButton:
-                getPresenter().changeToVideoClicked();
+                getPresenter().displayModifyCallOptions();
                 break;
             case R.id.switchCameraButton:
                 getPresenter().switchCameraClicked(
@@ -316,6 +324,74 @@ public class CallButtonFragment
     @Override
     public void showOverflowButton(boolean show) {
         mOverflowButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /**The function is called when Modify Call button gets pressed. The function creates and
+     * displays modify call options.
+     */
+    public void displayModifyCallOptions() {
+        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
+        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
+        CallButtonPresenter.CallButtonUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Cannot display ModifyCallOptions as ui is null");
+            return;
+        }
+
+        final Resources res = ui.getContext().getResources();
+        // Prepare the string array and mapping.
+        items.add(res.getText(R.string.modify_call_option_voice));
+        itemToCallType.add(VideoProfile.VideoState.AUDIO_ONLY);
+
+        items.add(res.getText(R.string.modify_call_option_vt_rx));
+        itemToCallType.add(VideoProfile.VideoState.RX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt_tx));
+        itemToCallType.add(VideoProfile.VideoState.TX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt));
+        itemToCallType.add(VideoProfile.VideoState.BIDIRECTIONAL);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getUi().getContext());
+        builder.setTitle(R.string.modify_call_option_title);
+        final AlertDialog alert;
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                Toast.makeText(getUi().getContext(), items.get(item), Toast.LENGTH_SHORT).show();
+                final int selCallType = itemToCallType.get(item);
+                Log.v(this, "Videocall: ModifyCall: upgrade/downgrade to "
+                        + fromCallType(selCallType));
+                VideoProfile videoProfile = new VideoProfile(selCallType);
+                getPresenter().changeToVideoClicked(videoProfile);
+                dialog.dismiss();
+            }
+        };
+        int currVideoState = getPresenter().getCurrentVideoState();
+        int index = itemToCallType.indexOf(currVideoState);
+        if (index == INVALID_INDEX) {
+            return;
+        }
+        builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
+        alert = builder.create();
+        alert.show();
+    }
+
+    public static String fromCallType(int callType) {
+        String str = "";
+        switch (callType) {
+            case VideoProfile.VideoState.BIDIRECTIONAL:
+                str = "VT";
+                break;
+            case VideoProfile.VideoState.TX_ENABLED:
+                str = "VT_TX";
+                break;
+            case VideoProfile.VideoState.RX_ENABLED:
+                str = "VT_RX";
+                break;
+        }
+        return str;
     }
 
     @Override

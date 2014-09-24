@@ -47,6 +47,7 @@ public class InCallVideoCallListener extends VideoCall.Listener {
      */
     @Override
     public void onSessionModifyRequestReceived(VideoProfile videoProfile) {
+        Log.d(this, " onSessionModifyRequestReceived videoProfile=" + videoProfile);
         int previousVideoState = mCall.getVideoState();
         int newVideoState = videoProfile.getVideoState();
 

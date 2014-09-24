@@ -296,6 +296,13 @@
     <!-- Text for the onscreen "Add Participant" button -->
     <string name="onscreenAddParticipant">Add Participant</string>
 
+    <!-- In-call screen: Modify Call Options for IMS call -->
+    <string name="modify_call_option_title">Which type of call?</string>
+    <string name="modify_call_option_vt">VT</string>
+    <string name="modify_call_option_vt_tx">Video transmit</string>
+    <string name="modify_call_option_vt_rx">Video receive</string>
+    <string name="modify_call_option_voice">Voice Only</string>
+
     <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
     <string-array name="absent_num" translatable="false">

@@ -330,9 +330,12 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         if (callList == null) {
             return;
         }
+        Log.d(this, "onCallListChange callList=" + callList.toString() );
         InCallState newState = getPotentialStateFromCallList(callList);
         InCallState oldState = mInCallState;
+        Log.d(this, "onCallListChange oldState= " + oldState + " newState=" + newState);
         newState = startOrFinishUi(newState);
+        Log.d(this, "onCallListChange newState changed to " + newState);
 
         // Set the new state before announcing it to the world
         Log.i(this, "Phone switching state: " + oldState + " -> " + newState);
@@ -376,6 +379,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         }
     }
 
+    @Override
+    public void onUpgradeToVideo(Call call) {
+        //NO-OP
+    }
     /**
      * Called when a call becomes disconnected. Called everytime an existing call
      * changes from being connected (incoming/outgoing/active) to disconnected.
@@ -562,9 +569,11 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     }
 
     public void acceptUpgradeRequest(Context context) {
+        Log.d(this, " acceptUpgradeRequest");
         // Bail if we have been shut down and the call list is null.
         if (mCallList == null) {
             StatusBarNotifier.clearInCallNotification(context);
+            Log.e(this, " acceptUpgradeRequest mCallList is empty so returning");
             return;
         }
 
@@ -578,9 +587,11 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     }
 
     public void declineUpgradeRequest(Context context) {
+        Log.d(this, " declineUpgradeRequest");
         // Bail if we have been shut down and the call list is null.
         if (mCallList == null) {
             StatusBarNotifier.clearInCallNotification(context);
+            Log.e(this, " declineUpgradeRequest mCallList is empty so returning");
             return;
         }
 

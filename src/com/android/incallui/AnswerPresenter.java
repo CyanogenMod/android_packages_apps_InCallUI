@@ -201,7 +201,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         String deflectcall = SystemProperties.get("persist.radio.deflect.number");
         if (deflectcall != null && !deflectcall.isEmpty()) {
             Log.i(this, "deflectCall " + mCallId + "to" + deflectcall);
-            TelecommAdapter.getInstance().deflectCall(mCall[phoneId].getId(), deflectcall);
+            TelecomAdapter.getInstance().deflectCall(mCall[phoneId].getId(), deflectcall);
             return;
         }
 
@@ -220,7 +220,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             return;
         }
 
-        TelecommAdapter.getInstance().deflectCall(mCall[phoneId].getId(), number);
+        TelecomAdapter.getInstance().deflectCall(mCall[phoneId].getId(), number);
     }
 
     /**
@@ -230,7 +230,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     public void onDecline() {
         int phoneId = getActivePhoneId();
         Log.i(this, "onDecline mCallId:" + mCallId + "phoneId:" + phoneId);
-        TelecommAdapter.getInstance().rejectCall(mCall[phoneId].getId(), false, null);
+        TelecomAdapter.getInstance().rejectCall(mCall[phoneId].getId(), false, null);
     }
 
     public void onText() {
@@ -242,7 +242,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     public void rejectCallWithMessage(String message) {
         int phoneId = getActivePhoneId();
         Log.i(this, "sendTextToDefaultActivity()...phoneId:" + phoneId);
-        TelecommAdapter.getInstance().rejectCall(mCall[phoneId].getId(), true, message);
+        TelecomAdapter.getInstance().rejectCall(mCall[phoneId].getId(), true, message);
 
         onDismissDialog();
     }

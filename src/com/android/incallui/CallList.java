@@ -25,7 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.telecom.DisconnectCause;
 import android.telecom.Phone;
-import android.telecomm.PhoneAccountHandle;
+import android.telecom.PhoneAccountHandle;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
@@ -546,7 +546,7 @@ public class CallList implements InCallPhoneListener {
         notifyGenericListeners();
         if (!hasAnyLiveCall()) {
            // update to Telecomm service that no active sub
-           TelecommAdapter.getInstance().switchToOtherActiveSub(null, false);
+           TelecomAdapter.getInstance().switchToOtherActiveSub(null, false);
            mSubId = SubscriptionManager.INVALID_SUB_ID;
         }
     }
@@ -696,7 +696,7 @@ public class CallList implements InCallPhoneListener {
                 Log.i(this, "switchToOtherActiveSub, subId = " + subId[0] +
                         " retainLch = " + retainLch);
                 subSwitched = true;
-                TelecommAdapter.getInstance().switchToOtherActiveSub(
+                TelecomAdapter.getInstance().switchToOtherActiveSub(
                         String.valueOf(subId[0]), retainLch);
                 setActiveSubscription(subId[0]);
                 break;

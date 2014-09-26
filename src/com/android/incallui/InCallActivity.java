@@ -851,7 +851,7 @@ public class InCallActivity extends Activity {
             if (tabCount != TAB_COUNT_ONE && CallList.getInstance().hasAnyLiveCall(subId[0])
                     && (CallList.getInstance().getActiveSubscription() != subId[0])) {
                 Log.i(this, "Switch to other active sub: " + subId[0]);
-                TelecommAdapter.getInstance().switchToOtherActiveSub(
+                TelecomAdapter.getInstance().switchToOtherActiveSub(
                         String.valueOf(subId[0]), false);
             }
         }

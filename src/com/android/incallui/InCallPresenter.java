@@ -382,7 +382,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      */
     @Override
     public void onDisconnect(Call call) {
-        mLastDisconnectCause = (call != null ) ? call.getDisconnectCause():
+        mLastDisconnectCause = (call != null ) ? call.getDisconnectCause().getCode():
                 DisconnectCause.ERROR;
         hideDialpadForDisconnect();
         maybeShowErrorDialogOnDisconnect(call);
@@ -917,6 +917,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     }
 
     private boolean startUi(InCallState inCallState) {
+        final Call incomingCall = mCallList.getIncomingCall();
         boolean isCallWaiting = mCallList.getActiveCall() != null &&
                 mCallList.getIncomingCall() != null;
 

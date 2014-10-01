@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2014 The Linux Foundation. All rights reserved.
  * Not a Contribution.
  *
  * Copyright (C) 2006 The Android Open Source Project
@@ -24,7 +24,9 @@ import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.MSimTelephonyManager;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -45,6 +47,10 @@ public class MSimInCallActivity extends InCallActivity {
     private Tab[] mDsdaTab = new Tab[TAB_COUNT_TWO];
     private boolean[] mDsdaTabAdd = {false, false};
 
+    private static final String[] MULTI_SIM_NAME = {
+        "perferred_name_sub1", "perferred_name_sub2"
+    };
+
     @Override
     protected void onCreate(Bundle icicle) {
         Log.d(this, "onCreate()...  this = " + this);
@@ -55,9 +61,9 @@ public class MSimInCallActivity extends InCallActivity {
         // Have the WindowManager filter out touch events that are "too fat".
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_IGNORE_CHEEK_PRESSES);
 
+        setTheme(R.style.InCallScreenWithActionBar);
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
         getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -142,13 +148,20 @@ public class MSimInCallActivity extends InCallActivity {
         for (int i = 0; i < phoneCount; i++) {
             mDsdaTabLayout[i] = getLayoutInflater()
                     .inflate(R.layout.msim_tab_sub_info, null);
+            if (MSimTelephonyManager.getDefault().getSimState(i)
+                    == TelephonyManager.SIM_STATE_ABSENT) {
+                ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
+                    .setVisibility(View.INVISIBLE);
+                ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
+                    .setVisibility(View.INVISIBLE);
+            } else {
+                ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
+                        .setBackground(icons.getDrawable(i));
 
-            ((ImageView)mDsdaTabLayout[i].findViewById(R.id.tabSubIcon))
-                    .setBackground(icons.getDrawable(i));
-
-            ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
-                    .setText(subString[i]);
-
+                ((TextView)mDsdaTabLayout[i].findViewById(R.id.tabSubText))
+                        .setText(Settings.System.getString(getContentResolver(),
+                                MULTI_SIM_NAME[i]));
+            }
             mDsdaTab[i] = bar.newTab().setCustomView(mDsdaTabLayout[i])
                     .setTabListener(new TabListener(i));
         }
@@ -182,6 +195,7 @@ public class MSimInCallActivity extends InCallActivity {
             bar.addTab(mDsdaTab[subscription], subscription, false);
         }
         mDsdaTabAdd[subscription] = true;
+        Log.d(this, "addDsdaTab, subscription = " + subscription + " tab count = " + tabCount);
     }
 
     private void removeDsdaTab(int subscription) {
@@ -195,6 +209,7 @@ public class MSimInCallActivity extends InCallActivity {
                 return;
             }
         }
+        Log.d(this, "removeDsdaTab, subscription = " + subscription + " tab count = " + tabCount);
     }
 
     private void updateDsdaTabSelection() {
@@ -217,9 +232,15 @@ public class MSimInCallActivity extends InCallActivity {
 
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             ActionBar bar = getActionBar();
-
-            if (CallList.getInstance().existsLiveCall(mSubscription)) {
-                CallCommandClient.getInstance().setActiveSubscription(mSubscription);
+            int tabCount = bar.getTabCount();
+            //Don't setActiveSubscription if tab count is 1.This is to avoid
+            //setting active subscription automatically when call on one sub
+            //ends and it's corresponding tab is removed.For such cases active
+            //subscription will be set by InCallPresenter.attemptFinishActivity.
+            if (tabCount != TAB_COUNT_ONE && CallList.getInstance().existsLiveCall(mSubscription)
+                    && (CallList.getInstance().getActiveSubscription() != mSubscription)) {
+                Log.i(this, "setactivesub " + mSubscription);
+                CallCommandClient.getInstance().setActiveAndConversationSub(mSubscription);
             }
         }
 

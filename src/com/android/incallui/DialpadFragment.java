@@ -19,6 +19,7 @@ package com.android.incallui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.method.DialerKeyListener;
 import android.util.AttributeSet;
@@ -182,21 +183,29 @@ public class DialpadFragment extends BaseFragment<DialpadPresenter, DialpadPrese
 
             // find the character
             char c = (char) lookup(event, content);
+            if (mDtmfDialerField != null) {
+                String str = mDtmfDialerField.getText().toString();
+                // if not a long press, and parent onKeyDown accepts the input
+                if (event.getRepeatCount() == 0 && super.onKeyDown(view, content, keyCode, event)) {
 
-            // if not a long press, and parent onKeyDown accepts the input
-            if (event.getRepeatCount() == 0 && super.onKeyDown(view, content, keyCode, event)) {
+                    boolean keyOK = ok(getAcceptedChars(), c);
 
-                boolean keyOK = ok(getAcceptedChars(), c);
-
-                // if the character is a valid dtmf code, start playing the tone and send the
-                // code.
-                if (keyOK) {
-                    Log.d(this, "DTMFKeyListener reading '" + c + "' from input.");
-                    getPresenter().processDtmf(c);
-                } else {
-                    Log.d(this, "DTMFKeyListener rejecting '" + c + "' from input.");
+                    // if the character is a valid dtmf code, start playing the tone and send the
+                    // code.
+                    if (keyOK) {
+                        Log.d(this, "DTMFKeyListener reading '" + c + "' from input.");
+                        if (PhoneNumberUtils.is12Key(c)) {
+                            Log.d(this, "updating display and sending dtmf tone for '" + c + "'");
+                            CallCommandClient.getInstance().playDtmfTone(c, false);
+                        } else {
+                            Log.d(this, "ignoring dtmf request for '" + c + "'");
+                        }
+                    } else {
+                        mDtmfDialerField.setText(str);
+                        Log.d(this, "DTMFKeyListener rejecting '" + c + "' from input.");
+                    }
+                    return true;
                 }
-                return true;
             }
             return false;
         }

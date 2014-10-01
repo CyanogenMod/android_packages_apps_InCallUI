@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Country;
 import android.location.CountryDetector;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.PhoneLookup;
@@ -275,7 +276,7 @@ public class CallerInfo {
         // or if it is the voicemail number.  If it is either, take a
         // shortcut and skip the query.
         if (PhoneNumberUtils.isLocalEmergencyNumber(number, context)) {
-            return new CallerInfo().markAsEmergency(context);
+            return new CallerInfo().markAsEmergency(context, number);
         } else if (PhoneNumberUtils.isVoiceMailNumber(number)) {
             return new CallerInfo().markAsVoiceMail();
         }
@@ -379,8 +380,9 @@ public class CallerInfo {
     // should set the phone number to the dialed number and name to
     // 'Emergency Number' and let the UI make the decision about what
     // should be displayed.
-    /* package */ CallerInfo markAsEmergency(Context context) {
-        phoneNumber = context.getString(R.string.emergency_call_dialog_number_for_display);
+    /* package */ CallerInfo markAsEmergency(Context context, String number) {
+        phoneNumber = context.getString(R.string.emergency_call_dialog_number_for_display) + " "
+                + number;
         photoResource = R.drawable.picture_emergency;
         mIsEmergency = true;
         return this;
@@ -516,7 +518,22 @@ public class CallerInfo {
      */
     public void updateGeoDescription(Context context, String fallbackNumber) {
         String number = TextUtils.isEmpty(phoneNumber) ? fallbackNumber : phoneNumber;
-        geoDescription = getGeoDescription(context, number);
+        Uri CONTENT_URI = Uri.parse("content://geocoded_location/location");
+        String METHOD_QUERY = "getLocation";
+        String RESULT_ADDRESS = "location";
+        String address = null;
+        if (context.getContentResolver().acquireProvider(CONTENT_URI) != null) {
+            Bundle result = context.getContentResolver().call(CONTENT_URI, METHOD_QUERY, number,
+                    null);
+            if (result != null) {
+                address = result.getString(RESULT_ADDRESS);
+            }
+        }
+        if (address != null) {
+            geoDescription = address;
+        } else {
+            geoDescription = getGeoDescription(context, number);
+        }
     }
 
     /**

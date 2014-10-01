@@ -18,7 +18,10 @@ package com.android.incallui;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
+import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.InCallPresenter.InCallState;
@@ -40,7 +43,7 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
     private static final String TAG = ProximitySensor.class.getSimpleName();
 
     private final PowerManager mPowerManager;
-    private final PowerManager.WakeLock mProximityWakeLock;
+    private PowerManager.WakeLock mProximityWakeLock;
     private final AudioModeProvider mAudioModeProvider;
     private final AccelerometerListener mAccelerometerListener;
     private final ProximityListener mProximityListener;
@@ -48,26 +51,49 @@ public class ProximitySensor implements AccelerometerListener.OrientationListene
     private boolean mUiShowing = false;
     private boolean mIsPhoneOffhook = false;
     private boolean mDialpadVisible;
+    private Context mContext;
 
     // True if the keyboard is currently *not* hidden
     // Gets updated whenever there is a Configuration change
     private boolean mIsHardKeyboardOpen;
 
-    public ProximitySensor(Context context, AudioModeProvider audioModeProvider) {
-        mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-        if (mPowerManager.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
-            mProximityWakeLock = mPowerManager.newWakeLock(
-                    PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, TAG);
-        } else {
-            mProximityWakeLock = null;
+    private ContentObserver settingsObserver = new ContentObserver(new Handler()) {
+        @Override
+        public void onChange(boolean selfChange) {
+            updateProximitySensorBySetting();
         }
-        Log.d(this, "onCreate: mProximityWakeLock: ", mProximityWakeLock);
+    };
+
+    public ProximitySensor(Context context, AudioModeProvider audioModeProvider) {
+        mContext = context;
+        mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
         mAccelerometerListener = new AccelerometerListener(context, this);
         mProximityListener = new ProximityListener(context);
         mAudioModeProvider = audioModeProvider;
+        context.getContentResolver().registerContentObserver(Settings.System.CONTENT_URI, true,
+                settingsObserver);
+        updateProximitySensorBySetting();
+        Log.d(this, "onCreate: mProximityWakeLock: ", mProximityWakeLock);
         mAudioModeProvider.addListener(this);
+    }
+
+    private void updateProximitySensorBySetting() {
+        boolean featureEnabled = Settings.System.getInt(mContext.getContentResolver(),
+                "proximity_sensor", 1) == 1;
+        if (featureEnabled
+                && mProximityWakeLock == null
+                && mPowerManager
+                        .isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
+            mProximityWakeLock = mPowerManager.newWakeLock(
+                    PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, TAG);
+            updateProximitySensorMode();
+        } else if (!featureEnabled && mProximityWakeLock != null) {
+            if (mProximityWakeLock.isHeld()) {
+                mProximityWakeLock.release();
+            }
+            mProximityWakeLock = null;
+        }
     }
 
     public void tearDown() {

@@ -102,6 +102,9 @@ public class MSimAnswerFragment extends BaseFragment<MSimAnswerPresenter,
 
     @Override
     public void showAnswerUi(boolean show) {
+        if (show && getActivity() != null && getActivity() instanceof MSimInCallActivity) {
+            ((MSimInCallActivity) getActivity()).displayManageConferencePanel(false);
+        }
         getView().setVisibility(show ? View.VISIBLE : View.GONE);
 
         Log.d(this, "Show answer UI: " + show);
@@ -155,6 +158,8 @@ public class MSimAnswerFragment extends BaseFragment<MSimAnswerPresenter,
                 if (mGlowpad != null) {
                     mGlowpad.startPing();
                 }
+                dismissCannedResponsePopup();
+                getPresenter().onDismissDialog();
             }
         });
         mCannedResponsePopup = builder.create();
@@ -235,6 +240,13 @@ public class MSimAnswerFragment extends BaseFragment<MSimAnswerPresenter,
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dismissCustomMessagePopup();
+                        getPresenter().onDismissDialog();
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
                         dismissCustomMessagePopup();
                         getPresenter().onDismissDialog();
                     }

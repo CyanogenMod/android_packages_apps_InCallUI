@@ -114,6 +114,31 @@ public class CallCommandClient {
         }
     }
 
+    public void muteInternal(boolean onOff) {
+        Log.i(this, "muteInternal: " + onOff);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot mute call; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.muteInternal(onOff);
+        } catch (RemoteException e) {
+            Log.e(this, "Error muting phone.", e);
+        }
+     }
+
+    public void updateMuteState(int sub, boolean muted) {
+        if (mCommandService == null) {
+            Log.e(this, "Cannot updateMuteState; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.updateMuteState(sub, muted);
+        } catch (RemoteException e) {
+            Log.e(this, "Error updateMuteState.", e);
+        }
+    }
+
     public void hold(int callId, boolean onOff) {
         Log.i(this, "hold call(" + onOff + "): " + callId);
         if (mCommandService == null) {
@@ -353,6 +378,32 @@ public class CallCommandClient {
         }
         try {
             mCommandService.setActiveSubscription(subscriptionId);
+        } catch (RemoteException e) {
+            Log.e(this, "Error setActiveSub.", e);
+        }
+    }
+
+    public void setSubInConversation(int subscriptionId) {
+        Log.i(this, "set conversation sub = " + subscriptionId);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot set conversation Sub; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.setSubInConversation(subscriptionId);
+        } catch (RemoteException e) {
+            Log.e(this, "Error setSubInConversation.", e);
+        }
+    }
+
+    public void setActiveAndConversationSub(int subscriptionId) {
+        Log.i(this, "setActiveAndConversationSub = " + subscriptionId);
+        if (mCommandService == null) {
+            Log.e(this, "Cannot set active Sub; CallCommandService == null");
+            return;
+        }
+        try {
+            mCommandService.setActiveAndConversationSub(subscriptionId);
         } catch (RemoteException e) {
             Log.e(this, "Error setActiveSub.", e);
         }

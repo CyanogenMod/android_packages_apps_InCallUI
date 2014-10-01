@@ -21,12 +21,18 @@
 package com.android.incallui;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import static android.telephony.TelephonyManager.SIM_STATE_ABSENT;
 import android.telephony.MSimTelephonyManager;
+import android.telephony.TelephonyManager;
 import android.os.SystemProperties;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -37,8 +43,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.services.telephony.common.AudioMode;
 import com.android.services.telephony.common.Call;
@@ -65,6 +73,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private TextView mSubscriptionId;
     private ViewGroup mSupplementaryInfoContainer;
     private TextView mCallRecordingTimer;
+    private Button mVBButton;
+    private AudioManager mAudioManager;
+    private Toast mVBNotify;
+    private boolean mVBEnabled;
 
     // Secondary caller info
     private ViewStub mSecondaryCallInfo;
@@ -83,6 +95,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     // if connected, speaker/earpiece for video/voice call.
     private static final int IMS_AUDIO_OUTPUT_DEFAULT = 0;
     private static final int IMS_AUDIO_OUTPUT_DISABLE_SPEAKER = 1;
+
+    private static final int TTY_MODE_OFF = 0;
+    private static final int TTY_MODE_HCO = 2;
+
+    private static final String VOLUME_BOOST = "volume_boost";
 
     /**
      * Controls audio route for VT calls.
@@ -157,8 +174,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAudioManager = (AudioManager) getActivity()
+                .getSystemService(Context.AUDIO_SERVICE);
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mVBEnabled = activity.getResources().getBoolean(R.bool.volume_boost_enabled);
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -208,6 +233,14 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         transition.enableTransitionType(LayoutTransition.CHANGING);
         transition.setAnimateParentHierarchy(false);
         transition.setDuration(200);
+
+        if (mVBEnabled) {
+            mVBButton = (Button) view.findViewById(R.id.volumeBoost);
+            if (null != mVBButton) {
+                mVBButton.setOnClickListener(mVBListener);
+                mVBButton.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     @Override
@@ -305,14 +338,15 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         if (tm.isMultiSimEnabled() && !(tm.getMultiSimConfiguration()
                 == MSimTelephonyManager.MultiSimVariants.DSDA)) {
+            final String multiSimName = "perferred_name_sub";
             int subscription = getPresenter().getActiveSubscription();
-            String operatorName = tm.getSimState(subscription) != SIM_STATE_ABSENT
-                    ? tm.getNetworkOperatorName(subscription) : getString(R.string.sub_no_sim);
-            String sub = getString(R.string.multi_sim_entry_format, operatorName,
-                    subscription + 1);
 
-            if (subscription != -1) {
-                showSubscriptionInfo(sub);
+            if ((subscription != -1) && (!isSipCall)
+                    && MSimTelephonyManager.getDefault().getSimState(subscription)
+                            != TelephonyManager.SIM_STATE_ABSENT) {
+                final String simName = Settings.System.getString(getActivity()
+                        .getContentResolver(), multiSimName + (subscription + 1));
+                showSubscriptionInfo(simName);
             }
         }
 
@@ -371,6 +405,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         // States other than disconnected not yet supported
         callStateLabel = getCallStateLabelFromState(state, cause, isWaitingForRemoteSide);
+
+        if (mVBEnabled) {
+            updateVBbyCall(state);
+        }
 
         Log.v(this, "setCallState " + callStateLabel);
         Log.v(this, "DisconnectCause " + cause);
@@ -814,5 +852,86 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private void loge(String msg) {
         Log.e(this, msg);
+    }
+
+    private OnClickListener mVBListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (isVBAvailable()) {
+                switchVBStatus();
+            }
+
+            updateVBButton();
+            showVBNotify();
+        }
+    };
+
+    private boolean isVBAvailable() {
+        int mode = AudioModeProvider.getInstance().getAudioMode();
+
+        int settingsTtyMode = Settings.Secure.getInt(getActivity().getContentResolver(),
+                Settings.Secure.PREFERRED_TTY_MODE, TTY_MODE_OFF);
+
+        return (mode == AudioMode.EARPIECE || mode == AudioMode.SPEAKER
+                || settingsTtyMode == TTY_MODE_HCO);
+    }
+
+    private void switchVBStatus() {
+        if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+            mAudioManager.setParameters(VOLUME_BOOST + "=off");
+        } else {
+            mAudioManager.setParameters(VOLUME_BOOST + "=on");
+        }
+    }
+
+    private void updateVBButton() {
+        if (isVBAvailable()) {
+            if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+                mVBButton.setBackgroundResource(R.drawable.volume_in_boost_sel);
+            } else {
+                mVBButton.setBackgroundResource(R.drawable.volume_in_boost_nor);
+            }
+        } else {
+            mVBButton.setBackgroundResource(R.drawable.volume_in_boost_unavailable);
+        }
+    }
+
+    private void showVBNotify() {
+        if (mVBNotify != null) {
+            mVBNotify.cancel();
+        }
+
+        int textResId;
+
+        if (isVBAvailable()) {
+            if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+                textResId = R.string.volume_boost_notify_enabled;
+            } else {
+                textResId = R.string.volume_boost_notify_disabled;
+            }
+        } else {
+            textResId = R.string.volume_boost_notify_unavailable;
+        }
+
+        mVBNotify = Toast.makeText(getActivity(), textResId, Toast.LENGTH_SHORT);
+        mVBNotify.show();
+    }
+
+    private void updateVBbyCall(int state) {
+        // If there is Ims call, disable volume boost
+        boolean hasImsCall = CallUtils.hasImsCall(CallList.getInstance());
+
+        updateVBButton();
+
+        if (Call.State.ACTIVE == state && !hasImsCall) {
+            mVBButton.setVisibility(View.VISIBLE);
+        } else if (Call.State.DISCONNECTED == state || Call.State.IDLE == state) {
+            if (!CallList.getInstance().existsLiveCall()
+                    && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
+                mVBButton.setVisibility(View.INVISIBLE);
+
+                mAudioManager.setParameters(VOLUME_BOOST + "=off");
+            }
+        }
     }
 }

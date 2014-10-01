@@ -70,6 +70,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private TextureView mCameraPreview;
     private SurfaceTexture mCameraSurface;
     private SurfaceTexture mFarEndSurface;
+    private boolean mCanReleaseFarEndSurface = false;
     private ImageView mCameraPicker;
     private final Resize mResize = new Resize();
 
@@ -91,6 +92,16 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     // Flag to indicate if camera is needed for a certain call type.
     // For eg. VT_RX call will not need camera
     private boolean mCameraNeeded = false;
+
+    // Flag to indicate if recording can be started
+    private boolean mStartReceived = false;
+
+    /*
+     * Flag to indicate whether recording has started or not
+     * False: recording hasn't started
+     * True: recording has started
+     */
+    private boolean mIsRecordingStarted = false;
 
     /**
     * This class implements the zoom listener for zoomControl
@@ -114,16 +125,9 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
             if (cameraState == CameraState.PREVIEW_STARTED) {
                 // If camera is already capturing stop preview, reset the
                 // parameters and then start preview again
-                try {
-                    mVideoCallManager.stopCameraRecording();
-                    mVideoCallManager.stopCameraPreview();
-                    initializeCameraParams();
-                    mVideoCallManager.startCameraPreview(mCameraSurface);
-                    mVideoCallManager.startCameraRecording();
-                } catch (IOException ioe) {
-                    loge("Exception onParamReadyEvent stopping and starting preview "
-                            + ioe.toString());
-                }
+                stopRecordingAndPreview();
+                initializeCameraParams();
+                startPreviewAndRecording();
             }
         }
 
@@ -145,7 +149,25 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
         @Override
         public void onStartReadyEvent() {
-         // NO-OP
+            if (DBG) {
+                log("onStartReadyEvent mCameraNeeded=" + mCameraNeeded + " CameraSurface= "
+                        + mCameraSurface + " camera state = "
+                        + mVideoCallManager.getCameraState());
+            }
+
+            mStartReceived = true;
+
+            if (mCameraNeeded && mCameraSurface != null) {
+                // startCameraRecording (@ Camerahandler.java) does camera
+                // preview_started state check.
+                startCameraRecording();
+            }
+        }
+
+        @Override
+        public void onStopReadyEvent() {
+            if (DBG) log("onStopReadyEvent");
+            mStartReceived = false;
         }
 
         @Override
@@ -228,8 +250,6 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
         // Set media event listener
         mVideoCallManager.setMediaEventListener(new MediaEventListener());
         mVideoCallManager.setCvoEventListener(new CvoListener());
-
-        releaseCachedSurfaces();
     }
 
     // The function must be called from the parent's onDestroy function.
@@ -335,7 +355,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     /**
-     * This method crates the camera object if camera is not disabled
+     * This method creates the camera object if camera is not disabled
      *
      * @param cameraId ID of the front or the back camera
      * @return Camera instance on success, null otherwise
@@ -355,7 +375,34 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
      * This method disconnect and releases the camera
      */
     private void closeCamera() {
-            mVideoCallManager.closeCamera();
+        mVideoCallManager.closeCamera();
+        mIsRecordingStarted = false;
+    }
+
+    /**
+     * This method stops the camera recording
+     */
+    private void stopCameraRecording() {
+        // stop recording only if it has started
+        if (!mIsRecordingStarted) {
+            log("camera recording hasn't started so no need to stop it");
+            return;
+        }
+
+        mVideoCallManager.stopCameraRecording();
+        mIsRecordingStarted = false;
+    }
+
+    /**
+     * This method starts the camera recording
+     */
+    private void startCameraRecording() {
+        if (mStartReceived) {
+            mVideoCallManager.startCameraRecording();
+            mIsRecordingStarted = true;
+        } else {
+            log("waiting for START_READY. Deferring camera recording");
+        }
     }
 
     /**
@@ -364,7 +411,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     private void startPreviewAndRecording() {
         try {
             mVideoCallManager.startCameraPreview(mCameraSurface);
-            mVideoCallManager.startCameraRecording();
+            startCameraRecording();
         } catch (IOException ioe) {
             closeCamera();
             loge("Exception startPreviewAndRecording, " + ioe.toString());
@@ -375,7 +422,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
      * This method stops the camera recording and preview
      */
     private void stopRecordingAndPreview() {
-        mVideoCallManager.stopCameraRecording();
+        stopCameraRecording();
         mVideoCallManager.stopCameraPreview();
     }
 
@@ -396,7 +443,7 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
 
             // Use cached surface texture.
             if (DBG) log("Video surface texture created");
-            if (mFarEndSurface==null) {
+            if (mFarEndSurface == null) {
                 log("Caching video surface texture.");
                 mFarEndSurface = surface;
             } else {
@@ -405,22 +452,26 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
             }
 
             mVideoCallManager.setFarEndSurface(mFarEndSurface);
+            mCanReleaseFarEndSurface = false;
         }
     }
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
+        boolean relaseSurface = true;
         if (surface.equals(mCameraPreview.getSurfaceTexture())) {
             if (DBG) log("CameraPreview surface texture destroyed");
             stopRecordingAndPreview();
             closeCamera();
             mCameraSurface = null;
-            return true;
+            relaseSurface = true;
         } else if (surface.equals(mFarEndView.getSurfaceTexture())) {
-            if (DBG) log("FarEndView surface texture destroyed");
-            return false;
+            if (DBG) log("FarEndView surface texture destroyed, CanReleaseFarEndSurface=" +
+                        mCanReleaseFarEndSurface);
+            relaseSurface = mCanReleaseFarEndSurface;
+            if (relaseSurface) setFarEndNull();
         }
-        return true;
+        return relaseSurface;
     }
 
     @Override
@@ -677,9 +728,21 @@ public class VideoCallPanel extends RelativeLayout implements TextureView.Surfac
     }
 
     private void releaseCachedSurfaces() {
-        release(mFarEndSurface);
-        mFarEndSurface = null;
-        mVideoCallManager.setFarEndSurface(mFarEndSurface);
+        log("releaseCachedSurfaces");
+
+        mCanReleaseFarEndSurface = true;
+        if (mFarEndView==null || !mFarEndView.isAvailable()) {
+            release(mFarEndSurface);
+            setFarEndNull();
+        }
+    }
+
+    private void setFarEndNull() {
+        log("setFarEndNull, " + mFarEndSurface);
+        if (mFarEndSurface != null) {
+            mFarEndSurface = null;
+            mVideoCallManager.setFarEndSurface(mFarEndSurface);
+        }
     }
 
     public void startOrientationListener(boolean start) {

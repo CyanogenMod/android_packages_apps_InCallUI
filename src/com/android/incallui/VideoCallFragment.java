@@ -29,6 +29,8 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 
+import com.google.common.base.Objects;
+
 /**
  * Fragment containing video calling surfaces.
  */
@@ -142,7 +144,11 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             mTextureView.setSurfaceTextureListener(this);
             mTextureView.setOnClickListener(this);
 
-            if (mSavedSurfaceTexture != null) {
+            final boolean areSameSurfaces =
+                    Objects.equal(mSavedSurfaceTexture, mTextureView.getSurfaceTexture());
+            Log.d(this, "recreateView: SavedSurfaceTexture=" + mSavedSurfaceTexture
+                    + " areSameSurfaces=" + areSameSurfaces);
+            if (mSavedSurfaceTexture != null && !areSameSurfaces) {
                 mTextureView.setSurfaceTexture(mSavedSurfaceTexture);
             }
         }

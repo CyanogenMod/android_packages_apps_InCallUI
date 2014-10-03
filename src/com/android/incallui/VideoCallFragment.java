@@ -52,6 +52,12 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     public static final int SURFACE_PREVIEW = 2;
 
+    /**
+     * Used to indicate that the UI rotation is unknown.
+     */
+    public static final int ORIENTATION_UNKNOWN = -1;
+
+
     // Static storage used to retain the video surfaces across Activity restart.
     // TextureViews are not parcelable, so it is not possible to store them in the saved state.
     private static boolean sVideoSurfacesInUse = false;
@@ -86,27 +92,20 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     private boolean mIsLandscape;
 
     /**
-     * The width of the surface.
-     */
-    private int mWidth = DIMENSIONS_NOT_SET;
-
-    /**
-     * The height of the surface.
-     */
-    private int mHeight = DIMENSIONS_NOT_SET;
-
-    /**
      * Inner-class representing a {@link TextureView} and its associated {@link SurfaceTexture} and
      * {@link Surface}.  Used to manage the lifecycle of these objects across device orientation
      * changes.
      */
-    private class VideoCallSurface implements TextureView.SurfaceTextureListener,
+    private static class VideoCallSurface implements TextureView.SurfaceTextureListener,
             View.OnClickListener {
         private int mSurfaceId;
+        private VideoCallPresenter mPresenter;
         private TextureView mTextureView;
         private SurfaceTexture mSavedSurfaceTexture;
         private Surface mSavedSurface;
         private boolean mIsDoneWithSurface;
+        private int mWidth = DIMENSIONS_NOT_SET;
+        private int mHeight = DIMENSIONS_NOT_SET;
 
         /**
          * Creates an instance of a {@link VideoCallSurface}.
@@ -114,8 +113,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * @param surfaceId The surface ID of the surface.
          * @param textureView The {@link TextureView} for the surface.
          */
-        public VideoCallSurface(int surfaceId, TextureView textureView) {
-            this(surfaceId, textureView, DIMENSIONS_NOT_SET, DIMENSIONS_NOT_SET);
+        public VideoCallSurface(VideoCallPresenter presenter, int surfaceId,
+                TextureView textureView) {
+            this(presenter, surfaceId, textureView, DIMENSIONS_NOT_SET, DIMENSIONS_NOT_SET);
         }
 
         /**
@@ -126,9 +126,11 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          * @param width The width of the surface.
          * @param height The height of the surface.
          */
-        public VideoCallSurface(int surfaceId, TextureView textureView, int width, int height) {
+        public VideoCallSurface(VideoCallPresenter presenter,int surfaceId, TextureView textureView,
+                int width, int height) {
             Log.d(this, "VideoCallSurface: surfaceId=" + surfaceId +
                     " width=" + width + " height=" + height);
+            mPresenter = presenter;
             mWidth = width;
             mHeight = height;
             mSurfaceId = surfaceId;
@@ -157,6 +159,12 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             mIsDoneWithSurface = false;
         }
 
+        public void resetPresenter(VideoCallPresenter presenter) {
+            Log.d(this, "resetPresenter: CurrentPresenter=" + mPresenter + " NewPresenter="
+                    + presenter);
+            mPresenter = presenter;
+        }
+
         /**
          * Handles {@link SurfaceTexture} callback to indicate that a {@link SurfaceTexture} has
          * been successfully created.
@@ -175,17 +183,28 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             Log.d(this, " onSurfaceTextureAvailable mSurfaceId=" + mSurfaceId + " surfaceTexture="
                     + surfaceTexture + " width=" + width
                     + " height=" + height + " mSavedSurfaceTexture=" + mSavedSurfaceTexture);
+            Log.d(this, " onSurfaceTextureAvailable VideoCallPresenter=" + mPresenter);
             if (mSavedSurfaceTexture == null) {
                 mSavedSurfaceTexture = surfaceTexture;
                 surfaceCreated = createSurface();
             } else {
                 // A saved SurfaceTexture was found.
+                Log.d(this, " onSurfaceTextureAvailable: Replacing with cached surface...");
+                mTextureView.setSurfaceTexture(mSavedSurfaceTexture);
                 surfaceCreated = true;
             }
 
             // Inform presenter that the surface is available.
             if (surfaceCreated) {
-                getPresenter().onSurfaceCreated(mSurfaceId);
+                onSurfaceCreated();
+            }
+        }
+
+        private void onSurfaceCreated() {
+            if (mPresenter!=null) {
+                mPresenter.onSurfaceCreated(mSurfaceId);
+            } else {
+                Log.e(this, "onSurfaceTextureAvailable: Presenter is null");
             }
         }
 
@@ -216,15 +235,27 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             Log.d(this, " onSurfaceTextureDestroyed mSurfaceId=" + mSurfaceId + " surfaceTexture="
                     + surfaceTexture + " SavedSurfaceTexture=" + mSavedSurfaceTexture
                     + " SavedSurface=" + mSavedSurface);
-            if (mIsDoneWithSurface) {
-                getPresenter().onSurfaceDestroyed(mSurfaceId);
+            Log.d(this, " onSurfaceTextureDestroyed VideoCallPresenter=" + mPresenter);
 
+            // Notify presenter if it is not null.
+            onSurfaceDestroyed();
+
+            if (mIsDoneWithSurface) {
+                onSurfaceReleased();
                 if (mSavedSurface != null) {
                     mSavedSurface.release();
                     mSavedSurface = null;
                 }
             }
             return mIsDoneWithSurface;
+        }
+
+        private void onSurfaceDestroyed() {
+            if (mPresenter != null) {
+                mPresenter.onSurfaceDestroyed(mSurfaceId);
+            } else {
+                Log.e(this, "onSurfaceTextureDestroyed: Presenter is null.");
+            }
         }
 
         /**
@@ -256,12 +287,21 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             if (mTextureView!=null && mTextureView.isAvailable()) {return;}
 
             if (mSavedSurface != null) {
+                onSurfaceReleased();
                 mSavedSurface.release();
                 mSavedSurface = null;
             }
             if (mSavedSurfaceTexture != null) {
                 mSavedSurfaceTexture.release();
                 mSavedSurfaceTexture = null;
+            }
+        }
+
+        private void onSurfaceReleased() {
+            if (mPresenter!=null) {
+                mPresenter.onSurfaceReleased(mSurfaceId);
+            } else {
+                Log.d(this, "setDoneWithSurface: Presenter is null.");
             }
         }
 
@@ -317,7 +357,11 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
          */
         @Override
         public void onClick(View view) {
-            getPresenter().onSurfaceClick(mSurfaceId);
+            if (mPresenter != null) {
+                mPresenter.onSurfaceClick(mSurfaceId);
+            } else {
+                Log.e(this, "onClick: Presenter is null.");
+            }
         }
     };
 
@@ -339,6 +383,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         mIsLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
 
+        Log.d(this, "onActivityCreated: IsLandscape=" + mIsLandscape);
         getPresenter().init(getActivity());
     }
 
@@ -391,6 +436,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      * @param displayVideo The video view to center.
      */
     private void centerDisplayView(View displayVideo) {
+        Log.d(this, "centerDisplayView: IsLandscape=" + mIsLandscape);
         // In a lansdcape layout we need to ensure we horizontally center the view based on whether
         // the layout is left-to-right or right-to-left.
         // In a left-to-right locale, the space for the video view is to the right of the call card
@@ -424,6 +470,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(this, "onViewCreated: VideoSurfacesInUse=" + sVideoSurfacesInUse);
 
         mVideoViewsStub = (ViewStub) view.findViewById(R.id.videoCallViewsStub);
 
@@ -435,13 +482,34 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         }
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(this, "onStop:");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(this, "onPause:");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(this, "onDestroyView:");
+    }
+
     /**
      * Creates the presenter for the {@link VideoCallFragment}.
      * @return The presenter instance.
      */
     @Override
     public VideoCallPresenter createPresenter() {
-        return new VideoCallPresenter();
+        Log.d(this, "createPresenter");
+        VideoCallPresenter presenter = new VideoCallPresenter();
+        onPresenterChanged(presenter);
+        return presenter;
     }
 
     /**
@@ -489,6 +557,16 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             sPreviewSurface = null;
         }
         sVideoSurfacesInUse = false;
+    }
+
+    private void onPresenterChanged(VideoCallPresenter presenter) {
+        Log.d(this, "onPresenterChanged: Presenter=" + presenter);
+        if (sDisplaySurface != null) {
+            sDisplaySurface.resetPresenter(presenter);;
+        }
+        if (sPreviewSurface != null) {
+            sPreviewSurface.resetPresenter(presenter);
+        }
     }
 
     @Override
@@ -557,8 +635,36 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             params.height = height;
             preview.setLayoutParams(params);
 
+            int rotation = InCallPresenter.toRotationAngle(getCurrentRotation());
+            int rotationAngle = 360 - rotation;
+            preview.setRotation(rotationAngle);
+            Log.d(this, "setPreviewSize: rotation=" + rotation +
+                    " rotationAngle=" + rotationAngle);
+
+        }
+    }
+
+    @Override
+    public void setPreviewSurfaceSize(int width, int height) {
+        final boolean isPreviewSurfaceAvailable = sPreviewSurface != null;
+        Log.d(this, "setPreviewSurfaceSize: width=" + width + " height=" + height +
+                " isPreviewSurfaceAvailable=" + isPreviewSurfaceAvailable);
+        if (isPreviewSurfaceAvailable) {
             sPreviewSurface.setSurfaceDimensions(width, height);
         }
+    }
+
+    /**
+     * returns UI's current orientation.
+     */
+    @Override
+    public int getCurrentRotation() {
+        try {
+            return getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        } catch (Exception e) {
+            Log.e(this, "getCurrentRotation: Retrieving current rotation failed. Ex=" + e);
+        }
+        return ORIENTATION_UNKNOWN;
     }
 
     /**
@@ -583,10 +689,10 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                 // setup new VideoCallSurface instances to track them.
                 Log.d(this, " inflateVideoCallViews screenSize" + screenSize);
 
-                sDisplaySurface = new VideoCallSurface(SURFACE_DISPLAY,
+                sDisplaySurface = new VideoCallSurface(getPresenter(), SURFACE_DISPLAY,
                         (TextureView) mVideoViews.findViewById(R.id.incomingVideo), screenSize.x,
                         screenSize.y);
-                sPreviewSurface = new VideoCallSurface(SURFACE_PREVIEW,
+                sPreviewSurface = new VideoCallSurface(getPresenter(), SURFACE_PREVIEW,
                         (TextureView) mVideoViews.findViewById(R.id.previewVideo));
                 sVideoSurfacesInUse = true;
             } else {
@@ -613,6 +719,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         params.width = size.x;
         params.height = size.y;
         textureView.setLayoutParams(params);
+        Log.d(this, "setSurfaceSizeAndTranslation: Size=" + size + "IsLayoutComplete=" +
+                mIsLayoutComplete + "IsLandscape=" + mIsLandscape);
 
         // It is only possible to center the display view if layout of the views has completed.
         // It is only after layout is complete that the dimensions of the Call Card has been

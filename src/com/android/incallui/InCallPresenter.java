@@ -141,6 +141,14 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      */
     private boolean mIsActivityPreviouslyStarted = false;
 
+    /**
+     * When configuration changes Android kills the current activity and starts a new one.
+     * The flag is used to check if full clean up is necessary (activity is stopped and new 
+     * activity won't be started), or if a new activity will be started right after the current one
+     * is destroyed, and therefore no need in release all resources.
+     */
+    private boolean mIsChangingConfigurations = false;
+
     private Phone mPhone;
     private int mLastDisconnectCause = DisconnectCause.ERROR;
 
@@ -626,6 +634,19 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         return mIsActivityPreviouslyStarted;
     }
 
+    public boolean isChangingConfigurations() {
+        return mIsChangingConfigurations;
+    }
+
+    /*package*/
+    void updateIsChangingConfigurations() {
+        mIsChangingConfigurations = false;
+        if(mInCallActivity!=null) {
+            mIsChangingConfigurations = mInCallActivity.isChangingConfigurations();
+        }
+    }
+
+
     /**
      * Called when the activity goes in/out of the foreground.
      */
@@ -655,6 +676,9 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         if (showing) {
             mIsActivityPreviouslyStarted = true;
+            mIsChangingConfigurations = false;
+        } else {
+            updateIsChangingConfigurations();
         }
     }
 
@@ -977,6 +1001,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         if (shouldCleanup) {
             mIsActivityPreviouslyStarted = false;
+            mIsChangingConfigurations = false;
 
             // blow away stale contact info so that we get fresh data on
             // the next set of calls
@@ -1071,7 +1096,20 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      * @param rotation The device rotation.
      */
     public void onDeviceRotationChange(int rotation) {
+        Log.d(this, "onDeviceRotationChange: rotation=" + rotation);
         // First translate to rotation in degrees.
+        if (mCallList!=null) {
+            mCallList.notifyCallsOfDeviceRotation(toRotationAngle(rotation));
+        } else {
+            Log.w(this, "onDeviceRotationChange: CallList is null.");
+        }
+    }
+
+    /**
+     * Converts rotation constants to rotation in degrees.
+     * @param rotation Rotation constants.
+     */
+    public static int toRotationAngle(int rotation) {
         int rotationAngle;
         switch (rotation) {
             case Surface.ROTATION_0:
@@ -1089,8 +1127,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
             default:
                 rotationAngle = 0;
         }
-
-        mCallList.notifyCallsOfDeviceRotation(rotationAngle);
+        return rotationAngle;
     }
 
     /**

@@ -17,6 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL užklausa pakeista į USSD prašymą.</string>
+  <string name="callFailed_dialToSs">DIAL užklausa pakeista į SS prašymą.</string>
+  <string name="callFailed_dialToDial">DIAL užklausa pakeista į DIAL su skirtingu numeriu.</string>
+  <string name="callFailed_incoming_cb_enabled">Šalis uždraudė visus įeinančius skambučius.</string>
+  <string name="callUnanswered_forwarded">Skambutis neatsakytas ir peradresuotas</string>
+  <string name="modify_call_prompt_yes">Taip</string>
+  <string name="modify_call_prompt_no">Ne</string>
+  <string name="modify_call_failure_str">Prašymas pakeisti skambutį nepavyko\n</string>
+  <string name="modify_call_option_title">Pasirinkti skambučio tipą</string>
+  <string name="modify_call_option_vt">VP</string>
+  <string name="modify_call_option_vt_tx">Vaizdo perdavimo</string>
+  <string name="modify_call_option_vt_rx">Vaizdo gavimo</string>
+  <string name="modify_call_option_voice">Tik balso</string>
+  <string name="accept_modify_call_request_prompt">Priimti prašymą pakeisti skambutį?</string>
+  <string name="upgrade_vt_prompt">Ar norite atnaujinti į vaizdo skambutį?</string>
+  <string name="upgrade_vt_tx_prompt">Ar norite atnaujinti į vaizdo perdavimo skambutį?</string>
+  <string name="upgrade_vt_rx_prompt">Ar norite atnaujinti į vaizdo gavimo skambutį?</string>
+  <string name="onscreenModifyCallText">Pakeisti skambutį</string>
+  <string name="onscreenAddParticipant">Pridėti dalyvį</string>
+  <string name="description_target_answer_video">Atsiliepti su vaizdu</string>
+  <string name="description_target_answer_tx_video">Atsiliepti su vaizdo perdavimu</string>
+  <string name="description_target_answer_rx_video">Atsiliepti su vaizdo gavimu</string>
+  <string name="description_direction_up_right">Viršus dešinė</string>
+  <string name="description_direction_up_left">Viršus kairė</string>
+  <string name="description_direction_down_left">Apačia kairė</string>
+  <string name="description_direction_down_right">Apačia dešinė</string>
   <string name="incall_call_type_label_forwarded">Peradresuotas skambutis</string>
   <string name="card_title_dialing_waiting">Renkamas numeris (laukiama\u2026)</string>
   <string name="card_title_waiting_call">Laukiantis skambutis</string>
@@ -27,5 +53,7 @@
   <string name="blacklist_dialog_message">Skambučiai iš <xliff:g id="number">%s</xliff:g> bus blokuojami</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Garsumo sustiprinimas įjungtas</string>
+  <string name="volume_boost_notify_disabled">Garsumo sustiprinimas išjungtas</string>
   <string name="volume_boost_notify_unavailable">Papildomas garsumas nepasiekiamas, kai naudojama laisvų rankų įranga</string>
 </resources>

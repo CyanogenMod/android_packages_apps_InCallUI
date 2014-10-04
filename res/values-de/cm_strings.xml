@@ -32,6 +32,8 @@
   <string name="modify_call_option_voice">Nur Sprache</string>
   <string name="accept_modify_call_request_prompt">Eingehende Anfrage zur Änderung des Anruftyps akzeptieren?</string>
   <string name="upgrade_vt_prompt">Soll der Anruf zu einem Videoanruf geändert werden?</string>
+  <string name="upgrade_vt_tx_prompt">Soll der Anruf zu einem nur sendenden Videoanruf geändert werden?</string>
+  <string name="upgrade_vt_rx_prompt">Soll der Anruf zu einem nur empfangenden Videoanruf geändert werden?</string>
   <string name="onscreenModifyCallText">Anruftyp ändern</string>
   <string name="onscreenAddParticipant">Teilnehmer hinzufügen</string>
   <string name="description_target_answer_video">Mit Video antworten</string>

@@ -17,11 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">Requête DIAL modifiée en requête USSD.</string>
+  <string name="callFailed_dialToSs">Requête DIAL modifiée en requête SS.</string>
+  <string name="callFailed_dialToDial">Requête DIAL modifiée en DIAL  avec une numéro différent.</string>
+  <string name="callFailed_incoming_cb_enabled">L\'interlocuteur a interdit tous les appels entrants.</string>
+  <string name="callUnanswered_forwarded">Appel sans réponse et transmis</string>
   <string name="modify_call_prompt_yes">Oui</string>
   <string name="modify_call_prompt_no">Non</string>
+  <string name="modify_call_failure_str">La demande visant à modifier l\'appel à échouée\n</string>
+  <string name="modify_call_option_title">Sélectionnez le type d\'appel</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Transmission vidéo</string>
+  <string name="modify_call_option_vt_rx">Réception vidéo</string>
+  <string name="modify_call_option_voice">Voix uniquement</string>
+  <string name="accept_modify_call_request_prompt">Accepter la demande de modification d\'appel ?</string>
+  <string name="upgrade_vt_prompt">Voulez-vous passer de l\'appel vocal à l\'appel vidéo ?</string>
+  <string name="upgrade_vt_tx_prompt">Voulez-vous passer de l\'appel vidéo à l\'appel vocal ?</string>
+  <string name="upgrade_vt_rx_prompt">Voulez-vous recevoir uniquement l\'appel vocal à la place de l\'appel vidéo ?</string>
   <string name="onscreenModifyCallText">Modifier l\'appel</string>
   <string name="onscreenAddParticipant">Ajouter un participant</string>
+  <string name="description_target_answer_video">Répondre en vidéo</string>
+  <string name="description_target_answer_tx_video">Répondre en vidéo TX</string>
+  <string name="description_target_answer_rx_video">Répondre en vidéo RX</string>
   <string name="description_direction_up_right">En haut à droite</string>
+  <string name="description_direction_up_left">En haut à gauche</string>
+  <string name="description_direction_down_left">En bas à gauche</string>
+  <string name="description_direction_down_right">En bas à droite</string>
   <string name="incall_call_type_label_forwarded">Appel renvoyé</string>
   <string name="card_title_dialing_waiting">Composition (patientez\u2026)</string>
   <string name="card_title_waiting_call">Appel en attente</string>
@@ -32,4 +53,7 @@
   <string name="blacklist_dialog_message">Les futures appels de <xliff:g id="number">%s</xliff:g> seront bloqués</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">L\'amplification du son est activée</string>
+  <string name="volume_boost_notify_disabled">L\'amplification du son est désactivée</string>
+  <string name="volume_boost_notify_unavailable">L\'amplification du son n\'est pas disponible quand vous utilisez un casque</string>
 </resources>

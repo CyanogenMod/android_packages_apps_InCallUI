@@ -106,6 +106,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         private TextureView mTextureView;
         private SurfaceTexture mSavedSurfaceTexture;
         private Surface mSavedSurface;
+        private boolean mIsDoneWithSurface;
 
         /**
          * Creates an instance of a {@link VideoCallSurface}.
@@ -153,6 +154,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             if (mSavedSurfaceTexture != null && !areSameSurfaces) {
                 mTextureView.setSurfaceTexture(mSavedSurfaceTexture);
             }
+            mIsDoneWithSurface = false;
         }
 
         /**
@@ -214,17 +216,15 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             Log.d(this, " onSurfaceTextureDestroyed mSurfaceId=" + mSurfaceId + " surfaceTexture="
                     + surfaceTexture + " SavedSurfaceTexture=" + mSavedSurfaceTexture
                     + " SavedSurface=" + mSavedSurface);
-            if (mSavedSurfaceTexture == null) {
+            if (mIsDoneWithSurface) {
                 getPresenter().onSurfaceDestroyed(mSurfaceId);
+
                 if (mSavedSurface != null) {
                     mSavedSurface.release();
                     mSavedSurface = null;
                 }
             }
-
-            // The saved SurfaceTexture will be null if we're shutting down, so we want to
-            // return "true" in that case (indicating that TextureView can release the ST).
-            return (mSavedSurfaceTexture == null);
+            return mIsDoneWithSurface;
         }
 
         /**
@@ -252,6 +252,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         public void setDoneWithSurface() {
             Log.d(this, "setDoneWithSurface: SavedSurface=" + mSavedSurface
                     + " SavedSurfaceTexture=" + mSavedSurfaceTexture);
+            mIsDoneWithSurface = true;
+            if (mTextureView!=null && mTextureView.isAvailable()) {return;}
+
             if (mSavedSurface != null) {
                 mSavedSurface.release();
                 mSavedSurface = null;
@@ -462,8 +465,6 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
 
         if (show) {
             inflateVideoCallViews();
-        } else {
-            cleanupSurfaces();
         }
 
         if (mVideoViews != null ) {

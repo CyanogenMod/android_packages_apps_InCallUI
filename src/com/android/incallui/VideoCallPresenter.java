@@ -306,6 +306,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
         if (newState == InCallPresenter.InCallState.NO_CALLS) {
             exitVideoMode();
+            cleanupSurfaces();
         }
 
         // Determine the primary active call).
@@ -336,6 +337,14 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
                 exitVideoMode();
             }
         }
+    }
+
+    private void cleanupSurfaces() {
+        final VideoCallUi ui = getUi();
+        if (ui == null) {
+            return;
+        }
+        ui.cleanupSurfaces();
     }
 
     /**

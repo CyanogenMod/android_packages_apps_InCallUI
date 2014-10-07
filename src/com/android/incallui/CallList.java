@@ -751,7 +751,21 @@ public class CallList implements InCallPhoneListener {
         for (Call call : mCallById.values()) {
             PhoneAccountHandle ph = call.getAccountHandle();
             if ((call.getState() == state) && ((ph == null) || ph.getId().equals("E") ||
-                     (ph != null && (Long.parseLong(ph.getId()) == subId)))) {
+                    (ph != null && (Long.parseLong(ph.getId()) == subId)))) {
+                if ((ph == null) && (!call.getTelecommCall().getChildren().isEmpty()) &&
+                        (call.getTelecommCall().getChildren().size() > 1)) {
+                    List<android.telecom.Call> children = call.getTelecommCall().getChildren();
+                    android.telecom.Call child = children.get(0);
+                    PhoneAccountHandle childph = child.getDetails().getAccountHandle();
+                    if (Long.parseLong(childph.getId()) == subId) {
+                        Log.d(this,"getCallWithState:retval = "+call);
+                        retval = call;
+                        break;
+                    } else {
+                        position++;
+                        continue;
+                    }
+                }
                 if (position >= positionToFind) {
                     retval = call;
                     break;

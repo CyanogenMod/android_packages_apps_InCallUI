@@ -811,7 +811,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         // ...so lets cut out early
         boolean alreadyOutgoing = mInCallState == InCallState.PENDING_OUTGOING &&
                 newState == InCallState.OUTGOING;
-        if (newState == mInCallState || alreadyOutgoing) {
+        boolean isAnyOtherSubActive = InCallState.INCOMING == newState &&
+                mCallList.isAnyOtherSubActive(mCallList.getActiveSubscription());
+        if ((newState == mInCallState && !(mInCallActivity == null && isAnyOtherSubActive))
+                || alreadyOutgoing) {
             return newState;
         }
 

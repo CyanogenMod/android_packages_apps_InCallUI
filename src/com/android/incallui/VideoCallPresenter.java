@@ -35,6 +35,7 @@ import com.android.incallui.InCallVideoCallListenerNotifier.VideoEventListener;
 import com.google.common.base.Preconditions;
 
 import java.util.Objects;
+import android.os.SystemProperties;
 
 /**
  * Logic related to the {@link VideoCallFragment} and for managing changes to the video calling
@@ -148,6 +149,20 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     /** Handler which resets request state to NO_REQUEST after an interval. */
     private Handler mSessionModificationResetHandler;
     private static final long SESSION_MODIFICATION_RESET_DELAY_MS = 3000;
+
+    /**
+     * Controls audio route for VT calls.
+     * 0 - Use the default audio routing strategy.
+     * 1 - Disable the speaker. Route the audio to Headset or Bloutooth
+     *     or Earpiece, based on the default audio routing strategy.
+     */
+    private static final String PROPERTY_IMS_AUDIO_OUTPUT = "persist.radio.ims.audio.output";
+
+    /**
+     * Values for the above adb property "persist.radio.ims.audio.output"
+     */
+    private static final int IMS_AUDIO_OUTPUT_DEFAULT = 0;
+    private static final int IMS_AUDIO_OUTPUT_DISABLE_SPEAKER = 1;
 
     /**
      * Initializes the presenter.
@@ -452,8 +467,15 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
         mCurrentVideoState = newVideoState;
 
-        mPreVideoAudioMode = AudioModeProvider.getInstance().getAudioMode();
-        TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
+        // If the speaker is explicitly disabled then do not enable it.
+        if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
+                IMS_AUDIO_OUTPUT_DEFAULT) != IMS_AUDIO_OUTPUT_DISABLE_SPEAKER) {
+            Log.d(this, "Routing audio to speaker");
+
+            mPreVideoAudioMode = AudioModeProvider.getInstance().getAudioMode();
+            TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
+        }
+
     }
 
     private void enableCamera(boolean isCameraRequired) {

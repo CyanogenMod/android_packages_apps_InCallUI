@@ -47,6 +47,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.contacts.common.widget.FloatingActionButtonController;
@@ -940,6 +941,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 callStateLabel = disconnectCause.getLabel();
                 if (TextUtils.isEmpty(callStateLabel)) {
                     callStateLabel = context.getString(R.string.card_title_call_ended);
+                }
+                if (context.getResources().getBoolean(R.bool.def_incallui_clearcode_enabled)) {
+                    String clearText = disconnectCause.getDescription() == null ? ""
+                            : disconnectCause.getDescription().toString();
+                    if (!TextUtils.isEmpty(clearText)) {
+                        Toast.makeText(context, clearText, Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             case Call.State.CONFERENCED:

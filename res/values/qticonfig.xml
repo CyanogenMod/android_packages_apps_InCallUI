@@ -39,4 +39,9 @@
     <bool name="enable_home_location">false</bool>
     <!-- Flag to display home location on status bar-->
     <bool name="display_home_location_on_statusbar">false</bool>
+    <!--
+    customize the default value to control Clear-Code feature,
+    default value is false, true is for LatamOpenAMX
+    -->
+    <bool name="def_incallui_clearcode_enabled">false</bool>
 </resources>

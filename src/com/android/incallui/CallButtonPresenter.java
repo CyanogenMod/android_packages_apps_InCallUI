@@ -361,7 +361,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         // Show all video-call-related buttons.
         ui.showSwitchCameraButton(true);
-        ui.showPauseVideoButton(true);
+        ui.showPauseVideoButton(false);
     }
 
     private void updateVoiceCallButtons(Call call) {

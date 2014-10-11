@@ -35,4 +35,10 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     -->
     <bool name="def_incallui_checkidp_enabled">false</bool>
 
+    <!--
+    customize the default value to control Clear-Code feature,
+    default value is false, true is for LatamOpenAMX
+    -->
+    <bool name="def_incallui_clearcode_enabled">false</bool>
+
 </resources>

@@ -31,6 +31,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneCapabilities;
+import android.telephony.SubInfoRecord;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
@@ -273,6 +276,14 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
             return;
         }
 
+        // set the content
+        String contentText = mContext.getString(contentResId);
+        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
+            SubInfoRecord info = SubscriptionManager.getSubInfoForSubscriber(call.getSubId());
+            if (info != null) {
+                contentText += " (" + info.displayName + ")";
+            }
+        }
         /*
          * Nothing more to check...build and send it.
          */
@@ -289,7 +300,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         }
 
         // Set the content
-        builder.setContentText(mContext.getString(contentResId));
+        builder.setContentText(contentText);
         builder.setSmallIcon(iconResId);
         builder.setContentTitle(contentTitle);
         builder.setLargeIcon(largeIcon);

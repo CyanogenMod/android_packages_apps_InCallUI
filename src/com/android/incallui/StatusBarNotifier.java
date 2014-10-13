@@ -32,6 +32,9 @@ import android.telecom.PhoneAccount;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
 import android.telecom.VideoProfile;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.android.contacts.common.util.BitmapUtil;
@@ -230,6 +233,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
             largeIcon = getRoundedIcon(largeIcon);
         }
 
+        // set the content
+        String contentText = mContext.getString(contentResId);
+        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
+            SubscriptionInfo info =
+                    SubscriptionManager.from(mContext).getActiveSubscriptionInfo(call.getSubId());
+            if (info != null) {
+                contentText += " (" + info.getDisplayName() + ")";
+            }
+        }
         /*
          * Nothing more to check...build and send it.
          */
@@ -248,7 +260,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         }
 
         // Set the content
-        builder.setContentText(mContext.getString(contentResId));
+        builder.setContentText(contentText);
         builder.setSmallIcon(iconResId);
         builder.setContentTitle(contentTitle);
         builder.setLargeIcon(largeIcon);

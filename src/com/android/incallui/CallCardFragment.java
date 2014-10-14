@@ -519,7 +519,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 mCallStateIcon.setImageDrawable(connectionIcon);
             }
 
-            if (VideoProfile.VideoState.isBidirectional(videoState)
+            if (VideoProfile.VideoState.isVideo(videoState)
                     || (state == Call.State.ACTIVE && sessionModificationState
                             == Call.SessionModificationState.WAITING_FOR_RESPONSE)) {
                 mCallStateVideoCallIcon.setVisibility(View.VISIBLE);

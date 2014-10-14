@@ -18,6 +18,7 @@ package com.android.incallui;
 
 import android.telecom.CameraCapabilities;
 import android.telecom.Connection;
+import android.telecom.Connection.VideoProvider;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.VideoProfile;
 
@@ -51,17 +52,16 @@ public class InCallVideoCallListener extends VideoCall.Listener {
         int previousVideoState = mCall.getVideoState();
         int newVideoState = videoProfile.getVideoState();
 
-        boolean wasVideoCall = VideoProfile.VideoState.isBidirectional(previousVideoState);
-        boolean isVideoCall = VideoProfile.VideoState.isBidirectional(newVideoState);
-
+        boolean wasVideoCall = VideoProfile.VideoState.isVideo(previousVideoState);
+        boolean isVideoCall = VideoProfile.VideoState.isVideo(newVideoState);
         boolean wasPaused = VideoProfile.VideoState.isPaused(previousVideoState);
         boolean isPaused = VideoProfile.VideoState.isPaused(newVideoState);
 
         // Check for upgrades to video and downgrades to audio.
-        if (!wasVideoCall && isVideoCall) {
-            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoRequest(mCall);
-        } else if (wasVideoCall && !isVideoCall) {
+        if (wasVideoCall && !isVideoCall) {
             InCallVideoCallListenerNotifier.getInstance().downgradeToAudio(mCall);
+        } else if (previousVideoState != newVideoState) {
+            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoRequest(mCall);
         }
 
         boolean pause = !wasPaused && isPaused;
@@ -71,25 +71,31 @@ public class InCallVideoCallListener extends VideoCall.Listener {
     /**
      * Handles a session modification response.
      *
-     * @param status Status of the session modify request.  Valid values are
-     *               {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_SUCCESS},
-     *               {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_FAIL},
-     *               {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_INVALID}
+     * @param status Status of the session modify request. Valid values are
+     *            {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_SUCCESS},
+     *            {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_FAIL},
+     *            {@link Connection.VideoProvider#SESSION_MODIFY_REQUEST_INVALID}
      * @param requestedProfile
      * @param responseProfile The actual profile changes made by the peer device.
      */
     @Override
-    public void onSessionModifyResponseReceived(
-            int status, VideoProfile requestedProfile, VideoProfile responseProfile) {
-        boolean modifySucceeded =
-                requestedProfile.getVideoState() == responseProfile.getVideoState();
-        boolean isVideoCall =
-                VideoProfile.VideoState.isBidirectional(responseProfile.getVideoState());
-
-        if (modifySucceeded && isVideoCall) {
-            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoSuccess(mCall);
-        } else if (!modifySucceeded || status != Connection.VideoProvider.SESSION_MODIFY_REQUEST_SUCCESS) {
-            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoFail(mCall);
+    public void onSessionModifyResponseReceived(int status, VideoProfile requestedProfile,
+            VideoProfile responseProfile) {
+        Log.d(this, "onSessionModifyResponseReceived status=" + status + " requestedProfile="
+                + requestedProfile + " responseProfile=" + responseProfile);
+        if (status != VideoProvider.SESSION_MODIFY_REQUEST_SUCCESS) {
+            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoFail(status, mCall);
+        } else if (requestedProfile != null && responseProfile != null) {
+            boolean modifySucceeded = requestedProfile.getVideoState() ==
+                    responseProfile.getVideoState();
+            boolean isVideoCall = VideoProfile.VideoState.isVideo(responseProfile.getVideoState());
+            if (modifySucceeded && isVideoCall) {
+                InCallVideoCallListenerNotifier.getInstance().upgradeToVideoSuccess(mCall);
+            } else if (!modifySucceeded) {
+                InCallVideoCallListenerNotifier.getInstance().upgradeToVideoFail(status, mCall);
+            }
+        } else {
+            Log.d(this, "onSessionModifyResponseReceived request and response Profiles are null");
         }
     }
 

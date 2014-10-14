@@ -576,8 +576,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         }
     }
 
-    public void acceptUpgradeRequest(Context context) {
-        Log.d(this, " acceptUpgradeRequest");
+    public void acceptUpgradeRequest(int videoState, Context context) {
+        Log.d(this, " acceptUpgradeRequest videoState " + videoState);
         // Bail if we have been shut down and the call list is null.
         if (mCallList == null) {
             StatusBarNotifier.clearInCallNotification(context);
@@ -587,8 +587,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         Call call = mCallList.getVideoUpgradeRequestCall();
         if (call != null) {
-            VideoProfile videoProfile =
-                    new VideoProfile(VideoProfile.VideoState.BIDIRECTIONAL);
+            VideoProfile videoProfile = new VideoProfile(videoState);
             call.getVideoCall().sendSessionModifyResponse(videoProfile);
             call.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
         }
@@ -606,7 +605,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         Call call = mCallList.getVideoUpgradeRequestCall();
         if (call != null) {
             VideoProfile videoProfile =
-                    new VideoProfile(VideoProfile.VideoState.AUDIO_ONLY);
+                    new VideoProfile(call.getVideoState());
             call.getVideoCall().sendSessionModifyResponse(videoProfile);
             call.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
         }

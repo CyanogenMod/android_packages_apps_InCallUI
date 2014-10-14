@@ -17,6 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">בקשת חיוג שונתה לבקשת USSD.</string>
+  <string name="callFailed_dialToSs">בקשת חיוג שונתה לבקשת SS.</string>
+  <string name="callFailed_dialToDial">בקשת חיוג שונתה לחיוג עם מספר שונה.</string>
+  <string name="callFailed_incoming_cb_enabled">שיחת ועידה הגבילה את האפשרות לקבלת שיחות נכנסות.</string>
+  <string name="callUnanswered_forwarded">שיחה לא נענתה או הועברה</string>
+  <string name="modify_call_prompt_yes">כן</string>
+  <string name="modify_call_prompt_no">לא</string>
+  <string name="modify_call_failure_str">הבקשה לשינו שיחה נכשלה\n</string>
+  <string name="modify_call_option_title">בחר סוג שיחה</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">שידור וידאו</string>
+  <string name="modify_call_option_vt_rx">קבלת וידאו</string>
+  <string name="modify_call_option_voice">קול בלבד</string>
+  <string name="accept_modify_call_request_prompt">לקבל את הבקשה לשינוי השיחה?</string>
+  <string name="upgrade_vt_prompt">האם ברצונך לשנות את השיחה לשיחת וידאו?</string>
+  <string name="upgrade_vt_tx_prompt">האם ברצונך לשנות את השיחה לשידור וידאו בלבד?</string>
+  <string name="upgrade_vt_rx_prompt">האם ברצונך לאפשר קבלת שיחות וידאו בלבד?</string>
+  <string name="onscreenModifyCallText">הגדרות שיחה</string>
+  <string name="onscreenAddParticipant">הוסף משתתף</string>
+  <string name="description_target_answer_video">ענה עם וידאו</string>
+  <string name="description_target_answer_tx_video">ענה עם וידאו TX</string>
+  <string name="description_target_answer_rx_video">ענה עם וידאו RX</string>
+  <string name="description_direction_up_right">ימין למעלה</string>
+  <string name="description_direction_up_left">שמאל למעלה</string>
+  <string name="description_direction_down_left">שמאל למטה</string>
+  <string name="description_direction_down_right">ימין למטה</string>
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">חיוג (ממתין\u2026)</string>
   <string name="card_title_waiting_call">שיחה ממתינה</string>
@@ -25,4 +51,9 @@
   <string name="call_recording_failed_message">נכשל בניגון הקלטה</string>
   <string name="blacklist_dialog_title">הוסף לרשימה שחורה</string>
   <string name="blacklist_dialog_message">שיחות עתידיות מ-<xliff:g id="number">%s</xliff:g> ייחסמו</string>
+  <string name="sub_1">סים 1</string>
+  <string name="sub_2">סים 2</string>
+  <string name="volume_boost_notify_enabled">הגברת עוצמת קול מופעלת</string>
+  <string name="volume_boost_notify_disabled">הגברת עוצמת קול כבויה</string>
+  <string name="volume_boost_notify_unavailable">הגברת ווליום אינה אפשרית בשימוש עם אוזניות</string>
 </resources>

@@ -30,7 +30,7 @@
   <string name="modify_call_option_vt_tx">Video verzenden</string>
   <string name="modify_call_option_vt_rx">Video ontvangen</string>
   <string name="modify_call_option_voice">Alleen geluid</string>
-  <string name="accept_modify_call_request_prompt">Verzoek om gesprek wijzigen accepteren?</string>
+  <string name="accept_modify_call_request_prompt">Verzoek om gesprek te wijzigen accepteren?</string>
   <string name="upgrade_vt_prompt">Wilt u het gesprek opwaarderen naar een videogesprek?</string>
   <string name="upgrade_vt_tx_prompt">Wilt u het gesprek opwaarderen naar een alleen-verzenden-videogesprek?</string>
   <string name="upgrade_vt_rx_prompt">Wilt u het gesprek opwaarderen naar een alleen-ontvangen-videogesprek?</string>

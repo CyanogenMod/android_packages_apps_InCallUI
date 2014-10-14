@@ -19,7 +19,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">Requête DIAL modifiée en requête USSD.</string>
   <string name="callFailed_dialToSs">Requête DIAL modifiée en requête SS.</string>
-  <string name="callFailed_dialToDial">Requête DIAL modifiée en DIAL  avec une numéro différent.</string>
+  <string name="callFailed_dialToDial">Requête DIAL modifiée en DIAL  avec un numéro différent.</string>
   <string name="callFailed_incoming_cb_enabled">L\'interlocuteur a interdit tous les appels entrants.</string>
   <string name="callUnanswered_forwarded">Appel sans réponse et transmis</string>
   <string name="modify_call_prompt_yes">Oui</string>

@@ -18,6 +18,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
+  <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
   <string name="onscreenBlacklistText">黑名單</string>
+  <string name="onscreenRecordText">開始/停止錄音</string>
+  <string name="call_recording_failed_message">未能啟動通話錄音</string>
   <string name="blacklist_dialog_title">新增至黑名單</string>
+  <string name="sub_1">SIM 卡 1</string>
+  <string name="sub_2">SIM 卡 2</string>
 </resources>

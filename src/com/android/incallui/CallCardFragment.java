@@ -22,17 +22,23 @@ import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.telecom.DisconnectCause;
 import android.telecom.VideoProfile;
 import android.telephony.PhoneNumberUtils;
+import android.text.format.DateUtils;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.Gravity;
@@ -96,6 +102,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private AudioManager mAudioManager;
     private Toast mVBNotify;
     private int mVBToastPosition;
+    private TextView mRecordingTimeLabel;
+    private TextView mRecordingIcon;
 
     // Secondary caller info
     private View mSecondaryCallInfo;
@@ -124,10 +132,19 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private int mVideoAnimationDuration;
 
+    private String mRecordingTime;
+
     private static final int TTY_MODE_OFF = 0;
     private static final int TTY_MODE_HCO = 2;
 
     private static final String VOLUME_BOOST = "volume_boost";
+
+    private static final String RECORD_STATE_CHANGED =
+            "com.qualcomm.qti.phonefeature.RECORD_STATE_CHANGED";
+
+    private static final int MESSAGE_TIMER = 1;
+
+    private InCallActivity mInCallActivity;
 
     @Override
     CallCardPresenter.CallCardUi getUi() {
@@ -158,6 +175,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         mAudioManager = (AudioManager) getActivity()
                 .getSystemService(Context.AUDIO_SERVICE);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(RECORD_STATE_CHANGED);
+        getActivity().registerReceiver(recorderStateReceiver, filter);
+
+        mInCallActivity = (InCallActivity)getActivity();
+
+        if (mInCallActivity.isCallRecording()) {
+            recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
+        }
     }
 
 
@@ -252,6 +279,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         if (null != mVBButton) {
             mVBButton.setOnClickListener(mVBListener);
         }
+        mRecordingTimeLabel = (TextView) view.findViewById(R.id.recordingTime);
+        mRecordingIcon = (TextView) view.findViewById(R.id.recordingIcon);
     }
 
     @Override
@@ -1147,4 +1176,64 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         updateVBButton();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(recorderStateReceiver);
+    }
+
+    private void showCallRecordingElapsedTime() {
+        if (mRecordingTimeLabel.getVisibility() != View.VISIBLE) {
+            AnimUtils.fadeIn(mRecordingTimeLabel, AnimUtils.DEFAULT_DURATION);
+        }
+
+        mRecordingTimeLabel.setText(mRecordingTime);
+    }
+
+    private BroadcastReceiver recorderStateReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!RECORD_STATE_CHANGED.equals(intent.getAction())) {
+                return;
+            }
+
+            if (mInCallActivity.isCallRecording()) {
+                recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
+            } else {
+                mRecordingTimeLabel.setVisibility(View.GONE);
+                mRecordingIcon.setVisibility(View.GONE);
+            }
+        }
+    };
+
+    private Handler recorderHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+            case MESSAGE_TIMER:
+                if (!mInCallActivity.isCallRecording()) {
+                    break;
+                }
+
+                String recordingTime = mInCallActivity.getCallRecordingTime();
+
+                if (!TextUtils.isEmpty(recordingTime)) {
+                    mRecordingTime = recordingTime;
+                    mRecordingTimeLabel.setVisibility(View.VISIBLE);
+                    showCallRecordingElapsedTime();
+                    mRecordingIcon.setVisibility(View.VISIBLE);
+                }
+
+                if (!recorderHandler.hasMessages(MESSAGE_TIMER)) {
+                    sendEmptyMessageDelayed(MESSAGE_TIMER, 1000);
+                }
+
+                break;
+            }
+        }
+    };
 }

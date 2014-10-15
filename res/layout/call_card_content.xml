@@ -70,6 +70,35 @@
         android:background="@android:color/white"
         android:src="@drawable/img_no_image_automirrored" />
 
+    <!-- Call recorder info -->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true">
+
+        <TextView android:id="@+id/recordingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="24dp"
+            android:paddingBottom="119dp"
+            android:drawableRight="@drawable/ic_recording_indicator"
+            android:visibility="invisible" />
+
+        <TextView android:id="@+id/recordingTime"
+            android:text="@string/recording_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/recordingIcon"
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="120dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/incall_call_banner_text_color"
+            android:visibility="invisible"
+            android:singleLine="true"/>
+    </RelativeLayout>
+
     <fragment android:name="com.android.incallui.VideoCallFragment"
         android:id="@+id/videoCallFragment"
         android:layout_alignParentTop="true"

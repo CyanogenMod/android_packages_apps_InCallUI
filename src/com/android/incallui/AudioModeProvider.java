@@ -36,6 +36,7 @@ import java.util.List;
     private int mSupportedModes = AudioState.ROUTE_ALL;
     private final List<AudioModeListener> mListeners = Lists.newArrayList();
     private Phone mPhone;
+    private InCallActivity mInCallActivity;
 
     private Phone.Listener mPhoneListener = new Phone.Listener() {
         @Override
@@ -64,6 +65,11 @@ import java.util.List;
     public void onAudioModeChange(int newMode, boolean muted) {
         if (mAudioMode != newMode) {
             mAudioMode = newMode;
+
+            if (mInCallActivity != null && mInCallActivity.getCallCardFragment() != null) {
+                mInCallActivity.getCallCardFragment().updateVBbyAudioMode(newMode);
+            }
+
             for (AudioModeListener l : mListeners) {
                 l.onAudioMode(mAudioMode);
             }
@@ -116,5 +122,9 @@ import java.util.List;
         void onAudioMode(int newMode);
         void onMute(boolean muted);
         void onSupportedAudioMode(int modeMask);
+    }
+
+    public void setInCallActivity(InCallActivity activity) {
+        mInCallActivity = activity;
     }
 }

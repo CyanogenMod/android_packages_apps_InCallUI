@@ -105,6 +105,15 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/photo" />
 
+    <!-- Volume boost and Volume enhancements in-call UI -->
+    <ImageButton android:id="@+id/volumeBoost"
+        android:layout_below="@id/primary_call_info_container"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/vb_normal"/>
+
     <!-- Placeholder for the dialpad which is replaced with the dialpad fragment when shown. -->
     <FrameLayout
         android:id="@+id/dialpadFragmentContainer"

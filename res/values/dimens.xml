@@ -114,6 +114,9 @@
     <dimen name="end_call_floating_action_button_diameter">72dp</dimen>
     <dimen name="end_call_floating_action_button_small_diameter">56dp</dimen>
 
+    <!-- Padding at the top and right edges of the "call primary info". -->
+    <dimen name="call_recorder_top_right_padding">8dp</dimen>
+
     <dimen name="conference_call_manager_padding_top">64dp</dimen>
     <dimen name="conference_call_manager_button_dimension">46dp</dimen>
 </resources>

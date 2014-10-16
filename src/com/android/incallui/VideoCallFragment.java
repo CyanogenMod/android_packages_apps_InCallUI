@@ -63,6 +63,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     private static boolean sVideoSurfacesInUse = false;
     private static VideoCallSurface sPreviewSurface = null;
     private static VideoCallSurface sDisplaySurface = null;
+    private static Point sDisplaySize = null;
 
     /**
      * {@link ViewStub} holding the video call surfaces.  This is the parent for the
@@ -668,6 +669,44 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     }
 
     /**
+     * Changes the dimensions of the display video surface. Called when the dimensions change due to
+     * a peer resolution update
+     *
+     * @param width The new width.
+     * @param height The new height.
+     */
+    @Override
+    public void setDisplayVideoSize(int width, int height) {
+        Log.d(this, "setDisplayVideoSize: width=" + width + " height=" + height);
+        if (sDisplaySurface != null) {
+            TextureView displayVideo = sDisplaySurface.getTextureView();
+            if (displayVideo == null) {
+                Log.e(this, "Display Video texture view is null. Bail out");
+                return;
+            }
+            sDisplaySize = new Point(width, height);
+            setSurfaceSizeAndTranslation(displayVideo, sDisplaySize);
+        } else {
+            Log.e(this, "Display Video Surface is null. Bail out");
+        }
+    }
+
+    /**
+     * Determines the size of the device screen.
+     *
+     * @return {@link Point} specifying the width and height of the screen.
+     */
+    @Override
+    public Point getScreenSize() {
+        // Get current screen size.
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        return size;
+    }
+
+    /**
      * Inflates the {@link ViewStub} containing the incoming and outgoing surfaces, if necessary,
      * and creates {@link VideoCallSurface} instances to track the surfaces.
      */
@@ -681,7 +720,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             TextureView displaySurface = (TextureView) mVideoViews.findViewById(R.id.incomingVideo);
 
             Log.d(this, "inflateVideoCallViews: sVideoSurfacesInUse=" + sVideoSurfacesInUse);
-            Point screenSize = getScreenSize();
+            //If peer adjusted screen size is not available, set screen size to default display size
+            Point screenSize = sDisplaySize == null ? getScreenSize() : sDisplaySize;
             setSurfaceSizeAndTranslation(displaySurface, screenSize);
 
             if (!sVideoSurfacesInUse) {
@@ -730,19 +770,5 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                 !mIsLandscape && textureView.getTranslationY() == 0))) {
             centerDisplayView(textureView);
         }
-    }
-
-    /**
-     * Determines the size of the device screen.
-     *
-     * @return {@link Point} specifying the width and height of the screen.
-     */
-    private Point getScreenSize() {
-        // Get current screen size.
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        return size;
     }
 }

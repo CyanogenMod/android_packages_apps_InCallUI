@@ -18,6 +18,7 @@ package com.android.incallui;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Handler;
 import android.telecom.AudioState;
 import android.telecom.CameraCapabilities;
@@ -593,11 +594,21 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     @Override
     public void onUpdatePeerDimensions(Call call, int width, int height) {
+        Log.d(this, "onUpdatePeerDimensions: width= " + width + " height= " + height);
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "VideoCallUi is null. Bail out");
+            return;
+        }
         if (!call.equals(mPrimaryCall)) {
+            Log.e(this, "Current call is not equal to primary call. Bail out");
             return;
         }
 
-        // TODO(vt): Change display surface aspect ratio.
+        // Change size of display surface to match the peer aspect ratio
+        if (width > 0 && height > 0) {
+            setDisplayVideoSize(width, height);
+        }
     }
 
     /**
@@ -717,6 +728,34 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     }
 
     /**
+     * Sets the display video surface size based on peer width and height
+     *
+     * @param width peer width
+     * @param height peer height
+     */
+
+    private void setDisplayVideoSize(int width, int height) {
+        Log.d(this, "setDisplayVideoSize:Received peer width=" + width + " peer height=" + height);
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            return;
+        }
+
+        // Get current display size
+        Point size = ui.getScreenSize();
+        Log.d("VideoCallPresenter", "setDisplayVideoSize: windowmgr width=" + size.x
+                + " windowmgr height=" + size.y);
+        if (size.y * width > size.x * height) {
+            // current display height is too much. Correct it
+            size.y = (int) (size.x * height / width);
+        } else if (size.y * width < size.x * height) {
+            // current display width is too much. Correct it
+            size.x = (int) (size.y * width / height);
+        }
+        ui.setDisplayVideoSize(size.x, size.y);
+    }
+
+    /**
      * Defines the VideoCallUI interactions.
      */
     public interface VideoCallUi extends Ui {
@@ -728,6 +767,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         int getCurrentRotation();
         void setPreviewSize(int width, int height);
         void setPreviewSurfaceSize(int width, int height);
+        void setDisplayVideoSize(int width, int height);
+        Point getScreenSize();
         void cleanupSurfaces();
         boolean isActivityRestart();
     }

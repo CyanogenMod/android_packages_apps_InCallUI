@@ -154,7 +154,7 @@ public class CallList implements InCallPhoneListener {
         // Update active subscription from call object. it will be set by
         // Telecomm service for incoming call and whenever active sub changes.
         if (call.mIsActiveSub) {
-            long sub = Long.parseLong(call.getAccountHandle().getId());
+            long sub = call.getSubId();
             Log.d(this, "onIncoming - sub:" + sub + " mSubId:" + mSubId);
             if (sub != mSubId) {
                 setActiveSubscription(sub);
@@ -184,7 +184,7 @@ public class CallList implements InCallPhoneListener {
         PhoneAccountHandle ph = call.getAccountHandle();
         Log.d(this, "onUpdate - " + call  + " ph:" + ph);
         if (call.mIsActiveSub && ph != null && (!ph.getId().equals("E"))) {
-            long sub = Long.parseLong(ph.getId());
+            long sub = call.getSubId();
             Log.i(this, "onUpdate - sub:" + sub + " mSubId:" + mSubId);
             if(sub != mSubId) {
                 setActiveSubscription(sub);
@@ -751,7 +751,7 @@ public class CallList implements InCallPhoneListener {
         for (Call call : mCallById.values()) {
             PhoneAccountHandle ph = call.getAccountHandle();
             if ((call.getState() == state) && ((ph == null) || ph.getId().equals("E") ||
-                    (ph != null && (Long.parseLong(ph.getId()) == subId)))) {
+                    (call.getSubId() == subId))) {
                 if ((ph == null) && (!call.getTelecommCall().getChildren().isEmpty()) &&
                         (call.getTelecommCall().getChildren().size() > 1)) {
                     List<android.telecom.Call> children = call.getTelecommCall().getChildren();

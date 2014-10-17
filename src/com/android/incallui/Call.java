@@ -365,7 +365,11 @@ public final class Call {
     public long getSubId() {
         PhoneAccountHandle ph = getAccountHandle();
         if (ph != null) {
-            return Long.parseLong(getAccountHandle().getId());
+            if (ph.getId() != null && !ph.getId().toLowerCase().contains("sip")) {
+                return Long.parseLong(getAccountHandle().getId());
+            } else {
+                return SubscriptionManager.getDefaultVoiceSubId();
+            }
         } else {
             return SubscriptionManager.INVALID_SUB_ID;
         }

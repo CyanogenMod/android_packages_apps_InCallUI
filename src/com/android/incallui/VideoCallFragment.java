@@ -30,6 +30,8 @@ import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 
 import com.google.common.base.Objects;
+import android.widget.Toast;
+import android.telecom.VideoProfile;
 
 /**
  * Fragment containing video calling surfaces.
@@ -539,6 +541,35 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         if (mVideoViews != null ) {
             mVideoViews.setVisibility(visibility);
         }
+    }
+
+    /**
+     * Displays a message on the UI that the video call quality has changed.
+     *
+     */
+    @Override
+    public void showVideoQualityChanged(int videoQuality) {
+        Log.d(this, "showVideoQualityChanged. Video quality changed to " + videoQuality);
+
+        String videoQualityChangedText = "Video quality changed to ";
+        switch (videoQuality) {
+            case VideoProfile.QUALITY_HIGH:
+                videoQualityChangedText += "High";
+                break;
+            case VideoProfile.QUALITY_MEDIUM:
+                videoQualityChangedText += "Medium";
+                break;
+            case VideoProfile.QUALITY_LOW:
+                videoQualityChangedText += "Low";
+                break;
+            // Both unknown and default should display unknown. Intentional fall through.
+            case VideoProfile.QUALITY_UNKNOWN:
+            default:
+                videoQualityChangedText += "Unknown";
+                break;
+        }
+
+        Toast.makeText(getActivity(), videoQualityChangedText, Toast.LENGTH_SHORT).show();
     }
 
     /**

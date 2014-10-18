@@ -179,6 +179,18 @@ public class InCallVideoCallListenerNotifier {
     }
 
     /**
+     * Inform listeners of any change in the video quality of the call
+     *
+     * @param call The call.
+     * @param videoQuality The updated video quality of the call.
+     */
+    public void videoQualityChanged(Call call, int videoQuality) {
+        for (VideoEventListener listener : mVideoEventListeners) {
+            listener.onVideoQualityChanged(call, videoQuality);
+        }
+    }
+
+    /**
      * Inform listeners of a change to peer dimensions.
      *
      * @param call The call.
@@ -243,7 +255,7 @@ public class InCallVideoCallListenerNotifier {
 
     /**
      * Listener interface for any class that wants to be notified of video events, including pause
-     * and un-pause of peer video.
+     * and un-pause of peer video, video quality changes.
      */
     public interface VideoEventListener {
         /**
@@ -254,6 +266,15 @@ public class InCallVideoCallListenerNotifier {
          *               otherwise.
          */
         public void onPeerPauseStateChanged(Call call, boolean paused);
+
+        /**
+         * Called when the video quality changes.
+         *
+         * @param call   The call whose video quality changes.
+         * @param videoCallQuality - values are QUALITY_HIGH, MEDIUM, LOW and UNKNOWN.
+         */
+        public void onVideoQualityChanged(Call call, int videoCallQuality);
+
     }
 
     /**

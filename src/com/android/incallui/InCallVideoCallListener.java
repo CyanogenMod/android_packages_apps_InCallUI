@@ -120,6 +120,16 @@ public class InCallVideoCallListener extends VideoCall.Listener {
     }
 
     /**
+     * Handles a change to the video quality of the call.
+     *
+     * @param videoQuality The updated video call quality.
+     */
+    @Override
+    public void onVideoQualityChanged(int videoQuality) {
+        InCallVideoCallListenerNotifier.getInstance().videoQualityChanged(mCall, videoQuality);
+    }
+
+    /**
      * Handles a change to the call data usage.  No implementation as the in-call UI does not
      * display data usage.
      *

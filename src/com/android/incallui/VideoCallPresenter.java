@@ -613,6 +613,28 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     }
 
     /**
+     * Handles any video quality changes in the call.
+     *
+     * @param call The call which experienced a video quality change.
+     * @param videoQuality The new video call quality.
+     */
+    @Override
+    public void onVideoQualityChanged(Call call, int videoQuality) {
+        if (!call.equals(mPrimaryCall)) {
+            return;
+        }
+
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Error VideoCallUi is null. Return.");
+            return;
+        }
+
+        // Display a video quality changed message on UI.
+        ui.showVideoQualityChanged(videoQuality);
+    }
+
+    /**
      * Handles a change to the dimensions of the local camera.  Receiving the camera capabilities
      * triggers the creation of the video
      *
@@ -768,6 +790,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     public interface VideoCallUi extends Ui {
         void showVideoUi(boolean show);
+        void showVideoQualityChanged(int videoQuality);
         boolean isDisplayVideoSurfaceCreated();
         boolean isPreviewVideoSurfaceCreated();
         Surface getDisplayVideoSurface();

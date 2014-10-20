@@ -82,7 +82,7 @@
   <string name="notification_action_end_call">Anhänken</string>
   <string name="notification_missedCall_call_back">Zréckuruffen</string>
   <string name="notification_missedCall_message">Message schécken</string>
-  <string name="incall_error_power_off">Deaktivéier de Fligermodus, fir unzeruffen.</string>
+  <string name="incall_error_power_off">Desaktivéier de Fligermodus, fir unzeruffen.</string>
   <string name="incall_error_emergency_only">Net am Netzwierk registréiert.</string>
   <string name="incall_error_out_of_service">Mobilt Netzwierk net disponibel.</string>
   <string name="incall_error_no_phone_number_supplied">Uruff net geschéckt, keng gëlteg Nummer.</string>

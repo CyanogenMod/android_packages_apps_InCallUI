@@ -397,7 +397,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
             return mContext.getResources().getString(R.string.card_title_conf_call);
         }
         if (TextUtils.isEmpty(contactInfo.name)) {
-            return contactInfo.number;
+            return contactInfo.number + " " + contactInfo.location;
         }
 
         return contactInfo.name;

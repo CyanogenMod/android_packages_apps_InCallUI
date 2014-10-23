@@ -555,6 +555,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mCallStateLabel.setVisibility(View.VISIBLE);
 
             if (connectionIcon == null) {
+                mCallStateIcon.clearAnimation();
                 mCallStateIcon.setVisibility(View.GONE);
             } else {
                 mCallStateIcon.setVisibility(View.VISIBLE);
@@ -577,7 +578,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 mCallStateIcon.clearAnimation();
             } else {
                 mCallStateLabel.startAnimation(mPulseAnimation);
-                mCallStateIcon.startAnimation(mPulseAnimation);
+                if (mCallStateIcon.getVisibility() == View.VISIBLE) {
+                    mCallStateIcon.startAnimation(mPulseAnimation);
+                }
             }
         } else {
             mCallStateLabel.clearAnimation();

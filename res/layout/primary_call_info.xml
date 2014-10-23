@@ -80,6 +80,7 @@
                           android:textColor="@color/incall_call_banner_text_color"
                           android:textAllCaps="true"
                           android:singleLine="true"
+                          android:layout_marginTop="1dp"
                           android:ellipsize="end"/>
 
                 <!-- Name (or the phone number, if we don't have a name to display). -->
@@ -122,6 +123,7 @@
                 <TextView android:id="@+id/elapsedTime"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_below="@id/subId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"

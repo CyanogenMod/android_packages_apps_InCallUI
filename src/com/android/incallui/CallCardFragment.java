@@ -748,6 +748,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 } else if (sessionModificationState
                         == Call.SessionModificationState.WAITING_FOR_RESPONSE) {
                     callStateLabel = context.getString(R.string.card_title_video_call_requesting);
+                } else if (VideoProfile.VideoState.isVideo(videoState) &&
+                        VideoProfile.VideoState.isPaused(videoState)) {
+                    callStateLabel = context.getString(R.string.card_title_video_call_paused);
                 } else if (VideoProfile.VideoState.isBidirectional(videoState)) {
                     callStateLabel = context.getString(R.string.card_title_video_call);
                 } else if (isWaitingForRemoteSide) {

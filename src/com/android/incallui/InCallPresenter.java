@@ -40,6 +40,7 @@ import android.view.WindowManager;
 import com.google.common.base.Preconditions;
 
 import com.android.contacts.common.interactions.TouchPointManager;
+import com.android.contacts.common.util.MaterialColorMapUtils;
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.incalluibind.ObjectFactory;
 
@@ -181,6 +182,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
     private Handler mHandler = new Handler();
 
+    /** Display colors for the UI. Consists of a primary color and secondary (darker) color */
+    private MaterialPalette mThemeColors;
 
     private TelecomManager mTelecomManager;
 
@@ -1351,6 +1354,32 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
                 View.LAYOUT_DIRECTION_RTL;
     }
 
+    /**
+     * Extract background color from call object. The theme colors will include a primary color
+     * and a secondary color.
+     */
+    public void setThemeColors() {
+        // This method will set the background to default if the color is PhoneAccount.NO_COLOR.
+        mThemeColors = getColorsFromCall(CallList.getInstance().getFirstCall());
+
+        if (mInCallActivity == null) {
+            return;
+        }
+
+        mInCallActivity.getWindow().setStatusBarColor(mThemeColors.mSecondaryColor);
+    }
+
+    /**
+     * @return A palette for colors to display in the UI.
+     */
+    public MaterialPalette getThemeColors() {
+        return mThemeColors;
+    }
+
+    private MaterialPalette getColorsFromCall(Call call) {
+        return getColorsFromPhoneAccountHandle(call == null ? null : call.getAccountHandle());
+    }
+
     private MaterialPalette getColorsFromPhoneAccountHandle(PhoneAccountHandle phoneAccountHandle) {
         int highlightColor = PhoneAccount.NO_HIGHLIGHT_COLOR;
         if (phoneAccountHandle != null) {
@@ -1365,29 +1394,20 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
                 }
             }
         }
-        /* FIXME: Need below commit to fix below commented code.
-           //commit 6c1e0d8809bc084bd081a23b48d09e095a615348
-           // Author: Nancy Chen <nancychen@google.com>
-           // Date:   Fri Oct 24 16:00:55 2014 -0700
-           //
-           // In Multi-SIM cases use the color of the SIM icon for InCallUI.
-         return new InCallUIMaterialColorMapUtils(
-         mContext.getResources()).calculatePrimaryAndSecondaryColor(highlightColor);
-         */
-        //FIXME: remove hack
-        return null;
+        return new InCallUIMaterialColorMapUtils(
+                mContext.getResources()).calculatePrimaryAndSecondaryColor(highlightColor);
     }
-
     /**
      * @return An instance of TelecomManager.
      */
     public TelecomManager getTelecomManager() {
         if (mTelecomManager == null) {
             mTelecomManager = (TelecomManager)
-                    mContext.getSystemService(Context.TELECOM_SERVICE);
+                    mInCallActivity.getSystemService(Context.TELECOM_SERVICE);
         }
         return mTelecomManager;
     }
+
 
     /**
      * Private constructor. Must use getInstance() to get this singleton.

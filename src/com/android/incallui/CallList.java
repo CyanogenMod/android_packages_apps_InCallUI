@@ -86,7 +86,9 @@ public class CallList implements InCallPhoneListener {
         @Override
         public void onCallAdded(Phone phone, android.telecom.Call telecommCall) {
             Call call = new Call(telecommCall);
-            if (call.getState() == Call.State.INCOMING) {
+            Log.d(this, "onCallAdded: callState=" + call.getState());
+            if (call.getState() == Call.State.INCOMING ||
+                    call.getState() == Call.State.CALL_WAITING) {
                 onIncoming(call, call.getCannedSmsResponses());
             } else {
                 onUpdate(call);

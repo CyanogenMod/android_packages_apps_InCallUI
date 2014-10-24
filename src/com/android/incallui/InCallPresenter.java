@@ -211,6 +211,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         // will kick off an update and the whole process can start.
         mCallList.addListener(this);
 
+        VideoPauseController.getInstance().setUp(this);
+
         Log.d(this, "Finished InCallPresenter.setUp");
     }
 
@@ -226,6 +228,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         Log.d(this, "tearDown");
         mServiceConnected = false;
         attemptCleanup();
+
+        VideoPauseController.getInstance().tearDown();
     }
 
     private void attemptFinishActivity() {
@@ -643,6 +647,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         if(mInCallActivity!=null) {
             mIsChangingConfigurations = mInCallActivity.isChangingConfigurations();
         }
+        Log.d(this, "IsChangingConfigurations=" + mIsChangingConfigurations);
     }
 
 
@@ -675,9 +680,28 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         if (showing) {
             mIsActivityPreviouslyStarted = true;
-            mIsChangingConfigurations = false;
         } else {
             updateIsChangingConfigurations();
+        }
+    }
+
+    /*package*/
+    void onActivityStarted() {
+        Log.d(this, "onActivityStarted");
+        notifyVideoPauseController(true);
+    }
+
+    /*package*/
+    void onActivityStopped() {
+        Log.d(this, "onActivityStopped");
+        notifyVideoPauseController(false);
+    }
+
+    private void notifyVideoPauseController(boolean showing) {
+        Log.d(this, "notifyVideoPauseController: mIsChangingConfigurations=" +
+                    mIsChangingConfigurations);
+        if (!mIsChangingConfigurations) {
+            VideoPauseController.getInstance().onUiShowing(showing);
         }
     }
 

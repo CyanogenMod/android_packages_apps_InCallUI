@@ -158,6 +158,9 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                     + " areSameSurfaces=" + areSameSurfaces);
             if (mSavedSurfaceTexture != null && !areSameSurfaces) {
                 mTextureView.setSurfaceTexture(mSavedSurfaceTexture);
+                if (createSurface()) {
+                    onSurfaceCreated();
+                }
             }
             mIsDoneWithSurface = false;
         }

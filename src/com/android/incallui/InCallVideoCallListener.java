@@ -49,13 +49,11 @@ public class InCallVideoCallListener extends VideoCall.Listener {
     @Override
     public void onSessionModifyRequestReceived(VideoProfile videoProfile) {
         Log.d(this, " onSessionModifyRequestReceived videoProfile=" + videoProfile);
-        int previousVideoState = mCall.getVideoState();
-        int newVideoState = videoProfile.getVideoState();
+        int previousVideoState = CallUtils.toUnPausedVideoState(mCall.getVideoState());
+        int newVideoState = CallUtils.toUnPausedVideoState(videoProfile.getVideoState());
 
         boolean wasVideoCall = VideoProfile.VideoState.isVideo(previousVideoState);
         boolean isVideoCall = VideoProfile.VideoState.isVideo(newVideoState);
-        boolean wasPaused = VideoProfile.VideoState.isPaused(previousVideoState);
-        boolean isPaused = VideoProfile.VideoState.isPaused(newVideoState);
 
         // Check for upgrades to video and downgrades to audio.
         if (wasVideoCall && !isVideoCall) {
@@ -63,9 +61,6 @@ public class InCallVideoCallListener extends VideoCall.Listener {
         } else if (previousVideoState != newVideoState) {
             InCallVideoCallListenerNotifier.getInstance().upgradeToVideoRequest(mCall);
         }
-
-        boolean pause = !wasPaused && isPaused;
-        InCallVideoCallListenerNotifier.getInstance().peerPausedStateChanged(mCall, pause);
     }
 
     /**

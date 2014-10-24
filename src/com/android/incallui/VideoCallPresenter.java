@@ -280,7 +280,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mVideoCall.setDisplaySurface(null);
         } else if (surface == VideoCallFragment.SURFACE_PREVIEW) {
             mVideoCall.setPreviewSurface(null);
-            mVideoCall.setCamera(null);
+            enableCamera(false);
         }
     }
 

@@ -222,6 +222,7 @@ public class InCallActivity extends Activity {
         // It is possible that the activity restarted because orientation changed.
         // Notify listeners if orientation changed.
         doOrientationChanged(getResources().getConfiguration().orientation);
+        InCallPresenter.getInstance().onActivityStarted();
     }
 
     @Override
@@ -270,6 +271,7 @@ public class InCallActivity extends Activity {
         Log.d(this, "onStop()...");
 
         InCallPresenter.getInstance().updateIsChangingConfigurations();
+        InCallPresenter.getInstance().onActivityStopped();
         super.onStop();
     }
 

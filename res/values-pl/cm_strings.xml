@@ -17,9 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">Żądanie wybierania numeru zostało zmodyfikowane na żądanie usługodawcy.</string>
+  <string name="callFailed_dialToSs">Żądanie wybierania numerów zmodyfikowane na żądanie usługodawcy.</string>
+  <string name="callFailed_dialToDial">Wniosek wybierania zmodyfikowany przez wybieranie z innego numeru.</string>
+  <string name="callFailed_incoming_cb_enabled">Strona posiada przedawnione wszystkie połączenia przychodzące.</string>
+  <string name="callUnanswered_forwarded">Połączenie nieodebrane i przekazane dalej</string>
   <string name="modify_call_prompt_yes">Tak</string>
   <string name="modify_call_prompt_no">Nie</string>
+  <string name="modify_call_failure_str">Żądanie modyfikacji połączenia nieudane\n</string>
+  <string name="modify_call_option_title">Wybierz typ połączenia</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Transmisja wideo</string>
+  <string name="modify_call_option_vt_rx">Odbiór wideo</string>
+  <string name="modify_call_option_voice">Tylko głos</string>
+  <string name="accept_modify_call_request_prompt">Zaakceptować żądanie modyfikacji połączenia?</string>
   <string name="upgrade_vt_prompt">Czy chcesz aktywować funkcję wideorozmowy?</string>
+  <string name="upgrade_vt_tx_prompt">Czy chcesz aktywować funkcję wideorozmowy (tylko przesyłanie obrazu)?</string>
+  <string name="upgrade_vt_rx_prompt">Czy chcesz aktywować funkcję wideorozmowy (tylko odbieranie obrazu)?</string>
+  <string name="onscreenModifyCallText">Modyfikuj połączenie</string>
+  <string name="onscreenAddParticipant">Dodaj uczestnika</string>
+  <string name="description_target_answer_video">Odpowiedz z wideo</string>
+  <string name="description_target_answer_tx_video">Odpowiedz z wideo RX</string>
+  <string name="description_target_answer_rx_video">Odpowiedz z wideo TX</string>
+  <string name="description_direction_up_right">Do góry w prawo</string>
+  <string name="description_direction_up_left">Do góry w lewo</string>
+  <string name="description_direction_down_left">Na dół w lewo</string>
+  <string name="description_direction_down_right">Na dół w prawo</string>
   <string name="incall_call_type_label_forwarded">Połączenie przekazane</string>
   <string name="card_title_dialing_waiting">Wybieranie (proszę czekać\u2026)</string>
   <string name="card_title_waiting_call">Połączenie oczekujące</string>
@@ -30,5 +53,7 @@
   <string name="blacklist_dialog_message">Przyszłe połączenia od  <xliff:g id="number">%s</xliff:g> będą blokowane</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Zwiększona głośność jest włączona</string>
+  <string name="volume_boost_notify_disabled">Zwiększona głośność jest wyłączona</string>
   <string name="volume_boost_notify_unavailable">Wzmocniona głośność nie jest dostępna po podłączeniu zestawu słuchawkowego</string>
 </resources>

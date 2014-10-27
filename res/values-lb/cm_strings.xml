@@ -17,10 +17,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL-Ufro gouf an eng USSD-Ufro ëmgewandelt.</string>
+  <string name="callFailed_dialToSs">DIAL-Ufro gouf an eng SS-Ufro ëmgewandelt.</string>
+  <string name="callFailed_dialToDial">DIAL-Ufro gouf an eng DIAL-Ufro mat anerer Nummer ëmgewandelt.</string>
+  <string name="callFailed_incoming_cb_enabled">De Kontakt huet all erakommend Uriff gespaart.</string>
+  <string name="callUnanswered_forwarded">Uruff net beäntwert a weidergeleet</string>
   <string name="modify_call_prompt_yes">Jo</string>
   <string name="modify_call_prompt_no">Nee</string>
+  <string name="modify_call_failure_str">Ännerung vum Urufftyp feelgeschloen\n</string>
+  <string name="modify_call_option_title">Urufftyp auswielen</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Video iwwerdroen</string>
+  <string name="modify_call_option_vt_rx">Video empfänken</string>
+  <string name="modify_call_option_voice">Just Stëmm</string>
+  <string name="upgrade_vt_prompt">Soll den Uruff an e Videouruff geännert ginn?</string>
+  <string name="upgrade_vt_tx_prompt">Soll den Uruff an e Videouruff (just schécken) geännert ginn?</string>
+  <string name="description_direction_up_right">Uewe riets</string>
+  <string name="description_direction_up_left">Uewe lénks</string>
+  <string name="description_direction_down_left">Ënne lénks</string>
   <string name="incall_call_type_label_forwarded">Weidergeleeten Uruff</string>
+  <string name="card_title_waiting_call">Waardenden Uruff</string>
   <string name="onscreenBlacklistText">Schwaarz Lëscht</string>
+  <string name="onscreenRecordText">Opnam starten/stoppen</string>
+  <string name="call_recording_failed_message">D\'Opnam vum Uruff konnt net gestart ginn</string>
   <string name="blacklist_dialog_title">Op d\'schwaarz Lëscht setzen</string>
   <string name="blacklist_dialog_message">An Zukunft ginn Uriff vun der Nummer <xliff:g id="number">%s</xliff:g> blockéiert</string>
 </resources>

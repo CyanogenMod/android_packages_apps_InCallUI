@@ -27,6 +27,7 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
 
 import com.android.contacts.common.util.PhoneNumberHelper;
@@ -362,11 +363,16 @@ public class CallerInfoAsyncQuery {
         cw.cookie = cookie;
         cw.number = info.phoneNumber;
 
+        long subId = SubscriptionManager.getDefaultVoiceSubId();
+        Call call = (Call) cookie;
+        if (call != null) {
+            subId = call.getSubId();
+        }
         // check to see if these are recognized numbers, and use shortcuts if we can.
         if (PhoneNumberUtils.isLocalEmergencyNumber(context, info.phoneNumber)) {
             cw.event = EVENT_EMERGENCY_NUMBER;
         } else if (info.isVoiceMailNumber()
-                || PhoneNumberUtils.isVoiceMailNumber(info.phoneNumber)) {
+                || PhoneNumberUtils.isVoiceMailNumber(subId, info.phoneNumber)) {
             cw.event = EVENT_VOICEMAIL_NUMBER;
         } else {
             cw.event = EVENT_NEW_QUERY;

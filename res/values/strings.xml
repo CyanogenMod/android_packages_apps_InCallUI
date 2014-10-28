@@ -576,4 +576,12 @@
     <string name="sub_1">SUB 1</string>
     <!-- Set Subscription screen: label sub 2 -->
     <string name="sub_2">SUB 2</string>
+    <!-- Call substate label for call resumed -->
+    <string name="call_substate_call_resumed">Call Resumed</string>
+    <!-- Call substate label for call connected suspended (audio) -->
+    <string name="call_substate_connected_suspended_audio">Call Connected Suspended (Audio)</string>
+    <!-- Call substate label for call connected suspended (video) -->
+    <string name="call_substate_connected_suspended_video">Call Connected Suspended (Video)</string>
+    <!-- Call substate label for avp retry -->
+    <string name="call_substate_avp_retry">Avp Retry</string>
 </resources>

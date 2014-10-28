@@ -17,6 +17,7 @@
 package com.android.incallui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.google.common.base.Objects;
 import android.widget.Toast;
 import android.telecom.VideoProfile;
+import android.telecom.Connection;
 
 /**
  * Fragment containing video calling surfaces.
@@ -575,6 +577,45 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         }
 
         Toast.makeText(getActivity(), videoQualityChangedText, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Displays a message on the UI that the call substate has changed.
+     *
+     */
+    @Override
+    public void showCallSubstateChanged(int callSubstate) {
+        Log.d(this, "showCallSubstateChanged - call substate changed to "  + callSubstate);
+
+        final Context context = getActivity();
+        if (context == null) {
+            Log.e(this, "showCallSubstateChanged - Activity is null. Return");
+            return;
+        }
+
+        final Resources resources = context.getResources();
+        String callSubstateChangedText = "";
+
+        switch (callSubstate) {
+            case Connection.CALL_SUBSTATE_NONE:
+                callSubstateChangedText +=
+                    resources.getString(R.string.call_substate_call_resumed);
+                break;
+            case Connection.CALL_SUBSTATE_AUDIO_CONNECTED_SUSPENDED:
+                callSubstateChangedText +=
+                    resources.getString(R.string.call_substate_connected_suspended_audio);
+                break;
+            case Connection.CALL_SUBSTATE_VIDEO_CONNECTED_SUSPENDED:
+                callSubstateChangedText +=
+                    resources.getString(R.string.call_substate_connected_suspended_video);
+                break;
+            case Connection.CALL_SUBSTATE_AVP_RETRY:
+                callSubstateChangedText += resources.getString(R.string.call_substate_avp_retry);
+                break;
+            default:
+                break;
+        }
+        Toast.makeText(context, callSubstateChangedText, Toast.LENGTH_SHORT).show();
     }
 
     /**

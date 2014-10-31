@@ -337,14 +337,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         if (tm.isMultiSimEnabled() && !(tm.getMultiSimConfiguration()
                 == MSimTelephonyManager.MultiSimVariants.DSDA)) {
-            final String multiSimName = "perferred_name_sub";
             int subscription = getPresenter().getActiveSubscription();
 
             if ((subscription != -1) && (!isSipCall)
                     && MSimTelephonyManager.getDefault().getSimState(subscription)
                             != TelephonyManager.SIM_STATE_ABSENT) {
-                final String simName = Settings.System.getString(getActivity()
-                        .getContentResolver(), multiSimName + (subscription + 1));
+                final String simName = Settings.Global.getSimNameForSubscription(getActivity(),
+                        subscription, null);
                 showSubscriptionInfo(simName);
             }
         }  else {

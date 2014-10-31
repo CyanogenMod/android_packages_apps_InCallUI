@@ -18,6 +18,8 @@ package com.android.incallui;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,6 +29,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Point;
@@ -66,6 +69,8 @@ public class InCallActivity extends Activity {
     public static final String SHOW_DIALPAD_EXTRA = "InCallActivity.show_dialpad";
     public static final String DIALPAD_TEXT_EXTRA = "InCallActivity.dialpad_text";
     public static final String NEW_OUTGOING_CALL = "InCallActivity.new_outgoing_call";
+    private static final String ACTION_SUPP_SERVICE_FAILURE =
+            "org.codeaurora.ACTION_SUPP_SERVICE_FAILURE";
 
     private static final Uri URI_PHONE_FEATURE = Uri
             .parse("content://com.qualcomm.qti.phonefeature.FEATURE_PROVIDER");
@@ -83,7 +88,7 @@ public class InCallActivity extends Activity {
     private DialpadFragment mDialpadFragment;
     private ConferenceManagerFragment mConferenceManagerFragment;
     private FragmentManager mChildFragmentManager;
-
+    private SuppServFailureNotificationReceiver mReceiver;
     private boolean mIsForegroundActivity;
     private AlertDialog mDialog;
 
@@ -118,6 +123,11 @@ public class InCallActivity extends Activity {
             showDialpad(false);
         }
     };
+
+    // This enum maps to Phone.SuppService defined in telephony
+    private enum SuppService {
+        UNKNOWN, SWITCH, SEPARATE, TRANSFER, CONFERENCE, REJECT, HANGUP;
+    }
 
     /**
      * Used to determine if a change in orientation has occurred.
@@ -195,6 +205,12 @@ public class InCallActivity extends Activity {
         if (isDsdaEnabled ) {
             initializeDsdaSwitchTab();
         }
+        // Register for supplementary service failure  broadcasts.
+        mReceiver = new SuppServFailureNotificationReceiver();
+        IntentFilter intentFilter =
+                new IntentFilter(ACTION_SUPP_SERVICE_FAILURE);
+        intentFilter.addAction(ACTION_SUPP_SERVICE_FAILURE);
+        registerReceiver(mReceiver, intentFilter);
         Log.d(this, "onCreate(): exit");
     }
 
@@ -274,7 +290,7 @@ public class InCallActivity extends Activity {
 
         InCallPresenter.getInstance().updateIsChangingConfigurations();
         InCallPresenter.getInstance().setActivity(null);
-
+        unregisterReceiver(mReceiver);
         super.onDestroy();
     }
 
@@ -758,6 +774,63 @@ public class InCallActivity extends Activity {
     }
 
     /**
+     * Handle a failure notification for a supplementary service
+     * (i.e. conference, switch, separate, transfer, etc.).
+     */
+    void onSuppServiceFailed(int service) {
+        Log.d(this, "onSuppServiceFailed: " + service);
+        SuppService  result = SuppService.values()[service];
+        int errorMessageResId;
+
+        switch (result) {
+            case SWITCH:
+                // Attempt to switch foreground and background/incoming calls failed
+                // ("Failed to switch calls")
+                errorMessageResId = R.string.incall_error_supp_service_switch;
+                break;
+
+            case SEPARATE:
+                // Attempt to separate a call from a conference call
+                // failed ("Failed to separate out call")
+                errorMessageResId = R.string.incall_error_supp_service_separate;
+                break;
+
+            case TRANSFER:
+                // Attempt to connect foreground and background calls to
+                // each other (and hanging up user's line) failed ("Call
+                // transfer failed")
+                errorMessageResId = R.string.incall_error_supp_service_transfer;
+                break;
+
+            case CONFERENCE:
+                // Attempt to add a call to conference call failed
+                // ("Conference call failed")
+                errorMessageResId = R.string.incall_error_supp_service_conference;
+                break;
+
+            case REJECT:
+                // Attempt to reject an incoming call failed
+                // ("Call rejection failed")
+                errorMessageResId = R.string.incall_error_supp_service_reject;
+                break;
+
+            case HANGUP:
+                // Attempt to release a call failed ("Failed to release call(s)")
+                errorMessageResId = R.string.incall_error_supp_service_hangup;
+                break;
+
+            case UNKNOWN:
+            default:
+                // Attempt to use a service we don't recognize or support
+                // ("Unsupported service" or "Selected service failed")
+               errorMessageResId = R.string.incall_error_supp_service_unknown;
+                break;
+        }
+        final CharSequence msg = getResources().getText(errorMessageResId);
+        showErrorDialog(msg);
+    }
+
+    /**
      * Utility function to bring up a generic "error" dialog.
      */
     private void showErrorDialog(CharSequence msg) {
@@ -896,6 +969,20 @@ public class InCallActivity extends Activity {
         }
 
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        }
+    }
+
+    public class SuppServFailureNotificationReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            Log.d(this, "Action: " + action);
+
+            if (action.equals(ACTION_SUPP_SERVICE_FAILURE)) {
+                int service = intent.getIntExtra("supp_serv_failure", 0);
+                Log.d(this, "SuppServFailureNotificationReceiver: " + service);
+                onSuppServiceFailed(service);
+            }
         }
     }
 

@@ -164,14 +164,7 @@
         <ImageButton android:id="@+id/overflowButton"
             style="@style/InCallButton"
             android:background="@drawable/btn_overflow"
-            android:contentDescription="@string/onscreenOverflowText"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/moreMenuButton"
-            style="@style/InCallButton"
-            android:src="@drawable/ic_menu_overflow_lt"
-            android:contentDescription="@string/onscreenMoreMenuText" />
+            android:contentDescription="@string/onscreenOverflowText" />
 
     </LinearLayout>
 

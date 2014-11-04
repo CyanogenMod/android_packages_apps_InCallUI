@@ -782,7 +782,7 @@ public class CallButtonFragment
             boolean startEnabled = !isRecording && isRecordEnabled;
             boolean stopEnabled = isRecording && isRecordEnabled;
 
-            startRecord.setVisible(startEnabled);
+            startRecord.setVisible(!stopEnabled);
             startRecord.setEnabled(startEnabled);
 
             stopRecord.setVisible(stopEnabled);

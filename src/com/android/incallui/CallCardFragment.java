@@ -493,16 +493,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     @Override
     public void setPrimary(String number, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isConference, boolean canManageConference,
-            boolean isSipCall, boolean isForwarded) {
+            Drawable photo, boolean isSipCall, boolean isForwarded) {
         Log.d(this, "Setting primary call");
-
-        if (isConference) {
-            name = getConferenceString(canManageConference);
-            photo = getConferencePhoto(canManageConference);
-            photo.setAutoMirrored(true);
-            nameIsNumber = false;
-        }
 
         // set the name field.
         setPrimaryName(name, nameIsNumber);
@@ -525,8 +517,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     @Override
     public void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
-            String providerLabel, Drawable providerIcon, boolean isConference,
-            boolean canManageConference) {
+            String providerLabel, Drawable providerIcon, boolean isConference) {
 
         if (show != mSecondaryCallInfo.isShown()) {
             updateFabPositionForSecondaryCallInfo();
@@ -536,13 +527,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             boolean hasProvider = !TextUtils.isEmpty(providerLabel);
             showAndInitializeSecondaryCallInfo(hasProvider);
 
-            if (isConference) {
-                name = getConferenceString(canManageConference);
-                nameIsNumber = false;
-                mSecondaryCallConferenceCallIcon.setVisibility(View.VISIBLE);
-            } else {
-                mSecondaryCallConferenceCallIcon.setVisibility(View.GONE);
-            }
+            mSecondaryCallConferenceCallIcon.setVisibility(isConference ? View.VISIBLE : View.GONE);
 
             mSecondaryCallName.setText(name);
             if (hasProvider) {
@@ -700,19 +685,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             InCallAnimationUtils.startCrossFade(view, current, photo);
             view.setVisibility(View.VISIBLE);
         }
-    }
-
-    private String getConferenceString(boolean canManageConference) {
-        Log.v(this, "canManageConferenceString: " + canManageConference);
-        final int resId = canManageConference
-                ? R.string.card_title_conf_call : R.string.card_title_in_call;
-        return getView().getResources().getString(resId);
-    }
-
-    private Drawable getConferencePhoto(boolean canManageConference) {
-        Log.v(this, "canManageConferencePhoto: " + canManageConference);
-        final int resId = canManageConference ? R.drawable.img_conference : R.drawable.img_phone;
-        return getView().getResources().getDrawable(resId);
     }
 
     /**
@@ -890,6 +862,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     @Override
     public void showManageConferenceCallButton(boolean visible) {
         mManageConferenceCallButton.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * Determines the current visibility of the manage conference button.
+     *
+     * @return {@code true} if the button is visible.
+     */
+    @Override
+    public boolean isManageConferenceVisible() {
+        return mManageConferenceCallButton.getVisibility() == View.VISIBLE;
     }
 
     private void dispatchPopulateAccessibilityEvent(AccessibilityEvent event, View view) {

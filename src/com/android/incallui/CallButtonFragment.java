@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.telecom.AudioState;
+import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -330,14 +331,22 @@ public class CallButtonFragment
      * displays modify call options.
      */
     public void displayModifyCallOptions() {
-        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
-        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
         CallButtonPresenter.CallButtonUi ui = getUi();
         if (ui == null) {
             Log.e(this, "Cannot display ModifyCallOptions as ui is null");
             return;
         }
 
+        Context context = getContext();
+        if (isTtyModeEnabled()) {
+            Toast.makeText(context, context.getResources().getString(
+                    R.string.video_call_not_allowed_if_tty_enabled),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
+        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
         final Resources res = ui.getContext().getResources();
         // Prepare the string array and mapping.
         items.add(res.getText(R.string.modify_call_option_voice));
@@ -749,5 +758,12 @@ public class CallButtonFragment
             e.getText().add(context.getResources().getString(stringId));
             manager.sendAccessibilityEvent(e);
         }
+    }
+
+    private boolean isTtyModeEnabled() {
+        return (android.provider.Settings.Secure.getInt(
+                getContext().getContentResolver(),
+                android.provider.Settings.Secure.PREFERRED_TTY_MODE,
+                TelecomManager.TTY_MODE_OFF) != TelecomManager.TTY_MODE_OFF);
     }
 }

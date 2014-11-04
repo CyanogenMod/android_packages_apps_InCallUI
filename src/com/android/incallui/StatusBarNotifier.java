@@ -46,8 +46,6 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
 
     private static final long IN_CALL_TIMEOUT = 1000L;
 
-    private static final String MULTI_SIM_NAME = "perferred_name_sub";
-
     private interface NotificationTimer {
         enum State {
             SCHEDULED,
@@ -333,8 +331,8 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         String contentText = mContext.getString(contentResId);
         if (contentResId == R.string.notification_dialing) {
             int sub = call.getSubscription();
-            String name = Settings.System.getString(mContext.getContentResolver(),
-                    MULTI_SIM_NAME + (sub + 1));
+            String name = Settings.Global.getSimNameForSubscription(mContext, sub,
+                    String.valueOf(sub));
             contentText +=  "  (" + name + ")";
         }
         builder.setContentText(contentText);

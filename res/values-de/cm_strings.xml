@@ -53,4 +53,7 @@
   <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden abgewiesen</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Lautstärkeanhebung ist aktiviert</string>
+  <string name="volume_boost_notify_disabled">Lautstärkeanhebung ist deaktiviert</string>
+  <string name="volume_boost_notify_unavailable">Erhöhte Lautstärke ist nicht verfügbar, wenn ein Headset genutzt wird</string>
 </resources>

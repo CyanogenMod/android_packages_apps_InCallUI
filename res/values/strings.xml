@@ -303,6 +303,9 @@
     <string name="modify_call_option_vt_rx">Video receive</string>
     <string name="modify_call_option_voice">Voice Only</string>
 
+    <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+    <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
+
     <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
     <string-array name="absent_num" translatable="false">

@@ -422,25 +422,23 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                     showHoldOption && enableHoldOption /* showHoldMenuOption */,
                     showSwapOption);
         } else {
-            if (isCdmaConferenceOverflowScenario) {
-                ui.showAddCallButton(false);
-                ui.showMergeButton(false);
-
-                ui.configureOverflowMenu(
-                        showMergeOption,
-                        showAddCallOption /* showAddMenuOption */,
-                        false /* showHoldMenuOption */,
-                        false /* showSwapMenuOption */);
-            } else {
-                ui.showMergeButton(showMergeOption);
-                ui.showAddCallButton(showAddCallOption);
+            if (!isCdmaConferenceOverflowScenario) {
                 ui.enableAddParticipant(call.can(
                         PhoneCapabilities.ADD_PARTICIPANT));
             }
 
+            ui.showAddCallButton(false);
+            ui.showMergeButton(false);
+
             ui.showHoldButton(showHoldOption);
             ui.enableHold(enableHoldOption);
             ui.showSwapButton(showSwapOption);
+
+            ui.configureOverflowMenu(
+                    showMergeOption,
+                    showAddCallOption /* showAddMenuOption */,
+                    false /* showHoldMenuOption */,
+                    false /* showSwapMenuOption */);
         }
     }
 

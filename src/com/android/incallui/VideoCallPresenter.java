@@ -494,14 +494,14 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * TODO(vt): Need to adjust size and orientation of preview surface here.
      */
     private void enterVideoMode(int newVideoState) {
-        Log.d(this, "enterVideoMode mVideoCall=" + mVideoCall);
+        Log.d(this, "enterVideoMode mVideoCall= " + mVideoCall + " videoState: " + newVideoState);
         VideoCallUi ui = getUi();
         if (ui == null) {
             Log.e(this, "Error VideoCallUi is null so returning");
             return;
         }
 
-        ui.showVideoUi(true);
+        showVideoUi(newVideoState);
         InCallPresenter.getInstance().setInCallAllowsOrientationChange(true);
 
         // Communicate the current camera to telephony and make a request for the camera
@@ -578,15 +578,36 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
         InCallPresenter.getInstance().setInCallAllowsOrientationChange(false);
-        ui.showVideoUi(false);
+        mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
+        showVideoUi(mCurrentVideoState);
 
         if (mPreVideoAudioMode != AudioModeProvider.AUDIO_MODE_INVALID) {
             TelecomAdapter.getInstance().setAudioRoute(mPreVideoAudioMode);
             mPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
         }
-        mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
 
         enableCamera(false);
+    }
+
+    /**
+     * Show video Ui depends on video state.
+     */
+    private void showVideoUi(int videoState) {
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "showVideoUi, VideoCallUi is null returning");
+            return;
+        }
+
+        if (VideoProfile.VideoState.isBidirectional(videoState)) {
+            ui.showVideoBidrectionalUi();
+        } else if (VideoProfile.VideoState.isTransmissionEnabled(videoState)) {
+            ui.showVideoTransmissionUi();
+        } else if (VideoProfile.VideoState.isReceptionEnabled(videoState)) {
+            ui.showVideoReceptionUi();
+        } else {
+            ui.hideVideoUi();
+        }
     }
 
     /**
@@ -860,7 +881,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * Defines the VideoCallUI interactions.
      */
     public interface VideoCallUi extends Ui {
-        void showVideoUi(boolean show);
+        void showVideoBidrectionalUi();
+        void showVideoTransmissionUi();
+        void showVideoReceptionUi();
+        void hideVideoUi();
         void showVideoQualityChanged(int videoQuality);
         boolean isDisplayVideoSurfaceCreated();
         boolean isPreviewVideoSurfaceCreated();

@@ -387,7 +387,8 @@ public final class Call {
     public long getSubId() {
         PhoneAccountHandle ph = getAccountHandle();
         if (ph != null) {
-            if (ph.getId() != null && !ph.getId().toLowerCase().contains("sip")) {
+            if (ph.getId() != null && !ph.getId().toLowerCase().contains("sip")
+                    && !ph.getId().equals("E")) {
                 return Long.parseLong(getAccountHandle().getId());
             } else {
                 return SubscriptionManager.getDefaultVoiceSubId();

@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telecom.DisconnectCause;
+import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneCapabilities;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -740,5 +741,21 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
     public long getActiveSubscription() {
         return SubscriptionManager.getDefaultSubId();
+    }
+
+    public void handleSwitchCameraClicked(boolean useFrontFacingCamera) {
+        InCallCameraManager cameraManager = InCallPresenter.getInstance().getInCallCameraManager();
+        cameraManager.setUseFrontFacingCamera(useFrontFacingCamera);
+
+        VideoCall videoCall = mPrimary.getVideoCall();
+        if (videoCall == null) {
+            return;
+        }
+
+        String cameraId = cameraManager.getActiveCameraId();
+        if (cameraId != null) {
+            videoCall.setCamera(cameraId);
+            videoCall.requestCameraCapabilities();
+        }
     }
 }

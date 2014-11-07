@@ -464,7 +464,9 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
             resId =  R.drawable.ic_videocam;
         } else {
             if (voicePrivacy) {
-                resId =  R.drawable.stat_sys_vp_phone_call;
+                resId = R.drawable.stat_sys_vp_phone_call;
+            } else if (call.isVideoCall(mContext)) {
+                resId = R.drawable.ic_videocam;
             } else {
                 resId =  R.drawable.ic_call_white_24dp;
             }
@@ -476,6 +478,18 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
      * Returns the message to use with the notification.
      */
     private int getContentString(Call call) {
+        if (call.isVideoCall(mContext)){
+            int resId = R.string.notification_ongoing_video_call;
+            if (call.getState() == Call.State.INCOMING || call.getState() == Call.State.CALL_WAITING) {
+                resId = R.string.notification_incoming_video_call;
+            } else if (call.getState() == Call.State.ONHOLD) {
+                resId = R.string.notification_on_hold;
+            } else if (Call.State.isDialing(call.getState())) {
+                resId = R.string.notification_dialing_video;
+            }
+            return resId;
+        }
+
         int resId = R.string.notification_ongoing_call;
 
         if (call.getState() == Call.State.INCOMING || call.getState() == Call.State.CALL_WAITING) {

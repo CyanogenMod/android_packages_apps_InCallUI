@@ -348,8 +348,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         if (call.isVideoCall(context)) {
             updateVoiceCallButtons(call);
             updateVideoCallButtons();
+            getUi().setModifyChecked(true);
         } else {
             updateVoiceCallButtons(call);
+            getUi().setModifyChecked(false);
         }
     }
 
@@ -478,6 +480,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void displayModifyCallOptions();
         boolean isDialpadVisible();
         void setAudio(int mode);
+        void setModifyChecked(boolean checked);
         void setSupportedAudio(int mask);
         void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
                 boolean showHoldMenuOption, boolean showSwapMenuOption);

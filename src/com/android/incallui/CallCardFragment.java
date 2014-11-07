@@ -22,9 +22,13 @@ import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -51,6 +55,7 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -60,7 +65,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import android.telecom.AudioState;
-
+import android.telecom.VideoProfile;
 import com.android.contacts.common.widget.FloatingActionButtonController;
 import com.android.phone.common.animation.AnimUtils;
 
@@ -99,6 +104,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private ViewGroup mPrimaryCallInfo;
     private View mCallButtonsContainer;
     private ImageButton mVBButton;
+    private ImageButton mSwitchCamera;
     private AudioManager mAudioManager;
     private Toast mVBNotify;
     private int mVBToastPosition;
@@ -115,6 +121,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private View mProgressSpinner;
 
     private View mManageConferenceCallButton;
+
+    private Dialog mModifyCallPromptDialog = null;
 
     // Dark number info bar
     private TextView mInCallMessageLabel;
@@ -278,6 +286,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mVBButton = (ImageButton) view.findViewById(R.id.volumeBoost);
         if (null != mVBButton) {
             mVBButton.setOnClickListener(mVBListener);
+        }
+        mSwitchCamera = (ImageButton) view.findViewById(R.id.switchCamera);
+        if (null != mSwitchCamera) {
+            mSwitchCamera.setOnClickListener(mSwitchCameraListener);
         }
         mRecordingTimeLabel = (TextView) view.findViewById(R.id.recordingTime);
         mRecordingIcon = (TextView) view.findViewById(R.id.recordingIcon);
@@ -551,8 +563,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         CharSequence callStateLabel = getCallStateLabelFromState(state, videoState,
                 sessionModificationState, disconnectCause, connectionLabel, isGatewayCall);
 
-        updateVBbyCall(state);
-
+        updateVBbyCall(state, videoState);
+        updateSwitchCameraByCall(state, videoState);
         Log.v(this, "setCallState " + callStateLabel);
         Log.v(this, "DisconnectCause " + disconnectCause.toString());
         Log.v(this, "gateway " + connectionLabel + gatewayNumber);
@@ -1093,6 +1105,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
     };
 
+    private OnClickListener mSwitchCameraListener = new OnClickListener() {
+        @Override
+        public void onClick(View arg0) {
+            boolean useFont = mSwitchCamera.isSelected();
+            getPresenter().handleSwitchCameraClicked(useFont);
+            mSwitchCamera.setSelected(!useFont);
+        }
+    };
+
+
     private boolean isVBAvailable() {
         int mode = AudioModeProvider.getInstance().getAudioMode();
         final Activity activity = getActivity();
@@ -1156,9 +1178,15 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mVBNotify.show();
     }
 
-    private void updateVBbyCall(int state) {
+    private void updateVBbyCall(int state, int videoState) {
         updateVBButton();
-
+        if (VideoProfile.VideoState.isVideo(videoState)){
+            mVBButton.setVisibility(View.INVISIBLE);
+            if (mAudioManager.getParameters(VOLUME_BOOST).contains("=on")){
+                mAudioManager.setParameters(VOLUME_BOOST + "=off");
+            }
+            return;
+        }
         if (Call.State.ACTIVE == state) {
             mVBButton.setVisibility(View.VISIBLE);
         } else if (Call.State.DISCONNECTED == state) {
@@ -1168,6 +1196,14 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
                 mAudioManager.setParameters(VOLUME_BOOST + "=off");
             }
+        }
+    }
+
+    private void updateSwitchCameraByCall(int state, int videoState){
+        if ((Call.State.ACTIVE == state)&&(VideoProfile.VideoState.isVideo(videoState))){
+            mSwitchCamera.setVisibility(View.VISIBLE);
+        }else{
+            mSwitchCamera.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -1245,4 +1281,56 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             }
         }
     };
+
+    private class ModifyCallConsentListener implements DialogInterface.OnClickListener,
+            DialogInterface.OnCancelListener {
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.d(this, "ConsentDialog: Clicked on button with ID: " + which);
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    InCallPresenter.getInstance().acceptUpgradeRequest(VideoProfile.VideoState.BIDIRECTIONAL, getActivity());
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    InCallPresenter.getInstance().declineUpgradeRequest(getActivity());
+                    break;
+                default:
+                    Log.d(this, "ConsentDialog: No handler for this button, ID:" + which);
+            }
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            Log.d(this, "ConsentDialog: Dismissing the dialog");
+            InCallPresenter.getInstance().declineUpgradeRequest(getActivity());
+        }
+    }
+
+    public void showModifyCallConsentDialog() {
+        String title = getResources().getString(R.string.change_video_status);
+        String str = getResources().getString(R.string.change_video_message);
+        str = mPrimaryName.getText() + " " + str;
+
+        final ModifyCallConsentListener listener = new ModifyCallConsentListener();
+        mModifyCallPromptDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(title)
+                .setMessage(str)
+                .setPositiveButton(R.string.modify_call_prompt_yes,
+                        listener)
+                .setNegativeButton(R.string.modify_call_prompt_no,
+                        listener)
+                .setOnCancelListener(listener)
+                .create();
+        mModifyCallPromptDialog.getWindow().addFlags(
+                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        mModifyCallPromptDialog.show();
+    }
+
+    public void showDowngradeToast(){
+        String str = getResources().getString(R.string.change_voice_message);
+        str = mPrimaryName.getText() + " " + str;
+        Toast.makeText(getActivity(), str,
+                Toast.LENGTH_SHORT).show();
+    }
 }

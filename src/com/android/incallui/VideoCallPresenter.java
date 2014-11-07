@@ -399,6 +399,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         if (isVideoCall) {
             enterVideoMode(mPrimaryCall.getVideoState());
         } else {
+            InCallPresenter.getInstance().showDowngradeToast();
             exitVideoMode();
         }
     }
@@ -719,6 +720,9 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mSessionModificationResetHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    if (mPrimaryCall == null){
+                        return;
+                    }
                     mPrimaryCall
                             .setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
                 }

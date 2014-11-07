@@ -126,6 +126,7 @@ public class CallButtonFragment
         mAddParticipantButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
+        createOverflowMenu();
 
         return parent;
     }
@@ -291,7 +292,7 @@ public class CallButtonFragment
 
     @Override
     public void showSwitchCameraButton(boolean show) {
-        mSwitchCameraButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        //mSwitchCameraButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -333,52 +334,17 @@ public class CallButtonFragment
      * displays modify call options.
      */
     public void displayModifyCallOptions() {
-        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
-        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
-        CallButtonPresenter.CallButtonUi ui = getUi();
-        if (ui == null) {
-            Log.e(this, "Cannot display ModifyCallOptions as ui is null");
-            return;
+        int profile = VideoProfile.VideoState.BIDIRECTIONAL;
+
+        if (mChangeToVideoButton.isSelected()){
+            profile = VideoProfile.VideoState.AUDIO_ONLY;
         }
-
-        final Resources res = ui.getContext().getResources();
-        // Prepare the string array and mapping.
-        items.add(res.getText(R.string.modify_call_option_voice));
-        itemToCallType.add(VideoProfile.VideoState.AUDIO_ONLY);
-
-        items.add(res.getText(R.string.modify_call_option_vt_rx));
-        itemToCallType.add(VideoProfile.VideoState.RX_ENABLED);
-
-        items.add(res.getText(R.string.modify_call_option_vt_tx));
-        itemToCallType.add(VideoProfile.VideoState.TX_ENABLED);
-
-        items.add(res.getText(R.string.modify_call_option_vt));
-        itemToCallType.add(VideoProfile.VideoState.BIDIRECTIONAL);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getUi().getContext());
-        builder.setTitle(R.string.modify_call_option_title);
-        final AlertDialog alert;
-
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-
-                Toast.makeText(getUi().getContext(), items.get(item), Toast.LENGTH_SHORT).show();
-                final int selCallType = itemToCallType.get(item);
-                Log.v(this, "Videocall: ModifyCall: upgrade/downgrade to "
-                        + fromCallType(selCallType));
-                VideoProfile videoProfile = new VideoProfile(selCallType);
-                getPresenter().changeToVideoClicked(videoProfile);
-                dialog.dismiss();
-            }
-        };
-        int currVideoState = getPresenter().getCurrentVideoState();
-        int index = itemToCallType.indexOf(currVideoState);
-        if (index == INVALID_INDEX) {
-            return;
-        }
-        builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
-        alert = builder.create();
-        alert.show();
+        Log.d(this, "- displayModifyCallOptions: selected = " + mChangeToVideoButton.isSelected());
+        Log.d(this, "- displayModifyCallOptions: profile = " + profile);
+        VideoProfile videoProfile = new VideoProfile(profile);
+        getPresenter().changeToVideoClicked(videoProfile);
+        Toast.makeText(getUi().getContext(), R.string.connecting_for_modify,
+                Toast.LENGTH_SHORT).show();
     }
 
     public static String fromCallType(int callType) {
@@ -397,34 +363,32 @@ public class CallButtonFragment
         return str;
     }
 
-    @Override
-    public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
-            boolean showHoldMenuOption, boolean showSwapMenuOption) {
-        if (mOverflowPopup == null) {
-            final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
-                    R.style.InCallPopupMenuStyle);
-            mOverflowPopup = new OverflowMenu(contextWrapper, mOverflowButton);
-            mOverflowPopup.getMenuInflater().inflate(R.menu.incall_overflow_menu,
-                    mOverflowPopup.getMenu());
-            mOverflowPopup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.overflow_merge_menu_item:
-                            getPresenter().mergeClicked();
-                            break;
-                        case R.id.overflow_add_menu_item:
-                            getPresenter().addCallClicked();
-                            break;
-                        case R.id.overflow_hold_menu_item:
-                            getPresenter().holdClicked(true /* checked */);
-                            break;
-                        case R.id.overflow_resume_menu_item:
-                            getPresenter().holdClicked(false /* checked */);
-                            break;
-                        case R.id.overflow_swap_menu_item:
-                            getPresenter().addCallClicked();
-                            break;
+    private void createOverflowMenu(){
+
+        final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
+                R.style.InCallPopupMenuStyle);
+        mOverflowPopup = new OverflowMenu(contextWrapper, mOverflowButton);
+        mOverflowPopup.getMenuInflater().inflate(R.menu.incall_overflow_menu,
+                mOverflowPopup.getMenu());
+        mOverflowPopup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.overflow_merge_menu_item:
+                        getPresenter().mergeClicked();
+                        break;
+                    case R.id.overflow_add_menu_item:
+                        getPresenter().addCallClicked();
+                        break;
+                    case R.id.overflow_hold_menu_item:
+                        getPresenter().holdClicked(true /* checked */);
+                        break;
+                    case R.id.overflow_resume_menu_item:
+                        getPresenter().holdClicked(false /* checked */);
+                        break;
+                    case R.id.overflow_swap_menu_item:
+                        getPresenter().addCallClicked();
+                        break;
 
                         case R.id.menu_start_record:
                             ((InCallActivity)getActivity()).startInCallRecorder();
@@ -434,21 +398,26 @@ public class CallButtonFragment
                             ((InCallActivity)getActivity()).stopInCallRecorder();
                             break;
 
-                        default:
-                            Log.wtf(this, "onMenuItemClick: unexpected overflow menu click");
-                            break;
-                    }
-                    return true;
+                    default:
+                        Log.wtf(this, "onMenuItemClick: unexpected overflow menu click");
+                        break;
                 }
-            });
-            mOverflowPopup.setOnDismissListener(new OnDismissListener() {
-                @Override
-                public void onDismiss(PopupMenu popupMenu) {
-                    popupMenu.dismiss();
-                }
-            });
+                return true;
+            }
+        });
+        mOverflowPopup.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu popupMenu) {
+                popupMenu.dismiss();
+            }
+        });
+    }
+    @Override
+    public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
+            boolean showHoldMenuOption, boolean showSwapMenuOption) {
+        if (mOverflowPopup == null) {
+            createOverflowMenu();
         }
-
         Menu menu = mOverflowPopup.getMenu();
         menu.findItem(R.id.overflow_merge_menu_item).setVisible(showMergeMenuOption);
         menu.findItem(R.id.overflow_add_menu_item).setVisible(showAddMenuOption);
@@ -745,6 +714,11 @@ public class CallButtonFragment
         return false;
     }
 
+    @Override
+    public void setModifyChecked(boolean checked){
+        Log.d(this, "setModifyChecked checked=" + checked);
+        mChangeToVideoButton.setSelected(checked);
+    }
     @Override
     public Context getContext() {
         return getActivity();

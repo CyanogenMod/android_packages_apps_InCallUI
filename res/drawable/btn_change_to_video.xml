@@ -18,7 +18,7 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/btn_background" />
+    <item android:drawable="@drawable/btn_compound_background" />
 
     <item>
         <bitmap android:src="@drawable/ic_toolbar_video"

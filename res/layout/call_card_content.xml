@@ -143,6 +143,17 @@
         android:soundEffectsEnabled="false"
         android:background="@drawable/vb_normal"/>
 
+    <!-- SwitchCameraButton in-call UI -->
+    <ImageButton android:id="@+id/switchCamera"
+        android:layout_below="@id/primary_call_info_container"
+        android:paddingTop="24dp"
+        android:paddingLeft="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/ic_toolbar_video_switch"/>
+
     <!-- Placeholder for the dialpad which is replaced with the dialpad fragment when shown. -->
     <FrameLayout
         android:id="@+id/dialpadFragmentContainer"

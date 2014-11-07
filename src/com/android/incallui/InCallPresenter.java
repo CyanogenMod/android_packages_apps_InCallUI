@@ -1250,4 +1250,12 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     public interface InCallEventListener {
         public void onFullScreenVideoStateChanged(boolean isFullScreenVideo);
     }
+
+    public void showModifyCallConsentDialog() {
+        mInCallActivity.getCallCardFragment().showModifyCallConsentDialog();
+    }
+
+    public void showDowngradeToast() {
+        mInCallActivity.getCallCardFragment().showDowngradeToast();
+    }
 }

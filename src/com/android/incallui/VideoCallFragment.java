@@ -542,13 +542,11 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     }
 
     /**
-     * Toggles visibility of the video UI.
+     * Inflate video surfaces.
      *
      * @param show {@code True} if the video surfaces should be shown.
      */
-    @Override
-    public void showVideoUi(boolean show) {
-        Log.d(this, "showVideoUi " + show);
+    private void inflateVideoUi(boolean show) {
         int visibility = show ? View.VISIBLE : View.GONE;
         getView().setVisibility(visibility);
 
@@ -556,9 +554,67 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
             inflateVideoCallViews();
         }
 
-        if (mVideoViews != null ) {
+        if (mVideoViews != null) {
             mVideoViews.setVisibility(visibility);
         }
+    }
+
+    /**
+     * Show Tranmission UI and hide Reception UI.
+     */
+    public void showVideoTransmissionUi() {
+        inflateVideoUi(true);
+
+        View incomingVideoView = mVideoViews.findViewById(R.id.incomingVideo);
+        View previewVideoView = mVideoViews.findViewById(R.id.previewVideo);
+
+        if (incomingVideoView != null) {
+            incomingVideoView.setVisibility(View.INVISIBLE);
+        }
+        if (previewVideoView != null) {
+            previewVideoView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Show Reception UI and hide Tranmission UI.
+     */
+    public void showVideoReceptionUi() {
+        inflateVideoUi(true);
+
+        View incomingVideoView = mVideoViews.findViewById(R.id.incomingVideo);
+        View previewVideoView = mVideoViews.findViewById(R.id.previewVideo);
+
+        if (incomingVideoView != null) {
+            incomingVideoView.setVisibility(View.VISIBLE);
+        }
+        if (previewVideoView != null) {
+            previewVideoView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * Show all video views.
+     */
+    public void showVideoBidrectionalUi() {
+        inflateVideoUi(true);
+
+        View incomingVideoView = mVideoViews.findViewById(R.id.incomingVideo);
+        View previewVideoView = mVideoViews.findViewById(R.id.previewVideo);
+
+        if (incomingVideoView != null) {
+            incomingVideoView.setVisibility(View.VISIBLE);
+        }
+        if (previewVideoView != null) {
+            previewVideoView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Hide all video views.
+     */
+    public void hideVideoUi() {
+        inflateVideoUi(false);
     }
 
     /**

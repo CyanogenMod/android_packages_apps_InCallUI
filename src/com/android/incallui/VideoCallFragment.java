@@ -16,6 +16,7 @@
 
 package com.android.incallui;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import com.google.common.base.Objects;
 import android.widget.Toast;
@@ -720,6 +722,18 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         } else {
             Log.e(this, "Display Video Surface is null. Bail out");
         }
+    }
+
+    /**
+     * Sets the call's data usage value
+     *
+     * @param context the current context
+     * @param dataUsage the data usage value
+     */
+    @Override
+    public void setCallDataUsage(Context context, long dataUsage) {
+        Log.d(this, "setDataUsage: dataUsage = " + dataUsage);
+        Toast.makeText(context, "dataUsage=" + dataUsage, Toast.LENGTH_LONG).show();
     }
 
     /**

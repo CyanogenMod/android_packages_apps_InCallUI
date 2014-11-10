@@ -217,6 +217,17 @@ public class InCallVideoCallListenerNotifier {
     }
 
     /**
+     * Inform listeners of a change to call data usage.
+     *
+     * @param dataUsage data usage value
+     */
+    public void callDataUsageChanged(long dataUsage) {
+        for (VideoEventListener listener : mVideoEventListeners) {
+            listener.onCallDataUsageChange(dataUsage);
+        }
+    }
+
+    /**
      * Listener interface for any class that wants to be notified of upgrade to video and downgrade
      * to audio session modification requests.
      */
@@ -275,6 +286,13 @@ public class InCallVideoCallListenerNotifier {
          */
         public void onVideoQualityChanged(Call call, int videoCallQuality);
 
+        /*
+         * Called when call data usage value is requested or when call data usage value is updated
+         * because of a call state change
+         *
+         * @param dataUsage call data usage value
+         */
+        public void onCallDataUsageChange(long dataUsage);
     }
 
     /**

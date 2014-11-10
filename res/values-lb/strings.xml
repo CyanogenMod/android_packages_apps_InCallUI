@@ -101,7 +101,7 @@
   <string name="emergency_enable_radio_dialog_retry">Plaz ouni Netzofdeckung; gëtt nees probéiert\u2026</string>
   <string name="dial_emergency_error">Uruff net geschéckt. <xliff:g id="non_emergency_number">%s</xliff:g> ass keng Noutruffnummer!</string>
   <string name="dial_emergency_empty_error">Uruff net geschéckt. Wiel eng Noutruffnummer!</string>
-  <string name="dialerKeyboardHintText">D\'Tastatur benotze fir ze wielen</string>
+  <string name="dialerKeyboardHintText">D\'Tastatur benotze fir auszewielen</string>
   <string name="onscreenHoldText">Halen</string>
   <string name="onscreenEndCallText">Anhänken</string>
   <string name="onscreenShowDialpadText">Wieltasten</string>

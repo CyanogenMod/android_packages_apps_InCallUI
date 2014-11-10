@@ -108,7 +108,6 @@ public class ConferenceManagerFragment
             if(!isDsdaEnabled) {
                 actionBar.setHideOffset(actionBar.getHeight());
             }
-            actionBar.hide();
         }
     }
 

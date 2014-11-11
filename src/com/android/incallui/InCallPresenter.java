@@ -1112,6 +1112,19 @@ public class InCallPresenter implements CallList.Listener,
 
         boolean isAnyOtherSubActive = InCallState.INCOMING == newState &&
                 mCallList.isAnyOtherSubActive(mCallList.getActiveSubId());
+
+        //If the call is auto answered bring up the InCallActivity
+        boolean isAutoAnswer = false;
+
+        if ((mCallList.getDisconnectedCall() == null) &&
+                (mCallList.getDisconnectingCall() == null)) {
+            isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
+                               (newState == InCallState.INCALL) &&
+                               (mInCallActivity == null);
+        }
+
+        Log.d(this, "startOrFinishUi: " + isAutoAnswer);
+
         // If the state isn't changing we have already done any starting/stopping of activities in
         // a previous pass...so lets cut out early
         if ((newState == mInCallState) && !(mInCallActivity == null && isAnyOtherSubActive)) {
@@ -1195,7 +1208,7 @@ public class InCallPresenter implements CallList.Listener,
             return mInCallState;
         }
 
-        if (showCallUi || showAccountPicker) {
+        if (showCallUi || showAccountPicker || isAutoAnswer) {
             Log.i(this, "Start in call UI");
             showInCall(false /* showDialpad */, !showAccountPicker /* newOutgoingCall */);
         } else if (startIncomingCallSequence) {

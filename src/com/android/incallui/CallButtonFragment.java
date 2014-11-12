@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.telecom.AudioState;
+import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -334,6 +335,14 @@ public class CallButtonFragment
      * displays modify call options.
      */
     public void displayModifyCallOptions() {
+        Context context = getContext();
+        if (isTtyModeEnabled()) {
+            Toast.makeText(context, context.getResources().getString(
+                    R.string.video_call_not_allowed_if_tty_enabled),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         int profile = VideoProfile.VideoState.BIDIRECTIONAL;
 
         if (mChangeToVideoButton.isSelected()){
@@ -764,5 +773,12 @@ public class CallButtonFragment
 
             super.show();
         }
+    }
+
+    private boolean isTtyModeEnabled() {
+        return (android.provider.Settings.Secure.getInt(
+                getContext().getContentResolver(),
+                android.provider.Settings.Secure.PREFERRED_TTY_MODE,
+                TelecomManager.TTY_MODE_OFF) != TelecomManager.TTY_MODE_OFF);
     }
 }

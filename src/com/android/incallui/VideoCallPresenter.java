@@ -731,12 +731,15 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         } else {
             call.setSessionModificationState(Call.SessionModificationState.REQUEST_FAILED);
 
+            final Call modifyCall = call;
             // Start handler to change state from REQUEST_FAILED to NO_REQUEST after an interval.
             mSessionModificationResetHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mPrimaryCall
+                    if (modifyCall != null) {
+                        modifyCall
                             .setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
+                    }
                 }
             }, SESSION_MODIFICATION_RESET_DELAY_MS);
         }

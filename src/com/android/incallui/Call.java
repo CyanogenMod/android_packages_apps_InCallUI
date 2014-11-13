@@ -355,6 +355,30 @@ public final class Call {
         return hasProperty(CallProperties.CONFERENCE);
     }
 
+    public boolean isForwarded() {
+        return hasProperty(CallProperties.WAS_FORWARDED);
+    }
+
+    public boolean isWaitingForRemoteSide() {
+        if (mState == State.ACTIVE && hasProperty(CallProperties.HELD_REMOTELY)) {
+            return true;
+        }
+        if (mState == State.DIALING && hasProperty(CallProperties.DIALING_IS_WAITING)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean wasUnansweredForwarded() {
+        return getDisconnectCause().getCode() == DisconnectCause.MISSED
+                && hasProperty(CallProperties.ADDITIONAL_CALL_FORWARDED);
+    }
+
+    public boolean missedBecauseIncomingCallsBarredRemotely() {
+        return getDisconnectCause().getCode() == DisconnectCause.RESTRICTED
+                && hasProperty(CallProperties.REMOTE_INCOMING_CALLS_BARRED);
+    }
+
     public GatewayInfo getGatewayInfo() {
         return mTelecommCall.getDetails().getGatewayInfo();
     }

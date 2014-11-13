@@ -472,7 +472,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     @Override
     public void setPrimary(String number, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isConference, boolean canManageConference, boolean isSipCall) {
+            Drawable photo, boolean isConference, boolean canManageConference,
+            boolean isSipCall, boolean isForwarded) {
         Log.d(this, "Setting primary call");
 
         if (isConference) {
@@ -496,7 +497,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         // Set the label (Mobile, Work, etc)
         setPrimaryLabel(label);
 
-        showInternetCallLabel(isSipCall);
+        showCallTypeLabel(isSipCall, isForwarded);
 
         setDrawableToImageView(mPhoto, photo);
     }
@@ -546,10 +547,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             DisconnectCause disconnectCause,
             String connectionLabel,
             Drawable connectionIcon,
-            String gatewayNumber) {
+            String gatewayNumber,
+            boolean isWaitingForRemoteSide) {
         boolean isGatewayCall = !TextUtils.isEmpty(gatewayNumber);
         CharSequence callStateLabel = getCallStateLabelFromState(state, videoState,
-                sessionModificationState, disconnectCause, connectionLabel, isGatewayCall);
+                sessionModificationState, disconnectCause, connectionLabel,
+                isGatewayCall, isWaitingForRemoteSide);
 
         updateVBbyCall(state);
 
@@ -636,12 +639,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mInCallMessageLabel.setVisibility(View.VISIBLE);
     }
 
-    private void showInternetCallLabel(boolean show) {
-        if (show) {
-            final String label = getView().getContext().getString(
-                    R.string.incall_call_type_label_sip);
+    private void showCallTypeLabel(boolean isSipCall, boolean isForwarded) {
+        if (isSipCall) {
             mCallTypeLabel.setVisibility(View.VISIBLE);
-            mCallTypeLabel.setText(label);
+            mCallTypeLabel.setText(R.string.incall_call_type_label_sip);
+        } else if (isForwarded) {
+            mCallTypeLabel.setVisibility(View.VISIBLE);
+            mCallTypeLabel.setText(R.string.incall_call_type_label_forwarded);
         } else {
             mCallTypeLabel.setVisibility(View.GONE);
         }
@@ -700,7 +704,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
      */
     private CharSequence getCallStateLabelFromState(int state, int videoState,
             int sessionModificationState, DisconnectCause disconnectCause, String label,
-            boolean isGatewayCall) {
+            boolean isGatewayCall, boolean isWaitingForRemoteSide) {
         final Context context = getView().getContext();
         CharSequence callStateLabel = null;  // Label to display as part of the call banner
 
@@ -724,6 +728,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                     callStateLabel = context.getString(R.string.card_title_video_call_requesting);
                 } else if (VideoProfile.VideoState.isBidirectional(videoState)) {
                     callStateLabel = context.getString(R.string.card_title_video_call);
+                } else if (isWaitingForRemoteSide) {
+                    callStateLabel = context.getString(R.string.card_title_waiting_call);
                 }
                 break;
             case Call.State.ONHOLD:
@@ -733,6 +739,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             case Call.State.DIALING:
                 if (isSpecialCall) {
                     callStateLabel = context.getString(R.string.calling_via_template, label);
+                } else if (isWaitingForRemoteSide) {
+                    callStateLabel = context.getString(R.string.card_title_dialing_waiting);
                 } else {
                     callStateLabel = context.getString(R.string.card_title_dialing);
                 }

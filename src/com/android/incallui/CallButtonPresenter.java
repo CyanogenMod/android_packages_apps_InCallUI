@@ -20,7 +20,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.telecom.AudioState;
 import android.telecom.InCallService.VideoCall;
-import android.telecom.PhoneCapabilities;
 import android.telecom.VideoProfile;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
@@ -351,7 +350,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         updateCallButtons(call, ui.getContext());
 
-        ui.enableMute(call.can(PhoneCapabilities.MUTE));
+        ui.enableMute(call.can(android.telecom.Call.Details.CAPABILITY_MUTE));
     }
 
     private static int toInteger(boolean b) {
@@ -395,34 +394,38 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showAudioButton(true);
         ui.showDialpadButton(true);
 
-        Log.v(this, "Show hold ", call.can(PhoneCapabilities.SUPPORT_HOLD));
-        Log.v(this, "Enable hold", call.can(PhoneCapabilities.HOLD));
-        Log.v(this, "Show merge ", call.can(PhoneCapabilities.MERGE_CONFERENCE));
-        Log.v(this, "Show swap ", call.can(PhoneCapabilities.SWAP_CONFERENCE));
+        Log.v(this, "Show hold ", call.can(android.telecom.Call.Details.CAPABILITY_SUPPORT_HOLD));
+        Log.v(this, "Enable hold", call.can(android.telecom.Call.Details.CAPABILITY_HOLD));
+        Log.v(this, "Show merge ", call.can(
+                android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE));
+        Log.v(this, "Show swap ", call.can(
+                android.telecom.Call.Details.CAPABILITY_SWAP_CONFERENCE));
         Log.v(this, "Show add call ", TelecomAdapter.getInstance().canAddCall());
-        Log.v(this, "Show mute ", call.can(PhoneCapabilities.MUTE));
-        Log.v(this, "Show video call local:", call.can(PhoneCapabilities.SUPPORTS_VT_LOCAL)
-                + " remote: " + call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE));
+        Log.v(this, "Show mute ", call.can(android.telecom.Call.Details.CAPABILITY_MUTE));
+        Log.v(this, "Show video call local:", call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL)
+                + " remote: " + call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE));
 
         final boolean canAdd = TelecomAdapter.getInstance().canAddCall();
-        final boolean enableHoldOption = call.can(PhoneCapabilities.HOLD);
-        final boolean supportHold = call.can(PhoneCapabilities.SUPPORT_HOLD);
+        final boolean enableHoldOption = call.can(android.telecom.Call.Details.CAPABILITY_HOLD);
+        final boolean supportHold = call.can(android.telecom.Call.Details.CAPABILITY_SUPPORT_HOLD);
 
-        boolean canVideoCall = call.can(PhoneCapabilities.SUPPORTS_VT_LOCAL)
-                && call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE)
-                && call.can(PhoneCapabilities.CALL_TYPE_MODIFIABLE);
+        boolean canVideoCall = call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL)
+                && call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE)
+                && call.can(android.telecom.Call.Details.CAPABILITY_CALL_TYPE_MODIFIABLE);
         ui.showChangeToVideoButton(canVideoCall);
 
-        final boolean showMergeOption = call.can(PhoneCapabilities.MERGE_CONFERENCE);
+        final boolean showMergeOption = call.can(
+                android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE);
         final boolean showAddCallOption = canAdd;
-        final boolean showAddParticipantOption = call.can(PhoneCapabilities.ADD_PARTICIPANT);
+        final boolean showAddParticipantOption = call.can(android.telecom.Call.Details.CAPABILITY_ADD_PARTICIPANT);
         final boolean showManageVideoCallConferenceOption = call.can(
-            PhoneCapabilities.MANAGE_CONFERENCE) && CallUtils.isVideoCall(call);
+            android.telecom.Call.Details.CAPABILITY_MANAGE_CONFERENCE) && CallUtils.isVideoCall(call);
 
         // Show either HOLD or SWAP, but not both. If neither HOLD or SWAP is available:
         //     (1) If the device normally can hold, show HOLD in a disabled state.
         //     (2) If the device doesn't have the concept of hold/swap, remove the button.
-        final boolean showSwapOption = call.can(PhoneCapabilities.SWAP_CONFERENCE);
+        final boolean showSwapOption = call.can(
+                android.telecom.Call.Details.CAPABILITY_SWAP_CONFERENCE);
         final boolean showHoldOption = !showSwapOption && (enableHoldOption || supportHold);
 
         ui.setHold(call.getState() == Call.State.ONHOLD);
@@ -435,7 +438,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         buttonCount += toInteger(showAddParticipantOption);
         buttonCount += toInteger(showHoldOption);
         buttonCount += toInteger(showSwapOption);
-        buttonCount += toInteger(call.can(PhoneCapabilities.MUTE));
+        buttonCount += toInteger(call.can(android.telecom.Call.Details.CAPABILITY_MUTE));
         buttonCount += toInteger(showManageVideoCallConferenceOption);
 
         Log.v(this, "show AddParticipant: " + showAddParticipantOption +

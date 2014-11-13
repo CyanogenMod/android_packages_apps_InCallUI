@@ -124,7 +124,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             if (!call.isConferenceCall()) {
                 startContactInfoSearch(call, true, call.getState() == Call.State.INCOMING);
             } else {
-                updateContactEntry(null, true);
+                updateContactEntry(null, true, call.isConferenceCall());
             }
         }
     }
@@ -197,6 +197,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         Log.d(this, "Secondary call: " + secondary);
 
         final boolean primaryChanged = !Call.areSame(mPrimary, primary);
+        final boolean primaryForwardedChanged = isForwarded(mPrimary) != isForwarded(primary);
         final boolean secondaryChanged = !Call.areSame(mSecondary, secondary);
 
         mSecondary = secondary;
@@ -213,6 +214,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             updatePrimaryDisplayInfo();
             maybeStartSearch(mPrimary, true);
             mPrimary.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
+        } else if (primaryForwardedChanged && mPrimary != null) {
+            updatePrimaryDisplayInfo();
         }
 
         if (mSecondary == null) {
@@ -251,7 +254,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     new DisconnectCause(DisconnectCause.UNKNOWN),
                     null,
                     null,
-                    null);
+                    null,
+                    false);
         }
 
         // Hide/show the contact photo based on the video state.
@@ -306,7 +310,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimary.getDisconnectCause(),
                     getConnectionLabel(),
                     getConnectionIcon(),
-                    getGatewayNumber());
+                    getGatewayNumber(),
+                    mPrimary.isWaitingForRemoteSide());
             setCallbackNumber();
         }
     }
@@ -401,7 +406,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     }
 
     private void onContactInfoComplete(String callId, ContactCacheEntry entry, boolean isPrimary) {
-        updateContactEntry(entry, isPrimary);
+        boolean isConference = isConference(mPrimary) || isConference(mSecondary);
+        updateContactEntry(entry, isPrimary, isConference);
         if (entry.name != null) {
             Log.d(TAG, "Contact found: " + entry);
         }
@@ -422,7 +428,20 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
     }
 
-    private void updateContactEntry(ContactCacheEntry entry, boolean isPrimary) {
+    private static boolean isConference(Call call) {
+        return call != null && call.isConferenceCall();
+    }
+
+    private static boolean canManageConference(Call call) {
+        return call != null && call.can(PhoneCapabilities.MANAGE_CONFERENCE);
+    }
+
+    private static boolean isForwarded(Call call) {
+        return call != null && call.isForwarded();
+    }
+
+    private void updateContactEntry(ContactCacheEntry entry, boolean isPrimary,
+            boolean isConference) {
         if (isPrimary) {
             mPrimaryContactInfo = entry;
             updatePrimaryDisplayInfo();
@@ -483,40 +502,39 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return;
         }
 
-        if (mPrimary == null) {
-            // Clear the primary display info.
-            ui.setPrimary(null, null, false, null, null, false);
-            return;
-        }
+        final boolean canManageConference = canManageConference(mPrimary);
+        final boolean isForwarded = isForwarded(mPrimary);
+        final boolean isConference = isConference(mPrimary);
 
-        if (mPrimary.isConferenceCall()) {
-            Log.d(TAG, "Update primary display info for conference call.");
+        if (mPrimaryContactInfo != null && mPrimary != null) {
+            if (mPrimary.isConferenceCall()) {
+                Log.d(TAG, "Update primary display info for conference call.");
 
-            ui.setPrimary(
-                    null /* number */,
-                    getConferenceString(mPrimary),
-                    false /* nameIsNumber */,
-                    null /* label */,
-                    getConferencePhoto(mPrimary),
-                    false /* isSipCall */);
-        } else if (mPrimaryContactInfo != null) {
-            Log.d(TAG, "Update primary display info for " + mPrimaryContactInfo);
+                ui.setPrimary(
+                        null /* number */,
+                        getConferenceString(mPrimary),
+                        false /* nameIsNumber */,
+                        null /* label */,
+                        getConferencePhoto(mPrimary),
+                        true,
+                        canManageConference,
+                        false /* isSipCall */,
+                        isForwarded);
+            }
 
             String name = getNameForCall(mPrimaryContactInfo);
             String number = getNumberForCall(mPrimaryContactInfo);
-            boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
-            ui.setPrimary(
-                    number,
-                    name,
-                    nameIsNumber,
-                    mPrimaryContactInfo.label,
-                    mPrimaryContactInfo.photo,
-                    mPrimaryContactInfo.isSipCall);
-        } else {
-            // Clear the primary display info.
-            ui.setPrimary(null, null, false, null, null, false);
-        }
+            final boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
+            boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
+            final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
 
+            ui.setPrimary(number, checkIdpName, nameIsNumber, mPrimaryContactInfo.label,
+                    mPrimaryContactInfo.photo, isConference, canManageConference,
+                    mPrimaryContactInfo.isSipCall, isForwarded);
+        } else {
+            ui.setPrimary(null, null, false, null, null, isConference,
+                    canManageConference, false, isForwarded);
+        }
     }
 
     private final String checkIdp(String number, boolean nameIsNumber, boolean isIncoming) {
@@ -788,12 +806,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setVisible(boolean on);
         void setCallCardVisible(boolean visible);
         void setPrimary(String number, String name, boolean nameIsNumber, String label,
-                Drawable photo, boolean isSipCall);
+                Drawable photo, boolean isConference, boolean canManageConference,
+                boolean isSipCall, boolean isForwarded);
         void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
                 String providerLabel, Drawable providerIcon, boolean isConference);
         void setCallState(int state, int videoState, int sessionModificationState,
                 DisconnectCause disconnectCause, String connectionLabel,
-                Drawable connectionIcon, String gatewayNumber);
+                Drawable connectionIcon, String gatewayNumber, boolean isWaitingForRemoteSide);
         void setPrimaryCallElapsedTime(boolean show, String duration);
         void setPrimaryName(String name, boolean nameIsNumber);
         void setPrimaryImage(Drawable image);

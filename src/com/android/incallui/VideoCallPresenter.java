@@ -724,28 +724,45 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     @Override
     public void onUpgradeToVideoRequest(Call call) {
         Log.d(this, "onUpgradeToVideoRequest call=" + call);
-        mPrimaryCall.setSessionModificationState(
+        if (mPrimaryCall == null || !Call.areSame(mPrimaryCall, call)) {
+            Log.w(this, "UpgradeToVideoRequest received for non-primary call");
+        }
+
+        if (call == null) {
+            return;
+        }
+
+        call.setSessionModificationState(
                 Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST);
     }
 
     @Override
     public void onUpgradeToVideoSuccess(Call call) {
+        Log.d(this, "onUpgradeToVideoSuccess call=" + call);
         if (mPrimaryCall == null || !Call.areSame(mPrimaryCall, call)) {
+            Log.w(this, "UpgradeToVideoSuccess received for non-primary call");
+        }
+
+        if (call == null) {
             return;
         }
 
-        mPrimaryCall.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
+        call.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
     }
 
     @Override
     public void onUpgradeToVideoFail(int status, Call call) {
         Log.d(this, "onUpgradeToVideoFail call=" + call);
         if (mPrimaryCall == null || !Call.areSame(mPrimaryCall, call)) {
+            Log.w(this, "UpgradeToVideoFail received for non-primary call");
+        }
+
+        if (call == null) {
             return;
         }
 
         if (status == VideoProvider.SESSION_MODIFY_REQUEST_TIMED_OUT) {
-            mPrimaryCall.setSessionModificationState(
+            call.setSessionModificationState(
                     Call.SessionModificationState.UPGRADE_TO_VIDEO_REQUEST_TIMED_OUT);
         } else {
             call.setSessionModificationState(Call.SessionModificationState.REQUEST_FAILED);

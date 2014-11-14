@@ -42,7 +42,12 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         super.onUiReady(ui);
 
         final CallList calls = CallList.getInstance();
-        Call call;
+        Call call = calls.getVideoUpgradeRequestCall();
+        Log.d(this, "getVideoUpgradeRequestCall call =" + call);
+
+        if (call != null && calls.getIncomingCall() == null) {
+            processVideoUpgradeRequestCall(call);
+        }
         for (int i = 0; i < CallList.PHONE_COUNT; i++) {
             long[] subId = CallList.getInstance().getSubId(i);
             call = calls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
@@ -52,11 +57,6 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             if (call != null) {
                 processIncomingCall(call);
             }
-        }
-        call = calls.getVideoUpgradeRequestCall();
-        Log.d(this, "getVideoUpgradeRequestCall call=" + call);
-        if (call != null) {
-            processVideoUpgradeRequestCall(call);
         }
 
         // Listen for incoming calls.
@@ -99,11 +99,28 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         // getting updates here.
         Log.d(this, "onIncomingCall: " + this);
         if (getUi() != null) {
+            Call modifyCall = CallList.getInstance().getVideoUpgradeRequestCall();
+            if (modifyCall != null) {
+                getUi().showAnswerUi(false);
+                int modifyPhoneId = CallList.getInstance().getPhoneId(modifyCall.getSubId());
+                Log.d(this, "declining upgrade request id: " + modifyPhoneId);
+                CallList.getInstance().removeCallUpdateListener(mCallId[modifyPhoneId], this);
+                InCallPresenter.getInstance().declineUpgradeRequest(getUi().getContext());
+            }
             if (!call.getId().equals(mCallId[phoneId])) {
                 // A new call is coming in.
                 processIncomingCall(call);
             }
         }
+    }
+
+    private boolean isVideoUpgradePending(Call call) {
+        boolean isUpgradePending = false;
+        if (call.getSessionModificationState()
+                == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
+            isUpgradePending = true;
+        }
+        return isUpgradePending;
     }
 
     @Override
@@ -113,8 +130,14 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             Log.d(this, "onUpgradeToVideo ui is null");
             return;
         }
-        if (call.getSessionModificationState()
-                    == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
+        boolean isUpgradePending = isVideoUpgradePending(call);
+        InCallPresenter inCallPresenter = InCallPresenter.getInstance();
+        if (isUpgradePending
+                && inCallPresenter.getInCallState() == InCallPresenter.InCallState.INCOMING) {
+            Log.d(this, "declining upgrade request");
+            inCallPresenter.declineUpgradeRequest(getUi().getContext());
+        } else if (isUpgradePending) {
+            Log.d(this, "process upgrade request as no MT call");
             processVideoUpgradeRequestCall(call);
         }
     }
@@ -153,13 +176,15 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         if (call.getState() != Call.State.INCOMING) {
             long subId = call.getSubId();
             int phoneId = CallList.getInstance().getPhoneId(subId);
-            // Stop listening for updates.
-            CallList.getInstance().removeCallUpdateListener(mCallId[phoneId], this);
+
+            boolean isUpgradePending = isVideoUpgradePending(call);
+            if (!isUpgradePending) {
+                // Stop listening for updates.
+                CallList.getInstance().removeCallUpdateListener(mCallId[phoneId], this);
+            }
 
             final Call incall = CallList.getInstance().getIncomingCall();
-            if (incall != null
-                    || call.getSessionModificationState()
-                        == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
+            if (incall != null || isUpgradePending) {
                 getUi().showAnswerUi(true);
             } else {
                 getUi().showAnswerUi(false);
@@ -174,11 +199,6 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             if (textMsgs != null) {
                 configureAnswerTargetsForSms(call, textMsgs);
             }
-        }
-        if (getUi() != null
-                && call.getSessionModificationState()
-                    == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
-            processVideoUpgradeRequestCall(call);
         }
     }
 

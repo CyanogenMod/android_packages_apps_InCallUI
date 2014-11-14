@@ -180,4 +180,5 @@
     <string name="recording_time_text">录音中</string>
     <string name="menu_add_call">添加通话</string>
     <string name="menu_merge_call">合并通话</string>
+    <string name="incall_error_missing_voicemail_number">没有设置语音信箱，现在设置？</string>
 </resources>

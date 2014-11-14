@@ -23,10 +23,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +43,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.android.contacts.common.R;
+import com.android.internal.telephony.PhoneConstants;
 
 import java.util.List;
 
@@ -47,6 +55,8 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
     private boolean mIsSelected;
     private TelecomManager mTelecomManager;
 
+    private static final String ACTION_ADD_VOICEMAIL
+           = "com.android.phone.CallFeaturesSetting.ADD_VOICEMAIL";
     /**
      * Shows the account selection dialog.
      * This is the preferred way to show this dialog.
@@ -78,6 +88,14 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 mIsSelected = true;
                 PhoneAccountHandle selectedAccountHandle = mAccountHandles.get(which);
+                Call call = CallList.getInstance().getWaitingForAccountCall();
+
+                if (call != null
+                        && PhoneAccount.SCHEME_VOICEMAIL.equals(call.getHandle().getScheme())
+                        && !isVoicemailAvailable(selectedAccountHandle)) {
+                    showMissingVoicemailDialog(getActivity(), selectedAccountHandle);
+                    return;
+                }
                 InCallPresenter.getInstance().handleAccountSelection(selectedAccountHandle);
             }
         };
@@ -92,6 +110,85 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
         return builder.setTitle(R.string.select_account_dialog_title)
                 .setAdapter(selectAccountListAdapter, selectionListener)
                 .create();
+    }
+
+    private boolean isVoicemailAvailable(PhoneAccountHandle account) {
+        if (account == null) {
+            return false;
+        }
+        String number = TelephonyManager.getDefault().getVoiceMailNumber(
+                Long.parseLong(account.getId()));
+        if (!TextUtils.isEmpty(number)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return an Intent for launching voicemail screen.
+     */
+    private void setupVoicemailNumber(Context context,
+            PhoneAccountHandle account) {
+        Call call = CallList.getInstance().getWaitingForAccountCall();
+        if (call == null) {
+            return;
+        }
+        Intent intent = new Intent(ACTION_ADD_VOICEMAIL);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
+            intent.setClassName("com.android.phone",
+                    "com.android.phone.MSimCallFeaturesSubSetting");
+            intent.putExtra(PhoneConstants.SUBSCRIPTION_KEY, Long.parseLong(account.getId()));
+        } else {
+            intent.setClassName("com.android.phone",
+                    "com.android.phone.CallFeaturesSetting");
+        }
+        try {
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.d(this, "can not find activity deal with voice mail");
+        }
+    }
+
+    /**
+     * Utility function to let user to set voicemail number.
+     */
+    private void showMissingVoicemailDialog(final Context context,
+            final PhoneAccountHandle account) {
+        Call call = CallList.getInstance().getWaitingForAccountCall();
+        if (call == null) {
+            return;
+        }
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setMessage(getResources()
+                        .getString(R.string.incall_error_missing_voicemail_number))
+                .setPositiveButton(R.string.ok, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setupVoicemailNumber(context, account);
+                        disconnectWaitingForAccountCall();
+                    }})
+                .setNeutralButton(R.string.custom_message_cancel, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        disconnectWaitingForAccountCall();
+                    }})
+                .setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        disconnectWaitingForAccountCall();
+                    }})
+                .create();
+
+        dialog.show();
+    }
+
+
+    private void disconnectWaitingForAccountCall() {
+        Call call = CallList.getInstance().getWaitingForAccountCall();
+        if (call != null) {
+            TelecomAdapter.getInstance().disconnectCall(call.getId());
+        }
     }
 
     private class SelectAccountListAdapter extends ArrayAdapter<PhoneAccountHandle> {

@@ -460,13 +460,14 @@ public final class Call {
     @Override
     public String toString() {
         return String.format(Locale.US,
-                "[%s, %s, %s, children:%s, parent:%s, videoState:%d, mIsActivSub:%b]",
+                "[%s, %s, %s, children:%s, parent:%s, videoState:%d, mIsActivSub:%b,"
+                        + " " + "callSubState:%d, mSessionModificationState:%d]",
                 mId,
                 State.toString(getState()),
                 PhoneCapabilities.toString(mTelecommCall.getDetails().getCallCapabilities()),
                 mChildCallIds,
                 getParentId(),
                 mTelecommCall.getDetails().getVideoState(), mIsActiveSub,
-                mTelecommCall.getDetails().getCallSubstate());
+                mTelecommCall.getDetails().getCallSubstate(), mSessionModificationState);
     }
 }

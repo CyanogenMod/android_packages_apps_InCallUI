@@ -19,6 +19,7 @@ package com.android.incallui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Configuration;
+//import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import android.widget.Toast;
 
 import com.google.common.base.Objects;
 import android.widget.Toast;
+import android.telecom.Connection;
+import android.telecom.Connection.VideoProvider;
 import android.telecom.VideoProfile;
 import android.telecom.Connection;
 
@@ -778,6 +781,35 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     public void setCallDataUsage(Context context, long dataUsage) {
         Log.d(this, "setDataUsage: dataUsage = " + dataUsage);
         Toast.makeText(context, "dataUsage=" + dataUsage, Toast.LENGTH_LONG).show();
+    }
+
+    private int fromCallSessionEvent(int event) {
+        switch (event) {
+            case Connection.VideoProvider.SESSION_EVENT_RX_PAUSE:
+                return R.string.player_stopped;
+            case Connection.VideoProvider.SESSION_EVENT_RX_RESUME:
+                return R.string.player_started;
+            case Connection.VideoProvider.SESSION_EVENT_CAMERA_FAILURE:
+                return R.string.camera_not_ready;
+            case Connection.VideoProvider.SESSION_EVENT_CAMERA_READY:
+                return R.string.camera_ready;
+            default:
+                return R.string.unknown_call_session_event;
+        }
+    }
+
+    /**
+     * Sets the call's data usage value
+     *
+     * @param context the current context
+     * @param event the call session event
+     */
+    @Override
+    public void displayCallSessionEvent(int event) {
+        Log.d(this, "displayCallSessionEvent: event = " + event);
+        Context context = getActivity();
+        String msg = context.getResources().getString(fromCallSessionEvent(event));
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

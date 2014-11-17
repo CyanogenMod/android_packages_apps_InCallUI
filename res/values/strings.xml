@@ -308,6 +308,18 @@
     <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
     <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
 
+    <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+    <string name="player_started">Player Started</string>
+    <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+    <string name="player_stopped">Player Stopped</string>
+    <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
+    <string name="camera_not_ready">Camera not ready</string>
+    <!-- Message indicating that camera is ready/available -->
+    <string name="camera_ready">Camera ready</string>
+    <!-- Message indicating unknown call session event -->
+    <string name="unknown_call_session_event">"Unkown call session event"</string>
+
     <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
     <string-array name="absent_num" translatable="false">

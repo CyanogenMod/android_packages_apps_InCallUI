@@ -101,6 +101,7 @@ public class InCallVideoCallListener extends VideoCall.Listener {
      */
     @Override
     public void onCallSessionEvent(int event) {
+        InCallVideoCallListenerNotifier.getInstance().callSessionEvent(event);
     }
 
     /**

@@ -572,6 +572,9 @@
     <!-- This can be used in any application wanting to disable the text "Emergency number" -->
     <string name="emergency_call_dialog_number_for_display">Emergency number</string>
 
+    <!-- message displayed when missing voicemail number -->
+    <string name="incall_error_missing_voicemail_number">No voicemail number is set up, set now?</string>
+
     <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
     <string name="select_account_dialog_title">Select Account</string>
     <!-- Set Subscription screen: label sub 1 -->

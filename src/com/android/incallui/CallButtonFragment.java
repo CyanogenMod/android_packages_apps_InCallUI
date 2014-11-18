@@ -135,13 +135,18 @@ public class CallButtonFragment
 
         mMoreMenuButton = (ImageButton) parent.findViewById(R.id.moreMenuButton);
         if (mMoreMenuButton != null) {
-            mMoreMenuButton.setOnClickListener(this);
-            mMoreMenu = new MorePopupMenu(parent.getContext(), mMoreMenuButton);
+            boolean canRecordCalls = ((InCallActivity)getActivity()).isCallRecorderEnabled();
+            if (canRecordCalls) {
+                mMoreMenuButton.setOnClickListener(this);
+                mMoreMenu = new MorePopupMenu(parent.getContext(), mMoreMenuButton);
 
-            mMoreMenu.inflate(R.menu.incall_more_menu);
-            mMoreMenu.setOnMenuItemClickListener(this);
+                mMoreMenu.inflate(R.menu.incall_more_menu);
+                mMoreMenu.setOnMenuItemClickListener(this);
 
-            mMoreMenuButton.setOnTouchListener(mMoreMenu.getDragToOpenListener());
+                mMoreMenuButton.setOnTouchListener(mMoreMenu.getDragToOpenListener());
+            } else {
+                mMoreMenuButton.setVisibility(View.GONE);
+            }
         }
 
         return parent;

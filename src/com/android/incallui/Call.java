@@ -332,7 +332,28 @@ public final class Call {
         if ((capabilities & PhoneCapabilities.MERGE_CONFERENCE) != 0) {
             // We allow you to merge if the capabilities allow it or if it is a call with
             // conferenceable calls.
-            if (mTelecommCall.getConferenceableCalls().isEmpty() &&
+            if (CallList.getInstance().isDsdaEnabled()) {
+                List<android.telecom.Call> conferenceableCalls =
+                        mTelecommCall.getConferenceableCalls();
+                boolean hasConfenceableCall = false;
+                if (!conferenceableCalls.isEmpty()){
+                    long subId = getSubId();
+                    for (android.telecom.Call call : conferenceableCalls) {
+                        PhoneAccountHandle phHandle = call.getDetails().getAccountHandle();
+                        if (phHandle != null) {
+                            if((Long.parseLong(phHandle.getId())) == subId) {
+                                hasConfenceableCall = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!hasConfenceableCall &&
+                        ((PhoneCapabilities.MERGE_CONFERENCE & supportedCapabilities) == 0)) {
+                    // Cannot merge calls if there are no calls to merge with.
+                    return false;
+                }
+            } else if (mTelecommCall.getConferenceableCalls().isEmpty() &&
                     ((PhoneCapabilities.MERGE_CONFERENCE & supportedCapabilities) == 0)) {
                 // Cannot merge calls if there are no calls to merge with.
                 return false;

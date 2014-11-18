@@ -66,6 +66,11 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      */
     public static final int ORIENTATION_UNKNOWN = -1;
 
+    /**
+     * Invalid resource id.
+     */
+    public static final int INVALID_RESOURCE_ID = -1;
+
 
     // Static storage used to retain the video surfaces across Activity restart.
     // TextureViews are not parcelable, so it is not possible to store them in the saved state.
@@ -561,25 +566,33 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     public void showVideoQualityChanged(int videoQuality) {
         Log.d(this, "showVideoQualityChanged. Video quality changed to " + videoQuality);
 
-        String videoQualityChangedText = "Video quality changed to ";
+        final Context context = getActivity();
+        if (context == null) {
+            Log.e(this, "showVideoQualityChanged - Activity is null. Return");
+            return;
+        }
+
+        final Resources resources = context.getResources();
+
+        int videoQualityResourceId = R.string.video_quality_unknown;
         switch (videoQuality) {
             case VideoProfile.QUALITY_HIGH:
-                videoQualityChangedText += "High";
+                videoQualityResourceId = R.string.video_quality_high;
                 break;
             case VideoProfile.QUALITY_MEDIUM:
-                videoQualityChangedText += "Medium";
+                videoQualityResourceId = R.string.video_quality_medium;
                 break;
             case VideoProfile.QUALITY_LOW:
-                videoQualityChangedText += "Low";
+                videoQualityResourceId = R.string.video_quality_low;
                 break;
-            // Both unknown and default should display unknown. Intentional fall through.
-            case VideoProfile.QUALITY_UNKNOWN:
             default:
-                videoQualityChangedText += "Unknown";
                 break;
         }
 
-        Toast.makeText(getActivity(), videoQualityChangedText, Toast.LENGTH_SHORT).show();
+        String videoQualityChangedText = resources.getString(R.string.video_quality_changed) +
+            resources.getString(videoQualityResourceId);
+
+        Toast.makeText(context, videoQualityChangedText, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -597,28 +610,28 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         }
 
         final Resources resources = context.getResources();
-        String callSubstateChangedText = "";
 
+        int callSubstateResourceId = INVALID_RESOURCE_ID;
         switch (callSubstate) {
             case Connection.CALL_SUBSTATE_NONE:
-                callSubstateChangedText +=
-                    resources.getString(R.string.call_substate_call_resumed);
+                callSubstateResourceId = R.string.call_substate_call_resumed;
                 break;
             case Connection.CALL_SUBSTATE_AUDIO_CONNECTED_SUSPENDED:
-                callSubstateChangedText +=
-                    resources.getString(R.string.call_substate_connected_suspended_audio);
+                callSubstateResourceId = R.string.call_substate_connected_suspended_audio;
                 break;
             case Connection.CALL_SUBSTATE_VIDEO_CONNECTED_SUSPENDED:
-                callSubstateChangedText +=
-                    resources.getString(R.string.call_substate_connected_suspended_video);
+                callSubstateResourceId = R.string.call_substate_connected_suspended_video;
                 break;
             case Connection.CALL_SUBSTATE_AVP_RETRY:
-                callSubstateChangedText += resources.getString(R.string.call_substate_avp_retry);
+                callSubstateResourceId = R.string.call_substate_avp_retry;
                 break;
             default:
                 break;
         }
-        Toast.makeText(context, callSubstateChangedText, Toast.LENGTH_SHORT).show();
+        if (callSubstateResourceId != INVALID_RESOURCE_ID) {
+            Toast.makeText(context, resources.getString(callSubstateResourceId),
+                Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

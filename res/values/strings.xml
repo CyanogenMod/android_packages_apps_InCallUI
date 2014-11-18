@@ -596,4 +596,14 @@
     <string name="call_substate_connected_suspended_video">Call Connected Suspended (Video)</string>
     <!-- Call substate label for avp retry -->
     <string name="call_substate_avp_retry">Avp Retry</string>
+    <!-- Video quality changed message -->
+    <string name="video_quality_changed">Video quality changed to \u0020</string>
+    <!-- Video quality High -->
+    <string name="video_quality_high">High</string>
+    <!-- Video quality Medium -->
+    <string name="video_quality_medium">Medium</string>
+    <!-- Video quality Low -->
+    <string name="video_quality_low">Low</string>
+    <!-- Video quality Unknown -->
+    <string name="video_quality_unknown">Unknown</string>
 </resources>

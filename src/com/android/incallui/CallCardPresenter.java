@@ -552,7 +552,12 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private PhoneAccount getAccountForCall(Call call) {
         PhoneAccountHandle accountHandle = call.getAccountHandle();
         if (accountHandle == null) {
-            return null;
+            if (call.getTelecommCall().getChildren().size() > 1) {
+                android.telecom.Call child = call.getTelecommCall().getChildren().get(0);
+                accountHandle = child.getDetails().getAccountHandle();
+            } else {
+                return null;
+            }
         }
         return getTelecomManager().getPhoneAccount(accountHandle);
     }

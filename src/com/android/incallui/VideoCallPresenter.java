@@ -148,6 +148,11 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     private int mPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
 
+    /**
+     * Stores the current call substate.
+     */
+    private int mCurrentCallSubstate;
+
     /** Handler which resets request state to NO_REQUEST after an interval. */
     private Handler mSessionModificationResetHandler;
     private static final long SESSION_MODIFICATION_RESET_DELAY_MS = 3000;
@@ -404,6 +409,19 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
     }
 
+    private void checkForCallSubstateChange() {
+        if (mCurrentCallSubstate != mPrimaryCall.getCallSubstate()) {
+            VideoCallUi ui = getUi();
+            if (ui == null) {
+                Log.e(this, "Error VideoCallUi is null. Return.");
+                return;
+            }
+            mCurrentCallSubstate = mPrimaryCall.getCallSubstate();
+            // Display a call substate changed message on UI.
+            ui.showCallSubstateChanged(mCurrentCallSubstate);
+        }
+    }
+
     private void cleanupSurfaces() {
         final VideoCallUi ui = getUi();
         if (ui == null) {
@@ -432,6 +450,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
 
         checkForVideoStateChange();
+        checkForCallSubstateChange();
     }
 
     /**
@@ -823,5 +842,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         Point getScreenSize();
         void cleanupSurfaces();
         boolean isActivityRestart();
+        void showCallSubstateChanged(int callSubstate);
     }
 }

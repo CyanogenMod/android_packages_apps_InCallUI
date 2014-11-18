@@ -587,4 +587,13 @@
 	<string name="modify_call_prompt_yes">Yes</string>
 	<string name="modify_call_prompt_no">No</string>
 	<string name="connecting_for_modify">Connecting...</string>
+
+    <!-- Call substate label for call resumed -->
+    <string name="call_substate_call_resumed">Call Resumed</string>
+    <!-- Call substate label for call connected suspended (audio) -->
+    <string name="call_substate_connected_suspended_audio">Call Connected Suspended (Audio)</string>
+    <!-- Call substate label for call connected suspended (video) -->
+    <string name="call_substate_connected_suspended_video">Call Connected Suspended (Video)</string>
+    <!-- Call substate label for avp retry -->
+    <string name="call_substate_avp_retry">Avp Retry</string>
 </resources>

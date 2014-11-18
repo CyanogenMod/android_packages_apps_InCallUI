@@ -418,6 +418,10 @@ public final class Call {
         return mTelecommCall.getDetails().getVideoState();
     }
 
+    public int getCallSubstate() {
+        return mTelecommCall.getDetails().getCallSubstate();
+    }
+
     public boolean isVideoCall(Context context) {
         return CallUtil.isVideoEnabled(context) &&
                 VideoProfile.VideoState.isVideo(getVideoState());
@@ -462,6 +466,7 @@ public final class Call {
                 PhoneCapabilities.toString(mTelecommCall.getDetails().getCallCapabilities()),
                 mChildCallIds,
                 getParentId(),
-                mTelecommCall.getDetails().getVideoState(), mIsActiveSub);
+                mTelecommCall.getDetails().getVideoState(), mIsActiveSub,
+                mTelecommCall.getDetails().getCallSubstate());
     }
 }

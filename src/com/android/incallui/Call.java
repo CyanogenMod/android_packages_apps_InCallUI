@@ -387,12 +387,14 @@ public final class Call {
     public long getSubId() {
         PhoneAccountHandle ph = getAccountHandle();
         if (ph != null) {
-            if (ph.getId() != null && !ph.getId().toLowerCase().contains("sip")
-                    && !ph.getId().equals("E")) {
-                return Long.parseLong(getAccountHandle().getId());
-            } else {
-                return SubscriptionManager.getDefaultVoiceSubId();
+            try {
+                if (ph.getId() != null ) {
+                    return Long.parseLong(getAccountHandle().getId());
+                }
+            } catch (NumberFormatException e) {
+                Log.w(this,"sub Id is not a number " + e);
             }
+            return SubscriptionManager.getDefaultVoiceSubId();
         } else {
             return SubscriptionManager.INVALID_SUB_ID;
         }

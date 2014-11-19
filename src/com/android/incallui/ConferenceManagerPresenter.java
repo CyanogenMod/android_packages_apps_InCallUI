@@ -90,6 +90,11 @@ public class ConferenceManagerPresenter
     private void initParticipantList(CallList callList) {
         mParticipantList = null;
         Call call = callList.getActiveOrBackgroundCall();
+        // getActiveOrBackgroundCall will return null if there are no calls
+        if (call == null) {
+            mNumCallersInConference = 0;
+            return;
+        }
 
         if (isImsCall(call)) {
             String[] confParticipantList = call.getCallDetails().getConfParticipantList();

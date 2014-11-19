@@ -679,10 +679,13 @@ public class CallList implements InCallPhoneListener {
     public boolean hasAnyLiveCall(long subId) {
         for (Call call : mCallById.values()) {
             PhoneAccountHandle ph = call.getAccountHandle();
-            if (!isCallDead(call) && ph != null && (!ph.getId().equals("E"))
-                    && (Long.parseLong(ph.getId()) == subId)) {
-                Log.i(this, "hasAnyLiveCall sub = " + subId);
-                return true;
+            try {
+                if (!isCallDead(call) && ph != null && (Long.parseLong(ph.getId()) == subId)) {
+                    Log.i(this, "hasAnyLiveCall sub = " + subId);
+                    return true;
+                }
+            } catch (NumberFormatException e) {
+                Log.w(this,"Sub Id is not a number " + e);
             }
         }
         Log.i(this, "no active call ");

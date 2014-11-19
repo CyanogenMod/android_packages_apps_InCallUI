@@ -467,18 +467,18 @@ public final class Call {
 
     public long getSubId() {
         PhoneAccountHandle ph = getAccountHandle();
-
-        if (ph == null) {
+        if (ph != null) {
+            try {
+                if (ph.getId() != null ) {
+                    return Long.parseLong(getAccountHandle().getId());
+                }
+            } catch (NumberFormatException e) {
+                Log.w(this,"sub Id is Not a Number Exce:" + e);
+            }
+            return SubscriptionManager.getDefaultVoiceSubId();
+        } else {
             return SubscriptionManager.INVALID_SUB_ID;
         }
-        if (ph.getId() != null) {
-            try {
-                return Long.parseLong(getAccountHandle().getId());
-            } catch (NumberFormatException e) {
-                Log.w(this,"Sub Id is not a number " + e);
-            }
-        }
-        return SubscriptionManager.getDefaultVoiceSubId();
     }
 
     public VideoCall getVideoCall() {

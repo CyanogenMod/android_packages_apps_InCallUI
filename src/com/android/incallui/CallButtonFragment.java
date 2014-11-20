@@ -378,7 +378,8 @@ public class CallButtonFragment
             }
         };
         int currVideoState = getPresenter().getCurrentVideoState();
-        int index = itemToCallType.indexOf(currVideoState);
+        int currUnpausedVideoState = CallUtils.toUnPausedVideoState(currVideoState);
+        int index = itemToCallType.indexOf(currUnpausedVideoState);
         if (index == INVALID_INDEX) {
             return;
         }

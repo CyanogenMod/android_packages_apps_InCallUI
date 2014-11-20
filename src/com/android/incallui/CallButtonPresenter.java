@@ -389,7 +389,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         final boolean supportHold = call.can(PhoneCapabilities.SUPPORT_HOLD);
 
         boolean canVideoCall = call.can(PhoneCapabilities.SUPPORTS_VT_LOCAL)
-                && call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE);
+                && call.can(PhoneCapabilities.SUPPORTS_VT_REMOTE)
+                && call.can(PhoneCapabilities.CALL_TYPE_MODIFIABLE);
         ui.showChangeToVideoButton(canVideoCall);
 
         final boolean showMergeOption = call.can(PhoneCapabilities.MERGE_CONFERENCE);

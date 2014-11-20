@@ -41,7 +41,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import com.android.internal.telephony.util.BlacklistUtils;
 
 import java.util.ArrayList;
 
@@ -129,24 +128,6 @@ public class CallButtonFragment
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         createOverflowMenu();
-
-        mMoreMenuButton = (ImageButton) parent.findViewById(R.id.moreMenuButton);
-        if (mMoreMenuButton != null) {
-            boolean canRecordCalls = ((InCallActivity)getActivity()).isCallRecorderEnabled();
-            boolean blacklistEnabled = BlacklistUtils.isBlacklistEnabled(getActivity());
-            if (canRecordCalls || blacklistEnabled) {
-                mMoreMenuButton.setOnClickListener(this);
-                final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
-                        R.style.InCallPopupMenuStyle);
-                mMoreMenu = new MorePopupMenu(contextWrapper, mMoreMenuButton /* anchorView */);
-                mMoreMenu.getMenuInflater().inflate(R.menu.incall_more_menu, mMoreMenu.getMenu());
-                mMoreMenu.setOnMenuItemClickListener(this);
-
-                mMoreMenuButton.setOnTouchListener(mMoreMenu.getDragToOpenListener());
-            } else {
-                mMoreMenuButton.setVisibility(View.GONE);
-            }
-        }
 
         return parent;
     }
@@ -568,19 +549,7 @@ public class CallButtonFragment
                 mode = AudioState.ROUTE_BLUETOOTH;
                 break;
 
-            case R.id.menu_start_record:
-                ((InCallActivity)getActivity()).startInCallRecorder();
 
-                return true;
-
-            case R.id.menu_stop_record:
-                ((InCallActivity)getActivity()).stopInCallRecorder();
-
-                return true;
-
-            case R.id.menu_add_to_blacklist:
-                getPresenter().blacklistClicked(getActivity());
-                return true;
 
             default:
                 Log.e(this, "onMenuItemClick:  unexpected View ID " + item.getItemId()

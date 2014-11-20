@@ -52,6 +52,7 @@
     <dimen name="in_call_button_dimension">48dp</dimen>
 
     <dimen name="primary_call_elevation">5dp</dimen>
+    <dimen name="primary_call_overflow_elevation">6dp</dimen>
     <dimen name="dialpad_elevation">2dp</dimen>
 
     <dimen name="floating_action_bar_vertical_offset">-24dp</dimen>

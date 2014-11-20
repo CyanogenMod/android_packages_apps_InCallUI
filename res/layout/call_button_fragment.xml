@@ -174,12 +174,6 @@
             android:contentDescription="@string/onscreenManageConferenceText"
             android:visibility="gone" />
 
-        <ImageButton
-            android:id="@+id/moreMenuButton"
-            style="@style/InCallButton"
-            android:background="@drawable/btn_overflow"
-            android:contentDescription="@string/onscreenMoreMenuText" />
-
     </LinearLayout>
 
 </LinearLayout>

@@ -25,11 +25,21 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.util.Size;
 
 import java.lang.String;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 
 /**
  * Used to track which camera is used for outgoing video.
  */
 public class InCallCameraManager {
+
+    public interface CameraSelectionListener {
+        void onActiveCameraSelectionChanged(boolean isUsingFrontFacingCamera);
+    }
+
+    private final Set<CameraSelectionListener> mCameraSelectionListeners = Collections.
+        newSetFromMap(new ConcurrentHashMap<CameraSelectionListener, Boolean>(8,0.9f,1));
 
     /**
      * The camera ID for the front facing camera.
@@ -73,6 +83,9 @@ public class InCallCameraManager {
      */
     public void setUseFrontFacingCamera(boolean useFrontFacingCamera) {
         mUseFrontFacingCamera = useFrontFacingCamera;
+        for (CameraSelectionListener listener : mCameraSelectionListeners) {
+            listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+        }
     }
 
     /**
@@ -146,6 +159,18 @@ public class InCallCameraManager {
                     mRearFacingCameraId = cameraIds[i];
                 }
             }
+        }
+    }
+
+    public void addCameraSelectionListener(CameraSelectionListener listener) {
+        if (listener != null) {
+            mCameraSelectionListeners.add(listener);
+        }
+    }
+
+    public void removeCameraSelectionListener(CameraSelectionListener listener) {
+        if (listener != null) {
+            mCameraSelectionListeners.remove(listener);
         }
     }
 }

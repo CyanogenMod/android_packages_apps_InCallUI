@@ -389,6 +389,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
             if (primary != null) {
                 updateAudioMode(true);
+                updateCameraSelection(primary.getVideoState());
                 updateVideoCall();
             } else if (primary == null) {
                 // If no primary call, ensure we exit video state and clean up the video surfaces.
@@ -531,12 +532,16 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
                 Log.d(this, "enterVideoMode: Nothing changed exiting...");
                 return;
             }
-            final boolean wasCameraRequired = isCameraRequired(mCurrentVideoState);
-            final boolean isCameraRequired = isCameraRequired(videoState);
 
-            if (wasCameraRequired != isCameraRequired) {
-                enableCamera(isCameraRequired);
+            boolean isCameraRequired = isCameraRequired(videoState);
+            if (isCameraRequired) {
+                if (CallUtils.toUnPausedVideoState(mCurrentVideoState) != CallUtils
+                        .toUnPausedVideoState(newVideoState)) {
+                    updateCameraSelection(mPrimaryCall.getVideoState());
+                }
             }
+
+            enableCamera(isCameraRequired);
 
             if (ui.isDisplayVideoSurfaceCreated()) {
                 Log.d(this, "Calling setDisplaySurface with " + ui.getDisplayVideoSurface());
@@ -917,8 +922,32 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         ui.setDisplayVideoSize(size.x, size.y);
     }
 
+    private boolean isIncomingVideoCall(Call call) {
+        if (!CallUtils.isVideoCall(call)) {
+            return false;
+        }
+        final int state = call.getState();
+        return (state == Call.State.INCOMING) || (state == Call.State.CALL_WAITING);
+    }
+
+    private boolean hasActiveVideoCall(CallList callList) {
+        return CallUtils.isVideoCall(callList.getActiveCall());
+    }
+
     private static boolean isAudioRouteEnabled(int audioRoute, int audioRouteMask) {
         return ((audioRoute & audioRouteMask) != 0);
+    }
+
+    private void updateCameraSelection(int videoState) {
+        if (hasActiveVideoCall(CallList.getInstance()) && isIncomingVideoCall(mPrimaryCall)) {
+            Log.d(this, "updateCameraSelection, don't change the " +
+                "camera selection for waiting call when there is active VT call");
+            return;
+        }
+
+        InCallCameraManager cameraManager = InCallPresenter.getInstance().
+                getInCallCameraManager();
+        cameraManager.setUseFrontFacingCamera(VideoProfile.VideoState.isBidirectional(videoState));
     }
 
     /**

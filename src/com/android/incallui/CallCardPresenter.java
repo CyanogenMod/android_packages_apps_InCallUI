@@ -17,7 +17,9 @@
 package com.android.incallui;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -49,6 +51,7 @@ import com.android.incalluibind.ObjectFactory;
 
 import java.lang.ref.WeakReference;
 
+import com.android.internal.telephony.util.BlacklistUtils;
 import com.google.common.base.Preconditions;
 
 /**
@@ -716,6 +719,30 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return;
         }
         ui.setCallCardVisible(!isFullScreenVideo);
+    }
+
+    public void blacklistClicked(final Context context) {
+        if (mPrimary == null) {
+            return;
+        }
+
+        final String number = mPrimary.getNumber();
+        final String message = context.getString(R.string.blacklist_dialog_message, number);
+
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.blacklist_dialog_title)
+                .setMessage(message)
+                .setPositiveButton(R.string.pause_prompt_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(this, "hanging up due to blacklist: " + mPrimary.getId());
+                        TelecomAdapter.getInstance().disconnectCall(mPrimary.getId());
+                        BlacklistUtils.addOrUpdate(context, mPrimary.getNumber(),
+                                BlacklistUtils.BLOCK_CALLS, BlacklistUtils.BLOCK_CALLS);
+                    }
+                })
+                .setNegativeButton(R.string.pause_prompt_no, null)
+                .show();
     }
 
     public interface CallCardUi extends Ui {

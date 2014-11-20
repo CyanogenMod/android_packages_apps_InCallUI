@@ -406,7 +406,8 @@ public class CallButtonFragment
 
     @Override
     public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
-            boolean showHoldMenuOption, boolean showSwapMenuOption) {
+            boolean showHoldMenuOption, boolean showSwapMenuOption,
+            boolean showAddParticipantOption) {
         if (mOverflowPopup == null) {
             final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
                     R.style.InCallPopupMenuStyle);
@@ -432,6 +433,9 @@ public class CallButtonFragment
                         case R.id.overflow_swap_menu_item:
                             getPresenter().addCallClicked();
                             break;
+                        case R.id.overflow_add_participant_menu_item:
+                            getPresenter().addParticipantClicked();
+                            break;
                         default:
                             Log.wtf(this, "onMenuItemClick: unexpected overflow menu click");
                             break;
@@ -455,6 +459,7 @@ public class CallButtonFragment
         menu.findItem(R.id.overflow_resume_menu_item).setVisible(
                 showHoldMenuOption && mHoldButton.isSelected());
         menu.findItem(R.id.overflow_swap_menu_item).setVisible(showSwapMenuOption);
+        menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
 
         mOverflowButton.setEnabled(menu.hasVisibleItems());
     }

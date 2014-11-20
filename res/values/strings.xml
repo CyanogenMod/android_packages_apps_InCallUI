@@ -260,6 +260,8 @@
     <string name="overflowMergeMenuItemText">Merge calls</string>
     <!-- Text for the onscreen "Swap calls" menu item. -->
     <string name="overflowSwapMenuItemText">Swap calls</string>
+    <!-- Text for the overflow "Add participant" menu item. -->
+    <string name="overflowAddParticipantMenuItemText">Add participant</string>
 
     <!-- Text for the onscreen "Hold" button -->
     <string name="onscreenHoldText">Hold</string>

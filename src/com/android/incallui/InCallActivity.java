@@ -139,6 +139,7 @@ public class InCallActivity extends Activity {
         getWindow().addFlags(flags);
         boolean isDsdaEnabled = CallList.getInstance().isDsdaEnabled();
         if (isDsdaEnabled) {
+            setTheme(R.style.InCallScreenWithActionBar);
             requestWindowFeature(Window.FEATURE_ACTION_BAR);
             getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             getActionBar().setDisplayShowTitleEnabled(false);

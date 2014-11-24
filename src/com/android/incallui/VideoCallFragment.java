@@ -454,7 +454,6 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      * @param displayVideo The video view to center.
      */
     private void centerDisplayView(View displayVideo) {
-        Log.d(this, "centerDisplayView: IsLandscape=" + mIsLandscape);
         // In a lansdcape layout we need to ensure we horizontally center the view based on whether
         // the layout is left-to-right or right-to-left.
         // In a left-to-right locale, the space for the video view is to the right of the call card
@@ -463,9 +462,13 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         // so we need to translate it in the -X direction.
         final boolean isLayoutRtl = InCallPresenter.isRtl();
 
+        ViewGroup.LayoutParams params = displayVideo.getLayoutParams();
         float spaceBesideCallCard = InCallPresenter.getInstance().getSpaceBesideCallCard();
+        Log.d(this, "centerDisplayView: IsLandscape= " + mIsLandscape + " Layout width: " +
+                params.width + " height: " + params.height + " spaceBesideCallCard: "
+                + spaceBesideCallCard);
         if (mIsLandscape) {
-            float videoViewTranslation = displayVideo.getWidth() / 2
+            float videoViewTranslation = params.width / 2
                     - spaceBesideCallCard / 2;
             if (isLayoutRtl) {
                 displayVideo.setTranslationX(-videoViewTranslation);
@@ -473,7 +476,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                 displayVideo.setTranslationX(videoViewTranslation);
             }
         } else {
-            float videoViewTranslation = displayVideo.getHeight() / 2
+            float videoViewTranslation = params.height / 2
                     - spaceBesideCallCard / 2;
             displayVideo.setTranslationY(videoViewTranslation);
         }
@@ -900,8 +903,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         // It is only after layout is complete that the dimensions of the Call Card has been
         // established, which is a prerequisite to centering the view.
         // Incoming video calls will center the view
-        if (mIsLayoutComplete && ((mIsLandscape && textureView.getTranslationX() == 0) || (
-                !mIsLandscape && textureView.getTranslationY() == 0))) {
+        if (mIsLayoutComplete) {
             centerDisplayView(textureView);
         }
     }

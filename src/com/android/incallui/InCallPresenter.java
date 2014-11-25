@@ -1180,6 +1180,11 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      *      and landscape.  {@Code False} if the in-call UI should be locked in portrait.
      */
     public void setInCallAllowsOrientationChange(boolean allowOrientationChange) {
+        if (mInCallActivity == null) {
+            Log.e(this, "InCallActivity is null. Can't set requested orientation.");
+            return;
+        }
+
         if (!allowOrientationChange) {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } else {

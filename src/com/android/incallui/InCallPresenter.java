@@ -860,6 +860,15 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
                 newState == InCallState.OUTGOING;
         boolean isAnyOtherSubActive = InCallState.INCOMING == newState &&
                 mCallList.isAnyOtherSubActive(mCallList.getActiveSubscription());
+
+        //If the call is auto answered bring up the InCallActivity
+        boolean isAutoAnswer = false;
+        isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
+                           (newState == InCallState.INCALL) &&
+                           (mInCallActivity == null);
+
+        Log.d(this, "startOrFinishUi: " + isAutoAnswer);
+
         if ((newState == mInCallState && !(mInCallActivity == null && isAnyOtherSubActive))
                 || alreadyOutgoing) {
             return newState;
@@ -923,7 +932,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
             return mInCallState;
         }
 
-        if (showCallUi || showAccountPicker) {
+        if (showCallUi || showAccountPicker || isAutoAnswer) {
             Log.i(this, "Start in call UI");
             showInCall(false /* showDialpad */, !showAccountPicker /* newOutgoingCall */);
         } else if (startStartupSequence) {

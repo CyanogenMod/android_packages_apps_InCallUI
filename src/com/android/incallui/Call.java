@@ -198,6 +198,7 @@ public final class Call {
     private DisconnectCause mDisconnectCause;
     private int mSessionModificationState;
     private final List<String> mChildCallIds = new ArrayList<>();
+    private boolean mIsOutgoing = false;
 
     private InCallVideoCallListener mVideoCallListener;
 
@@ -293,6 +294,13 @@ public final class Call {
 
     public void setState(int state) {
         mState = state;
+        if (state == State.DIALING || state == State.CONNECTING) {
+            mIsOutgoing = true;
+        }
+    }
+
+    public boolean isOutgoing() {
+        return mIsOutgoing;
     }
 
     public int getNumberPresentation() {

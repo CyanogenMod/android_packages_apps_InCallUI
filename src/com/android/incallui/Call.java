@@ -247,6 +247,7 @@ public final class Call {
     private final List<String> mChildCallIds = new ArrayList<>();
     private final VideoSettings mVideoSettings = new VideoSettings();
     private int mModifyToVideoState = VideoProfile.VideoState.AUDIO_ONLY;
+    private boolean mIsOutgoing = false;
 
     private InCallVideoCallListener mVideoCallListener;
 
@@ -351,6 +352,13 @@ public final class Call {
 
     public void setState(int state) {
         mState = state;
+        if (state == State.DIALING || state == State.CONNECTING) {
+            mIsOutgoing = true;
+        }
+    }
+
+    public boolean isOutgoing() {
+        return mIsOutgoing;
     }
 
     public int getNumberPresentation() {

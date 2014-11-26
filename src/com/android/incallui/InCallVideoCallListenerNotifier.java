@@ -167,6 +167,17 @@ public class InCallVideoCallListenerNotifier {
     }
 
     /**
+     * Inform listeners of a call session event.
+     *
+     * @param event The call session event.
+     */
+    public void callSessionEvent(int event) {
+        for (VideoEventListener listener : mVideoEventListeners) {
+            listener.onCallSessionEvent(event);
+        }
+    }
+
+    /**
      * Inform listeners of a downgrade to audio.
      *
      * @param call The call.
@@ -293,6 +304,13 @@ public class InCallVideoCallListenerNotifier {
          * @param dataUsage call data usage value
          */
         public void onCallDataUsageChange(long dataUsage);
+
+        /**
+         * Called when call session event is raised.
+         *
+         * @param event The call session event.
+         */
+        public void onCallSessionEvent(int event);
     }
 
     /**

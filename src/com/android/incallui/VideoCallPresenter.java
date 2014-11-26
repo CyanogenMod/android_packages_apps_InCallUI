@@ -695,6 +695,22 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     }
 
     /**
+     * Called when call session event is raised.
+     *
+     * @param event The call session event.
+     */
+    @Override
+    public void onCallSessionEvent(int event) {
+        Log.d(this, "onCallSessionEvent event =" + event);
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "onCallSessionEvent: VideoCallUi is null");
+            return;
+        }
+        ui.displayCallSessionEvent(event);
+    }
+
+    /**
      * Handles a change to the call data usage
      *
      * @param dataUsage call data usage value
@@ -855,6 +871,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         void setPreviewSurfaceSize(int width, int height);
         void setDisplayVideoSize(int width, int height);
         void setCallDataUsage(Context context, long dataUsage);
+        void displayCallSessionEvent(int event);
         Point getScreenSize();
         void cleanupSurfaces();
         boolean isActivityRestart();

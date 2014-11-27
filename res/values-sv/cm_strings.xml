@@ -17,7 +17,16 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callUnanswered_forwarded">Samtal obesvarat och vidarebefordrat</string>
   <string name="modify_call_prompt_yes">Ja</string>
+  <string name="modify_call_prompt_no">Nej</string>
+  <string name="modify_call_option_title">Välj samtalstyp</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Videosändning</string>
+  <string name="modify_call_option_voice">Endast röst</string>
+  <string name="upgrade_vt_prompt">Vill du uppgradera samtalet till videosamtal?</string>
+  <string name="description_target_answer_tx_video">Svara med TX-video</string>
+  <string name="description_target_answer_rx_video">Svara med RX-video</string>
   <string name="incall_call_type_label_forwarded">Vidarebefordrat samtal</string>
   <string name="card_title_dialing_waiting">Ringer (väntar\u2026)</string>
   <string name="card_title_waiting_call">Väntande samtal</string>
@@ -26,4 +35,6 @@
   <string name="call_recording_failed_message">Det gick inte att starta samtalsinspelning</string>
   <string name="blacklist_dialog_title">Lägg till svartlistan</string>
   <string name="blacklist_dialog_message">Kommande samtal från <xliff:g id="number">%s</xliff:g> kommer att blockeras</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

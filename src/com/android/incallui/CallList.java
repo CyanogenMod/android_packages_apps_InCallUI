@@ -280,6 +280,14 @@ public class CallList implements InCallPhoneListener {
         return call;
     }
 
+    public Call getOutgoingOrActiveCall() {
+        Call call = getOutgoingCall();
+        if (call == null) {
+            call = getActiveCall();
+        }
+        return call;
+    }
+
     public Call getActiveCall() {
         return getFirstCallWithState(Call.State.ACTIVE);
     }

@@ -24,6 +24,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.telecom.AudioState;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
@@ -343,17 +344,68 @@ public class CallButtonFragment
             return;
         }
 
-        int profile = VideoProfile.VideoState.BIDIRECTIONAL;
+        if (SystemProperties.getBoolean("persist.radio.ims.cmcc", false)) {
+            // here we disable video RX/TX for CMCC VoLTE requirment.
+            int profile = VideoProfile.VideoState.BIDIRECTIONAL;
 
-        if (mChangeToVideoButton.isSelected()){
-            profile = VideoProfile.VideoState.AUDIO_ONLY;
+            if (mChangeToVideoButton.isSelected()) {
+                profile = VideoProfile.VideoState.AUDIO_ONLY;
+            }
+            Log.d(this, "- displayModifyCallOptions: selected = "
+                    + mChangeToVideoButton.isSelected());
+            Log.d(this, "- displayModifyCallOptions: profile = " + profile);
+            VideoProfile videoProfile = new VideoProfile(profile);
+            getPresenter().changeToVideoClicked(videoProfile);
+            Toast.makeText(getUi().getContext(), R.string.connecting_for_modify,
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
-        Log.d(this, "- displayModifyCallOptions: selected = " + mChangeToVideoButton.isSelected());
-        Log.d(this, "- displayModifyCallOptions: profile = " + profile);
-        VideoProfile videoProfile = new VideoProfile(profile);
-        getPresenter().changeToVideoClicked(videoProfile);
-        Toast.makeText(getUi().getContext(), R.string.connecting_for_modify,
-                Toast.LENGTH_SHORT).show();
+        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
+        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
+        CallButtonPresenter.CallButtonUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Cannot display ModifyCallOptions as ui is null");
+            return;
+        }
+
+        final Resources res = ui.getContext().getResources();
+        // Prepare the string array and mapping.
+        items.add(res.getText(R.string.modify_call_option_voice));
+        itemToCallType.add(VideoProfile.VideoState.AUDIO_ONLY);
+
+        items.add(res.getText(R.string.modify_call_option_vt_rx));
+        itemToCallType.add(VideoProfile.VideoState.RX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt_tx));
+        itemToCallType.add(VideoProfile.VideoState.TX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt));
+        itemToCallType.add(VideoProfile.VideoState.BIDIRECTIONAL);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getUi().getContext());
+        builder.setTitle(R.string.modify_call_option_title);
+        final AlertDialog alert;
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                Toast.makeText(getUi().getContext(), items.get(item), Toast.LENGTH_SHORT).show();
+                final int selCallType = itemToCallType.get(item);
+                Log.v(this, "Videocall: ModifyCall: upgrade/downgrade to "
+                        + fromCallType(selCallType));
+                VideoProfile videoProfile = new VideoProfile(selCallType);
+                getPresenter().changeToVideoClicked(videoProfile);
+                dialog.dismiss();
+            }
+        };
+        int currVideoState = getPresenter().getCurrentVideoState();
+        int index = itemToCallType.indexOf(currVideoState);
+        if (index == INVALID_INDEX) {
+            return;
+        }
+        builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
+        alert = builder.create();
+        alert.show();
     }
 
     public static String fromCallType(int callType) {

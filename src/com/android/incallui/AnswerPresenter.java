@@ -159,8 +159,22 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     private void processVideoUpgradeRequestCall(Call call) {
         Log.d(this, " processVideoUpgradeRequestCall call=" + call);
+        if (SystemProperties.getBoolean("persist.radio.ims.cmcc", false)) {
+            Log.d(this, " processVideoUpgradeRequestCall show dialog");
+            InCallPresenter.getInstance().showModifyCallConsentDialog();
+            return;
+        }
 
-        InCallPresenter.getInstance().showModifyCallConsentDialog();
+        Log.d(this, " processVideoUpgradeRequestCall show glowpad");
+        long subId = call.getSubId();
+        int phoneId = CallList.getInstance().getPhoneId(subId);
+        mCallId[phoneId] = call.getId();
+        mCall[phoneId] = call;
+
+        // Listen for call updates for the current call.
+        CallList.getInstance().addCallUpdateListener(mCallId[phoneId], this);
+        getUi().showAnswerUi(true);
+        getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_UPGRADE_REQUEST);
     }
 
     @Override

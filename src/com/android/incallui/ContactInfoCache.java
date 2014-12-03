@@ -28,8 +28,6 @@ import android.telecom.TelecomManager;
 import android.text.TextUtils;
 
 import com.android.contacts.common.util.PhoneNumberHelper;
-import com.android.dialer.calllog.ContactInfo;
-import com.android.dialer.lookup.ReverseLookupThread;
 import com.android.incallui.service.PhoneNumberService;
 import com.android.incalluibind.ServiceFactory;
 import com.android.services.telephony.common.MoreStrings;
@@ -182,9 +180,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                     final PhoneNumberServiceListener listener = new PhoneNumberServiceListener(callId);
                     mPhoneNumberService.getPhoneNumberInfo(cacheEntry.number, listener, listener,
                             isIncoming);
-                } else {
-                    final ReverseLookupListener listener = new ReverseLookupListener(callId);
-                    ReverseLookupThread.performLookup(mContext, cacheEntry.number, listener);
                 }
             } else if (cacheEntry.displayPhotoUri != null) {
                 Log.d(TAG, "Contact lookup. Local contact found, starting image load");
@@ -201,57 +196,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 }
                 clearCallbacks(callId);
             }
-        }
-    }
-
-    public class ReverseLookupListener {
-        private final String mCallId;
-
-        ReverseLookupListener(String callId) {
-            mCallId = callId;
-        }
-
-        public void onLookupComplete(final ContactInfo info) {
-            if (info == null) {
-                Log.d(TAG, "Reverse lookup returned no result.");
-                clearCallbacks(mCallId);
-                return;
-            }
-
-            ContactCacheEntry entry = new ContactCacheEntry();
-            entry.name = info.name;
-            entry.number = info.number;
-            if (info.type == Phone.TYPE_CUSTOM) {
-                entry.label = info.label;
-            } else {
-                final CharSequence typeStr = Phone.getTypeLabel(
-                        mContext.getResources(), info.type, info.label);
-                entry.label = typeStr == null ? null : typeStr.toString();
-            }
-
-            final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
-            if (oldEntry != null) {
-                // Location is only obtained from local lookup so persist
-                // the value for remote lookups. Once we have a name this
-                // field is no longer used; it is persisted here in case
-                // the UI is ever changed to use it.
-                entry.location = oldEntry.location;
-            }
-
-            // Add the contact info to the cache.
-            mInfoMap.put(mCallId, entry);
-            sendInfoNotifications(mCallId, entry);
-
-            // If there is no image then we should not expect another callback.
-            if (info.photoUri == null) {
-                // We're done, so clear callbacks
-                clearCallbacks(mCallId);
-            }
-        }
-
-        public void onImageFetchComplete(Bitmap bitmap) {
-            onImageLoadComplete(TOKEN_UPDATE_PHOTO_FOR_CALL_STATE, null,
-                    bitmap, mCallId);
         }
     }
 

@@ -373,6 +373,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             primary = callList.getIncomingCall();
         } else if (newState == InCallPresenter.InCallState.OUTGOING) {
             primary = callList.getOutgoingCall();
+        } else if (newState == InCallPresenter.InCallState.PENDING_OUTGOING) {
+            primary = callList.getPendingOutgoingCall();
         } else if (newState == InCallPresenter.InCallState.INCALL) {
             primary = callList.getActiveCall();
         }
@@ -385,14 +387,13 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mPrimaryCall = primary;
 
             if (primary != null) {
-                checkForVideoCallChange();
-                checkForVideoStateChange();
+                updateVideoCall();
             } else if (primary == null) {
                 // If no primary call, ensure we exit video state and clean up the video surfaces.
                 exitVideoMode();
             }
         } else if(mPrimaryCall!=null) {
-            checkForVideoStateChange();
+            updateVideoCall();
         }
     }
 
@@ -452,8 +453,13 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
-        checkForVideoStateChange();
+        updateVideoCall();
         checkForCallSubstateChange();
+    }
+
+    private void updateVideoCall() {
+        checkForVideoCallChange();
+        checkForVideoStateChange();
     }
 
     /**

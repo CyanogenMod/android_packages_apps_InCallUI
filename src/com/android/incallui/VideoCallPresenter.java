@@ -317,6 +317,11 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
     }
 
+    private void toggleFullScreen() {
+        mIsFullScreen = !mIsFullScreen;
+        InCallPresenter.getInstance().setFullScreenVideoState(mIsFullScreen);
+    }
+
     /**
      * Handles clicks on the video surfaces by toggling full screen state.
      * Informs the {@link InCallPresenter} of the change so that it can inform the
@@ -325,8 +330,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param surfaceId The video surface receiving the click.
      */
     public void onSurfaceClick(int surfaceId) {
-        mIsFullScreen = !mIsFullScreen;
-        InCallPresenter.getInstance().setFullScreenVideoState(mIsFullScreen);
+        toggleFullScreen();
     }
 
 
@@ -587,6 +591,11 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
 
         enableCamera(false);
+
+        Log.d(this, "exitVideoMode mIsFullScreen: " + mIsFullScreen);
+        if (mIsFullScreen) {
+            toggleFullScreen();
+        }
     }
 
     /**

@@ -544,10 +544,15 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         // If the speaker is explicitly disabled then do not enable it.
         if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
                 IMS_AUDIO_OUTPUT_DEFAULT) != IMS_AUDIO_OUTPUT_DISABLE_SPEAKER) {
-            Log.d(this, "Routing audio to speaker");
 
-            mPreVideoAudioMode = AudioModeProvider.getInstance().getAudioMode();
-            TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
+            int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
+            if (!isAudioRouteEnabled(currentAudioMode,
+                AudioState.ROUTE_BLUETOOTH | AudioState.ROUTE_WIRED_HEADSET)) {
+                mPreVideoAudioMode = currentAudioMode;
+
+                Log.d(this, "Routing audio to speaker");
+                TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
+            }
         }
 
     }
@@ -884,6 +889,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             size.x = (int) (size.y * width / height);
         }
         ui.setDisplayVideoSize(size.x, size.y);
+    }
+
+    private static boolean isAudioRouteEnabled(int audioRoute, int audioRouteMask) {
+        return ((audioRoute & audioRouteMask) != 0);
     }
 
     /**

@@ -336,6 +336,11 @@ public class CallButtonFragment
      * displays modify call options.
      */
     public void displayModifyCallOptions() {
+        CallButtonPresenter.CallButtonUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Cannot display ModifyCallOptions as ui is null");
+            return;
+        }
         Context context = getContext();
         if (isTtyModeEnabled()) {
             Toast.makeText(context, context.getResources().getString(
@@ -360,14 +365,9 @@ public class CallButtonFragment
                     Toast.LENGTH_SHORT).show();
             return;
         }
+
         final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
         final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
-        CallButtonPresenter.CallButtonUi ui = getUi();
-        if (ui == null) {
-            Log.e(this, "Cannot display ModifyCallOptions as ui is null");
-            return;
-        }
-
         final Resources res = ui.getContext().getResources();
         // Prepare the string array and mapping.
         items.add(res.getText(R.string.modify_call_option_voice));

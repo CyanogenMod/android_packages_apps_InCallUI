@@ -482,6 +482,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             Log.d(TAG, "updatePrimaryDisplayInfo called but ui is null!");
             return;
         }
+
         if (mPrimary == null) {
             // Clear the primary display info.
             ui.setPrimary(null, null, false, null, null, false);

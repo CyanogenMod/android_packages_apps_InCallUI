@@ -129,7 +129,8 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
         final int targetDescriptionsResourceId;
         final int directionDescriptionsResourceId;
         final int handleDrawableResourceId;
-
+        final boolean showOneWayVideoOptions = getResources().getBoolean(
+                R.bool.config_incoming_call_show_one_way_video_options);
         switch (targetSet) {
             case TARGET_SET_FOR_AUDIO_WITH_SMS:
                 targetResourceId = R.array.incoming_call_widget_audio_with_sms_targets;
@@ -140,7 +141,9 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
                 handleDrawableResourceId = R.drawable.ic_incall_audio_handle;
                 break;
             case TARGET_SET_FOR_VIDEO_WITHOUT_SMS:
-                targetResourceId = R.array.incoming_call_widget_video_without_sms_targets;
+                targetResourceId = showOneWayVideoOptions ?
+                        R.array.incoming_call_widget_video_without_sms_targets
+                        :R.array.incoming_call_widget_video_without_sms_targets_and_one_way_video;
                 targetDescriptionsResourceId =
                         R.array.incoming_call_widget_video_without_sms_target_descriptions;
                 directionDescriptionsResourceId =
@@ -148,7 +151,9 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
                 handleDrawableResourceId = R.drawable.ic_incall_video_handle;
                 break;
             case TARGET_SET_FOR_VIDEO_WITH_SMS:
-                targetResourceId = R.array.incoming_call_widget_video_with_sms_targets;
+                targetResourceId = showOneWayVideoOptions ?
+                        R.array.incoming_call_widget_video_with_sms_targets
+                        :R.array.incoming_call_widget_video_with_sms_targets_without_one_way_video;
                 targetDescriptionsResourceId =
                         R.array.incoming_call_widget_video_with_sms_target_descriptions;
                 directionDescriptionsResourceId =

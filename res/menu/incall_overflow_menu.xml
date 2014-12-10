@@ -30,12 +30,4 @@
 
     <item android:id="@+id/overflow_swap_menu_item"
           android:title="@string/overflowSwapMenuItemText" />
-
-    <item
-        android:id="@+id/menu_start_record"
-        android:title="@string/menu_start_record" />
-
-    <item
-        android:id="@+id/menu_stop_record"
-        android:title="@string/menu_stop_record" />
 </menu>

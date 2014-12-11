@@ -146,7 +146,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     /**
      * Saves the audio mode which was selected prior to going into a video call.
      */
-    private int mPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
+    private static int sPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
 
     /**
      * Stores the current call substate.
@@ -364,6 +364,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
         if (newState == InCallPresenter.InCallState.NO_CALLS) {
             exitVideoMode();
+            updateAudioMode(false);
             cleanupSurfaces();
         }
 
@@ -385,6 +386,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mPrimaryCall = primary;
 
             if (primary != null) {
+                updateAudioMode(true);
                 checkForVideoCallChange();
                 checkForVideoStateChange();
             } else if (primary == null) {
@@ -542,20 +544,42 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
         mCurrentVideoState = newVideoState;
 
-        // If the speaker is explicitly disabled then do not enable it.
+    }
+
+    private void updateAudioMode(boolean enableSpeaker) {
         if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
-                IMS_AUDIO_OUTPUT_DEFAULT) != IMS_AUDIO_OUTPUT_DISABLE_SPEAKER) {
-
-            int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
-            if (!isAudioRouteEnabled(currentAudioMode,
-                AudioState.ROUTE_BLUETOOTH | AudioState.ROUTE_WIRED_HEADSET)) {
-                mPreVideoAudioMode = currentAudioMode;
-
-                Log.d(this, "Routing audio to speaker");
-                TelecomAdapter.getInstance().setAudioRoute(AudioState.ROUTE_SPEAKER);
-            }
+                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER &&
+                !mPrimaryCall.isVideoCall(mContext)) {
+            Log.d(this, "Speaker is disabled or not a video call. Can't update audio mode");
+            return;
         }
 
+        final TelecomAdapter telecomAdapter = TelecomAdapter.getInstance();
+        final boolean isPrevAudioModeValid =
+            sPreVideoAudioMode != AudioModeProvider.AUDIO_MODE_INVALID;
+
+        Log.d(this, "Is previous audio mode valid = " + isPrevAudioModeValid + " enableSpeaker is "
+            + enableSpeaker);
+
+        // Set audio mode to previous mode if enableSpeaker is false.
+        if (isPrevAudioModeValid && !enableSpeaker) {
+            telecomAdapter.setAudioRoute(sPreVideoAudioMode);
+            sPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
+            return;
+        }
+
+        int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
+
+        // Set audio mode to speaker if enableSpeaker is true and bluetooth or headset are not
+        // connected.
+        if (!isAudioRouteEnabled(currentAudioMode,
+            AudioState.ROUTE_BLUETOOTH | AudioState.ROUTE_WIRED_HEADSET) &&
+            !isPrevAudioModeValid && enableSpeaker) {
+            sPreVideoAudioMode = currentAudioMode;
+
+            Log.d(this, "Routing audio to speaker");
+            telecomAdapter.setAudioRoute(AudioState.ROUTE_SPEAKER);
+        }
     }
 
     private void enableCamera(boolean isCameraRequired) {
@@ -590,11 +614,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallPresenter.getInstance().setInCallAllowsOrientationChange(false);
         mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
         showVideoUi(mCurrentVideoState);
-
-        if (mPreVideoAudioMode != AudioModeProvider.AUDIO_MODE_INVALID) {
-            TelecomAdapter.getInstance().setAudioRoute(mPreVideoAudioMode);
-            mPreVideoAudioMode = AudioModeProvider.AUDIO_MODE_INVALID;
-        }
 
         enableCamera(false);
 

@@ -24,6 +24,7 @@ import android.telecom.PhoneCapabilities;
 import android.telecom.VideoProfile;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
+import com.android.incallui.InCallCameraManager.CameraSelectionListener;
 import com.android.incallui.InCallPresenter.CanAddCallListener;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
@@ -42,7 +43,8 @@ import java.util.Objects;
  */
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
         implements InCallStateListener, AudioModeListener, IncomingCallListener,
-        InCallDetailsListener, CallList.ActiveSubChangeListener, CanAddCallListener {
+        InCallDetailsListener, CallList.ActiveSubChangeListener, CanAddCallListener,
+        CameraSelectionListener {
 
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
@@ -63,6 +65,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().addDetailsListener(this);
         CallList.getInstance().addActiveSubChangeListener(this);
         InCallPresenter.getInstance().addCanAddCallListener(this);
+        InCallPresenter.getInstance().getInCallCameraManager().addCameraSelectionListener(this);
     }
 
     @Override
@@ -74,6 +77,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().removeIncomingCallListener(this);
         InCallPresenter.getInstance().removeDetailsListener(this);
         CallList.getInstance().removeActiveSubChangeListener(this);
+        InCallPresenter.getInstance().getInCallCameraManager().removeCameraSelectionListener(this);
     }
 
     @Override
@@ -293,8 +297,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             videoCall.setCamera(cameraId);
             videoCall.requestCameraCapabilities();
         }
-        getUi().setSwitchCameraButton(!useFrontFacingCamera);
     }
+
 
     /**
      * Stop or start client's video transmission.
@@ -504,5 +508,13 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 .getPotentialStateFromCallList(CallList.getInstance());
 
         onStateChange(null, state, CallList.getInstance());
+    }
+
+    @Override
+    public void onActiveCameraSelectionChanged(boolean isUsingFrontFacingCamera) {
+        if (getUi() == null) {
+            return;
+        }
+        getUi().setSwitchCameraButton(!isUsingFrontFacingCamera);
     }
 }

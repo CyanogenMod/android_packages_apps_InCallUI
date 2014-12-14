@@ -491,7 +491,17 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             //mVideoCall.setPreviewSurface(null);
         }
 
+        final boolean hasChanged = mVideoCall == null && videoCall != null;
+
         mVideoCall = videoCall;
+        if (mVideoCall == null || mPrimaryCall == null) {
+            Log.d(this, "Video call or primary call is null. Return");
+            return;
+        }
+
+        if (CallUtils.isVideoCall(mPrimaryCall) && hasChanged) {
+            enterVideoMode(mPrimaryCall.getVideoState());
+        }
     }
 
     private boolean isCameraRequired(int videoState) {
@@ -527,13 +537,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 //                Log.e(this, "enterVideoMode: Activity Restarted so no action");
 //                return;
 //            }
-            int videoState = mPrimaryCall.getVideoState();
-            if (videoState == mCurrentVideoState) {
-                Log.d(this, "enterVideoMode: Nothing changed exiting...");
-                return;
-            }
 
-            boolean isCameraRequired = isCameraRequired(videoState);
+            boolean isCameraRequired = isCameraRequired(newVideoState);
             if (isCameraRequired) {
                 if (CallUtils.toUnPausedVideoState(mCurrentVideoState) != CallUtils
                         .toUnPausedVideoState(newVideoState)) {

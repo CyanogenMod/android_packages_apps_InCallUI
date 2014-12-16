@@ -563,7 +563,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
     private void updateAudioMode(boolean enableSpeaker) {
         if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
-                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER &&
+                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER ||
                 !mPrimaryCall.isVideoCall(mContext)) {
             Log.d(this, "Speaker is disabled or not a video call. Can't update audio mode");
             return;

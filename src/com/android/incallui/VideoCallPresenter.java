@@ -563,9 +563,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
     private void updateAudioMode(boolean enableSpeaker) {
         if (SystemProperties.getInt(PROPERTY_IMS_AUDIO_OUTPUT,
-                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER ||
-                !mPrimaryCall.isVideoCall(mContext)) {
-            Log.d(this, "Speaker is disabled or not a video call. Can't update audio mode");
+                IMS_AUDIO_OUTPUT_DEFAULT) == IMS_AUDIO_OUTPUT_DISABLE_SPEAKER) {
+            Log.d(this, "Speaker is disabled. Can't update audio mode");
             return;
         }
 
@@ -586,10 +585,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
 
         // Set audio mode to speaker if enableSpeaker is true and bluetooth or headset are not
-        // connected.
+        // connected and it's a video call.
         if (!isAudioRouteEnabled(currentAudioMode,
             AudioState.ROUTE_BLUETOOTH | AudioState.ROUTE_WIRED_HEADSET) &&
-            !isPrevAudioModeValid && enableSpeaker) {
+            !isPrevAudioModeValid && enableSpeaker && CallUtils.isVideoCall(mPrimaryCall)) {
             sPreVideoAudioMode = currentAudioMode;
 
             Log.d(this, "Routing audio to speaker");

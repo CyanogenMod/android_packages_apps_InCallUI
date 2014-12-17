@@ -29,12 +29,37 @@
 package com.android.incallui;
 
 import android.telecom.VideoProfile;
+
 import com.google.common.base.Preconditions;
 
 public class CallUtils {
 
     public static boolean isVideoCall(Call call) {
         return call != null && VideoProfile.VideoState.isVideo(call.getVideoState());
+    }
+
+    public static boolean isIncomingVideoCall(Call call) {
+        if (!CallUtils.isVideoCall(call)) {
+            return false;
+        }
+        final int state = call.getState();
+        return (state == Call.State.INCOMING) || (state == Call.State.CALL_WAITING);
+    }
+
+    public static boolean isActiveVideoCall(Call call) {
+        return CallUtils.isVideoCall(call) && call.getState() == Call.State.ACTIVE;
+    }
+
+    public static boolean isOutgoingVideoCall(Call call) {
+        if (!CallUtils.isVideoCall(call)) {
+            return false;
+        }
+        final int state = call.getState();
+        return Call.State.isDialing(state) || state == Call.State.CONNECTING;
+    }
+
+    public static boolean isAudioCall(Call call) {
+        return call != null && VideoProfile.VideoState.isAudioOnly(call.getVideoState());
     }
 
     // TODO (ims-vt) Check if special handling is needed for CONF calls.

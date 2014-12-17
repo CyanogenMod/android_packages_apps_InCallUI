@@ -451,7 +451,9 @@ public class CallButtonFragment
                     case R.id.overflow_swap_menu_item:
                         getPresenter().addCallClicked();
                         break;
-
+                    case R.id.overflow_add_participant_menu_item:
+                        getPresenter().addParticipantClicked();
+                        break;
                         case R.id.menu_start_record:
                             ((InCallActivity)getActivity()).startInCallRecorder();
                             break;
@@ -476,7 +478,8 @@ public class CallButtonFragment
     }
     @Override
     public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
-            boolean showHoldMenuOption, boolean showSwapMenuOption) {
+            boolean showHoldMenuOption, boolean showSwapMenuOption,
+            boolean showAddParticipantOption) {
         if (mOverflowPopup == null) {
             createOverflowMenu();
         }
@@ -489,6 +492,7 @@ public class CallButtonFragment
                 showHoldMenuOption && mHoldButton.isSelected());
         menu.findItem(R.id.overflow_swap_menu_item).setVisible(showSwapMenuOption);
         menu.findItem(R.id.menu_start_record).setVisible(true);
+        menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
 
         mOverflowButton.setEnabled(menu.hasVisibleItems());
     }

@@ -41,4 +41,7 @@
 
     <item android:id="@+id/overflow_add_participant_menu_item"
           android:title="@string/overflowAddParticipantMenuItemText" />
+
+    <item android:id="@+id/overflow_manage_conference_menu_item"
+          android:title="@string/overflowManageConferenceMenuItemText" />
 </menu>

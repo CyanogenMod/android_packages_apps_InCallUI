@@ -64,6 +64,7 @@ public class CallButtonFragment
     private ImageButton mPauseVideoButton;
     private ImageButton mOverflowButton;
     private ImageButton mAddParticipantButton;
+    private ImageButton mManageVideoCallConferenceButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -124,7 +125,9 @@ public class CallButtonFragment
         mAddParticipantButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
-
+        mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
+            R.id.manageVideoCallConferenceButton);
+        mManageVideoCallConferenceButton.setOnClickListener(this);
         return parent;
     }
 
@@ -199,6 +202,9 @@ public class CallButtonFragment
             case R.id.overflowButton:
                 mOverflowPopup.show();
                 break;
+            case R.id.manageVideoCallConferenceButton:
+                onManageVideoCallConferenceClicked();
+                break;
             default:
                 Log.wtf(this, "onClick: unexpected");
                 break;
@@ -226,6 +232,7 @@ public class CallButtonFragment
         mPauseVideoButton.setEnabled(isEnabled);
         mOverflowButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
+        mManageVideoCallConferenceButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -305,6 +312,10 @@ public class CallButtonFragment
 
     public void enableAddParticipant(boolean show) {
         mAddParticipantButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public void showManageConferenceVideoCallButton(boolean show) {
+        mManageVideoCallConferenceButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -407,7 +418,7 @@ public class CallButtonFragment
     @Override
     public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
             boolean showHoldMenuOption, boolean showSwapMenuOption,
-            boolean showAddParticipantOption) {
+            boolean showAddParticipantOption, boolean showManageConferenceVideoCallOption) {
         if (mOverflowPopup == null) {
             final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
                     R.style.InCallPopupMenuStyle);
@@ -436,6 +447,9 @@ public class CallButtonFragment
                         case R.id.overflow_add_participant_menu_item:
                             getPresenter().addParticipantClicked();
                             break;
+                        case R.id.overflow_manage_conference_menu_item:
+                            onManageVideoCallConferenceClicked();
+                            break;
                         default:
                             Log.wtf(this, "onMenuItemClick: unexpected overflow menu click");
                             break;
@@ -460,6 +474,8 @@ public class CallButtonFragment
                 showHoldMenuOption && mHoldButton.isSelected());
         menu.findItem(R.id.overflow_swap_menu_item).setVisible(showSwapMenuOption);
         menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
+        menu.findItem(R.id.overflow_manage_conference_menu_item).setVisible(
+            showManageConferenceVideoCallOption);
 
         mOverflowButton.setEnabled(menu.hasVisibleItems());
     }
@@ -554,6 +570,14 @@ public class CallButtonFragment
             showAudioModePopup();
         } else {
             getPresenter().toggleSpeakerphone();
+        }
+    }
+
+    private void onManageVideoCallConferenceClicked() {
+        Log.d(this, "onManageVideoCallConferenceClicked");
+        final InCallActivity activity = (InCallActivity) getActivity();
+        if (activity != null) {
+            activity.showConferenceCallManager();
         }
     }
 

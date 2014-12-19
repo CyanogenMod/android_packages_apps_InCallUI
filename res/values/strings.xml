@@ -262,6 +262,8 @@
     <string name="overflowSwapMenuItemText">Swap calls</string>
     <!-- Text for the overflow "Add participant" menu item. -->
     <string name="overflowAddParticipantMenuItemText">Add participant</string>
+    <!-- Text for the overflow "Manage Conference Video Call" menu item. -->
+    <string name="overflowManageConferenceMenuItemText">Manage Conference</string>
 
     <!-- Text for the onscreen "Hold" button -->
     <string name="onscreenHoldText">Hold</string>

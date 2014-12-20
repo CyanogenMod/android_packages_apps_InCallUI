@@ -647,6 +647,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
+
         if (VideoProfile.VideoState.isBidirectional(videoState)) {
             ui.showVideoBidrectionalUi();
         } else if (VideoProfile.VideoState.isTransmissionEnabled(videoState)) {
@@ -656,6 +657,9 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         } else {
             ui.hideVideoUi();
         }
+
+        InCallPresenter.getInstance().enableScreenTimeout(
+                VideoProfile.VideoState.isAudioOnly(videoState));
     }
 
     /**

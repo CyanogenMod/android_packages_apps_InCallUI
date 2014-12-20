@@ -670,27 +670,40 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
 
         final Resources resources = context.getResources();
 
-        int callSubstateResourceId = INVALID_RESOURCE_ID;
-        switch (callSubstate) {
-            case Connection.CALL_SUBSTATE_NONE:
-                callSubstateResourceId = R.string.call_substate_call_resumed;
-                break;
-            case Connection.CALL_SUBSTATE_AUDIO_CONNECTED_SUSPENDED:
-                callSubstateResourceId = R.string.call_substate_connected_suspended_audio;
-                break;
-            case Connection.CALL_SUBSTATE_VIDEO_CONNECTED_SUSPENDED:
-                callSubstateResourceId = R.string.call_substate_connected_suspended_video;
-                break;
-            case Connection.CALL_SUBSTATE_AVP_RETRY:
-                callSubstateResourceId = R.string.call_substate_avp_retry;
-                break;
-            default:
-                break;
+        String callSubstateChangedText = "";
+
+        if (isEnabled(Connection.CALL_SUBSTATE_AUDIO_CONNECTED_SUSPENDED, callSubstate)) {
+            callSubstateChangedText +=
+                resources.getString(R.string.call_substate_connected_suspended_audio);
         }
-        if (callSubstateResourceId != INVALID_RESOURCE_ID) {
-            Toast.makeText(context, resources.getString(callSubstateResourceId),
+
+        if (isEnabled(Connection.CALL_SUBSTATE_VIDEO_CONNECTED_SUSPENDED, callSubstate)) {
+            callSubstateChangedText +=
+                resources.getString(R.string.call_substate_connected_suspended_video);
+        }
+
+        if (isEnabled(Connection.CALL_SUBSTATE_AVP_RETRY, callSubstate)) {
+            callSubstateChangedText +=
+                resources.getString(R.string.call_substate_avp_retry);
+        }
+
+        if (isNotEnabled(Connection.CALL_SUBSTATE_ALL, callSubstate)) {
+            callSubstateChangedText = resources.getString(R.string.call_substate_call_resumed);
+        }
+
+        if (!callSubstateChangedText.isEmpty()) {
+            String callSubstateLabelText = resources.getString(R.string.call_substate_label);
+            Toast.makeText(context, callSubstateLabelText + callSubstateChangedText,
                 Toast.LENGTH_SHORT).show();
         }
+    }
+
+    boolean isEnabled(int mask, int callSubstate) {
+        return (mask & callSubstate) == mask;
+    }
+
+    boolean isNotEnabled(int mask, int callSubstate) {
+        return (mask & callSubstate) == 0;
     }
 
     /**

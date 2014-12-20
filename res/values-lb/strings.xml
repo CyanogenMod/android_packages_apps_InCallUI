@@ -17,7 +17,6 @@
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="phoneAppLabel" product="default">Telefon</string>
-  <string name="inCallLabel" translate="false">InCallUI</string>
   <string name="onHold">Gehalen</string>
   <string name="unknown">Onbekannt</string>
   <string name="private_num">Privat Nummer</string>
@@ -172,19 +171,4 @@
   <string name="dialpad_3_number">3</string>
   <string name="dialpad_4_number">4</string>
   <string name="dialpad_5_number">5</string>
-  <string name="dialpad_6_number">6</string>
-  <string name="dialpad_7_number">7</string>
-  <string name="dialpad_8_number">8</string>
-  <string name="dialpad_9_number">9</string>
-  <string name="dialpad_star_number">*</string>
-  <string name="dialpad_pound_number">#</string>
-  <string name="dialpad_0_letters">+</string>
-  <string name="dialpad_2_letters">ABC</string>
-  <string name="dialpad_3_letters">DEF</string>
-  <string name="dialpad_4_letters">GHI</string>
-  <string name="dialpad_5_letters">JKL</string>
-  <string name="dialpad_6_letters">MNO</string>
-  <string name="dialpad_7_letters">PQRS</string>
-  <string name="dialpad_8_letters">TUV</string>
-  <string name="dialpad_9_letters">WXYZ</string>
 </resources>

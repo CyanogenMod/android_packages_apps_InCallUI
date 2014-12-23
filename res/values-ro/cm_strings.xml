@@ -17,6 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">Cererea APEL a fost modificată în cerere USSD.</string>
+  <string name="callFailed_dialToSs">Cererea APEL a fost modificată în cerere SS.</string>
+  <string name="callFailed_dialToDial">Cererea APEL a fost modificată pentru APEL cu un număr diferit.</string>
+  <string name="callFailed_incoming_cb_enabled">Apelatul a blocat toate apelurile primite.</string>
+  <string name="callUnanswered_forwarded">Apel nerăspuns și transmis mai departe</string>
+  <string name="modify_call_prompt_yes">Da</string>
+  <string name="modify_call_prompt_no">Nu</string>
+  <string name="modify_call_failure_str">Cererea de modificare a apelului a eșuat\n</string>
+  <string name="modify_call_option_title">Selectaţi tipul de apel</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Transmisie video</string>
+  <string name="modify_call_option_vt_rx">Recepție video</string>
+  <string name="modify_call_option_voice">Numai voce</string>
+  <string name="accept_modify_call_request_prompt">Acceptați cererea de modificare a apelului?</string>
+  <string name="upgrade_vt_prompt">Doriți să transformați din apel în apel video?</string>
+  <string name="upgrade_vt_tx_prompt">Doriți să transformați din apel în apel doar de transmisie video?</string>
+  <string name="upgrade_vt_rx_prompt">Doriți să transformați din apel în apel doar de recepție video?</string>
+  <string name="onscreenModifyCallText">Modificare apel</string>
+  <string name="onscreenAddParticipant">Adaugă participant</string>
+  <string name="description_target_answer_video">Răspunde cu video</string>
+  <string name="description_target_answer_tx_video">Răspunde cu TX video</string>
+  <string name="description_target_answer_rx_video">Răspunde cu RX video</string>
+  <string name="description_direction_up_right">Sus dreapta</string>
+  <string name="description_direction_up_left">Sus stânga</string>
+  <string name="description_direction_down_left">Jos stânga</string>
+  <string name="description_direction_down_right">Jos dreapta</string>
   <string name="incall_call_type_label_forwarded">Apel redirecționat</string>
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
   <string name="card_title_waiting_call">Apel în așteptare</string>
@@ -25,4 +51,9 @@
   <string name="call_recording_failed_message">Înregistrarea apelului a eșuat</string>
   <string name="blacklist_dialog_title">Adaugă la lista neagră</string>
   <string name="blacklist_dialog_message">Viitoarele apeluri de la <xliff:g id="number">%s</xliff:g> vor fi blocate</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Îmbunătățirea de volumul este activată</string>
+  <string name="volume_boost_notify_disabled">Îmbunătățirea de volumul este dezactivată</string>
+  <string name="volume_boost_notify_unavailable">Volumul suplimentar nu este disponibil atunci când utilizaţi un set de caști</string>
 </resources>

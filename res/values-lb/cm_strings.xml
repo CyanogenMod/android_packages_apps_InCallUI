@@ -30,16 +30,30 @@
   <string name="modify_call_option_vt_tx">Video iwwerdroen</string>
   <string name="modify_call_option_vt_rx">Video empfänken</string>
   <string name="modify_call_option_voice">Just Stëmm</string>
+  <string name="accept_modify_call_request_prompt">Ufro fir den Urufftyp z\'änneren acceptéieren?</string>
   <string name="upgrade_vt_prompt">Soll den Uruff an e Videouruff geännert ginn?</string>
   <string name="upgrade_vt_tx_prompt">Soll den Uruff an e Videouruff (just schécken) geännert ginn?</string>
+  <string name="upgrade_vt_rx_prompt">Soll den Uruff an e Videouruff (just empfänken) geännert ginn?</string>
+  <string name="onscreenModifyCallText">Uruff änneren</string>
+  <string name="onscreenAddParticipant">Weidere Korrespondent</string>
+  <string name="description_target_answer_video">Mat Video äntwerten</string>
+  <string name="description_target_answer_tx_video">Mat Video äntwerten (just schécken)</string>
+  <string name="description_target_answer_rx_video">Mat Video äntwerten (just empfänken)</string>
   <string name="description_direction_up_right">Uewe riets</string>
   <string name="description_direction_up_left">Uewe lénks</string>
   <string name="description_direction_down_left">Ënne lénks</string>
+  <string name="description_direction_down_right">Ënne riets</string>
   <string name="incall_call_type_label_forwarded">Weidergeleeten Uruff</string>
+  <string name="card_title_dialing_waiting">Gëtt gewielt (waart\u2026)</string>
   <string name="card_title_waiting_call">Waardenden Uruff</string>
   <string name="onscreenBlacklistText">Schwaarz Lëscht</string>
   <string name="onscreenRecordText">Opnam starten/stoppen</string>
   <string name="call_recording_failed_message">D\'Opnam vum Uruff konnt net gestart ginn</string>
   <string name="blacklist_dialog_title">Op d\'schwaarz Lëscht setzen</string>
   <string name="blacklist_dialog_message">An Zukunft ginn Uriff vun der Nummer <xliff:g id="number">%s</xliff:g> blockéiert</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Lautstäerktamplifikatioun ass aktivéiert</string>
+  <string name="volume_boost_notify_disabled">Lautstäerktamplifikatioun ass desaktivéiert</string>
+  <string name="volume_boost_notify_unavailable">D\'Amplifikation vun der Lautstäerkt ass net disponibel wann s du Kopfhörer benotz</string>
 </resources>

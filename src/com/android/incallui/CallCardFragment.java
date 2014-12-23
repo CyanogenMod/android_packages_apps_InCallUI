@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -111,6 +112,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private int mVBToastPosition;
     private TextView mRecordingTimeLabel;
     private TextView mRecordingIcon;
+    private View mDetailedCallInfo;
+    private TextView mNickName;
+    private TextView mOrganization;
+    private TextView mPosition;
+    private TextView mCity;
 
     // Secondary caller info
     private View mSecondaryCallInfo;
@@ -148,6 +154,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private static final String RECORD_STATE_CHANGED =
             "com.qualcomm.qti.phonefeature.RECORD_STATE_CHANGED";
+    private static final String PREFS_KEY_DETAILED_INFO = "detailed_incall_info";
 
     private static final int MESSAGE_TIMER = 1;
 
@@ -302,6 +309,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
         mRecordingTimeLabel = (TextView) view.findViewById(R.id.recordingTime);
         mRecordingIcon = (TextView) view.findViewById(R.id.recordingIcon);
+
+        mDetailedCallInfo = view.findViewById(R.id.detailedCallInfo);
+        mNickName = (TextView) view.findViewById(R.id.nickName);
+        mPosition = (TextView) view.findViewById(R.id.position);
+        mOrganization = (TextView) view.findViewById(R.id.organization);
+        mCity = (TextView) view.findViewById(R.id.city);
     }
 
     @Override
@@ -492,8 +505,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     @Override
-    public void setPrimary(String number, String name, boolean nameIsNumber, String label,
-            Drawable photo, boolean isSipCall, boolean isForwarded) {
+    public void setPrimary(String number, String name, boolean nameIsNumber, boolean isForwarded,
+            String label, Drawable photo, boolean isSipCall,
+            String nickName, String organization, String position, String city) {
         Log.d(this, "Setting primary call");
 
         // set the name field.
@@ -513,6 +527,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         showCallTypeLabel(isSipCall, isForwarded);
 
         setDrawableToImageView(mPhoto, photo);
+
+        setDetailedInfo(nickName, organization, position, city);
     }
 
     @Override
@@ -728,6 +744,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 } else if (isWaitingForRemoteSide) {
                     callStateLabel = context.getString(R.string.card_title_waiting_call);
                 }
+                mDetailedCallInfo.setVisibility(View.GONE);
                 break;
             case Call.State.ONHOLD:
                 callStateLabel = context.getString(R.string.card_title_on_hold);
@@ -1321,5 +1338,32 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             }
             return true;
         }
+    }
+
+    private void setDetailedInfo(String nickName, String organization,
+            String position, String city) {
+        boolean showInfo;
+        final SharedPreferences prefs = InCallApp.getPrefs(getActivity());
+
+        if (prefs.getBoolean(PREFS_KEY_DETAILED_INFO, false)) {
+            showInfo = fillTextView(mNickName, nickName);
+            showInfo |= fillTextView(mOrganization, organization);
+            showInfo |= fillTextView(mPosition, position);
+            showInfo |= fillTextView(mCity, city);
+        } else {
+            showInfo = false;
+        }
+
+        mDetailedCallInfo.setVisibility(showInfo ? View.VISIBLE : View.GONE);
+    }
+
+    private boolean fillTextView(TextView view, String text) {
+        if (TextUtils.isEmpty(text)) {
+            view.setVisibility(View.GONE);
+            return false;
+        }
+        view.setText(text);
+        view.setVisibility(View.VISIBLE);
+        return true;
     }
 }

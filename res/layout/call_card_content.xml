@@ -179,6 +179,50 @@
         android:layout_marginBottom="@dimen/glowpadview_margin_bottom"
         android:visibility="gone" />
 
+    <!-- Contact details -->
+    <LinearLayout android:id="@+id/detailedCallInfo"
+        android:layout_below="@id/primary_call_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/call_banner_side_padding"
+        android:paddingEnd="@dimen/call_banner_side_padding"
+        android:paddingTop="@dimen/call_banner_primary_call_container_top_padding"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView android:id="@+id/position"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:textColor="@color/incall_call_banner_text_color"
+                  android:singleLine="true" />
+
+        <TextView android:id="@+id/organization"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:textColor="@color/incall_call_banner_text_color"
+                  android:textStyle="bold"
+                  android:singleLine="true" />
+
+        <TextView android:id="@+id/city"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:textColor="@color/incall_call_banner_text_color"
+                  android:maxLines="1"
+                  android:ellipsize="end" />
+
+        <TextView android:id="@+id/nickName"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:textColor="@color/incall_call_banner_text_color"
+                  android:maxLines="1"
+                  android:ellipsize="end" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/floating_end_call_action_button_container"
         android:layout_width="@dimen/end_call_floating_action_button_diameter"

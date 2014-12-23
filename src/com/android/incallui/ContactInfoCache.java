@@ -17,13 +17,18 @@
 package com.android.incallui;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Looper;
 import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.Data;
+import android.provider.ContactsContract.CommonDataKinds.Nickname;
+import android.provider.ContactsContract.CommonDataKinds.Organization;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.CommonDataKinds.StructuredPostal;
 import android.telecom.TelecomManager;
 import android.text.TextUtils;
 
@@ -49,6 +54,14 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
 
     private static final String TAG = ContactInfoCache.class.getSimpleName();
     private static final int TOKEN_UPDATE_PHOTO_FOR_CALL_STATE = 0;
+
+    private static final String[] DETAILED_INFO_PROJECTION = new String[] {
+        Data.MIMETYPE,
+        Nickname.NAME,
+        Organization.COMPANY,
+        Organization.TITLE,
+        StructuredPostal.CITY
+    };
 
     private final Context mContext;
     private final PhoneNumberService mPhoneNumberService;
@@ -456,6 +469,10 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         cce.location = displayLocation;
         cce.label = label;
         cce.isSipCall = isSipCall;
+
+        if (isIncoming) {
+            fillDetailedInfo(context, info.contactIdOrZero, cce);
+        }
     }
 
     /**
@@ -504,12 +521,57 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         public void onImageLoadComplete(String callId, ContactCacheEntry entry);
     }
 
+    private static void fillDetailedInfo(Context context,
+            final long contactId, ContactCacheEntry cce) {
+        final String where = Data.CONTACT_ID + " = " + contactId;
+        Cursor cursor = context.getContentResolver().query(Data.CONTENT_URI,
+                DETAILED_INFO_PROJECTION, where, null, null);
+        if (cursor == null) {
+            return;
+        }
+
+        try {
+            int mimeTypeColumnIndex = cursor.getColumnIndex(Data.MIMETYPE);
+            int orgColumnIndex = cursor.getColumnIndex(Organization.COMPANY);
+            int positionColumnIndex = cursor.getColumnIndex(Organization.TITLE);
+            int nickNameColumnIndex = cursor.getColumnIndex(Nickname.NAME);
+            int cityColumnIndex = cursor.getColumnIndex(StructuredPostal.CITY);
+
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                final String mimeType = cursor.getString(mimeTypeColumnIndex);
+                if (TextUtils.equals(mimeType, Organization.CONTENT_ITEM_TYPE)) {
+                    if (!cursor.isNull(orgColumnIndex)) {
+                        cce.organization = cursor.getString(orgColumnIndex);
+                    }
+                    if (!cursor.isNull(positionColumnIndex)) {
+                        cce.position = cursor.getString(positionColumnIndex);
+                    }
+                } else if (TextUtils.equals(mimeType, Nickname.CONTENT_ITEM_TYPE)
+                        && !cursor.isNull(nickNameColumnIndex)) {
+                    cce.nickName = cursor.getString(nickNameColumnIndex);
+                } else if (TextUtils.equals(mimeType, StructuredPostal.CONTENT_ITEM_TYPE)
+                        && !cursor.isNull(cityColumnIndex)) {
+                    cce.city = cursor.getString(cityColumnIndex);
+                }
+                cursor.moveToNext();
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
     public static class ContactCacheEntry {
         public String name;
         public String number;
         public String location;
         public String label;
         public Drawable photo;
+        public String nickName;
+        public String organization;
+        public String position;
+        public String city;
         public boolean isSipCall;
         /** This will be used for the "view" notification. */
         public Uri contactUri;

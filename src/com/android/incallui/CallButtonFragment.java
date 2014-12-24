@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemProperties;
@@ -426,7 +425,6 @@ public class CallButtonFragment
     }
 
     private void createOverflowMenu(){
-
         final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
                 R.style.InCallPopupMenuStyle);
         mOverflowPopup = new OverflowMenu(contextWrapper, mOverflowButton);
@@ -554,6 +552,8 @@ public class CallButtonFragment
             case R.id.audio_mode_bluetooth:
                 mode = AudioState.ROUTE_BLUETOOTH;
                 break;
+
+
 
             default:
                 Log.e(this, "onMenuItemClick:  unexpected View ID " + item.getItemId()
@@ -812,22 +812,6 @@ public class CallButtonFragment
 
         @Override
         public void show() {
-            final Menu menu = getMenu();
-            final MenuItem startRecord = menu.findItem(R.id.menu_start_record);
-            final MenuItem stopRecord = menu.findItem(R.id.menu_stop_record);
-
-            boolean isRecording = ((InCallActivity)getActivity()).isCallRecording();
-            boolean isRecordEnabled = ((InCallActivity)getActivity()).isCallRecorderEnabled();
-
-            boolean startEnabled = !isRecording && isRecordEnabled;
-            boolean stopEnabled = isRecording && isRecordEnabled;
-
-            startRecord.setVisible(!stopEnabled);
-            startRecord.setEnabled(startEnabled);
-
-            stopRecord.setVisible(stopEnabled);
-            stopRecord.setEnabled(stopEnabled);
-
             super.show();
         }
     }

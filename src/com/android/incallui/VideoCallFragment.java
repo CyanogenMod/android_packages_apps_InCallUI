@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
-import android.widget.Toast;
 
 import com.google.common.base.Objects;
 import android.widget.Toast;
@@ -852,7 +851,6 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
     @Override
     public void setCallDataUsage(Context context, long dataUsage) {
         Log.d(this, "setDataUsage: dataUsage = " + dataUsage);
-        Toast.makeText(context, "dataUsage=" + dataUsage, Toast.LENGTH_LONG).show();
     }
 
     private int fromCallSessionEvent(int event) {

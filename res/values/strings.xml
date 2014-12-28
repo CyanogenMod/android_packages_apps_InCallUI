@@ -589,13 +589,13 @@
     <!-- Set Subscription screen: label sub 2 -->
     <string name="sub_2">SUB 2</string>
     <!-- Call substate label for call resumed -->
-    <string name="call_substate_call_resumed">Call Resumed</string>
+    <string name="call_substate_call_resumed">Call resumed</string>
     <!-- Call substate label for call connected suspended (audio) -->
-    <string name="call_substate_connected_suspended_audio">Call Connected Suspended (Audio)</string>
+    <string name="call_substate_connected_suspended_audio">Call audio suspended</string>
     <!-- Call substate label for call connected suspended (video) -->
-    <string name="call_substate_connected_suspended_video">Call Connected Suspended (Video)</string>
+    <string name="call_substate_connected_suspended_video">Call video suspended</string>
     <!-- Call substate label for avp retry -->
-    <string name="call_substate_avp_retry">Avp Retry</string>
+    <string name="call_substate_avp_retry">Avp retry</string>
     <!-- Video quality changed message -->
     <string name="video_quality_changed">Video quality changed to \u0020</string>
     <!-- Video quality High -->

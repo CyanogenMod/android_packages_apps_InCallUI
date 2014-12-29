@@ -37,6 +37,7 @@ import com.android.incallui.InCallVideoCallListenerNotifier.SurfaceChangeListene
 import com.android.incallui.InCallVideoCallListenerNotifier.VideoEventListener;
 import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.TelephonyProperties;
+import com.android.incallui.InCallCameraManager.CameraSelectionListener;
 import com.google.common.base.Preconditions;
 
 import java.util.Objects;
@@ -68,7 +69,7 @@ import android.os.SystemProperties;
 public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi>  implements
         IncomingCallListener, InCallOrientationListener, InCallStateListener,
         InCallDetailsListener, SurfaceChangeListener, VideoEventListener,
-        InCallVideoCallListenerNotifier.SessionModificationListener {
+        InCallVideoCallListenerNotifier.SessionModificationListener, CameraSelectionListener {
     public static final String TAG = "VideoCallPresenter";
 
     /**
@@ -202,6 +203,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallListenerNotifier.getInstance().addSurfaceChangeListener(this);
         InCallVideoCallListenerNotifier.getInstance().addVideoEventListener(this);
         InCallVideoCallListenerNotifier.getInstance().addSessionModificationListener(this);
+        InCallPresenter.getInstance().getInCallCameraManager().addCameraSelectionListener(this);
         mCurrentVideoState = VideoProfile.VideoState.AUDIO_ONLY;
         mCurrentCallState = Call.State.INVALID;
     }
@@ -222,6 +224,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallListenerNotifier.getInstance().removeSurfaceChangeListener(this);
         InCallVideoCallListenerNotifier.getInstance().removeVideoEventListener(this);
         InCallVideoCallListenerNotifier.getInstance().removeSessionModificationListener(this);
+        InCallPresenter.getInstance().getInCallCameraManager().
+            removeCameraSelectionListener(this);
     }
 
     /**
@@ -330,9 +334,12 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param surfaceId The video surface receiving the click.
      */
     public void onSurfaceClick(int surfaceId) {
-        toggleFullScreen();
+        if (surfaceId == VideoCallFragment.SURFACE_DISPLAY) {
+            toggleFullScreen();
+        } else if (surfaceId == VideoCallFragment.SURFACE_PREVIEW) {
+            showZoomControl(!isZoomControlShowing());
+        }
     }
-
 
     /**
      * Handles incoming calls.
@@ -678,7 +685,45 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         } else {
             mPreviewSurfaceState = PreviewSurfaceState.NONE;
             videoCall.setCamera(null);
+            enableZoomControl(false);
         }
+    }
+
+    private void showZoomControl(boolean show) {
+        final VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Error VideoCallUi is null. Return.");
+            return;
+        }
+        ui.showZoomControl(show);
+    }
+
+
+    private void enableZoomControl(boolean enable) {
+        final VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Error VideoCallUi is null. Return.");
+            return;
+        }
+        ui.enableZoomControl(enable);
+    }
+
+    private boolean isZoomControlShowing() {
+        final VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "Error VideoCallUi is null. Return.");
+            return false;
+        }
+        return ui.isZoomControlShowing();
+    }
+
+    public void setZoom(int index) {
+        Log.d(this, "setZoom: zoom index = " + index);
+        if (mVideoCall == null) {
+            Log.w(this, "setZoom: VideoCall is null.");
+            return;
+        }
+        mVideoCall.setZoom(index);
     }
 
     /**
@@ -829,6 +874,43 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             mPreviewSurfaceState = PreviewSurfaceState.SURFACE_SET;
             mVideoCall.setPreviewSurface(ui.getPreviewVideoSurface());
         }
+    }
+
+    /**
+     * Handles a change to the zoom capabilities of the local camera. Update the zoom capability
+     * parameters.
+     *
+     * @param isZoomSupported If the new camera supports zoom, returns true, else false.
+     * @param maxZoom The max zoom supported by the new camera.
+     */
+    @Override
+    public void onCameraZoomCapabilitiesChange(Call call, boolean isZoomSupported, float maxZoom) {
+        Log.d(this, "onCameraZoomCapabilitiesChange call=" + call + " zoomSupported="
+            + isZoomSupported + " maxZoom=" + maxZoom);
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "onCameraCapabilitiesChange ui is null");
+            return;
+        }
+
+        if (!call.equals(mPrimaryCall)) {
+            Log.e(this, "Call is not primary call");
+            return;
+        }
+        ui.updateZoomParams(maxZoom);
+        enableZoomControl(isZoomSupported);
+    }
+
+    @Override
+    public void onActiveCameraSelectionChanged(boolean isUsingFrontFacingCamera) {
+        Log.d(this, "onActiveCameraSelectionChanged: front facing camera " +
+            isUsingFrontFacingCamera);
+        final VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.d(this, "onActiveCameraSelectionChanged: VideoCallUi is null");
+            return;
+        }
+        enableZoomControl(false);
     }
 
     /**
@@ -1103,5 +1185,9 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         void cleanupSurfaces();
         boolean isActivityRestart();
         void showCallSubstateChanged(int callSubstate);
+        void showZoomControl(boolean show);
+        void updateZoomParams(float maxZoom);
+        void enableZoomControl(boolean enable);
+        boolean isZoomControlShowing();
     }
 }

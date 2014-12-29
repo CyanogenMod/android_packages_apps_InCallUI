@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012 - 2015, The Linux Foundation. All rights reserved.
  * Not a Contribution, Apache license notifications and license are retained
  * for attribution purposes only.
  *
@@ -82,6 +82,10 @@ public abstract class ZoomControl extends RelativeLayout{
         requestLayout();
     }
 
+    public int getZoomMax() {
+        return mZoomMax;
+    }
+
     public void setOnZoomChangeListener(OnZoomChangedListener listener) {
         mListener = listener;
     }
@@ -92,6 +96,10 @@ public abstract class ZoomControl extends RelativeLayout{
         }
         mZoomIndex = index;
         invalidate();
+    }
+
+    public int getZoomIndex() {
+        return mZoomIndex;
     }
 
     protected void setZoomStep(int step) {

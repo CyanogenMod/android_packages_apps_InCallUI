@@ -205,6 +205,8 @@ public class InCallActivity extends Activity {
 
     @Override
     protected void onSaveInstanceState(Bundle out) {
+        Log.d(this, "onSaveInstanceState: savedInstanceState = " + out);
+        super.onSaveInstanceState(out);
         out.putBoolean(SHOW_DIALPAD_EXTRA, mCallButtonFragment.isDialpadVisible());
         if (mDialpadFragment != null) {
             out.putString(DIALPAD_TEXT_EXTRA, mDialpadFragment.getDtmfText());

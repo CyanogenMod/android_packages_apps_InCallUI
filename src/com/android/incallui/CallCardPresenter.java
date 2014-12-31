@@ -337,7 +337,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return false;
         }
 
-        return mPrimary.can(PhoneCapabilities.MANAGE_CONFERENCE);
+        return mPrimary.can(PhoneCapabilities.MANAGE_CONFERENCE) && !mPrimary.isVideoCall(mContext);
     }
 
     private void setCallbackNumber() {

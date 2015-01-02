@@ -95,7 +95,7 @@
                 android:contentDescription="@string/contactPhoto"
                 android:gravity="top|center_horizontal"
                 android:scaleType="centerCrop"
-                android:src="@drawable/and" />
+                android:src="@drawable/rcs_default_enhance_screen" />
         </FrameLayout>
     </RelativeLayout>
 

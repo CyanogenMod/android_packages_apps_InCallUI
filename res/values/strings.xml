@@ -117,8 +117,6 @@
     <string name="card_title_video_call_requesting">Requesting video</string>
     <!-- In-call screen: status label when there is a problem connecting a video call. -->
     <string name="card_title_video_call_error">Cannot connect video call</string>
-    <!-- In-call screen: status label when in a paused video call. -->
-    <string name="card_title_video_call_paused">Video call (Paused)</string>
 
     <!-- In-call screen: string shown to the user when their outgoing number is different than the
          number reported by TelephonyManager#getLine1Number() -->
@@ -295,30 +293,6 @@
     <string name="onscreenPauseVideoText">Pause video</string>
     <!-- Text for the onscreen overflow button, to see additional actions which can be done. -->
     <string name="onscreenOverflowText">More options</string>
-    <!-- Text for the onscreen "Add Participant" button -->
-    <string name="onscreenAddParticipant">Add Participant</string>
-
-    <!-- In-call screen: Modify Call Options for IMS call -->
-    <string name="modify_call_option_title">Which type of call?</string>
-    <string name="modify_call_option_vt">VT</string>
-    <string name="modify_call_option_vt_tx">Video transmit</string>
-    <string name="modify_call_option_vt_rx">Video receive</string>
-    <string name="modify_call_option_voice">Voice Only</string>
-
-    <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
-    <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
-
-    <!-- Message indicating that Video Started flowing for IMS-VT calls -->
-    <string name="player_started">Player Started</string>
-    <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
-    <string name="player_stopped">Player Stopped</string>
-    <!-- Message indicating that camera failure has occurred for the selected camera and
-         as result camera is not ready -->
-    <string name="camera_not_ready">Camera not ready</string>
-    <!-- Message indicating that camera is ready/available -->
-    <string name="camera_ready">Camera ready</string>
-    <!-- Message indicating unknown call session event -->
-    <string name="unknown_call_session_event">"Unkown call session event"</string>
 
     <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
@@ -550,15 +524,6 @@
         <item>never</item>
     </string-array>
 
-    <string name="volume_boost_notify_enabled">"Volume boost ON."</string>
-    <string name="volume_boost_notify_disabled">"Volume boost OFF."</string>
-    <string name="volume_boost_notify_unavailable">"Extra volume is not available when Wired/Blue tooth headset is used."</string>
-    <string name="volume_boost_toast_position" translate="false">600</string>
-    <string name="onscreenMoreMenuText">More menu</string>
-    <string name="menu_start_record">Record call</string>
-    <string name="menu_stop_record">Stop recording</string>
-    <string name="recording_time_text">Recording</string>
-
     <!-- Setting option name to pick ringtone (a list dialog comes up). [CHAR LIMIT=30] -->
     <string name="ringtone_title" msgid="5379026328015343686">Phone ringtone</string>
 
@@ -584,26 +549,4 @@
 
     <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
     <string name="select_account_dialog_title">Select Account</string>
-    <!-- Set Subscription screen: label sub 1 -->
-    <string name="sub_1">SUB 1</string>
-    <!-- Set Subscription screen: label sub 2 -->
-    <string name="sub_2">SUB 2</string>
-    <!-- Call substate label for call resumed -->
-    <string name="call_substate_call_resumed">Call resumed</string>
-    <!-- Call substate label for call connected suspended (audio) -->
-    <string name="call_substate_connected_suspended_audio">Call audio suspended</string>
-    <!-- Call substate label for call connected suspended (video) -->
-    <string name="call_substate_connected_suspended_video">Call video suspended</string>
-    <!-- Call substate label for avp retry -->
-    <string name="call_substate_avp_retry">Avp retry</string>
-    <!-- Video quality changed message -->
-    <string name="video_quality_changed">Video quality changed to \u0020</string>
-    <!-- Video quality High -->
-    <string name="video_quality_high">High</string>
-    <!-- Video quality Medium -->
-    <string name="video_quality_medium">Medium</string>
-    <!-- Video quality Low -->
-    <string name="video_quality_low">Low</string>
-    <!-- Video quality Unknown -->
-    <string name="video_quality_unknown">Unknown</string>
 </resources>

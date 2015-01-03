@@ -20,6 +20,7 @@ import com.android.contacts.common.CallUtil;
 import com.android.incallui.CallList.Listener;
 
 import android.content.Context;
+import android.hardware.camera2.CameraCharacteristics;
 import android.net.Uri;
 import android.telecom.CallProperties;
 import android.telecom.DisconnectCause;
@@ -124,6 +125,48 @@ public final class Call {
         public static final int UPGRADE_TO_VIDEO_REQUEST_TIMED_OUT = 4;
     }
 
+    public static class VideoSettings {
+        public static final int CAMERA_DIRECTION_UNKNOWN = -1;
+        public static final int CAMERA_DIRECTION_FRONT_FACING =
+                CameraCharacteristics.LENS_FACING_FRONT;
+        public static final int CAMERA_DIRECTION_BACK_FACING =
+                CameraCharacteristics.LENS_FACING_BACK;
+
+        private int mCameraDirection = CAMERA_DIRECTION_UNKNOWN;
+
+        /**
+         * Sets the camera direction. if camera direction is set to CAMERA_DIRECTION_UNKNOWN,
+         * the video state of the call should be used to infer the camera direction.
+         *
+         * @see {@link CameraCharacteristics#LENS_FACING_FRONT}
+         * @see {@link CameraCharacteristics#LENS_FACING_BACK}
+         */
+        public void setCameraDir(int cameraDirection) {
+            if (cameraDirection == CAMERA_DIRECTION_FRONT_FACING
+               || cameraDirection == CAMERA_DIRECTION_BACK_FACING) {
+                mCameraDirection = cameraDirection;
+            } else {
+                mCameraDirection = CAMERA_DIRECTION_UNKNOWN;
+            }
+        }
+
+        /**
+         * Gets the camera direction. if camera direction is set to CAMERA_DIRECTION_UNKNOWN,
+         * the video state of the call should be used to infer the camera direction.
+         *
+         * @see {@link CameraCharacteristics#LENS_FACING_FRONT}
+         * @see {@link CameraCharacteristics#LENS_FACING_BACK}
+         */
+        public int getCameraDir() {
+            return mCameraDirection;
+        }
+
+        public String toString() {
+            return "(CameraDir:" + getCameraDir() + ")";
+        }
+    }
+
+
     private static final String ID_PREFIX = Call.class.getSimpleName() + "_";
     private static int sIdCounter = 0;
     public boolean mIsActiveSub = false;
@@ -202,6 +245,7 @@ public final class Call {
     private DisconnectCause mDisconnectCause;
     private int mSessionModificationState;
     private final List<String> mChildCallIds = new ArrayList<>();
+    private final VideoSettings mVideoSettings = new VideoSettings();
 
     private InCallVideoCallListener mVideoCallListener;
 
@@ -214,6 +258,14 @@ public final class Call {
 
     public android.telecom.Call getTelecommCall() {
         return mTelecommCall;
+    }
+
+    /**
+     * @return video settings of the call, null if the call is not a video call.
+     * @see VideoProfile
+     */
+    public VideoSettings getVideoSettings() {
+        return mVideoSettings;
     }
 
     private void update() {
@@ -468,7 +520,8 @@ public final class Call {
     public String toString() {
         return String.format(Locale.US,
                 "[%s, %s, %s, children:%s, parent:%s, videoState:%d, mIsActivSub:%b,"
-                        + " " + "callSubState:%d, mSessionModificationState:%d, conferenceable:%s]",
+                        + " " + "callSubState:%d, mSessionModificationState:%d, conferenceable:%s, "
+                                + "VideoSettings:%s]",
                 mId,
                 State.toString(getState()),
                 PhoneCapabilities.toString(mTelecommCall.getDetails().getCallCapabilities()),
@@ -476,6 +529,11 @@ public final class Call {
                 getParentId(),
                 mTelecommCall.getDetails().getVideoState(), mIsActiveSub,
                 mTelecommCall.getDetails().getCallSubstate(), mSessionModificationState,
-                this.mTelecommCall.getConferenceableCalls());
+                this.mTelecommCall.getConferenceableCalls(),
+                getVideoSettings());
+    }
+
+    public String toSimpleString() {
+        return super.toString();
     }
 }

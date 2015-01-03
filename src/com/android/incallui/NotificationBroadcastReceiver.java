@@ -45,6 +45,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             "com.android.incallui.ACTION_ACCEPT_VIDEO_UPGRADE_REQUEST";
     public static final String ACTION_DECLINE_VIDEO_UPGRADE_REQUEST =
             "com.android.incallui.ACTION_DECLINE_VIDEO_UPGRADE_REQUEST";
+    public static final String ACTION_ANSWER_MORE_INCOMING_CALL =
+            "com.android.incallui.ACTION_ANSWER_MORE_INCOMING_CALL";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -68,6 +70,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
                     VideoProfile.STATE_BIDIRECTIONAL, context);
         } else if (action.equals(ACTION_DECLINE_VIDEO_UPGRADE_REQUEST)) {
             InCallPresenter.getInstance().declineUpgradeRequest(context);
+        } else if (action.equals(ACTION_ANSWER_MORE_INCOMING_CALL)) {
+            InCallPresenter.getInstance().bringToForeground(false);
         }
     }
 

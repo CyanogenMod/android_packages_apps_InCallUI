@@ -17,12 +17,43 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL 請求已修改為 USSD 請求。</string>
+  <string name="callFailed_dialToSs">DIAL 請求已修改為 SS 請求。</string>
+  <string name="callFailed_dialToDial">DIAL 請求已修改為不同號碼的 DIAL 請求。</string>
+  <string name="callFailed_incoming_cb_enabled">對方已禁止所有來電。</string>
+  <string name="callUnanswered_forwarded">來電未接聽並已轉駁</string>
+  <string name="modify_call_prompt_yes">是</string>
+  <string name="modify_call_prompt_no">否</string>
+  <string name="modify_call_failure_str">修改通話請求失敗\n</string>
+  <string name="modify_call_option_title">選擇通話類型</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">視像傳輸</string>
+  <string name="modify_call_option_vt_rx">視像接收</string>
+  <string name="modify_call_option_voice">只有語音</string>
+  <string name="accept_modify_call_request_prompt">接受修改通話的要求？</string>
+  <string name="upgrade_vt_prompt">是否將通話升級到視像通話？</string>
+  <string name="upgrade_vt_tx_prompt">是否將通話升級到僅傳送視像的通話？</string>
+  <string name="upgrade_vt_rx_prompt">是否將通話升級到僅接受視像的通話？</string>
+  <string name="onscreenModifyCallText">修改通話</string>
+  <string name="onscreenAddParticipant">新增參與者</string>
+  <string name="description_target_answer_video">用視像接聽</string>
+  <string name="description_target_answer_tx_video">以傳送視像接聽</string>
+  <string name="description_target_answer_rx_video">以接收視像接聽</string>
+  <string name="description_direction_up_right">右上方</string>
+  <string name="description_direction_up_left">左上方</string>
+  <string name="description_direction_down_left">左下方</string>
+  <string name="description_direction_down_right">右下方</string>
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
+  <string name="card_title_waiting_call">等待來電</string>
   <string name="onscreenBlacklistText">黑名單</string>
   <string name="onscreenRecordText">開始/停止錄音</string>
   <string name="call_recording_failed_message">未能啟動通話錄音</string>
   <string name="blacklist_dialog_title">新增至黑名單</string>
+  <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的來電將會被封鎖</string>
   <string name="sub_1">SIM 卡 1</string>
   <string name="sub_2">SIM 卡 2</string>
+  <string name="volume_boost_notify_enabled">已啟用音量增強</string>
+  <string name="volume_boost_notify_disabled">已停用音量增強</string>
+  <string name="volume_boost_notify_unavailable">當使用耳機時，音量增強功能將不可用</string>
 </resources>

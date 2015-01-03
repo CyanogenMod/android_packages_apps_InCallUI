@@ -171,4 +171,10 @@
   <string name="dialpad_3_number">3</string>
   <string name="dialpad_4_number">4</string>
   <string name="dialpad_5_number">5</string>
+  <string name="dialpad_6_number">6</string>
+  <string name="dialpad_7_number">7</string>
+  <string name="dialpad_8_number">8</string>
+  <string name="dialpad_9_number">9</string>
+  <string name="dialpad_0_letters">+</string>
+  <string name="dialpad_2_letters">ABC</string>
 </resources>

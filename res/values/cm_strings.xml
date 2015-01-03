@@ -36,4 +36,63 @@
     <!-- Blacklist confirmation dialog -->
     <string name="blacklist_dialog_title">Add to blacklist</string>
     <string name="blacklist_dialog_message">Future calls from <xliff:g id="number">%s</xliff:g> will be blocked</string>
+
+    <!-- In-call screen: status label when in a paused video call. -->
+    <string name="card_title_video_call_paused">Video call (Paused)</string>
+    <!-- Text for the onscreen "Add Participant" button -->
+    <string name="onscreenAddParticipant">Add Participant</string>
+-
+    <!-- In-call screen: Modify Call Options for IMS call -->
+    <string name="modify_call_option_title">Which type of call?</string>
+    <string name="modify_call_option_vt">VT</string>
+    <string name="modify_call_option_vt_tx">Video transmit</string>
+    <string name="modify_call_option_vt_rx">Video receive</string>
+    <string name="modify_call_option_voice">Voice Only</string>
+-
+    <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+    <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
+-
+    <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+    <string name="player_started">Player Started</string>
+    <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+    <string name="player_stopped">Player Stopped</string>
+    <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
+    <string name="camera_not_ready">Camera not ready</string>
+    <!-- Message indicating that camera is ready/available -->
+    <string name="camera_ready">Camera ready</string>
+    <!-- Message indicating unknown call session event -->
+    <string name="unknown_call_session_event">"Unkown call session event"</string>
+
+    <string name="volume_boost_notify_enabled">"Volume boost ON."</string>
+    <string name="volume_boost_notify_disabled">"Volume boost OFF."</string>
+    <string name="volume_boost_notify_unavailable">"Extra volume is not available when Wired/Blue tooth headset is used."</string>
+    <string name="volume_boost_toast_position" translate="false">600</string>
+    <string name="onscreenMoreMenuText">More menu</string>
+    <string name="menu_start_record">Record call</string>
+    <string name="menu_stop_record">Stop recording</string>
+    <string name="recording_time_text">Recording</string>
+    <!-- Set Subscription screen: label sub 1 -->
+    <string name="sub_1">SUB 1</string>
+    <!-- Set Subscription screen: label sub 2 -->
+    <string name="sub_2">SUB 2</string>
+    <!-- Call substate label for call resumed -->
+    <string name="call_substate_call_resumed">Call resumed</string>
+    <!-- Call substate label for call connected suspended (audio) -->
+    <string name="call_substate_connected_suspended_audio">Call audio suspended</string>
+    <!-- Call substate label for call connected suspended (video) -->
+    <string name="call_substate_connected_suspended_video">Call video suspended</string>
+    <!-- Call substate label for avp retry -->
+    <string name="call_substate_avp_retry">Avp retry</string>
+    <!-- Video quality changed message -->
+    <string name="video_quality_changed">Video quality changed to \u0020</string>
+    <!-- Video quality High -->
+    <string name="video_quality_high">High</string>
+    <!-- Video quality Medium -->
+    <string name="video_quality_medium">Medium</string>
+    <!-- Video quality Low -->
+    <string name="video_quality_low">Low</string>
+    <!-- Video quality Unknown -->
+    <string name="video_quality_unknown">Unknown</string>
+
 </resources>

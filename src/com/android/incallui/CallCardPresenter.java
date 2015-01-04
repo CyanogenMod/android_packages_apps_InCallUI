@@ -409,6 +409,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     }
 
     private void onContactInfoComplete(String callId, ContactCacheEntry entry, boolean isPrimary) {
+        Call call = (isPrimary ? mPrimary: mSecondary);
+        Log.d(TAG, "onContactInfoComplete: callId = " + callId + " isPrimary = " + isPrimary
+                + " call = " + call);
+        if (call == null || callId == null || !callId.equals(call.getId())) {
+            Log.d(TAG, "onContactInfoComplete: contact info is not for the current call.");
+            return;
+        }
         boolean isConference = isConference(mPrimary) || isConference(mSecondary);
         updateContactEntry(entry, isPrimary, isConference);
         if (entry.name != null) {

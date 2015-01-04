@@ -41,17 +41,17 @@
     <string name="card_title_video_call_paused">Video call (Paused)</string>
     <!-- Text for the onscreen "Add Participant" button -->
     <string name="onscreenAddParticipant">Add Participant</string>
--
+
     <!-- In-call screen: Modify Call Options for IMS call -->
     <string name="modify_call_option_title">Which type of call?</string>
     <string name="modify_call_option_vt">VT</string>
     <string name="modify_call_option_vt_tx">Video transmit</string>
     <string name="modify_call_option_vt_rx">Video receive</string>
     <string name="modify_call_option_voice">Voice Only</string>
--
+
     <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
     <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
--
+
     <!-- Message indicating that Video Started flowing for IMS-VT calls -->
     <string name="player_started">Player Started</string>
     <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->

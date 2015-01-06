@@ -523,17 +523,17 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                         canManageConference,
                         false /* isSipCall */,
                         isForwarded);
+            } else {
+                String name = getNameForCall(mPrimaryContactInfo);
+                String number = getNumberForCall(mPrimaryContactInfo);
+                final boolean nameIsNumber = name != null
+                        && name.equals(mPrimaryContactInfo.number);
+                boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
+                final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
+                ui.setPrimary(number, checkIdpName, nameIsNumber, mPrimaryContactInfo.label,
+                        mPrimaryContactInfo.photo, isConference, canManageConference,
+                        mPrimaryContactInfo.isSipCall, isForwarded);
             }
-
-            String name = getNameForCall(mPrimaryContactInfo);
-            String number = getNumberForCall(mPrimaryContactInfo);
-            final boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
-            boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
-            final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
-
-            ui.setPrimary(number, checkIdpName, nameIsNumber, mPrimaryContactInfo.label,
-                    mPrimaryContactInfo.photo, isConference, canManageConference,
-                    mPrimaryContactInfo.isSipCall, isForwarded);
         } else {
             ui.setPrimary(null, null, false, null, null, isConference,
                     canManageConference, false, isForwarded);

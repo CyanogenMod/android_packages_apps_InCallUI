@@ -628,4 +628,7 @@
     <string name="video_quality_low">Low</string>
     <!-- Video quality Unknown -->
     <string name="video_quality_unknown">Unknown</string>
+    <string name="display_rich_screen">Display rich screen ?</string>
+    <string name="rcs_missdnaddress_string">MissdnAddress:</string>
+    <string name="rcs_greeting_string">Gretting:</string>
 </resources>

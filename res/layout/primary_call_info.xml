@@ -73,18 +73,43 @@
             android:ellipsize="end" />
     </LinearLayout>
 
-    <!-- Name (or the phone number, if we don't have a name to display). -->
-    <com.android.phone.common.widget.ResizingTextTextView android:id="@+id/name"
-        xmlns:ex="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-5dp"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/call_name_text_size"
-        android:singleLine="true"
-        ex:resizing_text_min_size="@dimen/call_name_text_min_size" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+    <!-- Name (or the phone number, if we don't have a name to display). -->
+        <com.android.phone.common.widget.ResizingTextTextView android:id="@+id/name"
+            xmlns:ex="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/sendMessage"
+            android:fontFamily="sans-serif-light"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/call_name_text_size"
+            android:singleLine="true"
+            ex:resizing_text_min_size="@dimen/call_name_text_min_size" />
 
+        <LinearLayout
+            android:id="@+id/sendMessage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+	    android:layout_centerInParent="true"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/unreadMessageCount"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/rcs_incall_message"
+                android:gravity="center"
+                android:textColor="#0085d3"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

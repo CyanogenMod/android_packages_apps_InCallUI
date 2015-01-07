@@ -346,7 +346,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
             addDismissAction(builder);
             if (call.isVideoCall(mContext)) {
                 addVoiceAction(builder);
-                addVideoCallAction(builder);
+                addMoreAction(builder);
             } else {
                 addAnswerAction(builder);
             }
@@ -543,14 +543,14 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
                 hangupPendingIntent);
     }
 
-    private void addVideoCallAction(Notification.Builder builder) {
-        Log.i(this, "Will show \"video\" action in the incoming call Notification");
+    private void addMoreAction(Notification.Builder builder) {
+        Log.i(this, "Will show \"more\" action in the incoming call Notification");
 
-        PendingIntent answerVideoPendingIntent = createNotificationPendingIntent(
-                mContext, InCallApp.ACTION_ANSWER_VIDEO_INCOMING_CALL);
-        builder.addAction(R.drawable.ic_videocam,
-                mContext.getText(R.string.notification_action_answer_video),
-                answerVideoPendingIntent);
+        PendingIntent answerMorePendingIntent = createNotificationPendingIntent(
+                mContext, InCallApp.ACTION_ANSWER_MORE_INCOMING_CALL);
+        builder.addAction(R.drawable.ic_more,
+                mContext.getText(R.string.notification_action_answer_more),
+                answerMorePendingIntent);
     }
 
     private void addVoiceAction(Notification.Builder builder) {

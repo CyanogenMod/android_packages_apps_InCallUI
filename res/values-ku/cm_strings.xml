@@ -17,6 +17,32 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">داواکردنی لێدان گۆڕدرا بۆ داواکردنی USSD.</string>
+  <string name="callFailed_dialToSs">داواکردنی لێدان گۆڕدرا بۆ داواکردنی SS.</string>
+  <string name="callFailed_dialToDial">داواکردنی لێدان گۆڕدرا بۆ هه‌مان داواکردن به‌ ژماره‌یه‌کی تر.</string>
+  <string name="callFailed_incoming_cb_enabled">لایه‌نه‌ناوه‌کی ڕێگری کرد له‌ هه‌موو په‌یوه‌ندییه‌ هاتووه‌کان.</string>
+  <string name="callUnanswered_forwarded">پەیوەندی وەڵام نەدرایەوە و پشتگوێخرا</string>
+  <string name="modify_call_prompt_yes">بەڵێ</string>
+  <string name="modify_call_prompt_no">نەخێر</string>
+  <string name="modify_call_failure_str">داواکردن بۆ دەستکاریکردنی پەیوەندی سەرکەوتو نەبوو\n</string>
+  <string name="modify_call_option_title">جۆری پەیوەندی دیاریبکە</string>
+  <string name="modify_call_option_vt">ڤی تی</string>
+  <string name="modify_call_option_vt_tx">ناردنی ڤیدیۆ</string>
+  <string name="modify_call_option_vt_rx">وەەرگرتنی ڤیدیۆ</string>
+  <string name="modify_call_option_voice">تەنیا دەنگ</string>
+  <string name="accept_modify_call_request_prompt">ڕازیبوون لەسەر داواکرنی دەستکاریکردنی پەیوەندی؟?</string>
+  <string name="upgrade_vt_prompt">ئەتەوێ پەیوەندی دەنگی بکەیت بە پەیوەندی ڤیدیۆیی؟?</string>
+  <string name="upgrade_vt_tx_prompt">ئەتەوێ پەیوەندی بکەیت بە پەیوەندی تەنیا ناردنی ڤیدیۆ؟?</string>
+  <string name="upgrade_vt_rx_prompt">ئەتەوێ پەیوەندی بکەیت بە پەیوەندی تەنیا وەرگرتنی ڤیدیۆ؟?</string>
+  <string name="onscreenModifyCallText">دەستکاریکردنی پەیوەندی</string>
+  <string name="onscreenAddParticipant">زیادکردنی بەشداربوو</string>
+  <string name="description_target_answer_video">وەڵامدانەوە لەگەڵ ڤیدیۆ</string>
+  <string name="description_target_answer_tx_video">TX وەڵامدانەوە لەگەڵ ڤیدیۆی</string>
+  <string name="description_target_answer_rx_video">RX وەڵامدانەوە لەگەڵ ڤیدیۆی</string>
+  <string name="description_direction_up_right">سەرەوە لای ڕاست</string>
+  <string name="description_direction_up_left">سەرەوە لای چەپ</string>
+  <string name="description_direction_down_left">خوارەوە لای چەپ</string>
+  <string name="description_direction_down_right">خوارەوە لای ڕاست</string>
   <string name="incall_call_type_label_forwarded">په‌یوه‌ندییه‌ به‌دواکه‌وتنه‌کان</string>
   <string name="card_title_dialing_waiting">لێدان (وه‌ستان\u2026)</string>
   <string name="card_title_waiting_call">په‌یوه‌ندی وه‌ستان</string>
@@ -25,4 +51,9 @@
   <string name="call_recording_failed_message">هنه‌توانرا تۆمارکردنی په‌یوه‌ندی ده‌ستپێبکرێت</string>
   <string name="blacklist_dialog_title">زیادکردن بۆ لیستی ڕەش</string>
   <string name="blacklist_dialog_message">په‌یوه‌ندی داهاتوو له‌لایه‌ن <xliff:g id="number">%s</xliff:g> بلۆک ده‌کرێت</string>
+  <string name="sub_1">سیمکارتی ١</string>
+  <string name="sub_2">سیمکارتی ٢</string>
+  <string name="volume_boost_notify_enabled">بەهێزکردنی دەنگ تواناپێدراوە</string>
+  <string name="volume_boost_notify_disabled">بەهێزکردنی دەنگ نەتواناکراوە</string>
+  <string name="volume_boost_notify_unavailable">دەنگی زیادە بەردەست نییە لە کاتێک کە بیستۆک بەکار دەهێنی</string>
 </resources>

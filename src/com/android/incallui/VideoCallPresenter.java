@@ -495,15 +495,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             updateCameraSelection(newPrimaryCall);
             enterVideoMode(newPrimaryCall.getVideoCall(), newPrimaryCall.getVideoState());
         }
-
-        // Release the camera from the previous primary call.
-        // Note: We don't call VideoCallPresenter#enableCamera() since this will also reset the
-        // camera state.
-        if (CallUtils.isVideoCall(mPrimaryCall)) {
-            Log.d(this, "onPrimaryCallChanged: Releasing camera for call=" + mPrimaryCall);
-            final VideoCall videoCall = mPrimaryCall.getVideoCall();
-            if (videoCall != null) videoCall.setCamera(null);
-        }
     }
 
     private boolean isVideoMode() {

@@ -39,5 +39,5 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <item
         android:id="@+id/menu_add_to_blacklist"
-        android:title="@string/add_to_black_list"/>
+        android:title="@string/menu_add_to_blacklist"/>
 </menu>

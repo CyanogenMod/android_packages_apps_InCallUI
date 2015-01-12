@@ -647,10 +647,8 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
                 break;
         }
 
-        String videoQualityChangedText = resources.getString(R.string.video_quality_changed) +
-            resources.getString(videoQualityResourceId);
-
-        Toast.makeText(context, videoQualityChangedText, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, resources.getString(R.string.video_quality_changed,
+                videoQualityResourceId), Toast.LENGTH_SHORT).show();
     }
 
     /**

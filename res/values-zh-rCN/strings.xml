@@ -171,13 +171,4 @@
     <string name="manageConferenceLabel" msgid="4691922394301969053">"管理电话会议"</string>
     <string name="emergency_call_dialog_number_for_display" msgid="8373041754188879871">"紧急电话号码"</string>
     <string name="select_account_dialog_title" msgid="5730339500156684204">"选择帐户"</string>
-    <string name="volume_boost_notify_enabled">"开启音量增强"</string>
-    <string name="volume_boost_notify_disabled">"关闭音量增强"</string>
-    <string name="volume_boost_notify_unavailable">"有线/蓝牙耳机连接时，音效增强不可用。"</string>
-    <string name="onscreenMoreMenuText">更多菜单</string>
-    <string name="menu_start_record">通话录音</string>
-    <string name="menu_stop_record">停止录音</string>
-    <string name="recording_time_text">录音中</string>
-    <string name="menu_add_call">添加通话</string>
-    <string name="menu_merge_call">合并通话</string>
 </resources>

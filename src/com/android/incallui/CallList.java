@@ -260,6 +260,14 @@ public class CallList implements InCallPhoneListener {
         return retval;
     }
 
+    public Call getOutgoingOrActive() {
+        Call retval = getOutgoingCall();
+        if (retval == null) {
+            retval = getActiveCall();
+        }
+        return retval;
+    }
+
     /**
      * A call that is waiting for {@link PhoneAccount} selection
      */
@@ -275,14 +283,6 @@ public class CallList implements InCallPhoneListener {
         Call call = getFirstCallWithState(Call.State.DIALING);
         if (call == null) {
             call = getFirstCallWithState(Call.State.REDIALING);
-        }
-        return call;
-    }
-
-    public Call getOutgoingOrActiveCall() {
-        Call call = getOutgoingCall();
-        if (call == null) {
-            call = getActiveCall();
         }
         return call;
     }

@@ -82,9 +82,11 @@ public class InCallCameraManager {
      * @param useFrontFacingCamera {@code True} if the front facing camera is to be used.
      */
     public void setUseFrontFacingCamera(boolean useFrontFacingCamera) {
-        mUseFrontFacingCamera = useFrontFacingCamera;
-        for (CameraSelectionListener listener : mCameraSelectionListeners) {
-            listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+        if (mUseFrontFacingCamera != useFrontFacingCamera) {
+            mUseFrontFacingCamera = useFrontFacingCamera;
+            for (CameraSelectionListener listener : mCameraSelectionListeners) {
+                listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+            }
         }
     }
 
@@ -163,8 +165,15 @@ public class InCallCameraManager {
     }
 
     public void addCameraSelectionListener(CameraSelectionListener listener) {
+        addCameraSelectionListener(listener, false);
+    }
+
+    public void addCameraSelectionListener(CameraSelectionListener listener, boolean notifyNow) {
         if (listener != null) {
             mCameraSelectionListeners.add(listener);
+            if (notifyNow) {
+                listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+            }
         }
     }
 

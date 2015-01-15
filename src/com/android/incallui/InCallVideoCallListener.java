@@ -59,7 +59,8 @@ public class InCallVideoCallListener extends VideoCall.Listener {
         if (wasVideoCall && !isVideoCall) {
             InCallVideoCallListenerNotifier.getInstance().downgradeToAudio(mCall);
         } else if (previousVideoState != newVideoState) {
-            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoRequest(mCall);
+            InCallVideoCallListenerNotifier.getInstance().upgradeToVideoRequest(mCall,
+                newVideoState);
         }
     }
 

@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.android.contacts.common.MoreContactUtils;
 import com.android.contacts.common.R;
 import com.android.internal.telephony.PhoneConstants;
 
@@ -225,7 +226,12 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
 
             PhoneAccountHandle accountHandle = getItem(position);
             PhoneAccount account = mTelecomManager.getPhoneAccount(accountHandle);
-            holder.textView.setText(account.getLabel());
+            if (MoreContactUtils.shouldShowOperator(mContext)) {
+                Long subId = Long.parseLong(accountHandle.getId());
+                holder.textView.setText(MoreContactUtils.getNetworkSpnName(mContext, subId));
+            } else {
+                holder.textView.setText(account.getLabel());
+            }
             holder.imageView.setImageDrawable(account.getIcon(mContext));
             return rowView;
         }

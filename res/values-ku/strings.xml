@@ -16,8 +16,10 @@
   ~ limitations under the License
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="phoneAppLabel" product="default">مۆبایل</string>
   <string name="inCallLabel" translate="false">InCallUI</string>
   <string name="onHold">له‌سه‌ر خه‌ت به‌</string>
+  <string name="unknown">نەزانراو</string>
   <string name="private_num">ژمارەی تایبەتی</string>
   <string name="payphone">کڕینی مۆبایل</string>
   <string name="callFailed_userBusy">سه‌رقاڵه‌</string>
@@ -41,11 +43,16 @@
   <string name="callFailed_unobtainable_number">ژمارەکە لەکارە نیە</string>
   <string name="confCall">په‌یوه‌ندی کۆنگره‌</string>
   <string name="call_lost">په‌یوه‌ندییه‌که‌ پچڕا.</string>
+  <string name="ok">باشه‌</string>
   <string name="audio_mode_speaker">بڵندگۆ</string>
   <string name="audio_mode_earpiece">ده‌سکی په‌یوه‌ندی گوێ</string>
-  <string name="audio_mode_wired_headset">هیدفۆنی وایه‌ردار</string>
+  <string name="audio_mode_wired_headset">بیستۆک وایه‌ردار</string>
+  <string name="audio_mode_bluetooth">بلوتوس</string>
   <string name="wait_prompt_str">ئه‌م ئاوازانه‌ ده‌نێریت؟\n</string>
   <string name="pause_prompt_str">ناردنی ئاوازه‌کانی\n</string>
+  <string name="send_button">ناردن</string>
+  <string name="pause_prompt_yes">بەڵێ</string>
+  <string name="pause_prompt_no">نا</string>
   <string name="wild_prompt_str">جێگرتنه‌وه‌ی کاره‌کته‌ری ده‌ری وه‌ک</string>
   <string name="caller_manage_header">په‌یوه‌ندی کۆنگره‌ <xliff:g id="conf_call_time">%s</xliff:g></string>
   <string name="voicemail_settings_number_label">ژماره‌ی ده‌نگه‌نامه‌</string>
@@ -64,6 +71,7 @@
   <string name="notification_missedCallsMsg"><xliff:g id="num_missed_calls">%s</xliff:g> په‌یوه‌ندی وه‌ڵام نه‌دراوه‌</string>
   <string name="notification_missedCallTicker">په‌یوه‌ندی وه‌ڵام نه‌دراوه‌ له‌ <xliff:g id="missed_call_from">%s</xliff:g></string>
   <string name="notification_ongoing_call">په‌یوه‌ندی ڕۆشتن</string>
+  <string name="notification_on_hold">ڕاگیراوە</string>
   <string name="notification_incoming_call">په‌یوه‌ندی هاتوو</string>
   <string name="notification_voicemail_title">ده‌نگه‌نامه‌ی نوێ</string>
   <string name="notification_voicemail_title_count">ده‌نگه‌نامه‌ی نوێ (<xliff:g id="count">%d</xliff:g>)</string>
@@ -72,6 +80,7 @@
   <string name="notification_network_selection_title">خزمەتگوزاری نیە</string>
   <string name="notification_network_selection_text">تۆڕی هه‌ڵبژێردراو (<xliff:g id="operator_name">%s</xliff:g>) ئاماده‌نییه‌</string>
   <string name="notification_action_end_call">هه‌ڵگرتن</string>
+  <string name="notification_missedCall_call_back">گرتنەوەی پەیوەندی</string>
   <string name="notification_missedCall_message">نامه‌</string>
   <string name="incall_error_power_off">بۆ په‌یوه‌ندی. سه‌ره‌تا باری ناو فڕۆکه‌ بکوژێنه‌وه‌.</string>
   <string name="incall_error_emergency_only">تۆمارنه‌کراویت له‌سه‌ر تۆڕه‌که‌.</string>
@@ -87,6 +96,7 @@
   <string name="incall_error_supp_service_reject">به‌رپه‌چدانه‌وه‌ی په‌یوه‌ندی نه‌کرا.</string>
   <string name="incall_error_supp_service_hangup">ده‌ستلێبه‌ردانی په‌یوه‌ندی نه‌کرا.</string>
   <string name="incall_call_type_label_sip">په‌یوه‌ندی ئیته‌رنێت</string>
+  <string name="emergency_enable_radio_dialog_title">پەیوەندیی فریاگوزاری</string>
   <string name="emergency_enable_radio_dialog_message">کارپێکردنی ڕادیۆ\u2026</string>
   <string name="emergency_enable_radio_dialog_retry">له‌ ده‌ره‌وه‌ی خزمه‌تگوزاری شوێنه‌که‌ت. هه‌وڵدانه‌وه‌ \u2026</string>
   <string name="dial_emergency_error">په‌یوه‌ندی نه‌ڕۆشت. <xliff:g id="non_emergency_number">%s</xliff:g> بریتی نییه‌ له‌ ژماره‌ی له‌ناکاو!</string>
@@ -95,6 +105,7 @@
   <string name="onscreenHoldText">هه‌ڵگرتن</string>
   <string name="onscreenEndCallText">کۆتایی</string>
   <string name="onscreenShowDialpadText">لێده‌ره‌ژماره‌</string>
+  <string name="onscreenMuteText">کپکردن</string>
   <string name="onscreenAddCallText">زیادکردنی په‌یوه‌ندی</string>
   <string name="onscreenMergeCallsText">تێکه‌ڵکردنی په‌یوه‌ندی</string>
   <string name="onscreenSwapCallsText">ئاڵوگۆڕ</string>
@@ -107,6 +118,7 @@
   <string name="voicemail_number_not_set">وlt;دانه‌نراوه‌وgt;</string>
   <string name="other_settings">ڕێکخستنی په‌یوه‌ندییه‌کانی تر</string>
   <string name="calling_via_template">په‌یوه‌ندی کردن له‌ ڕێگه‌ی <xliff:g id="provider_name">%s</xliff:g></string>
+  <string name="contactPhoto">وێنەی ناوەکە</string>
   <string name="goPrivate">بۆ نهێنی</string>
   <string name="selectContact">دیاریکردنی ژماره‌</string>
   <string name="respond_via_sms_canned_response_1">ئێستا ناتوانم په‌یوه‌ندی بکه‌م.چی بووه‌؟</string>
@@ -114,6 +126,8 @@
   <string name="respond_via_sms_canned_response_3">دواتر ته‌له‌فۆنت بۆ ده‌که‌مه‌وه‌.</string>
   <string name="respond_via_sms_canned_response_4">ئێستا ناتوانم قسه‌بکه‌م. دواتر ته‌له‌فۆنم بۆ بکه‌ره‌وه‌</string>
   <string name="respond_via_sms_custom_message">خۆت شتێک بنووسه‌...</string>
+  <string name="custom_message_cancel">هەڵوەشاندنەوە</string>
+  <string name="custom_message_send">ناردن</string>
   <string name="respond_via_sms_setting_title">وه‌ڵامی خێرا</string>
   <string name="respond_via_sms_setting_title_2">ده‌ستکاریکردنی وه‌ڵامه‌ خێراکان</string>
   <string name="respond_via_sms_edittext_dialog_title">وه‌ڵامی خێرا</string>
@@ -137,6 +151,10 @@
   <string name="accessibility_call_muted">په‌یوه‌ندی کپ کراوه‌.</string>
   <string name="description_target_answer">وه‌ڵام</string>
   <string name="description_target_send_sms">ناردنی SMS</string>
+  <string name="description_target_decline">نەویستن</string>
+  <string name="description_direction_up">بیخزێنە سەرەوە بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+  <string name="description_direction_left">\"بیخزێنە لای چەپ بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+  <string name="description_direction_right">بیخزێنە لای ڕاست بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
   <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">لەرزین</string>
   <string name="voicemail_notification_vibarte_when_dialog_title" msgid="8995274609647451109">لەرزین</string>
   <string name="voicemail_notification_ringtone_title">دەنگ</string>
@@ -147,12 +165,17 @@
   <string name="dial_pad_autocomplete">ژماره‌گری خۆکارانه‌ ته‌واوبوو</string>
   <string name="preference_category_ringtone">زه‌نگ  وamp; له‌رینه‌وه‌</string>
   <string name="manageConferenceLabel">به‌ڕێوه‌بردنی په‌یوه‌ندییه‌ کۆنگره‌ییه‌کان</string>
+  <string name="emergency_call_dialog_number_for_display">ژمارەی فریاگوزاری</string>
   <string name="dialpad_0_number">0</string>
   <string name="dialpad_1_number">1</string>
   <string name="dialpad_2_number">2</string>
   <string name="dialpad_3_number">3</string>
   <string name="dialpad_4_number">4</string>
   <string name="dialpad_5_number">5</string>
+  <string name="dialpad_6_number">٦</string>
+  <string name="dialpad_7_number">٧</string>
+  <string name="dialpad_8_number">٨</string>
+  <string name="dialpad_9_number">٩</string>
   <string name="dialpad_star_number">*</string>
   <string name="dialpad_pound_number">#</string>
   <string name="dialpad_3_letters">DEF</string>

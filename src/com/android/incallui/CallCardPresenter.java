@@ -27,6 +27,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.Call.Details;
+import android.os.SystemClock;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -76,6 +77,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private Context mContext;
     private boolean mSpinnerShowing = false;
     private boolean mIsFullscreen = false;
+    private long mBaseChronometerTime = 0;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -250,10 +252,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // Start/stop timers.
         if (isPrimaryCallActive()) {
             Log.d(this, "Starting the calltime timer");
+            mBaseChronometerTime = mPrimary.getConnectTimeMillis() - System.currentTimeMillis()
+                    + SystemClock.elapsedRealtime();
             mCallTimer.start(CALL_TIME_UPDATE_INTERVAL_MS);
         } else {
             Log.d(this, "Canceling the calltime timer");
             mCallTimer.cancel();
+            mBaseChronometerTime = 0;
             ui.setPrimaryCallElapsedTime(false, 0);
         }
 
@@ -437,9 +442,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         } else if (!isPrimaryCallActive()) {
             ui.setPrimaryCallElapsedTime(false, 0);
             mCallTimer.cancel();
-        } else {
-            final long callStart = mPrimary.getConnectTimeMillis();
-            final long duration = System.currentTimeMillis() - callStart;
+            mBaseChronometerTime = 0;
+        } else if (mBaseChronometerTime > 0) {
+            final long duration = SystemClock.elapsedRealtime() - mBaseChronometerTime;
             ui.setPrimaryCallElapsedTime(true, duration);
         }
     }

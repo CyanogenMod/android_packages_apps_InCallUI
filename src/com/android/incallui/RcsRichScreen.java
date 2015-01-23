@@ -40,12 +40,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.telecom.VideoProfile;
 import com.android.incallui.RcsApiManager;
+import com.suntek.mway.rcs.client.aidl.plugin.entity.richscrn.ResultInfo;
+import com.suntek.mway.rcs.client.aidl.plugin.entity.richscrn.RichScrnShowing;
 import com.suntek.mway.rcs.client.api.util.ServiceDisconnectedException;
-import com.suntek.mway.rcs.client.api.plugin.entity.richscrn.RichScrnShowing;
 import com.suntek.mway.rcs.client.api.voip.impl.RichScreenApi;
 import com.suntek.mway.rcs.client.api.RCSServiceListener;
 import android.os.RemoteException;
-import com.suntek.mway.rcs.client.api.plugin.entity.richscrn.ResultInfo;
 
 public class RcsRichScreen {
     private static String TAG = "RCS_UI_RcsRichScreen";
@@ -117,11 +117,6 @@ public class RcsRichScreen {
         msurface = surface;
         mContext = context;
         initSurfaceView();
-    }
-
-    // RCS support start
-    private boolean isRcsAvailable() {
-         return RcsApiManager.isRcsServiceInstalled()&&RcsApiManager.isRcsOnline();
     }
 
     private void initSurfaceView() {
@@ -213,7 +208,7 @@ public class RcsRichScreen {
         getResultUtilInfo(result);
     }
 
-    private void getResultUtilInfo(RichScrnShowing result) {
+    private void getResultUtilInfo(final RichScrnShowing result) {
         if (result == null) {
             Log.i(TAG, "getResultUtilInfo retult is null");
             setRcsFragmentVisibleDefault();
@@ -227,58 +222,65 @@ public class RcsRichScreen {
         msurface.setVisibility(View.GONE);
         mGifMovieView.setVisibility(View.GONE);
         missdnAddress.setVisibility(View.GONE);
-        if (null != result.getGreeting()
-                && !TextUtils.isEmpty(result.getGreeting())) {
-            mGreeting.setVisibility(View.VISIBLE);
-            StringBuilder greetingString = new StringBuilder();
-            greetingString.append(mContext.getResources().getString(
-                    R.string.rcs_greeting_string));
-            greetingString.append(result.getGreeting());
-            mGreeting.setText(greetingString.toString());
-        }
-        if (null != result.getMissdnAddress()
-                && !TextUtils.isEmpty(result.getMissdnAddress())) {
-            missdnAddress.setVisibility(View.VISIBLE);
-            StringBuilder missdnAddressString = new StringBuilder();
-            missdnAddressString.append(mContext.getResources().getString(
-                    R.string.rcs_missdnaddress_string));
-            missdnAddressString.append(result.getMissdnAddress());
-            missdnAddress.setText(missdnAddressString.toString());
-        } else {
-            missdnAddress.setVisibility(View.GONE);
-            try {
-                Log.i(TAG, "getRichScreenApi.DownloadHomeLocRules"
-                        + RcsApiManager.getRichScreenApi());
-                RcsApiManager.getRichScreenApi().downloadHomeLocRules(
-                        mPhoneEevnt);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+        new Thread() {
+             @Override
+             public void run() {
+                if (null != result.getGreeting()
+                        && !TextUtils.isEmpty(result.getGreeting())) {
+                    mGreeting.setVisibility(View.VISIBLE);
+                    StringBuilder greetingString = new StringBuilder();
+                    greetingString.append(mContext.getResources().getString(
+                            R.string.rcs_greeting_string));
+                    greetingString.append(result.getGreeting());
+                    mGreeting.setText(greetingString.toString());
+                }
+                if (null != result.getMissdnAddress()
+                        && !TextUtils.isEmpty(result.getMissdnAddress())) {
+                    missdnAddress.setVisibility(View.VISIBLE);
+                    StringBuilder missdnAddressString = new StringBuilder();
+                    missdnAddressString.append(mContext.getResources().getString(
+                            R.string.rcs_missdnaddress_string));
+                    missdnAddressString.append(result.getMissdnAddress());
+                    missdnAddress.setText(missdnAddressString.toString());
+                } else {
+                    missdnAddress.setVisibility(View.GONE);
+                    try {
+                        Log.i(TAG, "getRichScreenApi.DownloadHomeLocRules"
+                                + RcsApiManager.getRichScreenApi());
+                        RcsApiManager.getRichScreenApi().downloadHomeLocRules(
+                                mPhoneEevnt);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                String sorceType = result.getSourceType();
+                switch (Integer.valueOf(sorceType)) {
+                case RCS_STATIC_IMAGE: {
+
+                        mRcsPhoto.setVisibility(View.VISIBLE);
+                        Bitmap bitmap = BitmapFactory
+                                .decodeFile(result.getLocalSourceUrl());
+                        mRcsPhoto.setImageBitmap(bitmap);
+
+                }
+                break;
+                case RCS_VIRTUAL_IMAGE: {
+                    mGifMovieView.setVisibility(View.VISIBLE);
+                    mGifMovieView.setMovieResource(result.getLocalSourceUrl());
+                }
+                break;
+                case RCS_VIDEO: {
+                    msurface.setVisibility(View.VISIBLE);
+                    videoPath = result.getLocalSourceUrl();
+                }
+                break;
+                default:
+                    mRcsPhoto.setVisibility(View.VISIBLE);
+                break;
+                }
             }
-        }
-        String sorceType = result.getSourceType();
-        switch (Integer.valueOf(sorceType)) {
-        case RCS_STATIC_IMAGE: {
-            mRcsPhoto.setVisibility(View.VISIBLE);
-            Bitmap bitmap = BitmapFactory
-                    .decodeFile(result.getLocalSourceUrl());
-            mRcsPhoto.setImageBitmap(bitmap);
-        }
-            break;
-        case RCS_VIRTUAL_IMAGE: {
-            mGifMovieView.setVisibility(View.VISIBLE);
-            mGifMovieView.setMovieResource(result.getLocalSourceUrl());
-        }
-            break;
-        case RCS_VIDEO: {
-            msurface.setVisibility(View.VISIBLE);
-            videoPath = result.getLocalSourceUrl();
-        }
-            break;
-        default:
-            mRcsPhoto.setVisibility(View.VISIBLE);
-            break;
-        }
+        }.start();
     }
 
     public String getPhoneEventForRichScreen(int state, int videoState) {
@@ -343,6 +345,7 @@ public class RcsRichScreen {
         mRcsPhoto.setVisibility(View.GONE);
         msurface.setVisibility(View.GONE);
         mGifMovieView.setVisibility(View.GONE);
+        missdnAddress.setVisibility(View.GONE);
 
     }
 
@@ -352,6 +355,7 @@ public class RcsRichScreen {
         mRcsPhoto.setVisibility(View.VISIBLE);
         msurface.setVisibility(View.GONE);
         mGifMovieView.setVisibility(View.GONE);
+        missdnAddress.setVisibility(View.GONE);
 
     }
 

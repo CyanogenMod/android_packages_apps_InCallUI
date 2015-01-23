@@ -184,4 +184,26 @@
     <string name="display_rich_screen">显示增强屏显？</string>
     <string name="rcs_missdnaddress_string">归属地：</string>
     <string name="rcs_greeting_string">问候语：</string>
+    <string name="change_video_message">升级到视频电话。你希望视频通话吗</string>
+    <string name="modify_call_option_title">通话类型</string>
+    <string name="modify_call_prompt_yes">是</string>
+    <string name="unknown_call_session_event">未知电话</string>
+    <string name="change_voice_message">转成语音通话</string>
+    <string name="call_substate_connected_suspended_video">视频电话暂停</string>
+    <string name="camera_ready">摄像头就绪</string>
+    <string name="camera_not_ready">摄像头故障</string>
+    <string name="modify_call_option_voice">仅仅语音通话</string>
+    <string name="video_call_not_allowed_if_tty_enabled">请关闭TTY升级到视频电话</string>
+    <string name="connecting_for_modify">连接中</string>
+    <string name="notification_ongoing_video_call">视频通话中</string>
+    <string name="modify_call_option_vt_rx">接收视频</string>
+    <string name="modify_call_prompt_no">否</string>
+    <string name="modify_call_option_vt_tx">视频传输</string>
+    <string name="card_title_video_call_paused">视频通话（暂停）</string>
+    <string name="call_substate_connected_suspended_audio">暂停连接</string>
+    <string name="onscreenAddParticipant">添加用户</string>
+    <string name="player_stopped">播放暂停</string>
+    <string name="notification_dialing_video">拨入视频电话</string>
+    <string name="change_video_status">改变视频状态</string>
+    <string name="call_substate_call_resumed">通话继续</string>
 </resources>

@@ -49,6 +49,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
     private boolean mPreviousMuteState = false;
+    private static final int BUTTON_THRESOLD_TO_DISPLAY_OVERFLOW_MENU = 5;
 
     public CallButtonPresenter() {
     }
@@ -353,6 +354,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.enableMute(call.can(PhoneCapabilities.MUTE));
     }
 
+    private static int toInteger(boolean b) {
+        return b ? 1 : 0;
+    }
+
     /**
      * Updates the buttons applicable for the UI.
      *
@@ -421,16 +426,27 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         final boolean showHoldOption = !showSwapOption && (enableHoldOption || supportHold);
 
         ui.setHold(call.getState() == Call.State.ONHOLD);
-        // If we show video upgrade and add call/merge/add participant and hold/swap, the overflow
-        // menu is needed.
-        final boolean isVideoOverflowScenario = canVideoCall
-                && (showAddCallOption || showMergeOption || showAddParticipantOption)
-                && (showHoldOption || showSwapOption);
-        // If we show hold/swap, add call/add participant, and merge simultaneously, the overflow
-        // menu is needed.
-        final boolean isOverflowScenario =
-                (showHoldOption || showSwapOption) && showMergeOption
-                && (showAddCallOption || showAddParticipantOption);
+
+        //Initialize buttonCount = 2. Because speaker and dialpad these two always show in Call UI.
+        int buttonCount = 2;
+        buttonCount += toInteger(canVideoCall);
+        buttonCount += toInteger(showAddCallOption);
+        buttonCount += toInteger(showMergeOption);
+        buttonCount += toInteger(showAddParticipantOption);
+        buttonCount += toInteger(showHoldOption);
+        buttonCount += toInteger(showSwapOption);
+        buttonCount += toInteger(call.can(PhoneCapabilities.MUTE));
+        buttonCount += toInteger(showManageVideoCallConferenceOption);
+
+        Log.v(this, "show AddParticipant: " + showAddParticipantOption +
+                " show ManageVideoCallConference: " + showManageVideoCallConferenceOption);
+        Log.v(this, "No of InCall buttons: " + buttonCount + " canVideoCall: " + canVideoCall);
+
+        // Show overflow menu if number of buttons is greater than 5.
+        final boolean showOverflowMenu =
+                buttonCount > BUTTON_THRESOLD_TO_DISPLAY_OVERFLOW_MENU;
+        final boolean isVideoOverflowScenario = canVideoCall && showOverflowMenu;
+        final boolean isOverflowScenario = !canVideoCall && showOverflowMenu;
 
         if (isVideoOverflowScenario) {
             ui.showHoldButton(false);

@@ -228,6 +228,18 @@ public class InCallVideoCallListenerNotifier {
     }
 
     /**
+     * Inform listeners of a change to camera zoom capabilities.
+     *
+     * @param isZoomSupported If the new camera supports zoom, set to true, else false.
+     * @param maxZoom The max zoom supported by the new camera.
+     */
+    public void cameraZoomCapabilitiesChanged(Call call, boolean isZoomSupported, float maxZoom) {
+        for (SurfaceChangeListener listener : mSurfaceChangeListeners) {
+            listener.onCameraZoomCapabilitiesChange(call, isZoomSupported, maxZoom);
+        }
+    }
+
+    /**
      * Inform listeners of a change to call data usage.
      *
      * @param dataUsage data usage value
@@ -336,5 +348,14 @@ public class InCallVideoCallListenerNotifier {
          * @param height The new camera video height.
          */
         public void onCameraDimensionsChange(Call call, int width, int height);
+
+        /**
+         * Called when the local camera changes zoom capabilities.
+         *
+         * @param isZoomSupported If the new camera supports zoom, set to true, else false.
+         * @param maxZoom The max zoom supported by the new camera.
+         */
+        public void onCameraZoomCapabilitiesChange(Call call, boolean isZoomSupported,
+            float maxZoom);
     }
 }

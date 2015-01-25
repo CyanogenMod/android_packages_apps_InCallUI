@@ -219,8 +219,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         Log.d(this, "onUiUnready:");
 
         InCallPresenter.getInstance().removeListener(this);
+        InCallPresenter.getInstance().removeDetailsListener(this);
         InCallPresenter.getInstance().removeIncomingCallListener(this);
         InCallPresenter.getInstance().removeOrientationListener(this);
+
         InCallVideoCallListenerNotifier.getInstance().removeSurfaceChangeListener(this);
         InCallVideoCallListenerNotifier.getInstance().removeVideoEventListener(this);
         InCallVideoCallListenerNotifier.getInstance().removeSessionModificationListener(this);
@@ -611,8 +613,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         // Communicate the current camera to telephony and make a request for the camera
         // capabilities.
         if (videoCall != null) {
-            enableCamera(videoCall, isCameraRequired(newVideoState));
-
             if (ui.isDisplayVideoSurfaceCreated()) {
                 Log.d(this, "Calling setDisplaySurface with " + ui.getDisplayVideoSurface());
                 videoCall.setDisplaySurface(ui.getDisplayVideoSurface());
@@ -622,6 +622,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             if (rotation != VideoCallFragment.ORIENTATION_UNKNOWN) {
                 videoCall.setDeviceOrientation(InCallPresenter.toRotationAngle(rotation));
             }
+
+            enableCamera(videoCall, isCameraRequired(newVideoState));
         }
         mCurrentVideoState = newVideoState;
         updateAudioMode(true);
@@ -743,7 +745,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             toggleFullScreen();
         }
 
-        updateCallCache(null);
         mIsVideoMode = false;
     }
 

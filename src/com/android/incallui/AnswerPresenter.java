@@ -187,7 +187,10 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             boolean isUpgradePending = isVideoUpgradePending(call);
             if (!isUpgradePending) {
                 // Stop listening for updates.
-                CallList.getInstance().removeCallUpdateListener(mCallId[phoneId], this);
+                Log.d(this, "mCallId " + mCallId[phoneId]);
+                if (call.getId().equals(mCallId[phoneId])){
+                    CallList.getInstance().removeCallUpdateListener(mCallId[phoneId], this);
+                }
             }
 
             final Call incall = CallList.getInstance().getIncomingCall();

@@ -1085,6 +1085,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
             mListeners.clear();
             mIncomingCallListeners.clear();
+            mDetailsListeners.clear();
+            mCanAddCallListeners.clear();
+            mOrientationListeners.clear();
+            mInCallEventListeners.clear();
 
             Log.d(this, "Finished InCallPresenter.CleanUp");
         }

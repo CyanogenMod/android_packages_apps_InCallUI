@@ -258,6 +258,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mMoreMenuButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Call call = CallList.getInstance().getActiveOrBackgroundCall();
+                if (call != null) {
+                    updateMoreMenuByCall(call.getState());
+                }
                 mMoreMenu.show();
             }
         });

@@ -161,6 +161,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private InCallActivity mInCallActivity;
 
+    private static final int DEFAULT_VIEW_OFFSET_Y = 0;
+
     @Override
     CallCardPresenter.CallCardUi getUi() {
         return this;
@@ -625,10 +627,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 }
             }
         } else {
-            Animation callStateAnimation = mCallStateLabel.getAnimation();
-            if (callStateAnimation != null) {
-                callStateAnimation.cancel();
-            }
+            mCallStateLabel.clearAnimation();
             mCallStateLabel.setText(null);
             mCallStateLabel.setAlpha(0);
             mCallStateLabel.setVisibility(View.GONE);
@@ -1022,8 +1021,26 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                         observer.removeOnGlobalLayoutListener(this);
 
                         onDialpadVisiblityChange(mIsDialpadShowing);
+                        updateVideoCallViews();
                     }
                 });
+    }
+
+    private void updateVideoCallViews() {
+        Log.d(this, "updateVideoCallViews");
+        View previewVideoView = getView().findViewById(R.id.previewVideo);
+        View zoomControlView = getView().findViewById(R.id.zoom_control);
+
+        final float secondaryCallInfoHeight = mSecondaryCallInfo.getHeight();
+        final boolean isSecondaryCallInfoShown = mSecondaryCallInfo.isShown();
+        if (previewVideoView != null) {
+            previewVideoView.setTranslationY(isSecondaryCallInfoShown ?
+                -secondaryCallInfoHeight : DEFAULT_VIEW_OFFSET_Y);
+        }
+        if (zoomControlView != null) {
+            zoomControlView.setTranslationY(isSecondaryCallInfoShown ?
+                -secondaryCallInfoHeight : DEFAULT_VIEW_OFFSET_Y);
+        }
     }
 
     /**
@@ -1245,7 +1262,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
         if (Call.State.ACTIVE == state) {
             mVBButton.setVisibility(View.VISIBLE);
-        } else if (Call.State.DISCONNECTED == state) {
+        } else if (Call.State.DISCONNECTED == state || Call.State.IDLE == state) {
             if (!CallList.getInstance().hasAnyLiveCall()
                     && mAudioManager.getParameters(VOLUME_BOOST).contains("=on")) {
                 mVBButton.setVisibility(View.INVISIBLE);

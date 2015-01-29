@@ -25,11 +25,21 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.util.Size;
 
 import java.lang.String;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 
 /**
  * Used to track which camera is used for outgoing video.
  */
 public class InCallCameraManager {
+
+    public interface CameraSelectionListener {
+        void onActiveCameraSelectionChanged(boolean isUsingFrontFacingCamera);
+    }
+
+    private final Set<CameraSelectionListener> mCameraSelectionListeners = Collections.
+        newSetFromMap(new ConcurrentHashMap<CameraSelectionListener, Boolean>(8,0.9f,1));
 
     /**
      * The camera ID for the front facing camera.
@@ -72,7 +82,12 @@ public class InCallCameraManager {
      * @param useFrontFacingCamera {@code True} if the front facing camera is to be used.
      */
     public void setUseFrontFacingCamera(boolean useFrontFacingCamera) {
-        mUseFrontFacingCamera = useFrontFacingCamera;
+        if (mUseFrontFacingCamera != useFrontFacingCamera) {
+            mUseFrontFacingCamera = useFrontFacingCamera;
+            for (CameraSelectionListener listener : mCameraSelectionListeners) {
+                listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+            }
+        }
     }
 
     /**
@@ -146,6 +161,25 @@ public class InCallCameraManager {
                     mRearFacingCameraId = cameraIds[i];
                 }
             }
+        }
+    }
+
+    public void addCameraSelectionListener(CameraSelectionListener listener) {
+        addCameraSelectionListener(listener, false);
+    }
+
+    public void addCameraSelectionListener(CameraSelectionListener listener, boolean notifyNow) {
+        if (listener != null) {
+            mCameraSelectionListeners.add(listener);
+            if (notifyNow) {
+                listener.onActiveCameraSelectionChanged(mUseFrontFacingCamera);
+            }
+        }
+    }
+
+    public void removeCameraSelectionListener(CameraSelectionListener listener) {
+        if (listener != null) {
+            mCameraSelectionListeners.remove(listener);
         }
     }
 }

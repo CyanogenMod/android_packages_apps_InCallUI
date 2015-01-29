@@ -33,9 +33,10 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.Surface;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.common.base.Preconditions;
-
 import com.android.incalluibind.ObjectFactory;
 
 import java.util.Collections;
@@ -1084,6 +1085,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
             mListeners.clear();
             mIncomingCallListeners.clear();
+            mDetailsListeners.clear();
+            mCanAddCallListeners.clear();
+            mOrientationListeners.clear();
+            mInCallEventListeners.clear();
 
             Log.d(this, "Finished InCallPresenter.CleanUp");
         }
@@ -1199,10 +1204,30 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      *      and landscape.  {@Code False} if the in-call UI should be locked in portrait.
      */
     public void setInCallAllowsOrientationChange(boolean allowOrientationChange) {
+        if (mInCallActivity == null) {
+            Log.e(this, "InCallActivity is null. Can't set requested orientation.");
+            return;
+        }
+
         if (!allowOrientationChange) {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } else {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
+    }
+
+    public void enableScreenTimeout(boolean v) {
+        Log.v(this, "enableScreenTimeout: value=" + v);
+        if (mInCallActivity == null) {
+            Log.e(this, "enableScreenTimeout: InCallActivity is null.");
+            return;
+        }
+
+        final Window window = mInCallActivity.getWindow();
+        if (v) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 

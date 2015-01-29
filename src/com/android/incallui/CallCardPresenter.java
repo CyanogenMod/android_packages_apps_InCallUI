@@ -26,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.telecom.DisconnectCause;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneCapabilities;
@@ -78,6 +79,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private CallTimer mCallTimer;
     private Context mContext;
     private TelecomManager mTelecomManager;
+    private long mBaseChronometerTime = 0;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -237,10 +239,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // Start/stop timers.
         if (mPrimary != null && mPrimary.getState() == Call.State.ACTIVE) {
             Log.d(this, "Starting the calltime timer");
+            mBaseChronometerTime = mPrimary.getConnectTimeMillis() - System.currentTimeMillis()
+                    + SystemClock.elapsedRealtime();
             mCallTimer.start(CALL_TIME_UPDATE_INTERVAL_MS);
         } else {
             Log.d(this, "Canceling the calltime timer");
             mCallTimer.cancel();
+            mBaseChronometerTime = 0;
             ui.setPrimaryCallElapsedTime(false, null);
         }
 
@@ -337,7 +342,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return false;
         }
 
-        return mPrimary.can(PhoneCapabilities.MANAGE_CONFERENCE);
+        return mPrimary.can(PhoneCapabilities.MANAGE_CONFERENCE) && !mPrimary.isVideoCall(mContext);
     }
 
     private void setCallbackNumber() {
@@ -376,9 +381,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 ui.setPrimaryCallElapsedTime(false, null);
             }
             mCallTimer.cancel();
-        } else {
-            final long callStart = mPrimary.getConnectTimeMillis();
-            final long duration = System.currentTimeMillis() - callStart;
+            mBaseChronometerTime = 0;
+        } else if (mBaseChronometerTime > 0) {
+            final long duration = SystemClock.elapsedRealtime() - mBaseChronometerTime;
             ui.setPrimaryCallElapsedTime(true, DateUtils.formatElapsedTime(duration / 1000));
         }
     }
@@ -409,6 +414,13 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     }
 
     private void onContactInfoComplete(String callId, ContactCacheEntry entry, boolean isPrimary) {
+        Call call = (isPrimary ? mPrimary: mSecondary);
+        Log.d(TAG, "onContactInfoComplete: callId = " + callId + " isPrimary = " + isPrimary
+                + " call = " + call);
+        if (call == null || callId == null || !callId.equals(call.getId())) {
+            Log.d(TAG, "onContactInfoComplete: contact info is not for the current call.");
+            return;
+        }
         boolean isConference = isConference(mPrimary) || isConference(mSecondary);
         updateContactEntry(entry, isPrimary, isConference);
         if (entry.name != null) {
@@ -523,17 +535,17 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                         canManageConference,
                         false /* isSipCall */,
                         isForwarded);
+            } else {
+                String name = getNameForCall(mPrimaryContactInfo);
+                String number = getNumberForCall(mPrimaryContactInfo);
+                final boolean nameIsNumber = name != null
+                        && name.equals(mPrimaryContactInfo.number);
+                boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
+                final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
+                ui.setPrimary(number, checkIdpName, nameIsNumber, mPrimaryContactInfo.label,
+                        mPrimaryContactInfo.photo, isConference, canManageConference,
+                        mPrimaryContactInfo.isSipCall, isForwarded);
             }
-
-            String name = getNameForCall(mPrimaryContactInfo);
-            String number = getNumberForCall(mPrimaryContactInfo);
-            final boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
-            boolean isIncoming = mPrimary.getState() == Call.State.INCOMING;
-            final String checkIdpName = checkIdp(name, nameIsNumber, isIncoming);
-
-            ui.setPrimary(number, checkIdpName, nameIsNumber, mPrimaryContactInfo.label,
-                    mPrimaryContactInfo.photo, isConference, canManageConference,
-                    mPrimaryContactInfo.isSipCall, isForwarded);
         } else {
             ui.setPrimary(null, null, false, null, null, isConference,
                     canManageConference, false, isForwarded);

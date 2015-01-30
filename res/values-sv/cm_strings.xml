@@ -53,5 +53,7 @@
   <string name="blacklist_dialog_message">Kommande samtal från <xliff:g id="number">%s</xliff:g> kommer att blockeras</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Volymförstärkning är aktiverad</string>
+  <string name="volume_boost_notify_disabled">Volymförstärkning är inaktiverad</string>
   <string name="volume_boost_notify_unavailable">Extra volym är inte tillgänglig när du använder ett headset</string>
 </resources>

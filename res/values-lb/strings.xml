@@ -35,7 +35,7 @@
   <string name="callFailed_simError">Keng SIM-Kaart oder SIM-Feeler</string>
   <string name="callFailed_outOfService">Plaz ouni Netzofdeckung</string>
   <string name="callFailed_fdn_only">Erausgoend Uriff ginn duerch eng Uruffaschränkung limitéiert.</string>
-  <string name="callFailed_cb_enabled">Dir kënnt keng Uriff maachen, wann d\'Uruffspär aktivéiert ass.</string>
+  <string name="callFailed_cb_enabled">Du kanns keng Uriff maachen, wann d\'Uruffspär aktivéiert ass.</string>
   <string name="callFailed_dsac_restricted">All Uriff ginn duerch d\'Zougrëffssteierung begrenzt.</string>
   <string name="callFailed_dsac_restricted_emergency">Noutriff ginn duerch d\'Zougrëffssteierung begrenzt.</string>
   <string name="callFailed_dsac_restricted_normal">Normal Uriff ginn duerch d\'Zougrëffssteierung begrenzt.</string>

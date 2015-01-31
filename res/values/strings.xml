@@ -631,4 +631,8 @@
     <string name="display_rich_screen">Display rich screen ?</string>
     <string name="rcs_missdnaddress_string">MissdnAddress:</string>
     <string name="rcs_greeting_string">Gretting:</string>
+    <string name="call_state_dialing">Dialing</string>
+    <string name="call_state_holding">Holding</string>
+    <string name="call_state_active">Active</string>
+    <string name="call_state_disconnected">Disconnected</string>
 </resources>

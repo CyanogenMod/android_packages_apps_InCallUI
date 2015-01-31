@@ -635,4 +635,5 @@
     <string name="call_state_holding">Holding</string>
     <string name="call_state_active">Active</string>
     <string name="call_state_disconnected">Disconnected</string>
+    <string name="dial_conference_call_error">Cannot create a 4G conference call, because the 4G network is not available.</string>
 </resources>

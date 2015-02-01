@@ -33,6 +33,7 @@ import com.android.incallui.InCallPresenter.InCallDetailsListener;
 
 import android.content.DialogInterface;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 import com.android.internal.telephony.util.BlacklistUtils;
 
 import java.util.Objects;
@@ -426,26 +427,34 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         final boolean showSwapOption = call.can(PhoneCapabilities.SWAP_CONFERENCE);
         final boolean showHoldOption = !showSwapOption && (enableHoldOption || supportHold);
 
+        boolean showRecordOption =
+                ((InCallActivity)((CallButtonFragment)ui).getActivity()).isCallRecorderEnabled();
+
         ui.setHold(call.getState() == Call.State.ONHOLD);
 
-        //Initialize buttonCount = 2. Because speaker and dialpad these two always show in Call UI.
-        int buttonCount = 2;
+        // Initialize buttonCount = 3.
+        // Because speaker and dialpad and mute these three always show in Call UI.
+        int buttonCount = 3;
         buttonCount += toInteger(canVideoCall);
         buttonCount += toInteger(showAddCallOption);
         buttonCount += toInteger(showMergeOption);
         buttonCount += toInteger(showAddParticipantOption);
         buttonCount += toInteger(showHoldOption);
         buttonCount += toInteger(showSwapOption);
-        buttonCount += toInteger(call.can(PhoneCapabilities.MUTE));
         buttonCount += toInteger(showManageVideoCallConferenceOption);
+        buttonCount += toInteger(showRecordOption);
 
         Log.v(this, "show AddParticipant: " + showAddParticipantOption +
                 " show ManageVideoCallConference: " + showManageVideoCallConferenceOption);
         Log.v(this, "No of InCall buttons: " + buttonCount + " canVideoCall: " + canVideoCall);
 
-        // Show overflow menu if number of buttons is greater than 5.
-        final boolean showOverflowMenu =
-                buttonCount > BUTTON_THRESOLD_TO_DISPLAY_OVERFLOW_MENU;
+        int phoneType = TelephonyManager.getDefault().getCurrentPhoneType(call.getSubId());
+        int maxButtonCount = (TelephonyManager.PHONE_TYPE_CDMA != phoneType) ?
+                BUTTON_THRESOLD_TO_DISPLAY_OVERFLOW_MENU :
+                BUTTON_THRESOLD_TO_DISPLAY_OVERFLOW_MENU - 1;
+
+        // Show overflow menu if number of buttons is greater than 5(4 in CDMA type).
+        final boolean showOverflowMenu = buttonCount > maxButtonCount;
         final boolean isVideoOverflowScenario = canVideoCall && showOverflowMenu;
         final boolean isOverflowScenario = !canVideoCall && showOverflowMenu;
 

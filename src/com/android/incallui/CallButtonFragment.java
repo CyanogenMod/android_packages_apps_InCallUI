@@ -504,7 +504,6 @@ public class CallButtonFragment
         menu.findItem(R.id.overflow_resume_menu_item).setVisible(
                 showHoldMenuOption && mHoldButton.isSelected());
         menu.findItem(R.id.overflow_swap_menu_item).setVisible(showSwapMenuOption);
-        menu.findItem(R.id.menu_start_record).setVisible(true);
         menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
         menu.findItem(R.id.overflow_manage_conference_menu_item).setVisible(
             showManageConferenceVideoCallOption);
@@ -837,6 +836,20 @@ public class CallButtonFragment
 
         @Override
         public void show() {
+            final Menu menu = getMenu();
+            final MenuItem startRecord = menu.findItem(R.id.menu_start_record);
+            final MenuItem stopRecord = menu.findItem(R.id.menu_stop_record);
+
+            boolean isRecording = ((InCallActivity)getActivity()).isCallRecording();
+            boolean isRecordEnabled = ((InCallActivity)getActivity()).isCallRecorderEnabled();
+            boolean startEnabled = !isRecording && isRecordEnabled;
+            boolean stopEnabled = isRecording && isRecordEnabled;
+
+            startRecord.setVisible(startEnabled);
+            startRecord.setEnabled(startEnabled);
+            stopRecord.setVisible(stopEnabled);
+            stopRecord.setEnabled(stopEnabled);
+
             super.show();
         }
     }

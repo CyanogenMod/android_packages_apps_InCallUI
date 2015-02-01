@@ -63,6 +63,23 @@
 
     </LinearLayout>
 
+    <!--  More menu overflow button for call recording, blacklisting
+          only visible during the call. It sits above the primary call info
+          container in the top-right hand corner. -->
+    <ImageButton
+            android:id="@+id/moreMenuButton"
+            style="@style/InCallButton"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/overflow_thumbnail"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:elevation="@dimen/primary_call_overflow_elevation"
+            android:rotation="90"
+            android:contentDescription="@string/onscreenMoreMenuText"/>
+
     <!-- Contact photo for primary call info -->
     <FrameLayout
         android:layout_below="@id/primary_call_info_container"
@@ -144,6 +161,17 @@
         android:visibility="invisible"
         android:soundEffectsEnabled="false"
         android:background="@drawable/vb_normal"/>
+
+    <!-- SwitchCameraButton in-call UI -->
+    <ImageButton android:id="@+id/switchCamera"
+        android:layout_below="@id/primary_call_info_container"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        android:soundEffectsEnabled="false"
+        android:background="@drawable/ic_toolbar_video_switch"/>
 
     <!-- Placeholder for the dialpad which is replaced with the dialpad fragment when shown. -->
     <FrameLayout

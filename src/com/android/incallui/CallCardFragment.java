@@ -31,6 +31,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -167,6 +170,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private InCallActivity mInCallActivity;
     // for RCS
     private RcsRichScreen mRcsRichScreen = null;
+    private boolean misEhanceScreenApkInstalled = false;
+    private static final String ENHANCE_SCREEN_APK_NAME = "com.cmdm.rcs";
     //RCS end
 
     private static final int DEFAULT_VIEW_OFFSET_Y = 0;
@@ -206,7 +211,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         getActivity().registerReceiver(recorderStateReceiver, filter);
 
         mInCallActivity = (InCallActivity)getActivity();
-
+        misEhanceScreenApkInstalled = isEnhanceScreenInstalled();
         if (mInCallActivity.isCallRecording()) {
             recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
         }
@@ -1074,6 +1079,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         if (RcsApiManager.isRcsServiceInstalled()) {
             updateUnReadSmsCount();
         }
+        misEhanceScreenApkInstalled = isEnhanceScreenInstalled();
     }
 
     /**
@@ -1479,8 +1485,21 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
    // RCS support start
-    private boolean isRcsAvailable(){
-        return RcsApiManager.isRcsServiceInstalled() && RcsApiManager.isRcsOnline();
+    private boolean isRcsAvailable() {
+        return RcsApiManager.isRcsServiceInstalled()
+                && RcsApiManager.isRcsOnline() && misEhanceScreenApkInstalled;
+    }
+
+    private boolean isEnhanceScreenInstalled() {
+        boolean installed = false;
+        try {
+            ApplicationInfo info = getActivity().getPackageManager().getApplicationInfo(
+                ENHANCE_SCREEN_APK_NAME, PackageManager.GET_PROVIDERS);
+            installed = (info != null);
+        } catch (NameNotFoundException e) {
+        }
+        Log.i(this, "Is Enhance Screen installed ? " + installed);
+        return installed;
     }
 
     private BroadcastReceiver mSmsReceiver = new BroadcastReceiver() {

@@ -74,7 +74,8 @@ public class GifMovieView extends View {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        final TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.GifMoviewView, defStyle,
+        final TypedArray array = context.obtainStyledAttributes(attrs,
+                R.styleable.GifMoviewView, defStyle,
                 R.style.Widget_GifMoviewView);
 
         mMovieResourceId = array.getResourceId(R.styleable.GifMoviewView_gif, -1);
@@ -91,16 +92,14 @@ public class GifMovieView extends View {
         this.mMovieString = path;
         Log.d(TAG,path);
         BufferedInputStream is = null;
-         try {
-             is = new BufferedInputStream(new FileInputStream(path));
-             Log.d(TAG,is.toString());
-         } catch (FileNotFoundException e) {
-             // TODO Auto-generated catch block
-             Log.d(TAG,"FileNotFoundException");
-             e.printStackTrace();
-         }
-         Log.d(TAG,is.toString());
-         mMovie = Movie.decodeStream(is);
+        try {
+            is = new BufferedInputStream(new FileInputStream(path));
+        } catch (FileNotFoundException e) {
+            Log.d(TAG,"FileNotFoundException");
+            e.printStackTrace();
+        }
+        Log.d(TAG,is.toString());
+        mMovie = Movie.decodeStream(is);
         requestLayout();
      }
 

@@ -22,21 +22,21 @@
  */
 
 package com.android.incallui;
-import com.suntek.mway.rcs.client.api.RCSServiceListener;
-import com.suntek.mway.rcs.client.api.autoconfig.RcsAccountApi;
-import com.suntek.mway.rcs.client.api.impl.groupchat.ConfApi;
-import com.suntek.mway.rcs.client.api.support.RcsSupportApi;
-import com.suntek.mway.rcs.client.api.util.ServiceDisconnectedException;
-import com.suntek.mway.rcs.client.api.capability.impl.CapabilityApi;
-import com.suntek.mway.rcs.client.api.voip.impl.RichScreenApi;
-import com.suntek.mway.rcs.client.api.plugin.entity.richscrn.RichScrnShowing;
+
 import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
+import com.suntek.mway.rcs.client.api.autoconfig.RcsAccountApi;
+import com.suntek.mway.rcs.client.api.capability.impl.CapabilityApi;
+import com.suntek.mway.rcs.client.api.impl.groupchat.ConfApi;
+import com.suntek.mway.rcs.client.api.support.RcsSupportApi;
+import com.suntek.mway.rcs.client.api.RCSServiceListener;
+import com.suntek.mway.rcs.client.api.util.ServiceDisconnectedException;
+import com.suntek.mway.rcs.client.api.voip.impl.RichScreenApi;
 
 public class RcsApiManager {
     private static boolean mIsRcsServiceInstalled;
-    private static String TAG = "Dialer RCS";
+    private static String TAG = "InCallUI_RcsApiManager";
     private static ConfApi mConfApi = new ConfApi();
     private static RcsAccountApi mRcsAccountApi = new RcsAccountApi();
     private static CapabilityApi mCapabilityApi = new CapabilityApi();
@@ -47,38 +47,38 @@ public class RcsApiManager {
         Log.d(TAG, "RCS init");
         mIsRcsServiceInstalled = RcsSupportApi.isRcsServiceInstalled(context);
         if (!mIsRcsServiceInstalled) {
-        Log.d("RCS_UI", "mIsRcsServiceInstalled" + mIsRcsServiceInstalled);
+            Log.d(TAG, "mIsRcsServiceInstalled" + mIsRcsServiceInstalled);
             return;
         }
 
         mRcsAccountApi.init(context, new RCSServiceListener() {
             @Override
             public void onServiceDisconnected() throws RemoteException {
-                Log.d("RCS_UI", "RcsAccountApi disconnected");
+                Log.d(TAG, "RcsAccountApi disconnected");
             }
 
             @Override
             public void onServiceConnected() throws RemoteException {
-                Log.d("RCS_UI", "RcsAccountApi connected");
+                Log.d(TAG, "RcsAccountApi connected");
             }
         });
 
         mConfApi.init(context, new RCSServiceListener() {
             public void onServiceDisconnected() throws RemoteException {
-                Log.d("RCS_UI", "ConfApi connected");
+                Log.d(TAG, "ConfApi connected");
             }
 
             public void onServiceConnected() throws RemoteException {
-                Log.d("RCS_UI", "ConfApi connected");
+                Log.d(TAG, "ConfApi connected");
             }
         });
         mRichScreenApi.init(context, new RCSServiceListener() {
             public void onServiceDisconnected() throws RemoteException {
-                Log.d("RCS_UI", "RichScreenApi connected");
+                Log.d(TAG, "RichScreenApi connected");
             }
 
             public void onServiceConnected() throws RemoteException {
-                Log.d("RCS_UI", "RichScreenApi connected");
+                Log.d(TAG, "RichScreenApi connected");
             }
         });
         mCapabilityApi.init(context, null);

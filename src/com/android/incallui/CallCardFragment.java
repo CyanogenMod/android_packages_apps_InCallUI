@@ -286,6 +286,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mUnreadMessageCount = (TextView) view.findViewById(R.id.unreadMessageCount);
             updateUnReadSmsCount();
         } else {
+            mSendMessageView = view.findViewById(R.id.sendMessage);
             mSendMessageView.setVisibility(View.GONE);
         }
         mMoreMenuButton = (ImageButton) view.findViewById(R.id.moreMenuButton);

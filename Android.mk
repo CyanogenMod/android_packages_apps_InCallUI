@@ -1,10 +1,10 @@
 LOCAL_PATH:= $(call my-dir)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
-# Need to specify an invalid resoure path to avoid including resource
-LOCAL_RESOURCE_DIR := res_none
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res_cm
 
 # Without any resource, we don't depend on framework-res in the build
 # system, but we actually do to compile AndroidManifest.xml. Avoid

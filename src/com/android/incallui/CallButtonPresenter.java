@@ -234,6 +234,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     }
 
     public void addParticipantClicked() {
+        if (getUi().getContext().getResources().getBoolean(
+                R.bool.add_multi_participants_enabled)){
+            InCallPresenter.getInstance().sendAddMultiParticipantsIntent();
+            return;
+        }
         InCallPresenter.getInstance().sendAddParticipantIntent();
     }
 

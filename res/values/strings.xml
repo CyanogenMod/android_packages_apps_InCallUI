@@ -522,6 +522,18 @@
     <!-- Description of the target to decline a request to upgrade from an audio call to a video call.
          [CHAR LIMIT=NONE] -->
     <string name="description_target_decline_upgrade_to_video_request">Decline video request</string>
+    <!-- Description of the target to accept a request to upgrade from any call to a video transmit call.
+         [CHAR LIMIT=NONE] -->
+    <string name="description_target_accept_upgrade_to_video_transmit_request">Accept video transmit request</string>
+    <!-- Description of the target to decline a request to upgrade from any call to a video transmit call.
+         [CHAR LIMIT=NONE] -->
+    <string name="description_target_decline_upgrade_to_video_transmit_request">Decline video transmit request</string>
+        <!-- Description of the target to accept a request to upgrade from any call to a video receive call.
+         [CHAR LIMIT=NONE] -->
+    <string name="description_target_accept_upgrade_to_video_receive_request">Accept video receive request</string>
+    <!-- Description of the target to decline a request to upgrade from any call to a video receive call.
+         [CHAR LIMIT=NONE] -->
+    <string name="description_target_decline_upgrade_to_video_receive_request">Decline video receive request</string>
 
     <!-- Description of the up direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
     <string name="description_direction_up">Slide up for <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>

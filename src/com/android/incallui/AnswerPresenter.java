@@ -20,6 +20,7 @@ import android.telecom.PhoneCapabilities;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.SystemProperties;
+import android.telecom.VideoProfile;
 
 import java.util.List;
 
@@ -159,6 +160,14 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     private void processVideoUpgradeRequestCall(Call call) {
         Log.d(this, " processVideoUpgradeRequestCall call=" + call);
+        final int currentVideoState = call.getVideoState();
+        final int modifyToVideoState = call.getModifyToVideoState();
+
+        if (currentVideoState == modifyToVideoState) {
+            Log.w(this, "processVideoUpgradeRequestCall: Video states are same. Return.");
+            return;
+        }
+
         long subId = call.getSubId();
         int phoneId = CallList.getInstance().getPhoneId(subId);
         mCallId[phoneId] = call.getId();
@@ -166,8 +175,37 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
         // Listen for call updates for the current call.
         CallList.getInstance().addCallUpdateListener(mCallId[phoneId], this);
-        getUi().showAnswerUi(true);
-        getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_UPGRADE_REQUEST);
+        AnswerUi ui = getUi();
+
+        if (ui == null) {
+            Log.e(this, "Ui is null. Can't process upgrade request");
+            return;
+        }
+        ui.showAnswerUi(true);
+        ui.showTargets(getUiTarget(currentVideoState, modifyToVideoState));
+
+    }
+
+    private int getUiTarget(int currentVideoState, int modifyToVideoState) {
+        if (showVideoUpgradeOptions(currentVideoState, modifyToVideoState)) {
+            return AnswerFragment.TARGET_SET_FOR_VIDEO_UPGRADE_REQUEST;
+        } else if (isEnabled(modifyToVideoState, VideoProfile.VideoState.BIDIRECTIONAL)) {
+            return AnswerFragment.TARGET_SET_FOR_BIDIRECTIONAL_VIDEO_ACCEPT_REJECT_REQUEST;
+        }  else if (isEnabled(modifyToVideoState, VideoProfile.VideoState.TX_ENABLED)) {
+            return AnswerFragment.TARGET_SET_FOR_VIDEO_TRANSMIT_ACCEPT_REJECT_REQUEST;
+        }  else if (isEnabled(modifyToVideoState, VideoProfile.VideoState.RX_ENABLED)) {
+            return AnswerFragment.TARGET_SET_FOR_VIDEO_RECEIVE_ACCEPT_REJECT_REQUEST;
+        }
+        return AnswerFragment.TARGET_SET_FOR_VIDEO_UPGRADE_REQUEST;
+    }
+
+    private boolean showVideoUpgradeOptions(int currentVideoState, int modifyToVideoState) {
+        return currentVideoState == VideoProfile.VideoState.AUDIO_ONLY &&
+            isEnabled(modifyToVideoState, VideoProfile.VideoState.BIDIRECTIONAL);
+    }
+
+    private boolean isEnabled(int videoState, int mask) {
+        return (videoState & mask) == mask;
     }
 
     @Override

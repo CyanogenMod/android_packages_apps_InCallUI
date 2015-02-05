@@ -766,8 +766,20 @@ public class InCallActivity extends Activity {
             showErrorDialog(getString(R.string.callFailed_incoming_cb_enabled));
         } else if (!TextUtils.isEmpty(disconnectCause.getDescription())
                 && (code == DisconnectCause.ERROR || code == DisconnectCause.RESTRICTED)) {
-            showErrorDialog(disconnectCause.getDescription());
+            if (isConferenceDialString(call.getNumber())){
+                showErrorDialog(getString(R.string.dial_conference_call_error));
+            }else{
+                showErrorDialog(disconnectCause.getDescription());
+            }
         }
+    }
+
+    private boolean isConferenceDialString(String number) {
+        String[] participantsArr = number.split(";");
+        if ((participantsArr != null) && (participantsArr.length > 1)) {
+            return true;
+        }
+        return false;
     }
 
     public void dismissPendingDialogs() {

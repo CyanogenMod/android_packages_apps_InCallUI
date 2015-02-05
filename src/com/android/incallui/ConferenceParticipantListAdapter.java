@@ -359,17 +359,23 @@ public class ConferenceParticipantListAdapter extends BaseAdapter {
             case Call.State.ACTIVE:
                 res = R.string.call_state_active;
                 break;
+            case Call.State.NEW:
+            case Call.State.IDLE:
             case Call.State.DIALING:
+            case Call.State.REDIALING:
                 res = R.string.call_state_dialing;
                 break;
             case Call.State.ONHOLD:
                 res = R.string.call_state_holding;
                 break;
+            case Call.State.DISCONNECTING:
+                res = R.string.call_state_disconnecting;
+                break;
             case Call.State.DISCONNECTED:
                 res = R.string.call_state_disconnected;
                 break;
             default:
-                res = R.string.call_state_active;
+                res = R.string.call_state_unknown;
         }
         return res;
     }

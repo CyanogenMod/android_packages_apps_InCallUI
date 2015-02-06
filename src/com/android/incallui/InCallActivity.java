@@ -35,6 +35,7 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -990,7 +991,8 @@ public class InCallActivity extends Activity {
     }
 
     public Bundle callBinder(String method) {
-        if (getContentResolver().acquireProvider(URI_PHONE_FEATURE) == null) {
+        if (UserHandle.myUserId() != UserHandle.USER_OWNER ||
+                getContentResolver().acquireProvider(URI_PHONE_FEATURE) == null) {
             // Check whether phone feature enabled
             return null;
         }

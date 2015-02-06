@@ -171,7 +171,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     // for RCS
     private RcsRichScreen mRcsRichScreen = null;
     private boolean misEhanceScreenApkInstalled = false;
+    private boolean mIsRcsServiceInstalled = false;
     private static final String ENHANCE_SCREEN_APK_NAME = "com.cmdm.rcs";
+    private static final String LOG_TAG = "RCS_UI";
     //RCS end
 
     private static final int DEFAULT_VIEW_OFFSET_Y = 0;
@@ -212,6 +214,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         mInCallActivity = (InCallActivity)getActivity();
         misEhanceScreenApkInstalled = isEnhanceScreenInstalled();
+        mIsRcsServiceInstalled = RcsApiManager.isRcsServiceInstalled();
         if (mInCallActivity.isCallRecording()) {
             recorderHandler.sendEmptyMessage(MESSAGE_TIMER);
         }
@@ -267,16 +270,16 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mInCallMessageLabel = (TextView) view.findViewById(R.id.connectionServiceMessage);
         mProgressSpinner = view.findViewById(R.id.progressSpinner);
 
-        if(isRcsAvailable()){
+        if (isRcsAvailable()) {
             TextView rcsmissdnAddress = (TextView)view.findViewById(R.id.missdnaddress);
             TextView rcsgreeting = (TextView)view.findViewById(R.id.greeting);
             SurfaceView rcssurface = (SurfaceView)view.findViewById(R.id.surface);
             ImageView rcsPhoto = (ImageView) view.findViewById(R.id.rcs_photo);
             GifMovieView rcsGifMovieView = (GifMovieView) view.findViewById(R.id.incallgifview);
             mRcsRichScreen = new RcsRichScreen(getActivity(),
-                rcsPhoto,rcsgreeting,rcsmissdnAddress,rcsGifMovieView,rcssurface);
+                rcsPhoto, rcsgreeting, rcsmissdnAddress, rcsGifMovieView, rcssurface);
         }
-        if (RcsApiManager.isRcsServiceInstalled()) {
+        if (mIsRcsServiceInstalled) {
             mSendMessageView = view.findViewById(R.id.sendMessage);
             mSendMessageView.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -364,8 +367,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     private void updateUnReadSmsCount() {
+        if (!mIsRcsServiceInstalled) {
+            return;
+        }
         int unRead = getPresenter().getUnReadMessageCount(mInCallActivity);
-        Log.d("RCS_UI", "CallCardFragment: updateUnReadMessageCount(" + unRead + ")");
+        Log.d(LOG_TAG, "CallCardFragment: updateUnReadMessageCount(" + unRead + ")");
         setUnReadMessageCount(unRead);
     }
 
@@ -501,6 +507,9 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     }
 
     public void setUnReadMessageCount(int count) {
+        if (null == mUnreadMessageCount) {
+            return;
+        }
         if (count > 0) {
             mUnreadMessageCount.setBackgroundResource(R.drawable.rcs_incall_message_count);
             mUnreadMessageCount.setText(String.valueOf(count));
@@ -592,7 +601,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         setPrimaryLabel(label);
 
         showCallTypeLabel(isSipCall, isForwarded);
-        if(isRcsAvailable()){
+        if (mRcsRichScreen != null && isRcsAvailable()) {
             String rcsnumber = null;
             if(!nameIsNumber){
                 rcsnumber = number;
@@ -662,7 +671,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             return;
         }
         // update Rcs RichScreen by call state
-        if(isRcsAvailable()){
+        if (mRcsRichScreen != null && isRcsAvailable()) {
            mRcsRichScreen.updateRichScreenByCallState(state,videoState);
         }
 
@@ -1077,7 +1086,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 updateFabPosition();
             }
         });
-        if (RcsApiManager.isRcsServiceInstalled()) {
+        if (mIsRcsServiceInstalled) {
             updateUnReadSmsCount();
         }
         misEhanceScreenApkInstalled = isEnhanceScreenInstalled();

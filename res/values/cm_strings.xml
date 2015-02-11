@@ -27,9 +27,6 @@
     <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
     <string name="card_title_dialing_waiting">Dialing (waiting\u2026)</string>
 
-    <!-- In-call screen: status label for a call that is held remotely  -->
-    <string name="card_title_waiting_call">Waiting call</string>
-
     <!-- Text for the onscreen "Blacklist" button -->
     <string name="onscreenBlacklistText">Blacklist</string>
 

@@ -742,7 +742,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 } else if (VideoProfile.VideoState.isBidirectional(videoState)) {
                     callStateLabel = context.getString(R.string.card_title_video_call);
                 } else if (isWaitingForRemoteSide) {
-                    callStateLabel = context.getString(R.string.card_title_waiting_call);
+                    callStateLabel = context.getString(R.string.accessibility_call_put_on_hold);
                 }
                 mDetailedCallInfo.setVisibility(View.GONE);
                 break;

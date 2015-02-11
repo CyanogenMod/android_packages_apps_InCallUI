@@ -36,17 +36,11 @@
         <ImageButton
             android:id="@+id/moreMenuButton"
             style="@style/InCallButton"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/overflow_thumbnail"
-            android:layout_gravity="right"
-            android:elevation="@dimen/primary_call_overflow_elevation"
-            android:rotation="90"
+            android:background="@drawable/btn_overflow_horizontal"
+            android:layout_gravity="end"
             android:contentDescription="@string/onscreenMoreMenuText"/>
 
-        <include layout="@layout/primary_call_info" 
+        <include layout="@layout/primary_call_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

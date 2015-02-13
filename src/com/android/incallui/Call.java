@@ -411,11 +411,13 @@ public final class Call {
                     // Cannot merge calls if there are no calls to merge with.
                     return false;
                 }
-            } else if (mTelecommCall.getConferenceableCalls().isEmpty() &&
+            } else if (mTelecommCall.getConferenceableCalls().isEmpty() ||
                     ((PhoneCapabilities.MERGE_CONFERENCE & supportedCapabilities) == 0)) {
-                // Cannot merge calls if there are no calls to merge with.
+                // Cannot merge calls if there are no calls to merge with or
+                // capability to merge is missing
                 return false;
             }
+            // Clearing this bit means this capability is available
             capabilities &= ~PhoneCapabilities.MERGE_CONFERENCE;
         }
         return (capabilities == (capabilities & mTelecommCall.getDetails().getCallCapabilities()));

@@ -222,65 +222,57 @@ public class RcsRichScreen {
         msurface.setVisibility(View.GONE);
         mGifMovieView.setVisibility(View.GONE);
         missdnAddress.setVisibility(View.GONE);
-        new Thread() {
-             @Override
-             public void run() {
-                if (null != result.getGreeting()
-                        && !TextUtils.isEmpty(result.getGreeting())) {
-                    mGreeting.setVisibility(View.VISIBLE);
-                    StringBuilder greetingString = new StringBuilder();
-                    greetingString.append(mContext.getResources().getString(
-                            R.string.rcs_greeting_string));
-                    greetingString.append(result.getGreeting());
-                    mGreeting.setText(greetingString.toString());
-                }
-                if (null != result.getMissdnAddress()
-                        && !TextUtils.isEmpty(result.getMissdnAddress())) {
-                    missdnAddress.setVisibility(View.VISIBLE);
-                    StringBuilder missdnAddressString = new StringBuilder();
-                    missdnAddressString.append(mContext.getResources().getString(
-                            R.string.rcs_missdnaddress_string));
-                    missdnAddressString.append(result.getMissdnAddress());
-                    missdnAddress.setText(missdnAddressString.toString());
-                } else {
-                    missdnAddress.setVisibility(View.GONE);
-                    try {
-                        Log.i(TAG, "getRichScreenApi.DownloadHomeLocRules"
-                                + RcsApiManager.getRichScreenApi());
-                        RcsApiManager.getRichScreenApi().downloadHomeLocRules(
-                                mPhoneEevnt);
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                String sorceType = result.getSourceType();
-                switch (Integer.valueOf(sorceType)) {
-                case RCS_STATIC_IMAGE: {
-
-                        mRcsPhoto.setVisibility(View.VISIBLE);
-                        Bitmap bitmap = BitmapFactory
-                                .decodeFile(result.getLocalSourceUrl());
-                        mRcsPhoto.setImageBitmap(bitmap);
-
-                }
-                break;
-                case RCS_VIRTUAL_IMAGE: {
-                    mGifMovieView.setVisibility(View.VISIBLE);
-                    mGifMovieView.setMovieResource(result.getLocalSourceUrl());
-                }
-                break;
-                case RCS_VIDEO: {
-                    msurface.setVisibility(View.VISIBLE);
-                    videoPath = result.getLocalSourceUrl();
-                }
-                break;
-                default:
-                    mRcsPhoto.setVisibility(View.VISIBLE);
-                break;
-                }
+        if (!TextUtils.isEmpty(result.getGreeting())) {
+            mGreeting.setVisibility(View.VISIBLE);
+            StringBuilder greetingString = new StringBuilder();
+            greetingString.append(mContext.getResources().getString(
+                 R.string.rcs_greeting_string));
+            greetingString.append(result.getGreeting());
+            mGreeting.setText(greetingString.toString());
+        }
+        if (!TextUtils.isEmpty(result.getMissdnAddress())) {
+            missdnAddress.setVisibility(View.VISIBLE);
+            StringBuilder missdnAddressString = new StringBuilder();
+            missdnAddressString.append(mContext.getResources().getString(
+                    R.string.rcs_missdnaddress_string));
+            missdnAddressString.append(result.getMissdnAddress());
+            missdnAddress.setText(missdnAddressString.toString());
+        } else {
+            missdnAddress.setVisibility(View.GONE);
+            try {
+                Log.i(TAG, "getRichScreenApi.DownloadHomeLocRules"
+                        + RcsApiManager.getRichScreenApi());
+                RcsApiManager.getRichScreenApi().downloadHomeLocRules(
+                        mPhoneEevnt);
+            } catch (Exception e) {
+                Log.w(TAG,e);
             }
-        }.start();
+        }
+        String sorceType = result.getSourceType();
+        switch (Integer.valueOf(sorceType)) {
+            case RCS_STATIC_IMAGE: {
+
+                mRcsPhoto.setVisibility(View.VISIBLE);
+                Bitmap bitmap = BitmapFactory
+                        .decodeFile(result.getLocalSourceUrl());
+                mRcsPhoto.setImageBitmap(bitmap);
+
+            }
+             break;
+        case RCS_VIRTUAL_IMAGE: {
+            mGifMovieView.setVisibility(View.VISIBLE);
+            mGifMovieView.setMovieResource(result.getLocalSourceUrl());
+            }
+            break;
+        case RCS_VIDEO: {
+            msurface.setVisibility(View.VISIBLE);
+            videoPath = result.getLocalSourceUrl();
+            }
+            break;
+        default:
+            mRcsPhoto.setVisibility(View.VISIBLE);
+            break;
+        }
     }
 
     public String getPhoneEventForRichScreen(int state, int videoState) {

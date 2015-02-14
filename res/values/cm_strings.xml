@@ -59,7 +59,7 @@
     <!-- Message indicating that camera is ready/available -->
     <string name="camera_ready">Camera is ready</string>
     <!-- Message indicating unknown call session event -->
-    <string name="unknown_call_session_event">Unkown call session event</string>
+    <string name="unknown_call_session_event">Unknown call session event</string>
 
     <string name="volume_boost_notify_enabled">Volume boost is enabled</string>
     <string name="volume_boost_notify_disabled">Volume boost is disabled</string>

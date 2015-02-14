@@ -684,7 +684,7 @@ public class CallList implements InCallPhoneListener {
                     return true;
                 }
             } catch (NumberFormatException e) {
-                Log.w(this,"Sub Id is not a number " + e);
+                Log.w(this,"Sub Id is not a number Exce:" +e);
             }
         }
         Log.i(this, "no active call ");

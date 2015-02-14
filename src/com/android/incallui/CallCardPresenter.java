@@ -884,4 +884,30 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             videoCall.requestCameraCapabilities();
         }
     }
+
+    public void sendSmsClicked() {
+        String number;
+        if (mPrimary != null) {
+            number = mPrimary.getNumber();
+            Log.d("RCS_UI", "sendSmsClicked: number=" + number);
+        } else {
+            number = null;
+        }
+        if (number == null) {
+            RcsSendSmsUtils.startSendSmsActivity(mContext);
+        } else {
+            RcsSendSmsUtils.startSendSmsActivity(mContext, new String[] { number });
+        }
+    }
+
+    public int getUnReadMessageCount(Context context) {
+        String phoneNumber;
+        if (mPrimary != null) {
+            phoneNumber = mPrimary.getNumber();
+        } else {
+            phoneNumber = null;
+        }
+        return RcsSendSmsUtils.getUnReadMessageCount(context, phoneNumber);
+    }
+
 }

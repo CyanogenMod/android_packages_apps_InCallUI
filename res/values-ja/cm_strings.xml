@@ -19,7 +19,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">DIALリクエストはUSSDリクエストに変更されました。</string>
   <string name="callFailed_dialToSs">DIALリクエストはSSリクエストに変更されました。</string>
-  <string name="callFailed_dialToDial">DIALリクエストは異なる番号のDIALに変更されました。</string>
+  <string name="callFailed_dialToDial">DIALリクエストは別の番号のDIALに変更されました。</string>
   <string name="callFailed_incoming_cb_enabled">パーティーがすべての着信を禁止しています。</string>
   <string name="callUnanswered_forwarded">通話は応答されずに転送されました</string>
   <string name="modify_call_prompt_yes">はい</string>

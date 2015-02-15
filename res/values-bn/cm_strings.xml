@@ -19,5 +19,9 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_dialToUssd">ডায়াল অনুরোধ ইউএসএসডি দ্বারা পরিবর্তন হয়েছে।</string>
   <string name="callFailed_dialToDial">ডায়াল অনুরোধ ডায়াল দ্বারা পরিবর্তন হয়েছে আলাদা সংখ্যা সহ।</string>
+  <string name="callUnanswered_forwarded">অনুত্তরিত কল এবং ফরোয়ার্ড করা</string>
+  <string name="modify_call_prompt_yes">হ্যাঁ</string>
+  <string name="modify_call_prompt_no">না</string>
+  <string name="modify_call_option_vt">VT</string>
   <string name="incall_call_type_label_forwarded">অগ্রবর্তী কল পাঠানো</string>
 </resources>

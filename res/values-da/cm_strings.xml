@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Opkald ubesvaret og videresendt</string>
   <string name="incall_call_type_label_forwarded">Viderestillet opkald</string>
   <string name="card_title_dialing_waiting">Ringer op (venter\u2026)</string>
-  <string name="card_title_waiting_call">Ventende opkald</string>
   <string name="onscreenBlacklistText">Sortliste</string>
   <string name="blacklist_dialog_title">Føj til sortliste</string>
   <string name="blacklist_dialog_message">Fremtidige opkald fra <xliff:g id="number">%s</xliff:g> vil blive blokeret</string>

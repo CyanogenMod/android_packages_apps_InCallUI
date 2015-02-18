@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Chamada não respondida e reencaminhada</string>
   <string name="incall_call_type_label_forwarded">Chamada encaminhada</string>
   <string name="card_title_dialing_waiting">Discando (waiting\u2026)</string>
-  <string name="card_title_waiting_call">Chamada em espera</string>
   <string name="onscreenBlacklistText">Lista Negra</string>
   <string name="blacklist_dialog_title">Adicionar à Lista Negra</string>
   <string name="blacklist_dialog_message">Futuras chamadas de <xliff:g id="number">%s</xliff:g> serão bloqueadas</string>
@@ -37,7 +36,7 @@
   <string name="player_stopped">Reprodutor parado</string>
   <string name="camera_not_ready">A câmara não está pronta</string>
   <string name="camera_ready">A câmara está pronta</string>
-  <string name="unknown_call_session_event">Eventos de sessão de chamada desconhecido</string>
+  <string name="unknown_call_session_event">Evento de sessão de chamada desconhecido</string>
   <string name="volume_boost_notify_enabled">Ganho de volume ativado</string>
   <string name="volume_boost_notify_disabled">Ganho de volume desativado</string>
   <string name="volume_boost_notify_unavailable">Ganho de volume não está disponível enquanto usando fone de ouvido</string>

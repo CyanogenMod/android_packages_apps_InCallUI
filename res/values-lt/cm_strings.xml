@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Skambutis neatsakytas ir peradresuotas</string>
   <string name="incall_call_type_label_forwarded">Peradresuotas skambutis</string>
   <string name="card_title_dialing_waiting">Renkamas numeris (laukiama\u2026)</string>
-  <string name="card_title_waiting_call">Laukiantis skambutis</string>
   <string name="onscreenBlacklistText">Juodasis sąrašas</string>
+  <string name="call_recording_failed_message">Nepavyko pradėti skambučio įrašymo</string>
   <string name="blacklist_dialog_title">Pridėti į juodąjį sąrašą</string>
   <string name="blacklist_dialog_message">Skambučiai iš <xliff:g id="number">%s</xliff:g> bus blokuojami</string>
   <string name="card_title_video_call_paused">Vaizdo skambutis (sustabdytas)</string>

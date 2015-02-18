@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Panggilan tidak terjawab dan dialihkan</string>
   <string name="incall_call_type_label_forwarded">Panggilan diteruskan</string>
   <string name="card_title_dialing_waiting">Memanggil (menunggu\u2026)</string>
-  <string name="card_title_waiting_call">Panggilan tunggu</string>
   <string name="onscreenBlacklistText">Blacklist</string>
   <string name="blacklist_dialog_title">Tambahkan ke blacklist</string>
   <string name="blacklist_dialog_message">Panggilan mendatang dari <xliff:g id="number">%s</xliff:g> akan diblokir</string>
@@ -37,7 +36,6 @@
   <string name="player_stopped">Pemutar berhenti</string>
   <string name="camera_not_ready">Kamera tidak siap</string>
   <string name="camera_ready">Kamera siap</string>
-  <string name="unknown_call_session_event">Sesi acara panggilan yang tidak diketahui</string>
   <string name="volume_boost_notify_enabled">Peningkatan volume diaktifkan</string>
   <string name="volume_boost_notify_disabled">Peningkatan volume dinonaktifkan</string>
   <string name="volume_boost_notify_unavailable">Volume tambahan tidak tersedia ketika menggunakan headset</string>

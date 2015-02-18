@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Trucada no contestada i desviada</string>
   <string name="incall_call_type_label_forwarded">Trucada desviada</string>
   <string name="card_title_dialing_waiting">Trucant (esperant\u2026)</string>
-  <string name="card_title_waiting_call">Trucada en espera</string>
   <string name="onscreenBlacklistText">Llista negra</string>
+  <string name="call_recording_failed_message">No s\'ha pogut començar la gravació de la trucada</string>
   <string name="blacklist_dialog_title">Afegeix a la llista negra</string>
   <string name="blacklist_dialog_message">Les futures trucades de <xliff:g id="number">%s</xliff:g> seran bloquejades</string>
   <string name="card_title_video_call_paused">Vídeotrucada (en pausa)</string>
@@ -37,7 +37,7 @@
   <string name="player_stopped">S\'ha apagat el reproductor</string>
   <string name="camera_not_ready">La càmera no està preparada</string>
   <string name="camera_ready">La càmera està preparada</string>
-  <string name="unknown_call_session_event">Esdeveniment de sessió de trucada desconegut</string>
+  <string name="unknown_call_session_event">Esdeveniment de sessió de trucada desconeguda</string>
   <string name="volume_boost_notify_enabled">L\'amplificació del volum està activada</string>
   <string name="volume_boost_notify_disabled">L\'amplificació del volum està desactivada</string>
   <string name="volume_boost_notify_unavailable">El volum extra no està disponible quan s\'utilitzen uns auriculars</string>

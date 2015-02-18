@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Anruf unbeantwortet und weitergeleitet</string>
   <string name="incall_call_type_label_forwarded">Weitergeleiteter Anruf</string>
   <string name="card_title_dialing_waiting">Rufaufbau (klopft an\u2026)</string>
-  <string name="card_title_waiting_call">Wartender Anruf</string>
   <string name="onscreenBlacklistText">Sperrliste</string>
   <string name="blacklist_dialog_title">Zur Sperrliste hinzufügen</string>
   <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden abgewiesen</string>
@@ -33,6 +32,8 @@
   <string name="modify_call_option_vt_rx">Video empfangen</string>
   <string name="modify_call_option_voice">Nur Sprache</string>
   <string name="video_call_not_allowed_if_tty_enabled">Deaktivieren Sie den TTY-Modus, um Videoanrufe zu erlauben</string>
+  <string name="player_started">Videospieler gestartet</string>
+  <string name="player_stopped">Videospieler angehalten</string>
   <string name="camera_not_ready">Kamera ist nicht bereit</string>
   <string name="camera_ready">Kamera ist bereit</string>
   <string name="unknown_call_session_event">Unbekanntes Anrufereignis</string>
@@ -48,6 +49,7 @@
   <string name="call_substate_call_resumed">Anruf fortgesetzt</string>
   <string name="call_substate_connected_suspended_audio">Gesprächspartner ist verbunden, aber der Ton wurde unterbrochen</string>
   <string name="call_substate_connected_suspended_video">Gesprächspartner ist verbunden, aber die Bildübertragung wurde unterbrochen</string>
+  <string name="call_substate_avp_retry">Videoqualität wird ermittelt\u2026</string>
   <string name="video_quality_changed">Videoqualität zu <xliff:g id="quality" example="high">%1$s</xliff:g> geändert</string>
   <string name="video_quality_high">hoch</string>
   <string name="video_quality_medium">mittel</string>

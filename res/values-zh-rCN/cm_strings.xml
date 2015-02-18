@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">呼叫未应答并已被转移</string>
   <string name="incall_call_type_label_forwarded">已转移的呼叫</string>
   <string name="card_title_dialing_waiting">正在拨号 (等待中\u2026)</string>
-  <string name="card_title_waiting_call">呼叫等待</string>
   <string name="onscreenBlacklistText">黑名单</string>
   <string name="blacklist_dialog_title">添加到黑名单</string>
   <string name="blacklist_dialog_message">今后将阻止 <xliff:g id="number">%s</xliff:g> 的来电</string>
@@ -37,7 +36,7 @@
   <string name="player_stopped">播放器已停止</string>
   <string name="camera_not_ready">相机未就绪</string>
   <string name="camera_ready">相机已就绪</string>
-  <string name="unknown_call_session_event">未知通话会话事件</string>
+  <string name="unknown_call_session_event">未知的通话事件</string>
   <string name="volume_boost_notify_enabled">音量增大已启用</string>
   <string name="volume_boost_notify_disabled">音量增大已禁用</string>
   <string name="volume_boost_notify_unavailable">当使用耳机时，音量增大将不可用。</string>

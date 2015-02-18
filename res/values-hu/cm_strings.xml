@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">A hívás megválaszolatlan és továbbított</string>
   <string name="incall_call_type_label_forwarded">Átirányított hívás</string>
   <string name="card_title_dialing_waiting">Tárcsázás (várakozás\u2026)</string>
-  <string name="card_title_waiting_call">Várakozó hívás</string>
   <string name="onscreenBlacklistText">Tiltólista</string>
   <string name="blacklist_dialog_title">Hozzáadás a tiltólistához</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> hívásai blokkolva lesznek</string>
@@ -37,7 +36,7 @@
   <string name="player_stopped">Lejátszó megállítva</string>
   <string name="camera_not_ready">Kamera nem áll készen</string>
   <string name="camera_ready">Kamera készen áll</string>
-  <string name="unknown_call_session_event">Ismeretlen hívásfolyamat esemény</string>
+  <string name="unknown_call_session_event">Ismeretlen hívásfolyamati esemény</string>
   <string name="volume_boost_notify_enabled">Extra hangerő engedélyezve</string>
   <string name="volume_boost_notify_disabled">Extra hangerő letiltva</string>
   <string name="volume_boost_notify_unavailable">Extra hangerő nem elérhető fejhallgató használatakor</string>

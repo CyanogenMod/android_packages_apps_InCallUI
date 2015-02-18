@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Appel sans réponse et transmis</string>
   <string name="incall_call_type_label_forwarded">Appel renvoyé</string>
   <string name="card_title_dialing_waiting">Composition (patientez\u2026)</string>
-  <string name="card_title_waiting_call">Appel en attente</string>
   <string name="onscreenBlacklistText">Liste noire</string>
   <string name="blacklist_dialog_title">Ajouter à la liste noire</string>
   <string name="blacklist_dialog_message">Les futures appels de <xliff:g id="number">%s</xliff:g> seront bloqués</string>
@@ -37,7 +36,6 @@
   <string name="player_stopped">Lecteur arrêté</string>
   <string name="camera_not_ready">L\'appareil photo n\'est pas prêt</string>
   <string name="camera_ready">L\'appareil photo est prêt</string>
-  <string name="unknown_call_session_event">Événement d\'appel inconnu</string>
   <string name="volume_boost_notify_enabled">L\'amplification du son est activée</string>
   <string name="volume_boost_notify_disabled">L\'amplification du son est désactivée</string>
   <string name="volume_boost_notify_unavailable">L\'amplification du son n\'est pas disponible quand vous utilisez un casque</string>

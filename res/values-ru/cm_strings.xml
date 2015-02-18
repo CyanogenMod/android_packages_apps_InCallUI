@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
   <string name="incall_call_type_label_forwarded">Переадресованный вызов</string>
   <string name="card_title_dialing_waiting">Вызов (ожидание\u2026)</string>
-  <string name="card_title_waiting_call">На ожидании</string>
   <string name="onscreenBlacklistText">Чёрный список</string>
+  <string name="call_recording_failed_message">Не удалось начать запись разговора</string>
   <string name="blacklist_dialog_title">Добавить в чёрный список</string>
   <string name="blacklist_dialog_message">Вызовы с <xliff:g id="number">%s</xliff:g> будут автоматически отклоняться</string>
   <string name="card_title_video_call_paused">Видеовызов (приостановлен)</string>

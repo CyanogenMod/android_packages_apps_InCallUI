@@ -21,13 +21,13 @@
   <string name="callUnanswered_forwarded">Zavolat na nepřijaté a přesměrované</string>
   <string name="incall_call_type_label_forwarded">Přesměrovaný hovor</string>
   <string name="card_title_dialing_waiting">Vytáčení (čekající\u2026)</string>
-  <string name="card_title_waiting_call">Čekající hovor</string>
   <string name="onscreenBlacklistText">Černá listina</string>
   <string name="blacklist_dialog_title">Přidat na černou listinu</string>
   <string name="blacklist_dialog_message">Příští volání z čísla <xliff:g id="number">%s</xliff:g> bude blokováno</string>
   <string name="card_title_video_call_paused">Videohovor (pozastaven)</string>
   <string name="onscreenAddParticipant">Přidat účastníka</string>
   <string name="modify_call_option_title">Vyberte typ hovoru</string>
+  <string name="modify_call_option_vt">Videohovor</string>
   <string name="modify_call_option_vt_tx">Vysílání videa</string>
   <string name="modify_call_option_vt_rx">Příjem videa</string>
   <string name="modify_call_option_voice">Pouze hlas</string>
@@ -36,11 +36,12 @@
   <string name="player_stopped">Přehrávač zastaven</string>
   <string name="camera_not_ready">Fotoaparát není připraven</string>
   <string name="camera_ready">Fotoaparát je připraven</string>
-  <string name="unknown_call_session_event">Neznámá událost relace volání</string>
   <string name="volume_boost_notify_enabled">Zesílení zvuku aktivováno</string>
   <string name="volume_boost_notify_disabled">Zesílení zvuku zrušeno</string>
   <string name="volume_boost_notify_unavailable">Zvýšení hlasitosti není k dispozici při použití náhlavní sady</string>
+  <string name="onscreenMoreMenuText">Více možností</string>
   <string name="menu_start_record">Nahrát hovor</string>
+  <string name="menu_stop_record">Zastavit nahrávání</string>
   <string name="recording_time_text">Nahrávání</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>

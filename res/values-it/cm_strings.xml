@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Chiamata non risposta e inoltrata</string>
   <string name="incall_call_type_label_forwarded">Chiamata inoltrata</string>
   <string name="card_title_dialing_waiting">Composizione (attendere\u2026)</string>
-  <string name="card_title_waiting_call">Chiamata in attesa</string>
   <string name="onscreenBlacklistText">Blacklist</string>
   <string name="blacklist_dialog_title">Aggiungi alla blacklist</string>
   <string name="blacklist_dialog_message">Le prossime chiamate provenienti dal <xliff:g id="number">%s</xliff:g> saranno bloccate</string>

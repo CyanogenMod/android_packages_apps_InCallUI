@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Виклик без відповіді і переадресований</string>
   <string name="incall_call_type_label_forwarded">Переадресований дзвінок</string>
   <string name="card_title_dialing_waiting">Набираю (очікую\u2026)</string>
-  <string name="card_title_waiting_call">Очікується дзвінок</string>
   <string name="onscreenBlacklistText">Чорний список</string>
   <string name="blacklist_dialog_title">Додати в чорний список</string>
   <string name="blacklist_dialog_message">Майбутні дзвінки від <xliff:g id="number">%s</xliff:g> будуть заблоковані</string>

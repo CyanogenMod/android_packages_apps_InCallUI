@@ -19,7 +19,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="incall_call_type_label_forwarded">مكالمة المعاد توجيهها</string>
   <string name="card_title_dialing_waiting">الطلب الهاتفي (إنتظار\u2026)</string>
-  <string name="card_title_waiting_call">انتظار المكالمة</string>
   <string name="onscreenBlacklistText">القائمة السوداء</string>
   <string name="blacklist_dialog_title">إضافة إلى القائمة السوداء</string>
   <string name="blacklist_dialog_message">سيتم حظر المكالمات القادمة من <xliff:g id="number">%s</xliff:g></string>

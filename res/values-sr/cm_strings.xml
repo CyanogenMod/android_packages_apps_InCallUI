@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Позив неодговорен и прослеђен</string>
   <string name="incall_call_type_label_forwarded">Позив је прослеђен</string>
   <string name="card_title_dialing_waiting">Позивање (чекање\u2026)</string>
-  <string name="card_title_waiting_call">Позив на чекању</string>
   <string name="onscreenBlacklistText">Црна листа</string>
   <string name="blacklist_dialog_title">Додај на црну листу</string>
   <string name="blacklist_dialog_message">Будући позиви од <xliff:g id="number">%s</xliff:g> ће бити блокирани</string>

@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Neatbildēts zvans ir pārsūtīts</string>
   <string name="incall_call_type_label_forwarded">Pārsūtīts zvans</string>
   <string name="card_title_dialing_waiting">Izsauc numuru (gaida\u2026)</string>
-  <string name="card_title_waiting_call">Gaida zvanu</string>
   <string name="onscreenBlacklistText">Melnais saraksts</string>
   <string name="blacklist_dialog_title">Pievienot melnajam sarakstam</string>
   <string name="blacklist_dialog_message">Turpmākie zvani no <xliff:g id="number">%s</xliff:g> tiks bloķēti</string>
@@ -37,7 +36,6 @@
   <string name="player_stopped">Atskaņotājs apturēts</string>
   <string name="camera_not_ready">Kamera nav gatava</string>
   <string name="camera_ready">Kamera ir gatava</string>
-  <string name="unknown_call_session_event">Nezināms zvana sesijas notikums</string>
   <string name="volume_boost_notify_enabled">Skaļuma pastiprināšana ir ieslēgta</string>
   <string name="volume_boost_notify_disabled">Skaļuma pastiprināšana ir izslēgta</string>
   <string name="volume_boost_notify_unavailable">Izmantojot austiņas, papildu skaļums nav pieejams</string>

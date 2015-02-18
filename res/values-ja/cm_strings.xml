@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">通話は応答されずに転送されました</string>
   <string name="incall_call_type_label_forwarded">転送された通話</string>
   <string name="card_title_dialing_waiting">ダイヤル中（待機中\u2026）</string>
-  <string name="card_title_waiting_call">通話待機中</string>
   <string name="onscreenBlacklistText">ブラックリスト</string>
+  <string name="call_recording_failed_message">通話録音を開始できませんでした</string>
   <string name="blacklist_dialog_title">ブラックリストに追加</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>からの今後の着信はブロックされます</string>
   <string name="card_title_video_call_paused">ビデオ通話（一時停止中）</string>
@@ -37,7 +37,7 @@
   <string name="player_stopped">プレイヤーが停止しました</string>
   <string name="camera_not_ready">カメラの準備ができていません</string>
   <string name="camera_ready">カメラの準備ができています</string>
-  <string name="unknown_call_session_event">不明な通話セッションイベントです</string>
+  <string name="unknown_call_session_event">不明な通話セッションイベント</string>
   <string name="volume_boost_notify_enabled">音量ブーストは有効です</string>
   <string name="volume_boost_notify_disabled">音量ブーストは無効です</string>
   <string name="volume_boost_notify_unavailable">ヘッドセット使用時は特別な音量機能を利用することはできません</string>

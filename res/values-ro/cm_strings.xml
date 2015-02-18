@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Apel nerăspuns și transmis mai departe</string>
   <string name="incall_call_type_label_forwarded">Apel redirecționat</string>
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
-  <string name="card_title_waiting_call">Apel în așteptare</string>
   <string name="onscreenBlacklistText">Lista neagră</string>
   <string name="blacklist_dialog_title">Adaugă la lista neagră</string>
   <string name="blacklist_dialog_message">Viitoarele apeluri de la <xliff:g id="number">%s</xliff:g> vor fi blocate</string>

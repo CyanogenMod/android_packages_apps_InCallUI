@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">來電未接聽並已轉駁</string>
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
-  <string name="card_title_waiting_call">等待來電</string>
   <string name="onscreenBlacklistText">黑名單</string>
   <string name="blacklist_dialog_title">新增至黑名單</string>
   <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的來電將會被封鎖</string>

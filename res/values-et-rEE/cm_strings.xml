@@ -19,7 +19,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="incall_call_type_label_forwarded">Edastatud kõne</string>
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
-  <string name="card_title_waiting_call">Ootel kõne</string>
   <string name="onscreenBlacklistText">Must nimekiri</string>
   <string name="blacklist_dialog_title">Lisa musta nimekirja</string>
   <string name="blacklist_dialog_message">Tulevased kõned numbrilt <xliff:g id="number">%s</xliff:g> blokeeritakse</string>

@@ -21,17 +21,38 @@
   <string name="callUnanswered_forwarded">Llamada no respondida y reenviada</string>
   <string name="incall_call_type_label_forwarded">Llamada desviada</string>
   <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
-  <string name="card_title_waiting_call">Llamada en espera</string>
   <string name="onscreenBlacklistText">Lista negra</string>
   <string name="blacklist_dialog_title">Añadir a la lista negra</string>
   <string name="blacklist_dialog_message">Las llamadas de <xliff:g id="number">%s</xliff:g> serán bloqueadas</string>
+  <string name="card_title_video_call_paused">Videollamada (en pausa)</string>
   <string name="onscreenAddParticipant">Añadir participante</string>
+  <string name="modify_call_option_title">Selecciona tipo de llamada</string>
+  <string name="modify_call_option_vt">Videollamada</string>
   <string name="modify_call_option_vt_tx">Transmisión de vídeo</string>
   <string name="modify_call_option_vt_rx">Recepción de vídeo</string>
   <string name="modify_call_option_voice">Solo voz</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Deshabilita el modo TTY para permitir videollamadas</string>
+  <string name="player_started">Reproductor iniciado</string>
+  <string name="player_stopped">Reproductor detenido</string>
+  <string name="camera_not_ready">Cámara no preparada</string>
+  <string name="camera_ready">Cámara preparada</string>
+  <string name="unknown_call_session_event">Evento de sesión de llamada desconocido</string>
   <string name="volume_boost_notify_enabled">Potenciación de volumen habilitada</string>
   <string name="volume_boost_notify_disabled">Potenciación de volumen deshabilitada</string>
   <string name="volume_boost_notify_unavailable">La potenciación del volumen no está disponible cuando se utilizan auriculares</string>
+  <string name="onscreenMoreMenuText">Más opciones</string>
+  <string name="menu_start_record">Registro de llamada</string>
+  <string name="menu_stop_record">Detener grabación</string>
+  <string name="recording_time_text">Grabando</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Llamada reanudada</string>
+  <string name="call_substate_connected_suspended_audio">La llamada está conectada, pero el audio está suspendido</string>
+  <string name="call_substate_connected_suspended_video">La llamada está conectada, pero el vídeo está suspendido</string>
+  <string name="call_substate_avp_retry">Detectando calidad del vídeo\u2026</string>
+  <string name="video_quality_changed">Calidad de vídeo cambiada a <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">alta</string>
+  <string name="video_quality_medium">media</string>
+  <string name="video_quality_low">baja</string>
+  <string name="video_quality_unknown">desconocida</string>
 </resources>

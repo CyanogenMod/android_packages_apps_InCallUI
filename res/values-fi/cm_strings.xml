@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Puheluun ei vastattu ja se siirrettiin</string>
   <string name="incall_call_type_label_forwarded">Siirretty puhelu</string>
   <string name="card_title_dialing_waiting">Soitetaan (odotetaan\u2026)</string>
-  <string name="card_title_waiting_call">Odottava puhelu</string>
   <string name="onscreenBlacklistText">Musta lista</string>
+  <string name="call_recording_failed_message">Puhelun nauhoitus epäonnistui</string>
   <string name="blacklist_dialog_title">Lisää mustalle listalle</string>
   <string name="blacklist_dialog_message">Tulevat puhelut numerosta <xliff:g id="number">%s</xliff:g> estetään</string>
   <string name="card_title_video_call_paused">Videopuhelu (keskeytetty)</string>

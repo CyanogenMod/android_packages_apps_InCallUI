@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Η κλήση δεν απαντήθηκε και προωθήθηκε</string>
   <string name="incall_call_type_label_forwarded">Προωθημένη κλήση</string>
   <string name="card_title_dialing_waiting">Κλήση (αναμονή\u2026)</string>
-  <string name="card_title_waiting_call">Κλήση σε αναμονή</string>
   <string name="onscreenBlacklistText">Μαύρη λίστα</string>
+  <string name="call_recording_failed_message">Αποτυχία έναρξης της καταγραφής κλήσης</string>
   <string name="blacklist_dialog_title">Προσθήκη στη μαύρη λίστα</string>
   <string name="blacklist_dialog_message">Μελλοντικές κλήσεις από το <xliff:g id="number">%s</xliff:g> θα απορρίπτονται</string>
   <string name="card_title_video_call_paused">Βίντεο κλήση (σε παύση)</string>

@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">پەیوەندی وەڵام نەدرایەوە و پشتگوێخرا</string>
   <string name="incall_call_type_label_forwarded">په‌یوه‌ندییه‌ به‌دواکه‌وتنه‌کان</string>
   <string name="card_title_dialing_waiting">لێدان (وه‌ستان\u2026)</string>
-  <string name="card_title_waiting_call">په‌یوه‌ندی وه‌ستان</string>
   <string name="onscreenBlacklistText">لیستی ڕەش</string>
   <string name="blacklist_dialog_title">زیادکردن بۆ لیستی ڕەش</string>
   <string name="blacklist_dialog_message">په‌یوه‌ندی داهاتوو له‌لایه‌ن <xliff:g id="number">%s</xliff:g> بلۆک ده‌کرێت</string>

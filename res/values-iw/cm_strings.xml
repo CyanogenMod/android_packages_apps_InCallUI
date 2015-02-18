@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">שיחה לא נענתה או הועברה</string>
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">חיוג (ממתין\u2026)</string>
-  <string name="card_title_waiting_call">שיחה ממתינה</string>
   <string name="onscreenBlacklistText">רשימה שחורה</string>
   <string name="blacklist_dialog_title">הוסף לרשימה שחורה</string>
   <string name="blacklist_dialog_message">שיחות עתידיות מ-<xliff:g id="number">%s</xliff:g> ייחסמו</string>

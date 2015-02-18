@@ -21,8 +21,8 @@
   <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
   <string name="incall_call_type_label_forwarded">Yönlendirilmiş çağrı</string>
   <string name="card_title_dialing_waiting">Aranıyor (bekliyor\u2026)</string>
-  <string name="card_title_waiting_call">Arama bekleniyor</string>
   <string name="onscreenBlacklistText">Kara liste</string>
+  <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
   <string name="blacklist_dialog_title">Kara listeye ekle</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
   <string name="card_title_video_call_paused">Görüntülü arama (duraklatıldı)</string>

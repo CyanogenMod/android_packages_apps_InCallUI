@@ -21,7 +21,6 @@
   <string name="callUnanswered_forwarded">Hovor bol neprijatý a presmerovaný</string>
   <string name="incall_call_type_label_forwarded">Presmerovaný hovor</string>
   <string name="card_title_dialing_waiting">Vytáčanie (čakanie\u2026)</string>
-  <string name="card_title_waiting_call">Čakajúci hovor</string>
   <string name="onscreenBlacklistText">Čierna listina</string>
   <string name="blacklist_dialog_title">Pridať na čiernu listinu</string>
   <string name="blacklist_dialog_message">Ďalšie prichádzajúce hovory z <xliff:g id="number">%s</xliff:g> budú blokované</string>
@@ -37,7 +36,6 @@
   <string name="player_stopped">Prehrávač bol zastavený</string>
   <string name="camera_not_ready">Fotoaparát nie je pripravený</string>
   <string name="camera_ready">Fotoaparát je pripravený</string>
-  <string name="unknown_call_session_event">Neznáma udalosť relácie hovoru</string>
   <string name="volume_boost_notify_enabled">Zosilnenie hlasitosti je povolené</string>
   <string name="volume_boost_notify_disabled">Zosilnenie hlasitosti je zakázané</string>
   <string name="volume_boost_notify_unavailable">Vyššia hlasitosť nie je k dispozícii pri používaní slúchadiel</string>

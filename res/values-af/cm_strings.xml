@@ -21,17 +21,37 @@
   <string name="callUnanswered_forwarded">Oproep was onbeantwoord en aangestuur</string>
   <string name="incall_call_type_label_forwarded">Aangestuurde oproep</string>
   <string name="card_title_dialing_waiting">Skakel (wag\u2026)</string>
-  <string name="card_title_waiting_call">Gewagde oproep</string>
   <string name="onscreenBlacklistText">Swartlys</string>
   <string name="blacklist_dialog_title">Voeg by swartlys</string>
   <string name="blacklist_dialog_message">Toekomstige oproepe van <xliff:g id="number">%s</xliff:g> sal geblokkeer word</string>
+  <string name="card_title_video_call_paused">Video-oproep (gestop)</string>
   <string name="onscreenAddParticipant">Voeg by deelnemer</string>
+  <string name="modify_call_option_title">Kies oproep tipe</string>
+  <string name="modify_call_option_vt">Video oproep</string>
   <string name="modify_call_option_vt_tx">Video uitsaai</string>
   <string name="modify_call_option_vt_rx">Ontvang video</string>
   <string name="modify_call_option_voice">Stem alleenlik</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Skakel TTY modus af om video-oproepe toe te laat</string>
+  <string name="player_started">Speler het begin</string>
+  <string name="player_stopped">Speler het gestop</string>
+  <string name="camera_not_ready">Kamera is nie gereed nie</string>
+  <string name="camera_ready">Kamera is gereed</string>
   <string name="volume_boost_notify_enabled">Volume inspuiting is geaktiveer</string>
   <string name="volume_boost_notify_disabled">Volume inspuiting is gedeaktiveer</string>
   <string name="volume_boost_notify_unavailable">Ekstra volume is nie beskikbaar met die gebruik van oorfone</string>
+  <string name="onscreenMoreMenuText">Meer opsies</string>
+  <string name="menu_start_record">Neem oproep op</string>
+  <string name="menu_stop_record">Stop Opname</string>
+  <string name="recording_time_text">Neem tans op</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Oproep hervat</string>
+  <string name="call_substate_connected_suspended_audio">Oproep is gekonnekteer, maar oudio is afgeskakel</string>
+  <string name="call_substate_connected_suspended_video">Oproep is gekonnekteer, maar video is afgeskakel</string>
+  <string name="call_substate_avp_retry">Opsporing van video kwaliteit\u2026</string>
+  <string name="video_quality_changed">Video kwaliteit verander na <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">hoog</string>
+  <string name="video_quality_medium">medium</string>
+  <string name="video_quality_low">laag</string>
+  <string name="video_quality_unknown">onbekend</string>
 </resources>

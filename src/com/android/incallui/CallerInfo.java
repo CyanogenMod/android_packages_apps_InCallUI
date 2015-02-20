@@ -88,6 +88,8 @@ public class CallerInfo {
     public int namePresentation;
     public boolean contactExists;
 
+    public boolean fdnContactSearched;
+
     public String phoneLabel;
     /* Split up the phoneLabel into number type and label name */
     public int    numberType;

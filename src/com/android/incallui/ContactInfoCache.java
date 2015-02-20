@@ -16,7 +16,9 @@
 
 package com.android.incallui;
 
+import android.content.AsyncQueryHandler;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,7 +26,9 @@ import android.net.Uri;
 import android.os.Looper;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.telecom.PhoneCapabilities;
 import android.telecom.TelecomManager;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
 import com.android.contacts.common.util.PhoneNumberHelper;
@@ -149,8 +153,73 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         findInfoQueryComplete(call, callerInfo, isIncoming, false);
     }
 
+    /**
+     * @param Call, CallerInfo, boolean isIncomingcall, boolean didlocalLookup
+     * @return void.
+     * Initiate the FDN query and once the query is completed,
+     * the fdn list will be searched for the phonenumber,
+     * If phone number is available then corresponding name will be set to
+     * callerinfo object.
+     */
+    private void findFdnContact(final Call call, final CallerInfo callerInfo,
+            final boolean isIncoming, final boolean didLocalLookup) {
+
+        AsyncQueryHandler queryHandler = new AsyncQueryHandler(mContext.getContentResolver()) {
+
+            @Override
+            protected void onQueryComplete(int token, Object cookie, Cursor c) {
+                callerInfo.fdnContactSearched = true;
+                if (c != null && c.getCount() > 0) {
+                    c.moveToFirst();
+                    String phoneNumber = getSeachableNumber(callerInfo.phoneNumber);
+                    int numberIndex = c.getColumnIndex("number");
+                    int nameIndex = c.getColumnIndex("name");
+                    do {
+                        String number = getSeachableNumber(c.getString(numberIndex));
+                        if (phoneNumber.equals(number)) {
+                            String name = c.getString(nameIndex);
+                            Log.d(TAG, " found FDN contact name : " + name);
+                            callerInfo.name = name;
+                            callerInfo.contactExists = true;
+                            break;
+                        }
+                    } while (c.moveToNext());
+                }
+                if (c != null) {
+                    c.close();
+                }
+                findInfoQueryComplete(call, callerInfo, isIncoming, didLocalLookup);
+            }
+        };
+        Uri uri = Uri.parse("content://icc/fdn");
+        queryHandler.startQuery(0, null, uri, null, null, null, null);
+    }
+
+    /**
+     * @param String phonenumber.
+     * @return string. This function will convert the argument string
+     * phone number to normalized number, then reverse the string. And
+     * truncate with the min match length. And returns the truncated string.
+     */
+    private String getSeachableNumber(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return number;
+        }
+        String normalizedNumber = PhoneNumberUtils.normalizeNumber(number);
+        normalizedNumber = PhoneNumberUtils.toCallerIDMinMatch(normalizedNumber);
+        return normalizedNumber;
+    }
+
     private void findInfoQueryComplete(Call call, CallerInfo callerInfo, boolean isIncoming,
             boolean didLocalLookup) {
+        if (!callerInfo.contactExists && !callerInfo.fdnContactSearched && isIncoming
+                && mContext.getResources()
+                    .getBoolean(com.android.internal.R.bool.config_fdn_contact_search)
+                && call.can(PhoneCapabilities.FDN_ENABLED)) {
+            Log.d(TAG, "Contact doesn't exist, initiating FDN contact search");
+            findFdnContact(call, callerInfo, isIncoming, didLocalLookup);
+            return;
+        }
         final String callId = call.getId();
         int presentationMode = call.getNumberPresentation();
         if (callerInfo.contactExists || callerInfo.isEmergencyNumber() ||

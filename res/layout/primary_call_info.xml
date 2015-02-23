@@ -89,6 +89,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="@dimen/call_name_text_size"
             android:singleLine="true"
+            android:layout_alignParentLeft="true"
             ex:resizing_text_min_size="@dimen/call_name_text_min_size" />
 
         <LinearLayout
@@ -96,7 +97,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-	    android:layout_centerInParent="true"
+            android:layout_centerInParent="true"
             android:gravity="center" >
 
             <TextView

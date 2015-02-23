@@ -35,6 +35,7 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -766,8 +767,20 @@ public class InCallActivity extends Activity {
             showErrorDialog(getString(R.string.callFailed_incoming_cb_enabled));
         } else if (!TextUtils.isEmpty(disconnectCause.getDescription())
                 && (code == DisconnectCause.ERROR || code == DisconnectCause.RESTRICTED)) {
-            showErrorDialog(disconnectCause.getDescription());
+            if (isConferenceDialString(call.getNumber())){
+                showErrorDialog(getString(R.string.dial_conference_call_error));
+            }else{
+                showErrorDialog(disconnectCause.getDescription());
+            }
         }
+    }
+
+    private boolean isConferenceDialString(String number) {
+        String[] participantsArr = number.split(";");
+        if ((participantsArr != null) && (participantsArr.length > 1)) {
+            return true;
+        }
+        return false;
     }
 
     public void dismissPendingDialogs() {
@@ -978,7 +991,8 @@ public class InCallActivity extends Activity {
     }
 
     public Bundle callBinder(String method) {
-        if (getContentResolver().acquireProvider(URI_PHONE_FEATURE) == null) {
+        if (UserHandle.myUserId() != UserHandle.USER_OWNER ||
+                getContentResolver().acquireProvider(URI_PHONE_FEATURE) == null) {
             // Check whether phone feature enabled
             return null;
         }

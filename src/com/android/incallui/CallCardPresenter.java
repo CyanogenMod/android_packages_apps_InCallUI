@@ -590,7 +590,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // accounts pick icon from phone account and display on UI
         if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
                 || (CallList.PHONE_COUNT > 1))) {
-            return account.getIcon(mContext);
+            return account.createIconDrawable(mContext);
         }
         return null;
     }

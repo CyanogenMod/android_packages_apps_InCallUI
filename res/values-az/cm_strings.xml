@@ -17,5 +17,43 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL sorğusu USSD sorğusu ilə əvəzləndi.</string>
+  <string name="callFailed_dialToSs">DIAL sorğusu SS sorğusu ilə əvəzləndi.</string>
+  <string name="callFailed_dialToDial">DIAL sorğusu başqa nömrəli DIAL sorğusu ilə əvəzləndi.</string>
+  <string name="callFailed_incoming_cb_enabled">İştirakçılar bütün gələn zənglərə qadağa qoydu.</string>
+  <string name="callUnanswered_forwarded">Zəng cavablanmayıb yönləndirildi</string>
+  <string name="modify_call_prompt_yes">Bəli</string>
+  <string name="modify_call_prompt_no">Xeyr</string>
+  <string name="modify_call_failure_str">Zəng dəyişdirmə sorğusu uğursuz oldu\n</string>
+  <string name="modify_call_option_title">Zəng növünü seçin</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Video ötürmə</string>
+  <string name="modify_call_option_vt_rx">Video qəbulu</string>
+  <string name="modify_call_option_voice">Yalnız səs</string>
+  <string name="accept_modify_call_request_prompt">Zəng dəyişdirmə sorğusu qəbul edilsin?</string>
+  <string name="upgrade_vt_prompt">Səsli zəngdən video zəngə keçmək istəyirsiniz?</string>
+  <string name="upgrade_vt_tx_prompt">Səsli zəngdən sadəcə görüntü ötürən zəngə keçmək istəyirsiniz?</string>
+  <string name="upgrade_vt_rx_prompt">Səsli zəngdən sadəcə görüntü alan zəngə keçmək istəyirsiniz?</string>
+  <string name="onscreenModifyCallText">Zəngi dəyişdir</string>
+  <string name="onscreenAddParticipant">İştirakçı əlavə et</string>
+  <string name="description_target_answer_video">Video ilə cavab ver</string>
+  <string name="description_target_answer_tx_video">TX video ilə cavab ver</string>
+  <string name="description_target_answer_rx_video">RX video ilə cavab ver</string>
+  <string name="description_direction_up_right">Sağ yuxarı</string>
+  <string name="description_direction_up_left">Sol yuxarı</string>
+  <string name="description_direction_down_left">Sol aşağı</string>
+  <string name="description_direction_down_right">Sağ aşağı</string>
   <string name="incall_call_type_label_forwarded">Yönləndirilmiş zəng</string>
+  <string name="card_title_dialing_waiting">Yığılır (gözləyir\u2026)</string>
+  <string name="card_title_waiting_call">Zəng gözlədilir</string>
+  <string name="onscreenBlacklistText">Qara siyahı</string>
+  <string name="onscreenRecordText">Səsyazmanı başlat/dayandır</string>
+  <string name="call_recording_failed_message">Zəng səsyazması başladılmadı</string>
+  <string name="blacklist_dialog_title">Qara siyahıya əlavə et</string>
+  <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> nömrəsindən gələn zənglər əngəllənəcək</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Səs gücləndirici fəallaşdırıldı</string>
+  <string name="volume_boost_notify_disabled">Səs gücləndirici ləğv edildi</string>
+  <string name="volume_boost_notify_unavailable">Qulaqcıqlardan istifadə edərkən həddən artıq səs vermək olmaz</string>
 </resources>

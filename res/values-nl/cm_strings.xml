@@ -22,11 +22,12 @@
   <string name="incall_call_type_label_forwarded">Doorgeschakeld gesprek</string>
   <string name="card_title_dialing_waiting">Bellen (wachten\u2026)</string>
   <string name="onscreenBlacklistText">Zwarte lijst</string>
+  <string name="call_recording_failed_message">Gespreksopname starten mislukt</string>
   <string name="blacklist_dialog_title">Toevoegen aan zwarte lijst</string>
   <string name="blacklist_dialog_message">Oproepen van <xliff:g id="number">%s</xliff:g> worden geblokkeerd</string>
   <string name="card_title_video_call_paused">Video-oproep (onderbroken)</string>
   <string name="onscreenAddParticipant">Deelnemer toevoegen</string>
-  <string name="modify_call_option_title">Selecteer oproeptype</string>
+  <string name="modify_call_option_title">Soort gesprek</string>
   <string name="modify_call_option_vt">Videogesprek</string>
   <string name="modify_call_option_vt_tx">Video verzenden</string>
   <string name="modify_call_option_vt_rx">Video ontvangen</string>
@@ -36,6 +37,7 @@
   <string name="player_stopped">Speler gestopt</string>
   <string name="camera_not_ready">Camera is niet gereed</string>
   <string name="camera_ready">Camera is gereed</string>
+  <string name="unknown_call_session_event">Onbekende oproepgebeurtenis</string>
   <string name="volume_boost_notify_enabled">Volumeversterker ingeschakeld</string>
   <string name="volume_boost_notify_disabled">Volumeversterker uitgeschakeld</string>
   <string name="volume_boost_notify_unavailable">Volumeversterker niet beschikbaar bij gebruik van een koptelefoon</string>
@@ -46,8 +48,8 @@
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Gesprek hervat</string>
-  <string name="call_substate_connected_suspended_audio">Gesprek is verbonden, maar audio wordt onderbroken</string>
-  <string name="call_substate_connected_suspended_video">Gesprek is verbonden, maar video wordt onderbroken</string>
+  <string name="call_substate_connected_suspended_audio">Gesprek is verbonden, maar audio is onderbroken</string>
+  <string name="call_substate_connected_suspended_video">Gesprek is verbonden, maar video is onderbroken</string>
   <string name="call_substate_avp_retry">Videokwaliteit detecteren\u2026</string>
   <string name="video_quality_changed">Videokwaliteit gewijzigd naar <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">hoog</string>

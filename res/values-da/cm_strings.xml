@@ -22,15 +22,38 @@
   <string name="incall_call_type_label_forwarded">Viderestillet opkald</string>
   <string name="card_title_dialing_waiting">Ringer op (venter\u2026)</string>
   <string name="onscreenBlacklistText">Sortliste</string>
+  <string name="call_recording_failed_message">Kunne ikke starte optagelse af opkald</string>
   <string name="blacklist_dialog_title">Føj til sortliste</string>
   <string name="blacklist_dialog_message">Fremtidige opkald fra <xliff:g id="number">%s</xliff:g> vil blive blokeret</string>
+  <string name="card_title_video_call_paused">Videoopkald (pause)</string>
   <string name="onscreenAddParticipant">Tilføj deltager</string>
+  <string name="modify_call_option_title">Vælg opkaldstype</string>
+  <string name="modify_call_option_vt">Videoopkald</string>
   <string name="modify_call_option_vt_tx">Send video</string>
   <string name="modify_call_option_vt_rx">Modtag video</string>
   <string name="modify_call_option_voice">Kun tale</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Deaktivér TTY-tilstand for at tillade videoopkald</string>
+  <string name="player_started">Afspiller startet</string>
+  <string name="player_stopped">Afspiller stoppet</string>
+  <string name="camera_not_ready">Kameraet er ikke klar</string>
+  <string name="camera_ready">Kameraet er klar</string>
+  <string name="unknown_call_session_event">Ukendt handling i opkaldsession</string>
   <string name="volume_boost_notify_enabled">Lydstyrkeforøgelse er aktiveret</string>
   <string name="volume_boost_notify_disabled">Lydstyrkeforøgelse er deaktiveret</string>
   <string name="volume_boost_notify_unavailable">Forstærkning af lydstyrke er ikke tilgængelig, når du bruger headset</string>
+  <string name="onscreenMoreMenuText">Flere indstillinger</string>
+  <string name="menu_start_record">Optage opkald</string>
+  <string name="menu_stop_record">Stop optagelse</string>
+  <string name="recording_time_text">Optager</string>
   <string name="sub_1">SIM-kort 1</string>
   <string name="sub_2">SIM-kort 2</string>
+  <string name="call_substate_call_resumed">Opkald genoptaget</string>
+  <string name="call_substate_connected_suspended_audio">Opkaldet er tilsluttet, men lyden er slået fra</string>
+  <string name="call_substate_connected_suspended_video">Opkaldet er tilsluttet, men billede er slået fra</string>
+  <string name="call_substate_avp_retry">Indstiller videokvalitet\u2026</string>
+  <string name="video_quality_changed">Videokvalitet ændret til <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">høj</string>
+  <string name="video_quality_medium">medium</string>
+  <string name="video_quality_low">lav</string>
+  <string name="video_quality_unknown">ukendt</string>
 </resources>

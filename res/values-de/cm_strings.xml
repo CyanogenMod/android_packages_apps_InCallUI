@@ -22,6 +22,7 @@
   <string name="incall_call_type_label_forwarded">Weitergeleiteter Anruf</string>
   <string name="card_title_dialing_waiting">Rufaufbau (klopft an\u2026)</string>
   <string name="onscreenBlacklistText">Sperrliste</string>
+  <string name="call_recording_failed_message">Starten der Anrufaufzeichnung fehlgeschlagen</string>
   <string name="blacklist_dialog_title">Zur Sperrliste hinzufügen</string>
   <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden abgewiesen</string>
   <string name="card_title_video_call_paused">Videoanruf (pausiert)</string>

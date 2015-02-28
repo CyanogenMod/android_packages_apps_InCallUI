@@ -33,13 +33,13 @@
   <string name="modify_call_option_vt_rx">Vaizdo gavimo</string>
   <string name="modify_call_option_voice">Tik balso</string>
   <string name="video_call_not_allowed_if_tty_enabled">Prašome išjungti TTY režimą, kad leistumėte vaizdo skambučius</string>
-  <string name="player_started">Grotuvas įjungtas</string>
+  <string name="player_started">Grotuvas paleistas</string>
   <string name="player_stopped">Grotuvas sustabdytas</string>
   <string name="camera_not_ready">Fotoaparatas nepasirengęs</string>
   <string name="camera_ready">Fotoaparatas pasirengęs</string>
   <string name="unknown_call_session_event">Nežinomo skambučio sesijos įvykis</string>
-  <string name="volume_boost_notify_enabled">Garsumo sustiprinimas įjungtas</string>
-  <string name="volume_boost_notify_disabled">Garsumo sustiprinimas išjungtas</string>
+  <string name="volume_boost_notify_enabled">Garsumo išryškinimas įgalintas</string>
+  <string name="volume_boost_notify_disabled">Garsumo išryškinimas neleidžiamas</string>
   <string name="volume_boost_notify_unavailable">Papildomas garsumas nepasiekiamas, kai naudojama laisvų rankų įranga</string>
   <string name="onscreenMoreMenuText">Daugiau parinkčių</string>
   <string name="menu_start_record">Įrašyti skambutį</string>

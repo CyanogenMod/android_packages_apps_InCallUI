@@ -36,4 +36,5 @@
   <string name="sub_2">SIM 2</string>
   <string name="video_quality_high">hög</string>
   <string name="video_quality_low">låg</string>
+  <string name="video_quality_unknown">okänd</string>
 </resources>

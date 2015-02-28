@@ -22,6 +22,7 @@
   <string name="incall_call_type_label_forwarded">Přesměrovaný hovor</string>
   <string name="card_title_dialing_waiting">Vytáčení (čekající\u2026)</string>
   <string name="onscreenBlacklistText">Černá listina</string>
+  <string name="call_recording_failed_message">Selhalo spuštění pořízení záznamu</string>
   <string name="blacklist_dialog_title">Přidat na černou listinu</string>
   <string name="blacklist_dialog_message">Příští volání z čísla <xliff:g id="number">%s</xliff:g> bude blokováno</string>
   <string name="card_title_video_call_paused">Videohovor (pozastaven)</string>
@@ -36,6 +37,7 @@
   <string name="player_stopped">Přehrávač zastaven</string>
   <string name="camera_not_ready">Fotoaparát není připraven</string>
   <string name="camera_ready">Fotoaparát je připraven</string>
+  <string name="unknown_call_session_event">Neznámá událost relace volání</string>
   <string name="volume_boost_notify_enabled">Zesílení zvuku aktivováno</string>
   <string name="volume_boost_notify_disabled">Zesílení zvuku zrušeno</string>
   <string name="volume_boost_notify_unavailable">Zvýšení hlasitosti není k dispozici při použití náhlavní sady</string>

@@ -26,7 +26,6 @@ import android.telecom.PhoneAccount;
 import android.telecom.PhoneCapabilities;
 import android.telecom.Phone;
 import android.telecom.PhoneAccountHandle;
-import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -159,8 +158,6 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
     private Phone mPhone;
     private int mLastDisconnectCause = DisconnectCause.ERROR;
-
-    private TelecomManager mTelecomManager;
 
     public static synchronized InCallPresenter getInstance() {
         if (sInCallPresenter == null) {
@@ -1259,18 +1256,6 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     public static boolean isRtl() {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
                 View.LAYOUT_DIRECTION_RTL;
-    }
-
-
-    /**
-     * @return An instance of TelecomManager.
-     */
-    public TelecomManager getTelecomManager() {
-        if (mTelecomManager == null) {
-            mTelecomManager = (TelecomManager)
-                    mInCallActivity.getSystemService(Context.TELECOM_SERVICE);
-        }
-        return mTelecomManager;
     }
 
     /**

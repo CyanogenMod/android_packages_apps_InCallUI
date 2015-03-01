@@ -67,6 +67,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private ContactCacheEntry mSecondaryContactInfo;
     private CallTimer mCallTimer;
     private Context mContext;
+    private TelecomManager mTelecomManager;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -279,7 +280,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // number directly from the telephony layer).
         PhoneAccountHandle accountHandle = mPrimary.getAccountHandle();
         if (accountHandle != null) {
-            TelecomManager mgr = InCallPresenter.getInstance().getTelecomManager();
+            TelecomManager mgr =
+                    (TelecomManager) mContext.getSystemService(Context.TELECOM_SERVICE);
             PhoneAccount account = mgr.getPhoneAccount(accountHandle);
             if (account != null) {
                 return getNumberFromHandle(account.getSubscriptionAddress());
@@ -565,7 +567,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         if (accountHandle == null) {
             return null;
         }
-        return InCallPresenter.getInstance().getTelecomManager().getPhoneAccount(accountHandle);
+        return getTelecomManager().getPhoneAccount(accountHandle);
     }
 
     /**
@@ -583,11 +585,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
      */
     private Drawable getCallProviderIcon(Call call) {
         PhoneAccount account = getAccountForCall(call);
-        TelecomManager mgr = InCallPresenter.getInstance().getTelecomManager();
 
         // on MSIM devices irrespective of number of enabled phone
         // accounts pick icon from phone account and display on UI
-        if (account != null && (mgr.hasMultipleCallCapableAccounts()
+        if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
                 || (CallList.PHONE_COUNT > 1))) {
             return account.getIcon(mContext);
         }
@@ -599,12 +600,11 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
      */
     private String getCallProviderLabel(Call call) {
         PhoneAccount account = getAccountForCall(call);
-        TelecomManager mgr = InCallPresenter.getInstance().getTelecomManager();
 
         // on MSIM devices irrespective of number of
         // enabled phone accounts display label info on UI
-        if (account != null && !TextUtils.isEmpty(account.getLabel())
-                && (mgr.hasMultipleCallCapableAccounts() || (CallList.PHONE_COUNT > 1))) {
+        if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
+                || (CallList.PHONE_COUNT > 1)) && !TextUtils.isEmpty(account.getLabel())) {
             return account.getLabel().toString();
         }
         return null;
@@ -718,6 +718,14 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             return;
         }
         ui.setCallCardVisible(!isFullScreenVideo);
+    }
+
+    private TelecomManager getTelecomManager() {
+        if (mTelecomManager == null) {
+            mTelecomManager =
+                    (TelecomManager) mContext.getSystemService(Context.TELECOM_SERVICE);
+        }
+        return mTelecomManager;
     }
 
     private String getConferenceString(Call call) {

@@ -21,7 +21,6 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.SystemProperties;
 import android.telecom.VideoProfile;
-import android.telecom.TelecomManager;
 
 import java.util.List;
 
@@ -324,7 +323,6 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     public void onText() {
         if (getUi() != null) {
-            InCallPresenter.getInstance().getTelecomManager().silenceRinger();
             getUi().showMessageDialog();
         }
     }

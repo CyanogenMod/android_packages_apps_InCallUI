@@ -16,6 +16,8 @@
 
 package com.android.incallui;
 
+import android.telecom.PhoneCapabilities;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.SystemProperties;
 import android.telecom.VideoProfile;
@@ -343,9 +345,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         final Context context = getUi().getContext();
 
         mHasTextMessages = textMsgs != null;
-        boolean withSms =
-                call.can(android.telecom.Call.Details.CAPABILITY_RESPOND_VIA_TEXT)
-                && mHasTextMessages;
+        boolean withSms = call.can(PhoneCapabilities.RESPOND_VIA_TEXT) && mHasTextMessages;
         if (call.isVideoCall(context)) {
             if (withSms) {
                 getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS);
@@ -382,7 +382,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
                     call.getId());
             getUi().showAnswerUi(true);
 
-            boolean withSms = call.can(android.telecom.Call.Details.CAPABILITY_RESPOND_VIA_TEXT) && textMsgs != null;
+            boolean withSms = call.can(PhoneCapabilities.RESPOND_VIA_TEXT) && textMsgs != null;
             if (call.isVideoCall(getUi().getContext())) {
                 if (withSms) {
                     getUi().showTargets(AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS);

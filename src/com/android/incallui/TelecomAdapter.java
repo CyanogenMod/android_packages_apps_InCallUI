@@ -24,6 +24,8 @@ import android.telecom.InCallAdapter;
 import android.telecom.Phone;
 import android.telecom.PhoneAccountHandle;
 
+import android.telecom.PhoneCapabilities;
+
 import com.google.common.base.Preconditions;
 
 import java.util.List;
@@ -179,8 +181,8 @@ final class TelecomAdapter implements InCallPhoneListener {
             if (!conferenceable.isEmpty()) {
                 call.conference(conferenceable.get(0));
             } else {
-                if (call.getDetails().can(
-                        android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE)) {
+                int capabilities = call.getDetails().getCallCapabilities();
+                if (0 != (capabilities & PhoneCapabilities.MERGE_CONFERENCE)) {
                     call.mergeConference();
                 }
             }
@@ -192,8 +194,8 @@ final class TelecomAdapter implements InCallPhoneListener {
     void swap(String callId) {
         if (mPhone != null) {
             android.telecom.Call call = getTelecommCallById(callId);
-            if (call.getDetails().can(
-                    android.telecom.Call.Details.CAPABILITY_SWAP_CONFERENCE)) {
+            int capabilities = call.getDetails().getCallCapabilities();
+            if (0 != (capabilities & PhoneCapabilities.SWAP_CONFERENCE)) {
                 call.swapConference();
             }
         } else {

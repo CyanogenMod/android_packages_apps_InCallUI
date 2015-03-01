@@ -23,6 +23,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
+import android.telecom.PhoneCapabilities;
 import android.telecom.Phone;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
@@ -779,10 +780,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         if (activeCall != null) {
             // TODO: This logic is repeated from CallButtonPresenter.java. We should
             // consolidate this logic.
-            final boolean canMerge = activeCall.can(
-                    android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE);
-            final boolean canSwap = activeCall.can(
-                    android.telecom.Call.Details.CAPABILITY_SWAP_CONFERENCE);
+            final boolean canMerge = activeCall.can(PhoneCapabilities.MERGE_CONFERENCE);
+            final boolean canSwap = activeCall.can(PhoneCapabilities.SWAP_CONFERENCE);
 
             Log.v(this, "activeCall: " + activeCall + ", canMerge: " + canMerge +
                     ", canSwap: " + canSwap);
@@ -804,7 +803,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         if (heldCall != null) {
             // We have a hold call so presumeable it will always support HOLD...but
             // there is no harm in double checking.
-            final boolean canHold = heldCall.can(android.telecom.Call.Details.CAPABILITY_HOLD);
+            final boolean canHold = heldCall.can(PhoneCapabilities.HOLD);
 
             Log.v(this, "heldCall: " + heldCall + ", canHold: " + canHold);
 
@@ -1261,6 +1260,7 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
                 View.LAYOUT_DIRECTION_RTL;
     }
+
 
     /**
      * @return An instance of TelecomManager.

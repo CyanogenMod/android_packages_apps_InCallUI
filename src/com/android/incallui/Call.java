@@ -24,6 +24,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.net.Uri;
 import android.telecom.CallProperties;
 import android.telecom.DisconnectCause;
+import android.telecom.PhoneCapabilities;
 import android.telecom.GatewayInfo;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneAccountHandle;
@@ -386,7 +387,7 @@ public final class Call {
     public boolean can(int capabilities) {
         int supportedCapabilities = mTelecommCall.getDetails().getCallCapabilities();
 
-        if ((capabilities & android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE) != 0) {
+        if ((capabilities & PhoneCapabilities.MERGE_CONFERENCE) != 0) {
             // We allow you to merge if the capabilities allow it or if it is a call with
             // conferenceable calls.
             if (CallList.getInstance().isDsdaEnabled()) {
@@ -406,18 +407,16 @@ public final class Call {
                     }
                 }
                 if (!hasConfenceableCall &&
-                        ((android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE
-                          & supportedCapabilities) == 0)) {
+                        ((PhoneCapabilities.MERGE_CONFERENCE & supportedCapabilities) == 0)) {
                     // Cannot merge calls if there are no calls to merge with.
                     return false;
                 }
             } else if (mTelecommCall.getConferenceableCalls().isEmpty() &&
-                    ((android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE
-                      & supportedCapabilities) == 0)) {
+                    ((PhoneCapabilities.MERGE_CONFERENCE & supportedCapabilities) == 0)) {
                 // Cannot merge calls if there are no calls to merge with.
                 return false;
             }
-            capabilities &= ~android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE;
+            capabilities &= ~PhoneCapabilities.MERGE_CONFERENCE;
         }
         return (capabilities == (capabilities & mTelecommCall.getDetails().getCallCapabilities()));
     }
@@ -565,8 +564,7 @@ public final class Call {
                                 + "VideoSettings:%s]",
                 mId,
                 State.toString(getState()),
-                android.telecom.Call.Details
-                        .capabilitiesToString(mTelecommCall.getDetails().getCallCapabilities()),
+                PhoneCapabilities.toString(mTelecommCall.getDetails().getCallCapabilities()),
                 mChildCallIds,
                 getParentId(),
                 mTelecommCall.getDetails().getVideoState(), mIsActiveSub,

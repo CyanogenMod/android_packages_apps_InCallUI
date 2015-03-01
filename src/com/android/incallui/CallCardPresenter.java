@@ -604,7 +604,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // on MSIM devices irrespective of number of
         // enabled phone accounts display label info on UI
         if (account != null && (getTelecomManager().hasMultipleCallCapableAccounts()
-                || (CallList.PHONE_COUNT > 1)) && !TextUtils.isEmpty(account.getLabel())) {
+                || (CallList.PHONE_COUNT > 1))) {
             return account.getLabel().toString();
         }
         return null;

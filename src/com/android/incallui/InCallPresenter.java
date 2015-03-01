@@ -16,14 +16,11 @@
 
 package com.android.incallui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.content.pm.ActivityInfo;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.Phone;
@@ -38,9 +35,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.google.common.base.Preconditions;
-
-import com.android.contacts.common.interactions.TouchPointManager;
-import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.incalluibind.ObjectFactory;
 
 import java.util.Collections;
@@ -162,25 +156,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
      */
     private boolean mIsChangingConfigurations = false;
 
-    private int mLastDisconnectCause = DisconnectCause.ERROR;
-
-    /**
-     * Whether or not to wait for the circular reveal animation to be started, to avoid stopping
-     * the circular reveal animation activity before the animation is initiated.
-     */
-    private boolean mWaitForRevealAnimationStart = false;
-
-    /**
-     * Whether or not the CircularRevealAnimationActivity has started.
-     */
-    private boolean mCircularRevealActivityStarted = false;
-
-    private boolean mShowDialpadOnStart = false;
-
     private Phone mPhone;
-
-    private Handler mHandler = new Handler();
-
+    private int mLastDisconnectCause = DisconnectCause.ERROR;
 
     private TelecomManager mTelecomManager;
 
@@ -265,8 +242,6 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     }
 
     private void attemptFinishActivity() {
-        mWaitForRevealAnimationStart = false;
-        CircularRevealActivity.sendClearDisplayBroadcast(mContext);
         final boolean doFinish = (mInCallActivity != null && isActivityStarted());
         Log.i(this, "Hide in call UI: " + doFinish);
 
@@ -727,7 +702,6 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
             mIsActivityPreviouslyStarted = true;
         } else {
             updateIsChangingConfigurations();
-            CircularRevealActivity.sendClearDisplayBroadcast(mContext);
         }
     }
 
@@ -901,9 +875,11 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         // TODO: Consider a proper state machine implementation
 
-        // If the state isn't changing we have already done any starting/stopping of activities in
-        // a previous pass...so lets cut out early
-
+        // If the state isn't changing or if we're transitioning from pending outgoing to actual
+        // outgoing, we have already done any starting/stopping of activities in a previous pass
+        // ...so lets cut out early
+        boolean alreadyOutgoing = mInCallState == InCallState.PENDING_OUTGOING &&
+                newState == InCallState.OUTGOING;
         boolean isAnyOtherSubActive = InCallState.INCOMING == newState &&
                 mCallList.isAnyOtherSubActive(mCallList.getActiveSubscription());
 
@@ -915,7 +891,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         Log.d(this, "startOrFinishUi: " + isAutoAnswer);
 
-        if ((newState == mInCallState && !(mInCallActivity == null && isAnyOtherSubActive))) {
+        if ((newState == mInCallState && !(mInCallActivity == null && isAnyOtherSubActive))
+                || alreadyOutgoing) {
             return newState;
         }
 
@@ -960,7 +937,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         // This is different from the incoming call sequence because we do not need to shock the
         // user with a top-level notification.  Just show the call UI normally.
         final boolean mainUiNotVisible = !isShowingInCallUi() || !getCallCardFragmentVisible();
-        final boolean showCallUi = InCallState.OUTGOING == newState && mainUiNotVisible;
+        final boolean showCallUi = ((InCallState.PENDING_OUTGOING == newState ||
+                InCallState.OUTGOING == newState) && mainUiNotVisible);
 
         // TODO: Can we be suddenly in a call without it having been in the outgoing or incoming
         // state?  I havent seen that but if it can happen, the code below should be enabled.
@@ -1119,87 +1097,21 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         }
     }
 
-    public void showInCall(final boolean showDialpad, final boolean newOutgoingCall) {
-        if (mCircularRevealActivityStarted) {
-            mWaitForRevealAnimationStart = true;
-            mShowDialpadOnStart = showDialpad;
-        } else {
-            mContext.startActivity(getInCallIntent(showDialpad, newOutgoingCall,
-                    newOutgoingCall /* showCircularReveal */));
-        }
+    private void showInCall(boolean showDialpad, boolean newOutgoingCall) {
+        mContext.startActivity(getInCallIntent(showDialpad, newOutgoingCall));
     }
 
-    public void onCircularRevealStarted(final Activity activity) {
-        mCircularRevealActivityStarted = false;
-        if (mWaitForRevealAnimationStart) {
-            mWaitForRevealAnimationStart = false;
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    final Intent intent =
-                            getInCallIntent(mShowDialpadOnStart, true, false, false);
-                    activity.startActivity(intent);
-                    mShowDialpadOnStart = false;
-                }
-            });
-
-        }
-    }
-
-    public void maybeStartRevealAnimation(Intent intent) {
-        if (intent == null || mInCallActivity != null) {
-            return;
-        }
-        final Bundle extras = intent.getBundleExtra(TelecomManager.EXTRA_OUTGOING_CALL_EXTRAS);
-        if (extras == null) {
-            // Incoming call, just show the in-call UI directly.
-            return;
-        }
-
-        if (extras.containsKey(android.telecom.Call.AVAILABLE_PHONE_ACCOUNTS)) {
-            // Account selection dialog will show up so don't show the animation.
-            return;
-        }
-
-        final PhoneAccountHandle accountHandle =
-                intent.getParcelableExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE);
-        final MaterialPalette colors = getColorsFromPhoneAccountHandle(accountHandle);
-        final Point touchPoint = extras.getParcelable(TouchPointManager.TOUCH_POINT);
-
-        mCircularRevealActivityStarted = true;
-        mContext.startActivity(getAnimationIntent(touchPoint, colors));
-    }
-
-    private Intent getAnimationIntent(Point touchPoint, MaterialPalette palette) {
-        final Intent intent = new Intent(mContext, CircularRevealActivity.class);
+    public Intent getInCallIntent(boolean showDialpad, boolean newOutgoingCall) {
+        final Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
                 | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        intent.putExtra(TouchPointManager.TOUCH_POINT, touchPoint);
-        intent.putExtra(CircularRevealActivity.EXTRA_THEME_COLORS, palette);
-        return intent;
-    }
-
-    public Intent getInCallIntent(boolean showDialpad, boolean newOutgoingCall,
-            boolean showCircularReveal) {
-        return getInCallIntent(showDialpad, newOutgoingCall, showCircularReveal, true);
-    }
-
-    public Intent getInCallIntent(boolean showDialpad, boolean newOutgoingCall,
-            boolean showCircularReveal, boolean newTask) {
-        final Intent intent = new Intent(Intent.ACTION_MAIN, null);
-        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
-                | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        if (newTask) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-
         intent.setClass(mContext, InCallActivity.class);
         if (showDialpad) {
             intent.putExtra(InCallActivity.SHOW_DIALPAD_EXTRA, true);
         }
-        intent.putExtra(InCallActivity.NEW_OUTGOING_CALL_EXTRA, newOutgoingCall);
-        intent.putExtra(InCallActivity.SHOW_CIRCULAR_REVEAL_EXTRA, showCircularReveal);
+
+        intent.putExtra(InCallActivity.NEW_OUTGOING_CALL, newOutgoingCall);
         return intent;
     }
 
@@ -1351,40 +1263,13 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
                 View.LAYOUT_DIRECTION_RTL;
     }
 
-    private MaterialPalette getColorsFromPhoneAccountHandle(PhoneAccountHandle phoneAccountHandle) {
-        int highlightColor = PhoneAccount.NO_HIGHLIGHT_COLOR;
-        if (phoneAccountHandle != null) {
-            final TelecomManager tm = getTelecomManager();
-
-            if (tm != null) {
-                final PhoneAccount account = tm.getPhoneAccount(phoneAccountHandle);
-                // For single-sim devices, there will be no selected highlight color, so the phone
-                // account will default to NO_HIGHLIGHT_COLOR.
-                if (account != null) {
-                    highlightColor = account.getHighlightColor();
-                }
-            }
-        }
-        /* FIXME: Need below commit to fix below commented code.
-           //commit 6c1e0d8809bc084bd081a23b48d09e095a615348
-           // Author: Nancy Chen <nancychen@google.com>
-           // Date:   Fri Oct 24 16:00:55 2014 -0700
-           //
-           // In Multi-SIM cases use the color of the SIM icon for InCallUI.
-         return new InCallUIMaterialColorMapUtils(
-         mContext.getResources()).calculatePrimaryAndSecondaryColor(highlightColor);
-         */
-        //FIXME: remove hack
-        return null;
-    }
-
     /**
      * @return An instance of TelecomManager.
      */
     public TelecomManager getTelecomManager() {
         if (mTelecomManager == null) {
             mTelecomManager = (TelecomManager)
-                    mContext.getSystemService(Context.TELECOM_SERVICE);
+                    mInCallActivity.getSystemService(Context.TELECOM_SERVICE);
         }
         return mTelecomManager;
     }

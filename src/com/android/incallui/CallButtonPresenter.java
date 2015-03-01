@@ -540,7 +540,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     }
 
     @Override
-    public void onActiveSubChanged(int subId) {
+    public void onActiveSubChanged(long subId) {
         InCallState state = InCallPresenter.getInstance()
                 .getPotentialStateFromCallList(CallList.getInstance());
 

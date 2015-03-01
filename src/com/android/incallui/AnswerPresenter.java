@@ -49,7 +49,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             processVideoUpgradeRequestCall(call);
         }
         for (int i = 0; i < CallList.PHONE_COUNT; i++) {
-            int[] subId = CallList.getInstance().getSubId(i);
+            long[] subId = CallList.getInstance().getSubId(i);
             call = calls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
             if (call == null) {
                 call = calls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
@@ -93,7 +93,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     @Override
     public void onIncomingCall(Call call) {
-        int subId = call.getSubId();
+        long subId = call.getSubId();
         int phoneId = CallList.getInstance().getPhoneId(subId);
         // TODO: Ui is being destroyed when the fragment detaches.  Need clean up step to stop
         // getting updates here.
@@ -143,7 +143,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     private void processIncomingCall(Call call) {
-        int subId = call.getSubId();
+        long subId = call.getSubId();
         int phoneId = CallList.getInstance().getPhoneId(subId);
         mCallId[phoneId] = call.getId();
         mCall[phoneId] = call;
@@ -167,7 +167,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             return;
         }
 
-        int subId = call.getSubId();
+        long subId = call.getSubId();
         int phoneId = CallList.getInstance().getPhoneId(subId);
         mCallId[phoneId] = call.getId();
         mCall[phoneId] = call;
@@ -211,7 +211,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     public void onCallChanged(Call call) {
         Log.d(this, "onCallStateChange() " + call + " " + this);
         if (call.getState() != Call.State.INCOMING) {
-            int subId = call.getSubId();
+            long subId = call.getSubId();
             int phoneId = CallList.getInstance().getPhoneId(subId);
 
             boolean isUpgradePending = isVideoUpgradePending(call);
@@ -243,7 +243,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     private int getActivePhoneId() {
         int phoneId = -1;
         if (CallList.getInstance().isDsdaEnabled()) {
-            int subId = CallList.getInstance().getActiveSubscription();
+            long subId = CallList.getInstance().getActiveSubscription();
             phoneId = CallList.getInstance().getPhoneId(subId);
         } else {
             for (int i = 0; i < mCall.length; i++) {
@@ -372,7 +372,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     @Override
-    public void onActiveSubChanged(int subId) {
+    public void onActiveSubChanged(long subId) {
         final CallList calls = CallList.getInstance();
         final Call call = calls.getIncomingCall();
         int phoneId = CallList.getInstance().getPhoneId(subId);

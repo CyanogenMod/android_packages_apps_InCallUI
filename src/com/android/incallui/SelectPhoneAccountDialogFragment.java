@@ -78,8 +78,7 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 mIsSelected = true;
                 PhoneAccountHandle selectedAccountHandle = mAccountHandles.get(which);
-                InCallPresenter.getInstance().handleAccountSelection(selectedAccountHandle,
-                        mIsSelected);
+                InCallPresenter.getInstance().handleAccountSelection(selectedAccountHandle);
             }
         };
 
@@ -130,7 +129,7 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
             PhoneAccountHandle accountHandle = getItem(position);
             PhoneAccount account = mTelecomManager.getPhoneAccount(accountHandle);
             holder.textView.setText(account.getLabel());
-            holder.imageView.setImageDrawable(account.createIconDrawable(mContext));
+            holder.imageView.setImageDrawable(account.getIcon(mContext));
             return rowView;
         }
 

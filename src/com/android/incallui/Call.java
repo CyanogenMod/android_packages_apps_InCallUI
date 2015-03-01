@@ -394,11 +394,11 @@ public final class Call {
                         mTelecommCall.getConferenceableCalls();
                 boolean hasConfenceableCall = false;
                 if (!conferenceableCalls.isEmpty()){
-                    int subId = getSubId();
+                    long subId = getSubId();
                     for (android.telecom.Call call : conferenceableCalls) {
                         PhoneAccountHandle phHandle = call.getDetails().getAccountHandle();
                         if (phHandle != null) {
-                            if(Integer.parseInt(phHandle.getId()) == subId) {
+                            if((Long.parseLong(phHandle.getId())) == subId) {
                                 hasConfenceableCall = true;
                                 break;
                             }
@@ -443,19 +443,19 @@ public final class Call {
         return mTelecommCall.getDetails().getAccountHandle();
     }
 
-    public int getSubId() {
+    public long getSubId() {
         PhoneAccountHandle ph = getAccountHandle();
         if (ph != null) {
             try {
                 if (ph.getId() != null ) {
-                    return Integer.parseInt(getAccountHandle().getId());
+                    return Long.parseLong(getAccountHandle().getId());
                 }
             } catch (NumberFormatException e) {
                 Log.w(this,"sub Id is not a number " + e);
             }
             return SubscriptionManager.getDefaultVoiceSubId();
         } else {
-            return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
+            return SubscriptionManager.INVALID_SUB_ID;
         }
     }
 

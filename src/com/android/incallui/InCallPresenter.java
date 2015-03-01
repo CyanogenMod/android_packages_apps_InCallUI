@@ -549,11 +549,11 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         return mProximitySensor;
     }
 
-    public void handleAccountSelection(PhoneAccountHandle accountHandle, boolean setDefault) {
+    public void handleAccountSelection(PhoneAccountHandle accountHandle) {
         Call call = mCallList.getWaitingForAccountCall();
         if (call != null) {
             String callId = call.getId();
-            TelecomAdapter.getInstance().phoneAccountSelected(callId, accountHandle, setDefault);
+            TelecomAdapter.getInstance().phoneAccountSelected(callId, accountHandle);
         }
     }
 

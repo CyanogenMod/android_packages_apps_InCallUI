@@ -32,14 +32,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
-import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -57,8 +55,6 @@ import android.widget.TextView;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
 import com.android.contacts.common.interactions.TouchPointManager;
-import com.android.contacts.common.util.MaterialColorMapUtils;
-import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.incallui.Call.State;
 
 import java.util.ArrayList;
@@ -239,9 +235,6 @@ public class InCallActivity extends Activity {
         super.onResume();
 
         mIsForegroundActivity = true;
-
-        InCallPresenter.getInstance().setThemeColors();
-
         InCallPresenter.getInstance().onUiShowing(true);
 
         if (mShowDialpadRequested) {

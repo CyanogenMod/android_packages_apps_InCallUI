@@ -259,7 +259,7 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
     }
 
     @Override
-    public void onUpgradeToVideoRequest(Call call) {
+    public void onUpgradeToVideoRequest(Call call, int videoState) {
     }
 
     @Override

@@ -33,7 +33,10 @@
   <string name="modify_call_option_vt_rx">Прийом відео</string>
   <string name="modify_call_option_voice">Тільки передача голосу</string>
   <string name="video_call_not_allowed_if_tty_enabled">Будь ласка, вимкніть режим TTY, щоб дозволити відеовиклики</string>
+  <string name="player_started">Трансляція розпочалась</string>
   <string name="player_stopped">Трансляцію зупинено</string>
+  <string name="camera_not_ready">Камера не готова</string>
+  <string name="camera_ready">Камера готова</string>
   <string name="unknown_call_session_event">Невідома подія виклику</string>
   <string name="volume_boost_notify_enabled">Підсиленя гучності увімкнено</string>
   <string name="volume_boost_notify_disabled">Підсиленя гучності вимкнено</string>

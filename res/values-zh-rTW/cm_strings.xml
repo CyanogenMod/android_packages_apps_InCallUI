@@ -22,15 +22,38 @@
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
   <string name="onscreenBlacklistText">黑名單</string>
+  <string name="call_recording_failed_message">無法啟動通話錄音</string>
   <string name="blacklist_dialog_title">新增至黑名單</string>
   <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的來電將會被封鎖</string>
+  <string name="card_title_video_call_paused">視像通話 (已暫停)</string>
   <string name="onscreenAddParticipant">新增參與者</string>
+  <string name="modify_call_option_title">選取通話類型</string>
+  <string name="modify_call_option_vt">視像通話</string>
   <string name="modify_call_option_vt_tx">視像傳輸</string>
   <string name="modify_call_option_vt_rx">視像接收</string>
   <string name="modify_call_option_voice">只有語音</string>
+  <string name="video_call_not_allowed_if_tty_enabled">停用 TTY 模式即可進行視像通話</string>
+  <string name="player_started">播放器已開始</string>
+  <string name="player_stopped">播放器已停止</string>
+  <string name="camera_not_ready">相機尚未就緒</string>
+  <string name="camera_ready">相機已就緒</string>
+  <string name="unknown_call_session_event">未知的通話事件</string>
   <string name="volume_boost_notify_enabled">已啟用音量增強</string>
   <string name="volume_boost_notify_disabled">已停用音量增強</string>
   <string name="volume_boost_notify_unavailable">當使用耳機時，音量增強功能將不可用</string>
+  <string name="onscreenMoreMenuText">更多選項</string>
+  <string name="menu_start_record">錄製通話</string>
+  <string name="menu_stop_record">停止錄製</string>
+  <string name="recording_time_text">正在錄製</string>
   <string name="sub_1">SIM 卡 1</string>
   <string name="sub_2">SIM 卡 2</string>
+  <string name="call_substate_call_resumed">已回復通話</string>
+  <string name="call_substate_connected_suspended_audio">通話已連接，但音訊被暫停</string>
+  <string name="call_substate_connected_suspended_video">通話已連接，但視像被暫停</string>
+  <string name="call_substate_avp_retry">正在檢查視像品質\u2026</string>
+  <string name="video_quality_changed">影像品質改為 <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">高畫質</string>
+  <string name="video_quality_medium">中畫質</string>
+  <string name="video_quality_low">低畫質</string>
+  <string name="video_quality_unknown">不明畫質</string>
 </resources>

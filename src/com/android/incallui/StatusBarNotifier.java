@@ -307,14 +307,10 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         builder.setColor(mContext.getResources().getColor(R.color.dialer_theme_color));
 
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
-            final int subId = call.getSubId();
             SubscriptionManager mgr = SubscriptionManager.from(mContext);
-            SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(subId);
+            SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(call.subId);
             if (subInfoRecord != null) {
-                String displayName = (String)subInfoRecord.getDisplayName();
-                builder.setContentTitle(displayName);
-                builder.setContentText(contentTitle);
-                builder.setSubText(mContext.getString(contentResId));
+                builder.setSubText(subInfoRecord.displayName);
             }
         }
 

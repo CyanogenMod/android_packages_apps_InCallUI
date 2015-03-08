@@ -276,14 +276,6 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
             return;
         }
 
-        // set the content
-        String contentText = mContext.getString(contentResId);
-        if (TelephonyManager.getDefault().isMultiSimEnabled()) {
-            SubInfoRecord info = SubscriptionManager.getSubInfoForSubscriber(call.getSubId());
-            if (info != null) {
-                contentText += " (" + info.displayName + ")";
-            }
-        }
         /*
          * Nothing more to check...build and send it.
          */
@@ -300,20 +292,16 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         }
 
         // Set the content
-        builder.setContentText(contentText);
+        builder.setContentText(mContext.getString(contentResId));
         builder.setSmallIcon(iconResId);
         builder.setContentTitle(contentTitle);
         builder.setLargeIcon(largeIcon);
         builder.setColor(mContext.getResources().getColor(R.color.dialer_theme_color));
 
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
-            final long subId = call.getSubId();
-            SubInfoRecord subInfoRecord = SubscriptionManager.getSubInfoForSubscriber(subId);
-            if (subInfoRecord != null) {
-                String displayName = subInfoRecord.displayName;
-                builder.setContentTitle(displayName);
-                builder.setContentText(contentTitle);
-                builder.setSubText(mContext.getString(contentResId));
+            SubInfoRecord info = SubscriptionManager.getSubInfoForSubscriber(call.getSubId());
+            if (info != null) {
+                builder.setSubText(info.displayName);
             }
         }
 

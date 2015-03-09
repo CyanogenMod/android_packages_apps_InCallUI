@@ -232,12 +232,12 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             }
 
             final Call incall = CallList.getInstance().getIncomingCall();
-            if (incall != null || isUpgradePending) {
-                getUi().showAnswerUi(true);
+            final AnswerPresenter.AnswerUi ui = getUi();
+            if (ui == null) {
+                Log.d(TAG, "onCallChanged: AnswerPresenter.AnswerUi getUi returned null");
             } else {
-                getUi().showAnswerUi(false);
+                ui.showAnswerUi(incall != null || isUpgradePending);
             }
-
             // mCallId will hold the state of the call. We don't clear the mCall variable here as
             // it may be useful for sending text messages after phone disconnects.
             mCallId[phoneId] = null;

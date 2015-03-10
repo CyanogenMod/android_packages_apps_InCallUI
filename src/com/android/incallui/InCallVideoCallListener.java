@@ -133,7 +133,7 @@ public class InCallVideoCallListener extends VideoCall.Listener {
      * @param dataUsage The updated data usage.
      */
     @Override
-    public void onCallDataUsageChanged(long dataUsage) {
+    public void onCallDataUsageChanged(int dataUsage) {
         Log.d(this, "onCallDataUsageChanged: dataUsage = " + dataUsage);
         InCallVideoCallListenerNotifier.getInstance().callDataUsageChanged(dataUsage);
     }

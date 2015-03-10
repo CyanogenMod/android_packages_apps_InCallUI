@@ -937,7 +937,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param dataUsage call data usage value
      */
     @Override
-    public void onCallDataUsageChange(long dataUsage) {
+    public void onCallDataUsageChange(int dataUsage) {
         Log.d(this, "onCallDataUsageChange dataUsage=" + dataUsage);
         VideoCallUi ui = getUi();
         if (ui == null) {
@@ -1180,7 +1180,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         void setPreviewSize(int width, int height);
         void setPreviewSurfaceSize(int width, int height);
         void setDisplayVideoSize(int width, int height);
-        void setCallDataUsage(Context context, long dataUsage);
+        void setCallDataUsage(Context context, int dataUsage);
         void displayCallSessionEvent(int event);
         Point getScreenSize();
         void cleanupSurfaces();

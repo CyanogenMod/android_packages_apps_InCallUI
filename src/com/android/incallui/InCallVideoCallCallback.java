@@ -52,6 +52,8 @@ public class InCallVideoCallCallback extends VideoCall.Callback {
         int previousVideoState = CallUtils.getUnPausedVideoState(mCall.getVideoState());
         int newVideoState = CallUtils.getUnPausedVideoState(videoProfile.getVideoState());
 
+        InCallPresenter.getInstance().wakeUpScreen();
+
         boolean wasVideoCall = CallUtils.isVideoCall(previousVideoState);
         boolean isVideoCall = CallUtils.isVideoCall(newVideoState);
 

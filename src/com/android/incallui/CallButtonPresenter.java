@@ -382,6 +382,20 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showPauseVideoButton(false);
     }
 
+    private boolean canShowMergeOption() {
+        CallList callList = CallList.getInstance();
+        Call activeCall = callList.getActiveCall(), backgroundCall = callList.getBackgroundCall();
+        boolean activeCallCanMerge  =
+                (activeCall != null) && activeCall.can(PhoneCapabilities.MERGE_CONFERENCE);
+        boolean backgroundCallCanMerge =
+                (backgroundCall != null) && backgroundCall.can(PhoneCapabilities.MERGE_CONFERENCE);
+        String acId = (activeCall != null) ? activeCall.getId() : "null";
+        String bcId = (backgroundCall != null) ? backgroundCall.getId() : "null";
+        Log.v(this, "canShowMergeOption: " + acId + " " + activeCallCanMerge +
+                " " + bcId + " " + backgroundCallCanMerge);
+        return activeCallCanMerge && backgroundCallCanMerge;
+    }
+
     private void updateVoiceCallButtons(Call call) {
         Log.v(this, "Showing buttons for voice call.");
         final CallButtonUi ui = getUi();
@@ -397,7 +411,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         Log.v(this, "Show hold ", call.can(PhoneCapabilities.SUPPORT_HOLD));
         Log.v(this, "Enable hold", call.can(PhoneCapabilities.HOLD));
-        Log.v(this, "Show merge ", call.can(PhoneCapabilities.MERGE_CONFERENCE));
+        // TODO: Every button here is calculated based on the provided call
+        // Is it ok that we don't pay attention to the call argument?
+        Log.v(this, "Show merge " + canShowMergeOption());
+
         Log.v(this, "Show swap ", call.can(PhoneCapabilities.SWAP_CONFERENCE));
         Log.v(this, "Show add call ", TelecomAdapter.getInstance().canAddCall());
         Log.v(this, "Show mute ", call.can(PhoneCapabilities.MUTE));
@@ -413,7 +430,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 && call.can(PhoneCapabilities.CALL_TYPE_MODIFIABLE);
         ui.showChangeToVideoButton(canVideoCall);
 
-        final boolean showMergeOption = call.can(PhoneCapabilities.MERGE_CONFERENCE);
+        final boolean showMergeOption = canShowMergeOption();
         final boolean showAddCallOption = canAdd;
         final boolean showAddParticipantOption = call.can(PhoneCapabilities.ADD_PARTICIPANT);
         final boolean showManageVideoCallConferenceOption = call.can(

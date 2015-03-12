@@ -31,6 +31,7 @@ public class InCallVibrationHandler extends Handler implements
 
     private static final int MSG_VIBRATE_45_SEC = 1;
 
+    private static final String KEY_VIBRATE_CALL_WAITING = "incall_vibrate_call_waiting";
     private static final String KEY_VIBRATE_OUTGOING = "incall_vibrate_outgoing";
     private static final String KEY_VIBRATE_45SECS = "incall_vibrate_45secs";
     private static final String KEY_VIBRATE_HANGUP = "incall_vibrate_hangup";
@@ -64,6 +65,10 @@ public class InCallVibrationHandler extends Handler implements
                 handleOutgoingCallVibration(activeCall);
             }
             mActiveCall = activeCall;
+        } else if (activeCall != null && callList.getIncomingCall() != null
+                && !callList.getIncomingCall().equals(activeCall)) {
+            Log.d(this, "New incoming call" + callList.getIncomingCall());
+            handleCallWaitingVibration(activeCall);
         } else if (activeCall == null && mActiveCall != null) {
             Log.d(this, "Transition from active call " + mActiveCall);
             handleCallEnd(mActiveCall);
@@ -80,6 +85,13 @@ public class InCallVibrationHandler extends Handler implements
         }
         if (mPrefs.getBoolean(KEY_VIBRATE_45SECS, false)) {
             start45SecondVibration(durationMillis);
+        }
+    }
+
+    private void handleCallWaitingVibration(Call call) {
+        Log.d(this, "Start call waiting vibration");
+        if (mPrefs.getBoolean(KEY_VIBRATE_CALL_WAITING, false)) {
+            vibrate(200, 300, 500);
         }
     }
 

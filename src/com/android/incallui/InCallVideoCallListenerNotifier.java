@@ -244,7 +244,7 @@ public class InCallVideoCallListenerNotifier {
      *
      * @param dataUsage data usage value
      */
-    public void callDataUsageChanged(long dataUsage) {
+    public void callDataUsageChanged(int dataUsage) {
         for (VideoEventListener listener : mVideoEventListeners) {
             listener.onCallDataUsageChange(dataUsage);
         }
@@ -316,7 +316,7 @@ public class InCallVideoCallListenerNotifier {
          *
          * @param dataUsage call data usage value
          */
-        public void onCallDataUsageChange(long dataUsage);
+        public void onCallDataUsageChange(int dataUsage);
 
         /**
          * Called when call session event is raised.

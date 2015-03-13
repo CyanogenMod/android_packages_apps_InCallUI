@@ -248,9 +248,10 @@ final class TelecomAdapter implements InCallPhoneListener {
         }
     }
 
-    void phoneAccountSelected(String callId, PhoneAccountHandle accountHandle) {
+    void phoneAccountSelected(String callId, PhoneAccountHandle accountHandle,
+            boolean setDefault) {
         if (mPhone != null) {
-            getTelecommCallById(callId).phoneAccountSelected(accountHandle);
+            getTelecommCallById(callId).phoneAccountSelected(accountHandle, setDefault);
         }  else {
             Log.e(this, "error phoneAccountSelected, mAdapter is null");
         }

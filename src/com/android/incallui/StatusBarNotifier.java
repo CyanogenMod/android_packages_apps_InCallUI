@@ -32,7 +32,7 @@ import android.os.Message;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneCapabilities;
 import android.telephony.SubscriptionManager;
-import android.telephony.SubInfoRecord;
+import android.telephony.SubscriptionInfo;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -299,10 +299,11 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         builder.setColor(mContext.getResources().getColor(R.color.dialer_theme_color));
 
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
-            final long subId = call.getSubId();
-            SubInfoRecord subInfoRecord = SubscriptionManager.getSubInfoForSubscriber(subId);
+            final int subId = call.getSubId();
+            SubscriptionManager mgr = SubscriptionManager.from(mContext);
+            SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(subId);
             if (subInfoRecord != null) {
-                String displayName = subInfoRecord.displayName;
+                String displayName = (String)subInfoRecord.getDisplayName();
                 builder.setContentTitle(displayName);
                 builder.setContentText(contentTitle);
                 builder.setSubText(mContext.getString(contentResId));

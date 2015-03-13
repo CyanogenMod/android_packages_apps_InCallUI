@@ -867,7 +867,7 @@ public class InCallActivity extends Activity {
         ActionBar bar = getActionBar();
 
         for (int i = 0; i < phoneCount; i++) {
-            long[] subId = CallList.getInstance().getSubId(i);
+            int[] subId = CallList.getInstance().getSubId(i);
             if (subId != null && CallList.getInstance().hasAnyLiveCall(subId[0])) {
                 if (!mDsdaTabAdd[i]) {
                     addDsdaTab(i);
@@ -935,7 +935,7 @@ public class InCallActivity extends Activity {
             //setting active subscription automatically when call on one sub
             //ends and it's corresponding tab is removed.For such cases active
             //subscription will be set by InCallPresenter.attemptFinishActivity.
-            long[] subId = CallList.getInstance().getSubId(mPhoneId);
+            int[] subId = CallList.getInstance().getSubId(mPhoneId);
             if (tabCount != TAB_COUNT_ONE && CallList.getInstance().hasAnyLiveCall(subId[0])
                     && (CallList.getInstance().getActiveSubscription() != subId[0])) {
                 Log.i(this, "Switch to other active sub: " + subId[0]);

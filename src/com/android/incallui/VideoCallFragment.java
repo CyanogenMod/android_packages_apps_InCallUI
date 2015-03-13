@@ -964,7 +964,7 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
      * @param dataUsage the data usage value
      */
     @Override
-    public void setCallDataUsage(Context context, long dataUsage) {
+    public void setCallDataUsage(Context context, int dataUsage) {
         Log.d(this, "setDataUsage: dataUsage = " + dataUsage);
         Toast.makeText(context, "dataUsage=" + dataUsage, Toast.LENGTH_LONG).show();
     }

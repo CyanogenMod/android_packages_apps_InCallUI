@@ -363,7 +363,7 @@ public class CallerInfoAsyncQuery {
         cw.cookie = cookie;
         cw.number = info.phoneNumber;
 
-        long subId = SubscriptionManager.getDefaultVoiceSubId();
+        int subId = SubscriptionManager.getDefaultVoiceSubId();
         Call call = (Call) cookie;
         if (call != null) {
             subId = call.getSubId();

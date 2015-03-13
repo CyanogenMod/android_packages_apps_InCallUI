@@ -24,14 +24,16 @@
         android:id="@+id/incomingVideo"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
     <!-- The width and height are replaced at runtime based on the selected camera. -->
     <TextureView
         android:id="@+id/previewVideo"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/video_preview_margin"
         android:layout_width="70dp"
-        android:layout_height="120dp" />
+        android:layout_height="120dp"
+        android:visibility="gone"/>
 
     <com.android.incallui.ZoomControlBar
         android:id="@+id/zoom_control"

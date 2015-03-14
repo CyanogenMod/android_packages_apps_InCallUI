@@ -22,6 +22,7 @@
   <string name="incall_call_type_label_forwarded">Aangestuurde oproep</string>
   <string name="card_title_dialing_waiting">Skakel (wag\u2026)</string>
   <string name="onscreenBlacklistText">Swartlys</string>
+  <string name="call_recording_failed_message">Kon nie oproep opname begin nie</string>
   <string name="blacklist_dialog_title">Voeg by swartlys</string>
   <string name="blacklist_dialog_message">Toekomstige oproepe van <xliff:g id="number">%s</xliff:g> sal geblokkeer word</string>
   <string name="card_title_video_call_paused">Video-oproep (gestop)</string>
@@ -36,6 +37,7 @@
   <string name="player_stopped">Speler het gestop</string>
   <string name="camera_not_ready">Kamera is nie gereed nie</string>
   <string name="camera_ready">Kamera is gereed</string>
+  <string name="unknown_call_session_event">Onbekende oproep sessie gebeurtenis</string>
   <string name="volume_boost_notify_enabled">Volume inspuiting is geaktiveer</string>
   <string name="volume_boost_notify_disabled">Volume inspuiting is gedeaktiveer</string>
   <string name="volume_boost_notify_unavailable">Ekstra volume is nie beskikbaar met die gebruik van oorfone</string>

@@ -17,9 +17,43 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Osapool on keelanud kõik sisenevad kõned.</string>
+  <string name="callUnanswered_forwarded">Kõne vastamata ja edasi suunatud</string>
   <string name="incall_call_type_label_forwarded">Edastatud kõne</string>
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
   <string name="onscreenBlacklistText">Must nimekiri</string>
+  <string name="call_recording_failed_message">Kõne salvestuse alustamine nurjus</string>
   <string name="blacklist_dialog_title">Lisa musta nimekirja</string>
   <string name="blacklist_dialog_message">Tulevased kõned numbrilt <xliff:g id="number">%s</xliff:g> blokeeritakse</string>
+  <string name="card_title_video_call_paused">Videokõne (peatatud)</string>
+  <string name="onscreenAddParticipant">Lisa osaleja</string>
+  <string name="modify_call_option_title">Vali kõne tüüp</string>
+  <string name="modify_call_option_vt">Videokõne</string>
+  <string name="modify_call_option_vt_tx">Edasta video</string>
+  <string name="modify_call_option_vt_rx">Võta video vastu</string>
+  <string name="modify_call_option_voice">Ainult heli</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Videokõne lubamiseks keelake TTY režiim</string>
+  <string name="player_started">Mängija alustas</string>
+  <string name="player_stopped">Mängija lõpetas</string>
+  <string name="camera_not_ready">Kaamera ei ole valmis</string>
+  <string name="camera_ready">Kaamera on valmis</string>
+  <string name="unknown_call_session_event">Tundmatud kõne sessiooni sündmus</string>
+  <string name="volume_boost_notify_enabled">Heli võimendamine on lubatud</string>
+  <string name="volume_boost_notify_disabled">Heli võimendamine on keelatud</string>
+  <string name="volume_boost_notify_unavailable">Heli võimendamine pole peakomplektiga lubatud</string>
+  <string name="onscreenMoreMenuText">Rohkem valikuid</string>
+  <string name="menu_start_record">Salvesta kõne</string>
+  <string name="menu_stop_record">Lõpeta salvestus</string>
+  <string name="recording_time_text">Salvestamine</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Kõne jätkub</string>
+  <string name="call_substate_connected_suspended_audio">Kõne on ühendatud, kuid heli on peatatud</string>
+  <string name="call_substate_connected_suspended_video">Kõne on ühendatud, kuid video on peatatud</string>
+  <string name="call_substate_avp_retry">Tuvastan video kvaliteeti\u2026</string>
+  <string name="video_quality_changed">Video kvaliteet muudeti <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">kõrge</string>
+  <string name="video_quality_medium">keskmise</string>
+  <string name="video_quality_low">madal</string>
+  <string name="video_quality_unknown">teadmata</string>
 </resources>

@@ -653,4 +653,6 @@
 
     <string name="apm_turn_on_confirmation">"Flight mode is on. Would you like to turn off flight mode?"</string>
     <string name="cancel">Cancel</string>
+    <!--Multiparty call-->
+    <string name="end_active_accept_mt_call">End active,accept incoming</string>
 </resources>

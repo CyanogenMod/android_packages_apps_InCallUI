@@ -47,6 +47,7 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -81,6 +82,7 @@ public class InCallActivity extends Activity {
     private static final String METHOD_IS_CALL_RECORD_AVAILABLE = "is_call_record_available";
     private static final String METHOD_GET_CALL_RECORD_DURATION = "get_call_record_duration";
     private static final String EXTRA_RESULT = "result";
+    private static final int END_ACTIVE_ACCEPT_INCOMING_MT = 2;
 
     private static final String ACTION_SUPP_SERVICE_FAILURE =
             "org.codeaurora.ACTION_SUPP_SERVICE_FAILURE";
@@ -392,9 +394,18 @@ public class InCallActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+            {
+                onBackPressed();
+                return true;
+            }
+            case END_ACTIVE_ACCEPT_INCOMING_MT:
+            {
+                Log.w(this, "onOptionsItemSelected : END_ACTIVE_ACCEPT_INCOMING_MT = " + item);
+                mAnswerFragment.onAnswer(0, getApplicationContext());
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -1102,5 +1113,42 @@ public class InCallActivity extends Activity {
                 onSuppServiceFailed(service);
             }
         }
+    }
+
+    //Add menu to end active call and pick up active call.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(this, "onCreateOptionsMenu");
+
+        if (getResources().getBoolean(R.bool.config_end_active_accept_incoming)) {
+            menu.add(0, END_ACTIVE_ACCEPT_INCOMING_MT,
+                    1, getString(R.string.end_active_accept_mt_call)).setIcon(
+                    R.drawable.ic_call_white_24dp);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Log.d(this, "onPrepareOptionsMenu");
+        super.onPrepareOptionsMenu(menu);
+
+        Call incomingCall = CallList.getInstance().getIncomingCall();
+        Call activeCall = CallList.getInstance().getActiveCall();
+        Call backgroundCall = CallList.getInstance().getBackgroundCall();
+        MenuItem currentSelection = menu.findItem(END_ACTIVE_ACCEPT_INCOMING_MT);
+
+        if (currentSelection != null) {
+            if (incomingCall != null && activeCall != null && backgroundCall != null) {
+                currentSelection.setVisible(true);
+                Log.d(this, "setVisible =  to true");
+                return true;
+            } else {
+                currentSelection.setVisible(false);
+                Log.d(this, "setVisible =  to false");
+            }
+        }
+        return false;
     }
 }

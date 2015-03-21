@@ -330,7 +330,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimary.getSessionModificationState(),
                     mPrimary.getDisconnectCause(),
                     getConnectionLabel(),
-                    getConnectionIcon(),
+                    getCallStateIcon(),
                     getGatewayNumber(),
                     mPrimary.isWaitingForRemoteSide());
             setCallbackNumber();
@@ -717,7 +717,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         return getCallProviderLabel(mPrimary);
     }
 
-    private Drawable getConnectionIcon() {
+    private Drawable getCallStateIcon() {
+        // Return connection icon if one exists.
         StatusHints statusHints = mPrimary.getTelecommCall().getDetails().getStatusHints();
         if (statusHints != null && statusHints.getIconResId() != 0) {
             Drawable icon = statusHints.getIcon(mContext);
@@ -725,7 +726,15 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 return icon;
             }
         }
-        return getCallProviderIcon(mPrimary);
+
+        // Return high definition audio icon if the capability is indicated.
+        if (mPrimary.getTelecommCall().getDetails().can(
+                android.telecom.Call.Details.CAPABILITY_HIGH_DEF_AUDIO)
+                && mPrimary.getState() == Call.State.ACTIVE) {
+            return mContext.getResources().getDrawable(R.drawable.ic_hd_audio);
+        }
+
+        return null;
     }
 
     private boolean hasOutgoingGatewayCall() {

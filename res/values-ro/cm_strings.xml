@@ -33,6 +33,7 @@
   <string name="volume_boost_notify_disabled">Îmbunătățirea de volumul este dezactivată</string>
   <string name="volume_boost_notify_unavailable">Volumul suplimentar nu este disponibil atunci când utilizaţi un set de caști</string>
   <string name="onscreenMoreMenuText">Mai multe opțiuni</string>
+  <string name="menu_start_record">Înregistrare apel</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

@@ -883,9 +883,13 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         //If the call is auto answered bring up the InCallActivity
         boolean isAutoAnswer = false;
-        isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
-                           (newState == InCallState.INCALL) &&
-                           (mInCallActivity == null);
+
+        if ((mCallList.getDisconnectedCall() == null) &&
+                (mCallList.getDisconnectingCall() == null)) {
+            isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
+                               (newState == InCallState.INCALL) &&
+                               (mInCallActivity == null);
+        }
 
         Log.d(this, "startOrFinishUi: " + isAutoAnswer);
 

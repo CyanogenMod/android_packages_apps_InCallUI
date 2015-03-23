@@ -23,6 +23,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -39,6 +40,7 @@ import android.telecom.Connection.VideoProvider;
 import android.telecom.VideoProfile;
 import android.telecom.Connection;
 
+import java.util.ArrayList;
 /**
  * Fragment containing video calling surfaces.
  */
@@ -720,32 +722,26 @@ public class VideoCallFragment extends BaseFragment<VideoCallPresenter,
         }
 
         final Resources resources = context.getResources();
-
-        String callSubstateChangedText = "";
+        final ArrayList<String> texts = new ArrayList<String>();
 
         if (isEnabled(Connection.CALL_SUBSTATE_AUDIO_CONNECTED_SUSPENDED, callSubstate)) {
-            callSubstateChangedText +=
-                resources.getString(R.string.call_substate_connected_suspended_audio);
+            texts.add(resources.getString(R.string.call_substate_connected_suspended_audio));
         }
 
         if (isEnabled(Connection.CALL_SUBSTATE_VIDEO_CONNECTED_SUSPENDED, callSubstate)) {
-            callSubstateChangedText +=
-                resources.getString(R.string.call_substate_connected_suspended_video);
+            texts.add(resources.getString(R.string.call_substate_connected_suspended_video));
         }
 
         if (isEnabled(Connection.CALL_SUBSTATE_AVP_RETRY, callSubstate)) {
-            callSubstateChangedText +=
-                resources.getString(R.string.call_substate_avp_retry);
+            texts.add(resources.getString(R.string.call_substate_avp_retry));
         }
 
         if (isNotEnabled(Connection.CALL_SUBSTATE_ALL, callSubstate)) {
-            callSubstateChangedText = resources.getString(R.string.call_substate_call_resumed);
+            texts.add(resources.getString(R.string.call_substate_call_resumed));
         }
 
-        if (!callSubstateChangedText.isEmpty()) {
-            String callSubstateLabelText = resources.getString(R.string.call_substate_label);
-            Toast.makeText(context, callSubstateLabelText + callSubstateChangedText,
-                Toast.LENGTH_SHORT).show();
+        if (!texts.isEmpty()) {
+            Toast.makeText(context, TextUtils.join("\n", texts), Toast.LENGTH_SHORT).show();
         }
     }
 

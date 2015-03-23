@@ -308,9 +308,9 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
 
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
             SubscriptionManager mgr = SubscriptionManager.from(mContext);
-            SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(call.subId);
+            SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(call.getSubId());
             if (subInfoRecord != null) {
-                builder.setSubText(subInfoRecord.displayName);
+                builder.setSubText(subInfoRecord.getDisplayName());
             }
         }
 

@@ -33,5 +33,7 @@
         android:layout_height="match_parent"
         android:listSelector="@null"
         android:background="@color/background_dialer_white"
-        android:divider="@null" />
+        android:divider="@null"
+        android:focusableInTouchMode="true"
+        android:focusable="true"/>
 </FrameLayout>

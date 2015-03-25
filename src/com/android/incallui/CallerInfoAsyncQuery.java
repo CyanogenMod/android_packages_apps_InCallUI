@@ -250,7 +250,7 @@ public class CallerInfoAsyncQuery {
                     if (cw.event == EVENT_EMERGENCY_NUMBER) {
                         // Note we're setting the phone number here (refer to javadoc
                         // comments at the top of CallerInfo class).
-                        mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext, cw.number);
+                        mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext);
                     } else if (cw.event == EVENT_VOICEMAIL_NUMBER) {
                         mCallerInfo = new CallerInfo().markAsVoiceMail(mQueryContext);
                     } else {
@@ -371,8 +371,7 @@ public class CallerInfoAsyncQuery {
         // check to see if these are recognized numbers, and use shortcuts if we can.
         if (PhoneNumberUtils.isLocalEmergencyNumber(context, info.phoneNumber)) {
             cw.event = EVENT_EMERGENCY_NUMBER;
-        } else if (info.isVoiceMailNumber()
-                || PhoneNumberUtils.isVoiceMailNumber(subId, info.phoneNumber)) {
+        } else if (info.isVoiceMailNumber()) {
             cw.event = EVENT_VOICEMAIL_NUMBER;
         } else {
             cw.event = EVENT_NEW_QUERY;

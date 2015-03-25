@@ -17,14 +17,12 @@
 package com.android.incallui;
 
 import android.content.Context;
-import android.net.Uri;
-import android.telecom.PhoneCapabilities;
-import android.text.TextUtils;
 
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
+import com.android.incallui.InCallPresenter.IncomingCallListener;
 
 import com.google.common.base.Preconditions;
 
@@ -36,7 +34,7 @@ import java.util.List;
  */
 public class ConferenceManagerPresenter
         extends Presenter<ConferenceManagerPresenter.ConferenceManagerUi>
-        implements InCallStateListener, InCallDetailsListener {
+        implements InCallStateListener, InCallDetailsListener, IncomingCallListener {
 
     private Context mContext;
 
@@ -46,6 +44,7 @@ public class ConferenceManagerPresenter
 
         // register for call state changes last
         InCallPresenter.getInstance().addListener(this);
+        InCallPresenter.getInstance().addIncomingCallListener(this);
     }
 
     @Override
@@ -53,6 +52,7 @@ public class ConferenceManagerPresenter
         super.onUiUnready(ui);
 
         InCallPresenter.getInstance().removeListener(this);
+        InCallPresenter.getInstance().removeIncomingCallListener(this);
     }
 
     @Override
@@ -66,29 +66,40 @@ public class ConferenceManagerPresenter
                             String.valueOf(call.getChildCallIds().size()));
                     update(callList);
                 } else {
-                    getUi().setVisible(false);
+                    InCallPresenter.getInstance().showConferenceCallManager(false);
                 }
             } else {
-                getUi().setVisible(false);
+                InCallPresenter.getInstance().showConferenceCallManager(false);
             }
         }
     }
 
     @Override
     public void onDetailsChanged(Call call, android.telecom.Call.Details details) {
-        boolean canDisconnect = PhoneCapabilities.can(
-                details.getCallCapabilities(), PhoneCapabilities.DISCONNECT_FROM_CONFERENCE);
-        boolean canSeparate = PhoneCapabilities.can(
-                details.getCallCapabilities(), PhoneCapabilities.SEPARATE_FROM_CONFERENCE);
+        boolean canDisconnect = details.can(
+                android.telecom.Call.Details.CAPABILITY_DISCONNECT_FROM_CONFERENCE);
+        boolean canSeparate = details.can(
+                android.telecom.Call.Details.CAPABILITY_SEPARATE_FROM_CONFERENCE);
 
-        if (call.can(PhoneCapabilities.DISCONNECT_FROM_CONFERENCE) != canDisconnect
-                || call.can(PhoneCapabilities.SEPARATE_FROM_CONFERENCE) != canSeparate) {
+        if (call.can(android.telecom.Call.Details.CAPABILITY_DISCONNECT_FROM_CONFERENCE)
+                != canDisconnect
+            || call.can(android.telecom.Call.Details.CAPABILITY_SEPARATE_FROM_CONFERENCE)
+                != canSeparate) {
             getUi().refreshCall(call);
         }
 
-        if (!PhoneCapabilities.can(
-                details.getCallCapabilities(), PhoneCapabilities.MANAGE_CONFERENCE)) {
-            getUi().setVisible(false);
+        if (!details.can(
+                android.telecom.Call.Details.CAPABILITY_MANAGE_CONFERENCE)) {
+            InCallPresenter.getInstance().showConferenceCallManager(false);
+        }
+    }
+
+    @Override
+    public void onIncomingCall(InCallState oldState, InCallState newState, Call call) {
+        // When incoming call exists, set conference ui invisible.
+        if (getUi().isFragmentVisible()) {
+            Log.d(this, "onIncomingCall()... Conference ui is showing, hide it.");
+            InCallPresenter.getInstance().showConferenceCallManager(false);
         }
     }
 
@@ -117,9 +128,8 @@ public class ConferenceManagerPresenter
 
         Log.d(this, "Number of calls is " + String.valueOf(calls.size()));
 
-        // Users can split out a call from the conference call if there either the active call
-        // or the holding call is empty. If both are filled at the moment, users can not split out
-        // another call.
+        // Users can split out a call from the conference call if either the active call or the
+        // holding call is empty. If both are filled, users can not split out another call.
         final boolean hasActiveCall = (callList.getActiveCall() != null);
         final boolean hasHoldingCall = (callList.getBackgroundCall() != null);
         boolean canSeparate = !(hasActiveCall && hasHoldingCall);

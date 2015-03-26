@@ -118,7 +118,7 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
             return false;
         }
         String number = TelephonyManager.getDefault().getVoiceMailNumber(
-                Long.parseLong(account.getId()));
+                Integer.parseInt(account.getId()));
         if (!TextUtils.isEmpty(number)) {
             return true;
         }
@@ -139,7 +139,7 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
             intent.setClassName("com.android.phone",
                     "com.android.phone.MSimCallFeaturesSubSetting");
-            intent.putExtra(PhoneConstants.SUBSCRIPTION_KEY, Long.parseLong(account.getId()));
+            intent.putExtra(PhoneConstants.SUBSCRIPTION_KEY, Integer.parseInt(account.getId()));
         } else {
             intent.setClassName("com.android.phone",
                     "com.android.phone.CallFeaturesSetting");
@@ -227,12 +227,12 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
             PhoneAccountHandle accountHandle = getItem(position);
             PhoneAccount account = mTelecomManager.getPhoneAccount(accountHandle);
             if (MoreContactUtils.shouldShowOperator(mContext)) {
-                Long subId = Long.parseLong(accountHandle.getId());
+                int subId = Integer.parseInt(accountHandle.getId());
                 holder.textView.setText(MoreContactUtils.getNetworkSpnName(mContext, subId));
             } else {
                 holder.textView.setText(account.getLabel());
             }
-            holder.imageView.setImageDrawable(account.getIcon(mContext));
+            holder.imageView.setImageDrawable(account.createIconDrawable(mContext));
             return rowView;
         }
 

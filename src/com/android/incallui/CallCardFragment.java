@@ -601,7 +601,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         setPrimaryLabel(label);
 
         showCallTypeLabel(isSipCall, isForwarded);
-        if(isRcsAvailable()){
+        if (mRcsRichScreen != null && isRcsAvailable()) {
             String rcsnumber = null;
             if(!nameIsNumber){
                 rcsnumber = number;
@@ -671,7 +671,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             return;
         }
         // update Rcs RichScreen by call state
-        if (isRcsAvailable()) {
+        if (mRcsRichScreen != null && isRcsAvailable()) {
            mRcsRichScreen.updateRichScreenByCallState(state,videoState);
         }
 

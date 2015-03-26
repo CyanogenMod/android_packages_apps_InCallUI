@@ -36,6 +36,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -769,10 +770,57 @@ public class InCallActivity extends Activity {
                 && (code == DisconnectCause.ERROR || code == DisconnectCause.RESTRICTED)) {
             if (isConferenceDialString(call.getNumber())){
                 showErrorDialog(getString(R.string.dial_conference_call_error));
-            }else{
-                showErrorDialog(disconnectCause.getDescription());
+            } else {
+                final Context context = getApplicationContext();
+                if (context.getResources()
+                        .getBoolean(R.bool.config_telephony_enable_apm_setting_launch)) {
+                    int airplaneMode = Settings.Global.getInt(
+                            context.getContentResolver(),
+                            Settings.Global.AIRPLANE_MODE_ON, 0);
+                    Log.d(this, "config_telephony_enable_apm_launch_dialog is true & APM = "
+                            + airplaneMode);
+                    if (airplaneMode == 1) {
+                        dismissPendingDialogs();
+                        launchApmConfirmationDialog();
+                    }
+                } else {
+                   showErrorDialog(disconnectCause.getDescription());
+                }
             }
         }
+    }
+
+    /*
+     * This function handles launching of the airplane mode screen after
+     * user confirms in the dialog
+     */
+    private void launchApmConfirmationDialog() {
+        Log.d(this, "launchApmConfirmationDialog");
+        mDialog = new AlertDialog.Builder(this)
+            .setMessage(R.string.apm_turn_on_confirmation)
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d(this, "User confirmed to start APM Activity");
+                    Intent apmLaunchIntent =
+                        new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+                    apmLaunchIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                    apmLaunchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(apmLaunchIntent);
+                    Log.d(this, "apmLaunchIntent = " + apmLaunchIntent);
+                    onDialogDismissed();
+                }})
+            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    onDialogDismissed();
+                }})
+            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                    public void onCancel(DialogInterface dialog) {
+                        onDialogDismissed();
+                    }}).create();
+        mDialog.show();
     }
 
     private boolean isConferenceDialString(String number) {
@@ -906,7 +954,7 @@ public class InCallActivity extends Activity {
         ActionBar bar = getActionBar();
 
         for (int i = 0; i < phoneCount; i++) {
-            long[] subId = CallList.getInstance().getSubId(i);
+            int[] subId = CallList.getInstance().getSubId(i);
             if (subId != null && CallList.getInstance().hasAnyLiveCall(subId[0])) {
                 if (!mDsdaTabAdd[i]) {
                     addDsdaTab(i);
@@ -974,7 +1022,7 @@ public class InCallActivity extends Activity {
             //setting active subscription automatically when call on one sub
             //ends and it's corresponding tab is removed.For such cases active
             //subscription will be set by InCallPresenter.attemptFinishActivity.
-            long[] subId = CallList.getInstance().getSubId(mPhoneId);
+            int[] subId = CallList.getInstance().getSubId(mPhoneId);
             if (tabCount != TAB_COUNT_ONE && CallList.getInstance().hasAnyLiveCall(subId[0])
                     && (CallList.getInstance().getActiveSubscription() != subId[0])) {
                 Log.i(this, "Switch to other active sub: " + subId[0]);

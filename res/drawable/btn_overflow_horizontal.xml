@@ -15,7 +15,8 @@ Copyright (C) 2015 The CyanogenMod Project
 -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/btn_background" />
+    <item android:id="@+id/backgroundItem"
+          android:drawable="@drawable/btn_background" />
 
     <item>
         <inset

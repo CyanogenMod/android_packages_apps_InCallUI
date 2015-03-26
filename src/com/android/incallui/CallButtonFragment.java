@@ -76,7 +76,6 @@ public class CallButtonFragment
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
     private PopupMenu mOverflowPopup;
-    private PopupMenu mMoreMenu;
 
     private int mPrevAudioMode = 0;
 
@@ -244,9 +243,7 @@ public class CallButtonFragment
         };
 
         for (View button : compoundButtons) {
-            final LayerDrawable layers = (LayerDrawable) button.getBackground();
-            final RippleDrawable btnCompoundDrawable = compoundBackgroundDrawable(themeColors);
-            layers.setDrawableByLayerId(R.id.compoundBackgroundItem, btnCompoundDrawable);
+            recolorCompoundDrawableBackground(button, themeColors);
         }
 
         ImageButton[] normalButtons = {
@@ -259,12 +256,25 @@ public class CallButtonFragment
         };
 
         for (ImageButton button : normalButtons) {
-            final LayerDrawable layers = (LayerDrawable) button.getBackground();
-            final RippleDrawable btnDrawable = backgroundDrawable(themeColors);
-            layers.setDrawableByLayerId(R.id.backgroundItem, btnDrawable);
+            recolorDrawableBackground(button, themeColors);
         }
 
         mCurrentThemeColors = themeColors;
+    }
+
+    /* package */ static void recolorCompoundDrawableBackground(View button,
+            MaterialPalette colors) {
+        final Resources res = button.getContext().getResources();
+        final LayerDrawable layers = (LayerDrawable) button.getBackground();
+        final RippleDrawable btnCompoundDrawable = compoundBackgroundDrawable(res, colors);
+        layers.setDrawableByLayerId(R.id.compoundBackgroundItem, btnCompoundDrawable);
+    }
+
+    /* package */ static void recolorDrawableBackground(View button, MaterialPalette colors) {
+        final Resources res = button.getContext().getResources();
+        final LayerDrawable layers = (LayerDrawable) button.getBackground();
+        final RippleDrawable btnDrawable = backgroundDrawable(res, colors);
+        layers.setDrawableByLayerId(R.id.backgroundItem, btnDrawable);
     }
 
     /**
@@ -272,8 +282,8 @@ public class CallButtonFragment
      * a button with pressed and unpressed states. The unpressed state will be the same color
      * as the rest of the call card, the pressed state will be the dark version of that color.
      */
-    private RippleDrawable compoundBackgroundDrawable(MaterialPalette palette) {
-        Resources res = getResources();
+    private static RippleDrawable compoundBackgroundDrawable(Resources res,
+            MaterialPalette palette) {
         ColorStateList rippleColor =
                 ColorStateList.valueOf(res.getColor(R.color.incall_accent_color));
 
@@ -290,8 +300,7 @@ public class CallButtonFragment
      * Generate a RippleDrawable which will be the background of a button to ensure it
      * is the same color as the rest of the call card.
      */
-    private RippleDrawable backgroundDrawable(MaterialPalette palette) {
-        Resources res = getResources();
+    private static RippleDrawable backgroundDrawable(Resources res, MaterialPalette palette) {
         ColorStateList rippleColor =
                 ColorStateList.valueOf(res.getColor(R.color.incall_accent_color));
 
@@ -303,21 +312,22 @@ public class CallButtonFragment
     }
 
     // state_selected and state_focused
-    private void addSelectedAndFocused(Resources res, StateListDrawable drawable) {
+    private static void addSelectedAndFocused(Resources res, StateListDrawable drawable) {
         int[] selectedAndFocused = {android.R.attr.state_selected, android.R.attr.state_focused};
         Drawable selectedAndFocusedDrawable = res.getDrawable(R.drawable.btn_selected_focused);
         drawable.addState(selectedAndFocused, selectedAndFocusedDrawable);
     }
 
     // state_focused
-    private void addFocused(Resources res, StateListDrawable drawable) {
+    private static void addFocused(Resources res, StateListDrawable drawable) {
         int[] focused = {android.R.attr.state_focused};
         Drawable focusedDrawable = res.getDrawable(R.drawable.btn_unselected_focused);
         drawable.addState(focused, focusedDrawable);
     }
 
     // state_selected
-    private void addSelected(Resources res, StateListDrawable drawable, MaterialPalette palette) {
+    private static void addSelected(Resources res, StateListDrawable drawable,
+            MaterialPalette palette) {
         int[] selected = {android.R.attr.state_selected};
         LayerDrawable selectedDrawable = (LayerDrawable) res.getDrawable(R.drawable.btn_selected);
         ((GradientDrawable) selectedDrawable.getDrawable(0)).setColor(palette.mSecondaryColor);
@@ -325,7 +335,8 @@ public class CallButtonFragment
     }
 
     // default
-    private void addUnselected(Resources res, StateListDrawable drawable, MaterialPalette palette) {
+    private static void addUnselected(Resources res, StateListDrawable drawable,
+            MaterialPalette palette) {
         LayerDrawable unselectedDrawable =
                 (LayerDrawable) res.getDrawable(R.drawable.btn_unselected);
         ((GradientDrawable) unselectedDrawable.getDrawable(0)).setColor(palette.mPrimaryColor);
@@ -602,11 +613,6 @@ public class CallButtonFragment
         menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
         menu.findItem(R.id.overflow_manage_conference_menu_item).setVisible(
             showManageConferenceVideoCallOption);
-
-        if (mMoreMenu != null) {
-            menu = mMoreMenu.getMenu();
-            menu.findItem(R.id.menu_start_record).setVisible(true);
-        }
 
         mOverflowButton.setEnabled(menu.hasVisibleItems());
     }

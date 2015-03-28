@@ -808,6 +808,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
             return false;
         }
 
+        if (isVBHiddenByOverride()) {
+            return false;
+        }
+
         int mode = AudioModeProvider.getInstance().getAudioMode();
         int settingsTtyMode = Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.PREFERRED_TTY_MODE, TelecomManager.TTY_MODE_OFF);
@@ -827,6 +831,10 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> i
     private void setVolumeBoost(boolean on) {
         final String value = on ? "=on" : "=off";
         mAudioManager.setParameters(VOLUME_BOOST_PARAMETER + value);
+    }
+
+    private boolean isVBHiddenByOverride() {
+        return mContext.getResources().getBoolean(R.bool.config_disable_audio_boost);
     }
 
     private void updateVBButton() {

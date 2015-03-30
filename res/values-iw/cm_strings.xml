@@ -22,6 +22,7 @@
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">חיוג (ממתין\u2026)</string>
   <string name="onscreenBlacklistText">רשימה שחורה</string>
+  <string name="call_recording_failed_message">נכשל בהתחלת הקלטת השיחה</string>
   <string name="blacklist_dialog_title">הוסף לרשימה שחורה</string>
   <string name="blacklist_dialog_message">שיחות עתידיות מ-<xliff:g id="number">%s</xliff:g> ייחסמו</string>
   <string name="card_title_video_call_paused">שיחת וידאו (מושהה)</string>
@@ -36,6 +37,7 @@
   <string name="player_stopped">נגן עצר</string>
   <string name="camera_not_ready">המצלמה לא מוכנה</string>
   <string name="camera_ready">המצלמה מוכנה</string>
+  <string name="unknown_call_session_event">אירוע שיחה לא ידועה</string>
   <string name="volume_boost_notify_enabled">הגברת עוצמת קול מופעלת</string>
   <string name="volume_boost_notify_disabled">הגברת עוצמת קול כבויה</string>
   <string name="volume_boost_notify_unavailable">הגברת ווליום אינה אפשרית בשימוש עם אוזניות</string>

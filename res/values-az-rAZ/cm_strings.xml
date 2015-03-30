@@ -17,6 +17,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Qrup bütün gələn zəngləri əngəlləndi.</string>
   <string name="callUnanswered_forwarded">Zəng cavablanmayıb yönləndirildi</string>
   <string name="incall_call_type_label_forwarded">Yönləndirilmiş zəng</string>
 </resources>

@@ -277,8 +277,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         maybeShowManageConferenceCallButton();
 
         //Note that both primary and secondary calls can be modified
-        final boolean isModifyRequest = isPendingModifyRequest(mPrimary) ||
-                isPendingModifyRequest(mSecondary);
+        final boolean isModifyRequest = CallUtils.isPendingModifyRequest(mPrimary) ||
+                CallUtils.isPendingModifyRequest(mSecondary);
 
         final boolean enableEndCallButton = Call.State.isConnectingOrConnected(callState) &&
                 callState != Call.State.INCOMING && mPrimary != null && !isModifyRequest;
@@ -287,13 +287,6 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         getUi().setEndCallButtonEnabled(
                 enableEndCallButton, callState != Call.State.INCOMING &&
                 !isModifyRequest /* animate */);
-    }
-
-    //Return TRUE if there is a modify request pending user action
-    boolean isPendingModifyRequest(Call call) {
-        return (call != null && call.getSessionModificationState() ==
-                Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST);
-
     }
 
     @Override

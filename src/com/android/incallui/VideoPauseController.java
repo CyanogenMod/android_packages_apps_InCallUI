@@ -187,6 +187,10 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
             // Bring UI to foreground if VoLTE call becomes active while UI is in
             // background.
             bringToForeground();
+        } else if (CallUtils.isPendingModifyRequest(call) && mIsInBackground) {
+            // Bring UI to foreground if upgrade request is received while UI is in
+            // background.
+            bringToForeground();
         }
 
         updatePrimaryCallContext(call);

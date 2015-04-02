@@ -86,4 +86,9 @@ public class CallUtils {
         return videoState | VideoProfile.VideoState.PAUSED;
     }
 
+    //Return TRUE if there is a modify request pending user action
+    public static boolean isPendingModifyRequest(Call call) {
+        return (call != null && call.getSessionModificationState() ==
+                Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST);
+    }
 }

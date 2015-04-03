@@ -482,6 +482,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         Log.d(this, "onPrimaryCallChanged: isVideoCall=" + isVideoCall + " isVideoMode="
                 + isVideoMode);
 
+        updateAudioMode(false);
+
         if (!isVideoCall && isVideoMode) {
             // Terminate video mode if new primary call is not a video call
             // and we are currently in video mode.

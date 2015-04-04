@@ -36,4 +36,10 @@
 
     <item android:id="@+id/overflow_manage_conference_menu_item"
           android:title="@string/overflowManageConferenceMenuItemText" />
+
+    <item android:id="@+id/overflow_call_record_menu_item"
+          android:title="@string/menu_start_record" />
+
+    <item android:id="@+id/overflow_add_to_blacklist_menu_item"
+          android:title="@string/menu_add_to_blacklist" />
 </menu>

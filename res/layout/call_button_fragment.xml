@@ -159,18 +159,32 @@
             android:contentDescription="@string/onscreenPauseVideoText"
             android:visibility="gone" />
 
-        <!-- "Overflow" -->
-        <ImageButton android:id="@+id/overflowButton"
-            style="@style/InCallButton"
-            android:background="@drawable/btn_overflow"
-            android:contentDescription="@string/onscreenOverflowText"
-            android:visibility="gone" />
-
         <!-- "Manage conference button (Video Call) " -->
         <ImageButton android:id="@+id/manageVideoCallConferenceButton"
             style="@style/InCallButton"
             android:background="@drawable/ic_group_white_24dp"
             android:contentDescription="@string/onscreenManageConferenceText"
+            android:visibility="gone" />
+
+        <!-- "Record call" -->
+        <ToggleButton android:id="@+id/callRecordButton"
+            style="@style/InCallCompoundButton"
+            android:background="@drawable/btn_compound_record"
+            android:contentDescription="@string/onscreenCallRecordText"
+            android:visibility="gone" />
+
+        <!-- "Add to blacklist" -->
+        <ImageButton android:id="@+id/addToBlacklistButton"
+            style="@style/InCallButton"
+            android:background="@drawable/btn_add_to_blacklist"
+            android:contentDescription="@string/onscreenAddToBlacklistText"
+            android:visibility="gone" />
+
+        <!-- "Overflow" -->
+        <ImageButton android:id="@+id/overflowButton"
+            style="@style/InCallButton"
+            android:background="@drawable/btn_overflow"
+            android:contentDescription="@string/onscreenOverflowText"
             android:visibility="gone" />
 
     </LinearLayout>

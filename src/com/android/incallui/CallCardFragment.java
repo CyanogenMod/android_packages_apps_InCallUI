@@ -64,7 +64,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,8 +103,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private View mCallNumberAndLabel;
     private ImageView mPhoto;
     private TextView mElapsedTime;
-    private ImageButton mMoreMenuButton;
-    private MorePopupMenu mMoreMenu;
     private Drawable mPrimaryPhotoDrawable;
 
     // Container view that houses the entire primary call card, including the call buttons
@@ -277,23 +274,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mCallButtonsContainer = view.findViewById(R.id.callButtonFragment);
         mInCallMessageLabel = (TextView) view.findViewById(R.id.connectionServiceMessage);
         mProgressSpinner = view.findViewById(R.id.progressSpinner);
-
-        mMoreMenuButton = (ImageButton) view.findViewById(R.id.moreMenuButton);
-        final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
-                R.style.InCallPopupMenuStyle);
-        mMoreMenu = new MorePopupMenu(contextWrapper, mMoreMenuButton /* anchorView */);
-        mMoreMenu.getMenuInflater().inflate(R.menu.incall_more_menu, mMoreMenu.getMenu());
-        mMoreMenuButton.setOnTouchListener(mMoreMenu.getDragToOpenListener());
-        mMoreMenuButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Call call = CallList.getInstance().getActiveOrBackgroundCall();
-                if (call != null) {
-                    updateMoreMenuByCall(call.getState());
-                }
-                mMoreMenu.show();
-            }
-        });
 
         CallRecorder recorder = CallRecorder.getInstance();
         recorder.addRecordingProgressListener(mRecordingProgressListener);
@@ -618,7 +598,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 isGatewayCall, isWaitingForRemoteSide);
 
         updateVBbyCall(state);
-        updateMoreMenuByCall(state);
 
         Log.v(this, "setCallState " + callStateLabel);
         Log.v(this, "DisconnectCause " + disconnectCause.toString());
@@ -993,7 +972,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         mPrimaryCallCardContainer.setBackgroundColor(themeColors.mPrimaryColor);
         mCallButtonsContainer.setBackgroundColor(themeColors.mPrimaryColor);
-        CallButtonFragment.recolorDrawableBackground(mMoreMenuButton, themeColors);
 
         mCurrentThemeColors = themeColors;
     }
@@ -1327,44 +1305,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mVBNotify.show();
     }
 
-    private void updateMoreMenuByCall(int state) {
-        if (mMoreMenuButton == null) {
-            return;
-        }
-
-        final Menu menu = mMoreMenu.getMenu();
-        final MenuItem startRecord = menu.findItem(R.id.menu_start_record);
-        final MenuItem stopRecord = menu.findItem(R.id.menu_stop_record);
-        final MenuItem addToBlacklist = menu.findItem(R.id.menu_add_to_blacklist);
-
-        CallRecorder callRecorder = CallRecorder.getInstance();
-        boolean startEnabled = false;
-        boolean stopEnabled = false;
-        if (callRecorder.isEnabled()) {
-            boolean isRecording = callRecorder.isRecording();
-            startEnabled = !isRecording && state == Call.State.ACTIVE;
-            stopEnabled = isRecording && state == Call.State.ACTIVE;
-        }
-
-        boolean blacklistVisible = BlacklistUtils.isBlacklistEnabled(getActivity())
-                && Call.State.isConnectingOrConnected(state);
-
-        startRecord.setVisible(startEnabled);
-        startRecord.setEnabled(startEnabled);
-
-        stopRecord.setVisible(stopEnabled);
-        stopRecord.setEnabled(stopEnabled);
-
-        addToBlacklist.setVisible(blacklistVisible);
-        addToBlacklist.setEnabled(blacklistVisible);
-
-        if (mMoreMenu.getMenu().hasVisibleItems()) {
-            mMoreMenuButton.setVisibility(View.VISIBLE);
-        } else {
-            mMoreMenuButton.setVisibility(View.GONE);
-        }
-    }
-
     private void updateVBbyCall(int state) {
         updateVBButton();
 
@@ -1400,39 +1340,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         super.onDestroy();
         CallRecorder recorder = CallRecorder.getInstance();
         recorder.removeRecordingProgressListener(mRecordingProgressListener);
-    }
-
-    private class MorePopupMenu extends PopupMenu implements PopupMenu.OnMenuItemClickListener {
-        public MorePopupMenu(Context context, View anchor) {
-            super(context, anchor);
-            setOnMenuItemClickListener(this);
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch(item.getItemId()) {
-                case R.id.menu_start_record:
-                    Call call = CallList.getInstance().getActiveCall();
-                    // can't start recording with no active call
-                    if (call != null) {
-                        CallRecorder.getInstance().startRecording(
-                                call.getNumber(), call.getCreateTimeMillis());
-                    }
-                    return true;
-
-                case R.id.menu_stop_record:
-                    CallRecorder callRecorder = CallRecorder.getInstance();
-                    if (callRecorder.isRecording()) {
-                        callRecorder.finishRecording();
-                    }
-                    return true;
-
-                case R.id.menu_add_to_blacklist:
-                    getPresenter().blacklistClicked(getActivity());
-                    return true;
-            }
-            return true;
-        }
     }
 
     private void setDetailedInfo(String nickName, String organization,

@@ -71,7 +71,8 @@
     <string name="volume_boost_notify_unavailable">Extra volume is not available when using a headset</string>
     <string name="volume_boost_toast_position" translatable="false">600</string>
 
-    <string name="onscreenMoreMenuText">More options</string>
+    <string name="onscreenCallRecordText">Start and stop call recording</string>
+    <string name="onscreenAddToBlacklistText">Add caller to blacklist</string>
     <string name="menu_start_record">Record call</string>
     <string name="menu_stop_record">Stop recording</string>
     <string name="recording_time_text">Recording</string>

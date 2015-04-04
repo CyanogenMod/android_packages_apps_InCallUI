@@ -126,4 +126,6 @@
 
     <dimen name="conference_call_manager_padding_top">64dp</dimen>
     <dimen name="conference_call_manager_button_dimension">46dp</dimen>
+
+    <integer name="max_call_button_count">5</integer>
 </resources>

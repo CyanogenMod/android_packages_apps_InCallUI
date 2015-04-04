@@ -69,15 +69,18 @@ public class CallButtonFragment
     private ImageButton mAddCallButton;
     private ImageButton mMergeButton;
     private CompoundButton mPauseVideoButton;
-    private ImageButton mOverflowButton;
     private ImageButton mAddParticipantButton;
     private ImageButton mManageVideoCallConferenceButton;
+    private CompoundButton mCallRecordButton;
+    private ImageButton mAddToBlacklistButton;
+    private ImageButton mOverflowButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
     private PopupMenu mOverflowPopup;
 
     private int mPrevAudioMode = 0;
+    private boolean mRecordingCall;
 
     // Constants for Drawable.setAlpha()
     private static final int HIDDEN = 0;
@@ -131,11 +134,15 @@ public class CallButtonFragment
         mPauseVideoButton.setOnClickListener(this);
         mAddParticipantButton = (ImageButton) parent.findViewById(R.id.addParticipant);
         mAddParticipantButton.setOnClickListener(this);
-        mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
-        mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
             R.id.manageVideoCallConferenceButton);
         mManageVideoCallConferenceButton.setOnClickListener(this);
+        mCallRecordButton = (CompoundButton) parent.findViewById(R.id.callRecordButton);
+        mCallRecordButton.setOnClickListener(this);
+        mAddToBlacklistButton = (ImageButton) parent.findViewById(R.id.addToBlacklistButton);
+        mAddToBlacklistButton.setOnClickListener(this);
+        mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
+        mOverflowButton.setOnClickListener(this);
 
         return parent;
     }
@@ -206,6 +213,12 @@ public class CallButtonFragment
                 getPresenter().pauseVideoClicked(
                         !mPauseVideoButton.isSelected() /* pause */);
                 break;
+            case R.id.callRecordButton:
+                getPresenter().callRecordClicked(!mCallRecordButton.isSelected());
+                break;
+            case R.id.addToBlacklistButton:
+                getPresenter().addToBlacklistClicked();
+                break;
             case R.id.overflowButton:
                 mOverflowPopup.show();
                 break;
@@ -239,11 +252,15 @@ public class CallButtonFragment
                 mShowDialpadButton,
                 mHoldButton,
                 mSwitchCameraButton,
-                mPauseVideoButton
+                mPauseVideoButton,
+                mCallRecordButton
         };
 
         for (View button : compoundButtons) {
-            recolorCompoundDrawableBackground(button, themeColors);
+            final LayerDrawable layers = (LayerDrawable) button.getBackground();
+            final RippleDrawable btnCompoundDrawable =
+                    compoundBackgroundDrawable(res, themeColors);
+            layers.setDrawableByLayerId(R.id.compoundBackgroundItem, btnCompoundDrawable);
         }
 
         ImageButton[] normalButtons = {
@@ -252,29 +269,17 @@ public class CallButtonFragment
             mChangeToVideoButton,
             mAddCallButton,
             mMergeButton,
+            mAddToBlacklistButton,
             mOverflowButton
         };
 
         for (ImageButton button : normalButtons) {
-            recolorDrawableBackground(button, themeColors);
+            final LayerDrawable layers = (LayerDrawable) button.getBackground();
+            final RippleDrawable btnDrawable = backgroundDrawable(res, themeColors);
+            layers.setDrawableByLayerId(R.id.backgroundItem, btnDrawable);
         }
 
         mCurrentThemeColors = themeColors;
-    }
-
-    /* package */ static void recolorCompoundDrawableBackground(View button,
-            MaterialPalette colors) {
-        final Resources res = button.getContext().getResources();
-        final LayerDrawable layers = (LayerDrawable) button.getBackground();
-        final RippleDrawable btnCompoundDrawable = compoundBackgroundDrawable(res, colors);
-        layers.setDrawableByLayerId(R.id.compoundBackgroundItem, btnCompoundDrawable);
-    }
-
-    /* package */ static void recolorDrawableBackground(View button, MaterialPalette colors) {
-        final Resources res = button.getContext().getResources();
-        final LayerDrawable layers = (LayerDrawable) button.getBackground();
-        final RippleDrawable btnDrawable = backgroundDrawable(res, colors);
-        layers.setDrawableByLayerId(R.id.backgroundItem, btnDrawable);
     }
 
     /**
@@ -282,8 +287,7 @@ public class CallButtonFragment
      * a button with pressed and unpressed states. The unpressed state will be the same color
      * as the rest of the call card, the pressed state will be the dark version of that color.
      */
-    private static RippleDrawable compoundBackgroundDrawable(Resources res,
-            MaterialPalette palette) {
+    private RippleDrawable compoundBackgroundDrawable(Resources res, MaterialPalette palette) {
         ColorStateList rippleColor =
                 ColorStateList.valueOf(res.getColor(R.color.incall_accent_color));
 
@@ -300,7 +304,7 @@ public class CallButtonFragment
      * Generate a RippleDrawable which will be the background of a button to ensure it
      * is the same color as the rest of the call card.
      */
-    private static RippleDrawable backgroundDrawable(Resources res, MaterialPalette palette) {
+    private RippleDrawable backgroundDrawable(Resources res, MaterialPalette palette) {
         ColorStateList rippleColor =
                 ColorStateList.valueOf(res.getColor(R.color.incall_accent_color));
 
@@ -312,22 +316,21 @@ public class CallButtonFragment
     }
 
     // state_selected and state_focused
-    private static void addSelectedAndFocused(Resources res, StateListDrawable drawable) {
+    private void addSelectedAndFocused(Resources res, StateListDrawable drawable) {
         int[] selectedAndFocused = {android.R.attr.state_selected, android.R.attr.state_focused};
         Drawable selectedAndFocusedDrawable = res.getDrawable(R.drawable.btn_selected_focused);
         drawable.addState(selectedAndFocused, selectedAndFocusedDrawable);
     }
 
     // state_focused
-    private static void addFocused(Resources res, StateListDrawable drawable) {
+    private void addFocused(Resources res, StateListDrawable drawable) {
         int[] focused = {android.R.attr.state_focused};
         Drawable focusedDrawable = res.getDrawable(R.drawable.btn_unselected_focused);
         drawable.addState(focused, focusedDrawable);
     }
 
     // state_selected
-    private static void addSelected(Resources res, StateListDrawable drawable,
-            MaterialPalette palette) {
+    private void addSelected(Resources res, StateListDrawable drawable, MaterialPalette palette) {
         int[] selected = {android.R.attr.state_selected};
         LayerDrawable selectedDrawable = (LayerDrawable) res.getDrawable(R.drawable.btn_selected);
         ((GradientDrawable) selectedDrawable.getDrawable(0)).setColor(palette.mSecondaryColor);
@@ -335,7 +338,7 @@ public class CallButtonFragment
     }
 
     // default
-    private static void addUnselected(Resources res, StateListDrawable drawable,
+    private void addUnselected(Resources res, StateListDrawable drawable,
             MaterialPalette palette) {
         LayerDrawable unselectedDrawable =
                 (LayerDrawable) res.getDrawable(R.drawable.btn_unselected);
@@ -362,9 +365,11 @@ public class CallButtonFragment
         mAddCallButton.setEnabled(isEnabled);
         mMergeButton.setEnabled(isEnabled);
         mPauseVideoButton.setEnabled(isEnabled);
-        mOverflowButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
+        mCallRecordButton.setEnabled(isEnabled);
+        mAddToBlacklistButton.setEnabled(isEnabled);
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
+        mOverflowButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -442,10 +447,12 @@ public class CallButtonFragment
         mAddCallButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    public void enableAddParticipant(boolean show) {
+    @Override
+    public void showAddParticipantButton(boolean show) {
         mAddParticipantButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    @Override
     public void showManageConferenceVideoCallButton(boolean show) {
         mManageVideoCallConferenceButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
@@ -468,6 +475,23 @@ public class CallButtonFragment
     @Override
     public void setPauseVideoButton(boolean isPaused) {
         mPauseVideoButton.setSelected(isPaused);
+    }
+
+    @Override
+    public void showCallRecordButton(boolean show) {
+        mCallRecordButton.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setCallRecordButton(boolean isRecording) {
+        mCallRecordButton.setSelected(isRecording);
+        mRecordingCall = isRecording;
+        updateCallRecordMenuItemTitle();
+    }
+
+    @Override
+    public void showAddToBlacklistButton(boolean show) {
+        mAddToBlacklistButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -555,7 +579,8 @@ public class CallButtonFragment
     @Override
     public void configureOverflowMenu(boolean showMergeMenuOption, boolean showAddMenuOption,
             boolean showHoldMenuOption, boolean showSwapMenuOption,
-            boolean showAddParticipantOption, boolean showManageConferenceVideoCallOption) {
+            boolean showAddParticipantOption, boolean showManageConferenceVideoCallOption,
+            boolean showCallRecordOption, boolean showAddToBlacklistOption) {
         if (mOverflowPopup == null) {
             final ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(),
                     R.style.InCallPopupMenuStyle);
@@ -583,6 +608,12 @@ public class CallButtonFragment
                             break;
                         case R.id.overflow_add_participant_menu_item:
                             getPresenter().addParticipantClicked();
+                            break;
+                        case R.id.overflow_call_record_menu_item:
+                            getPresenter().callRecordClicked(!mRecordingCall);
+                            break;
+                        case R.id.overflow_add_to_blacklist_menu_item:
+                            getPresenter().addToBlacklistClicked();
                             break;
                         case R.id.overflow_manage_conference_menu_item:
                             onManageVideoCallConferenceClicked();
@@ -613,6 +644,11 @@ public class CallButtonFragment
         menu.findItem(R.id.overflow_add_participant_menu_item).setVisible(showAddParticipantOption);
         menu.findItem(R.id.overflow_manage_conference_menu_item).setVisible(
             showManageConferenceVideoCallOption);
+        menu.findItem(R.id.overflow_add_to_blacklist_menu_item).setVisible(
+                showAddToBlacklistOption);
+
+        menu.findItem(R.id.overflow_call_record_menu_item).setVisible(showCallRecordOption);
+        updateCallRecordMenuItemTitle();
 
         mOverflowButton.setEnabled(menu.hasVisibleItems());
     }
@@ -678,6 +714,16 @@ public class CallButtonFragment
         Log.d(this, "- onDismiss: " + menu);
         mAudioModePopupVisible = false;
         updateAudioButtons(getPresenter().getSupportedAudio());
+    }
+
+    private void updateCallRecordMenuItemTitle() {
+        if (mOverflowPopup == null) {
+            return;
+        }
+        MenuItem callRecordItem = mOverflowPopup.getMenu().findItem(
+                R.id.overflow_call_record_menu_item);
+        callRecordItem.setTitle(mRecordingCall
+                ? R.string.menu_stop_record : R.string.menu_start_record);
     }
 
     /**

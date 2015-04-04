@@ -29,49 +29,33 @@
          will expand to fill the full height of the CallCard. -->
 
     <!-- Primary "call card" block, for the foreground call. -->
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/primary_call_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:elevation="@dimen/primary_call_elevation"
         android:background="@color/incall_call_banner_background_color"
+        android:paddingTop="@dimen/call_banner_primary_call_container_top_padding"
         android:clipChildren="false"
         android:clipToPadding="false">
 
-        <LinearLayout
+        <include layout="@layout/primary_call_info" />
+
+        <fragment android:name="com.android.incallui.CallButtonFragment"
+            android:id="@+id/callButtonFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView android:id="@+id/connectionServiceMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/call_banner_primary_call_container_top_padding"
-            android:orientation="vertical">
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="gone"
+            android:padding="@dimen/call_banner_side_padding"
+            android:background="@android:color/white" />
 
-            <include layout="@layout/primary_call_info" />
-
-            <fragment android:name="com.android.incallui.CallButtonFragment"
-                android:id="@+id/callButtonFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView android:id="@+id/connectionServiceMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="gone"
-                android:padding="@dimen/call_banner_side_padding"
-                android:background="@android:color/white" />
-
-        </LinearLayout>
-
-        <!--  More menu overflow button for call recording, blacklisting
-              only visible during the call. It sits above the primary call info
-              container in the top-right hand corner. -->
-        <ImageButton
-            android:id="@+id/moreMenuButton"
-            style="@style/InCallButton"
-            android:layout_gravity="top|end"
-            android:background="@drawable/btn_overflow_horizontal"
-            android:contentDescription="@string/onscreenMoreMenuText"/>
-
-    </FrameLayout>
+    </LinearLayout>
 
     <!-- Contact photo for primary call info -->
     <ImageView android:id="@+id/photo"

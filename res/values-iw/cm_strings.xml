@@ -18,7 +18,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_incoming_cb_enabled">שיחת ועידה הגבילה את האפשרות לקבלת שיחות נכנסות.</string>
-  <string name="callUnanswered_forwarded">שיחה לא נענתה או הועברה</string>
+  <string name="callUnanswered_forwarded">שיחה שהועברה מבלי להיענות</string>
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">חיוג (ממתין\u2026)</string>
   <string name="onscreenBlacklistText">רשימה שחורה</string>
@@ -45,8 +45,8 @@
   <string name="menu_start_record">הקלט שיחה</string>
   <string name="menu_stop_record">הפסק הקלטה</string>
   <string name="recording_time_text">מקליט</string>
-  <string name="sub_1">סים 1</string>
-  <string name="sub_2">סים 2</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">שיחה חודשה</string>
   <string name="call_substate_connected_suspended_audio">השיחה מחוברת, אבל הקול מושהה</string>
   <string name="call_substate_connected_suspended_video">השיחה מחוברת, אבל הוידאו מושהה</string>

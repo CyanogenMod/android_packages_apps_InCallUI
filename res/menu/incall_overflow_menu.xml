@@ -44,4 +44,7 @@
 
     <item android:id="@+id/overflow_manage_conference_menu_item"
           android:title="@string/overflowManageConferenceMenuItemText" />
+
+    <item android:id="@+id/overflow_end_active_accept_incoming_menu_item"
+          android:title="@string/end_active_accept_mt_call" />
 </menu>

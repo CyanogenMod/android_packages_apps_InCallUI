@@ -65,9 +65,9 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         } else if (action.equals(ACTION_HANG_UP_ONGOING_CALL)) {
             InCallPresenter.getInstance().hangUpOngoingCall(context);
         } else if (action.equals(ACTION_ACCEPT_VIDEO_UPGRADE_REQUEST)) {
-            //TODO: Change calltype after adding support for TX and RX
-            InCallPresenter.getInstance().acceptUpgradeRequest(
-                    VideoProfile.STATE_BIDIRECTIONAL, context);
+            InCallPresenter inCallPresenter = InCallPresenter.getInstance();
+            inCallPresenter.acceptUpgradeRequest(context);
+            inCallPresenter.bringToForeground(false);
         } else if (action.equals(ACTION_DECLINE_VIDEO_UPGRADE_REQUEST)) {
             InCallPresenter.getInstance().declineUpgradeRequest(context);
         } else if (action.equals(ACTION_ANSWER_MORE_INCOMING_CALL)) {

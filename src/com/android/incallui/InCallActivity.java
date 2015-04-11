@@ -403,7 +403,7 @@ public class InCallActivity extends Activity {
             case END_ACTIVE_ACCEPT_INCOMING_MT:
             {
                 Log.w(this, "onOptionsItemSelected : END_ACTIVE_ACCEPT_INCOMING_MT = " + item);
-                mAnswerFragment.onAnswer(0, getApplicationContext());
+                endActiveAcceptMT();
                 return true;
             }
         }
@@ -1129,18 +1129,25 @@ public class InCallActivity extends Activity {
         return false;
     }
 
+    public boolean canEndActiveAcceptMT() {
+        Call incomingCall = CallList.getInstance().getIncomingCall();
+        Call activeCall = CallList.getInstance().getActiveCall();
+        Call backgroundCall = CallList.getInstance().getBackgroundCall();
+        return incomingCall != null && activeCall != null && backgroundCall != null;
+    }
+
+    public void endActiveAcceptMT() {
+        mAnswerFragment.onAnswer(0, getApplicationContext());
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         Log.d(this, "onPrepareOptionsMenu");
         super.onPrepareOptionsMenu(menu);
 
-        Call incomingCall = CallList.getInstance().getIncomingCall();
-        Call activeCall = CallList.getInstance().getActiveCall();
-        Call backgroundCall = CallList.getInstance().getBackgroundCall();
         MenuItem currentSelection = menu.findItem(END_ACTIVE_ACCEPT_INCOMING_MT);
-
         if (currentSelection != null) {
-            if (incomingCall != null && activeCall != null && backgroundCall != null) {
+            if (canEndActiveAcceptMT()) {
                 currentSelection.setVisible(true);
                 Log.d(this, "setVisible =  to true");
                 return true;

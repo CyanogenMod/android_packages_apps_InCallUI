@@ -66,11 +66,6 @@
     <!-- Message indicating unknown call session event -->
     <string name="unknown_call_session_event">Unknown call session event</string>
 
-    <string name="volume_boost_notify_enabled">Volume boost is enabled</string>
-    <string name="volume_boost_notify_disabled">Volume boost is disabled</string>
-    <string name="volume_boost_notify_unavailable">Extra volume is not available when using a headset</string>
-    <string name="volume_boost_toast_position" translatable="false">600</string>
-
     <string name="onscreenCallRecordText">Start and stop call recording</string>
     <string name="onscreenAddToBlacklistText">Add caller to blacklist</string>
     <string name="menu_start_record">Record call</string>

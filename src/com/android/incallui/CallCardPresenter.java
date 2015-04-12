@@ -22,8 +22,11 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telecom.AudioState;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
@@ -35,6 +38,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
@@ -53,9 +57,9 @@ import com.google.common.base.Preconditions;
  * <p>
  * This class listens for changes to InCallState and passes it along to the fragment.
  */
-public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
-        implements InCallStateListener, IncomingCallListener, InCallDetailsListener,
-        InCallEventListener {
+public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi> implements
+        InCallStateListener, IncomingCallListener, InCallDetailsListener,
+        InCallEventListener, AudioModeListener {
 
     private static final String TAG = CallCardPresenter.class.getSimpleName();
     private static final long CALL_TIME_UPDATE_INTERVAL_MS = 1000;
@@ -65,12 +69,15 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private static final String IDP_ZERO = "0";
     private static final String IDP_PREFIX = "01033";
 
+    private static final String VOLUME_BOOST_PARAMETER = "volume_boost";
+
     private Call mPrimary;
     private Call mSecondary;
     private ContactCacheEntry mPrimaryContactInfo;
     private ContactCacheEntry mSecondaryContactInfo;
     private CallTimer mCallTimer;
     private Context mContext;
+    private AudioManager mAudioManager;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -111,6 +118,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
     public void init(Context context, Call call) {
         mContext = Preconditions.checkNotNull(context);
+        mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
         // Call may be null if disconnect happened already.
         if (call != null) {
@@ -139,6 +147,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         InCallPresenter.getInstance().addIncomingCallListener(this);
         InCallPresenter.getInstance().addDetailsListener(this);
         InCallPresenter.getInstance().addInCallEventListener(this);
+        AudioModeProvider.getInstance().addListener(this);
     }
 
     @Override
@@ -150,6 +159,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         InCallPresenter.getInstance().removeIncomingCallListener(this);
         InCallPresenter.getInstance().removeDetailsListener(this);
         InCallPresenter.getInstance().removeInCallEventListener(this);
+        AudioModeProvider.getInstance().removeListener(this);
 
         mPrimary = null;
         mPrimaryContactInfo = null;
@@ -254,6 +264,11 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     false);
         }
 
+        if (!callList.hasAnyLiveCall() && isVolumeBoostEnabled()) {
+            setVolumeBoost(false);
+        }
+        updateVBButton();
+
         // Hide/show the contact photo based on the video state.
         // If the primary call is a video call on hold, still show the contact photo.
         // If the primary call is an active video call, hide the contact photo.
@@ -294,6 +309,28 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                         android.telecom.Call.Details.CAPABILITY_MANAGE_CONFERENCE)) {
             maybeShowManageConferenceCallButton();
         }
+    }
+
+    @Override
+    public void onAudioMode(int mode) {
+        if (mAudioManager == null) {
+            return;
+        }
+        if (mode == AudioState.ROUTE_EARPIECE || mode == AudioState.ROUTE_BLUETOOTH
+                || mode == AudioState.ROUTE_WIRED_HEADSET || mode == AudioState.ROUTE_SPEAKER) {
+            setVolumeBoost(false);
+            updateVBButton();
+        }
+    }
+
+    @Override
+    public void onSupportedAudioMode(int mask) {
+        // ignored
+    }
+
+    @Override
+    public void onMute(boolean muted) {
+        // ignored
     }
 
     private String getSubscriptionNumber() {
@@ -758,6 +795,48 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         TelecomAdapter.getInstance().disconnectCall(mPrimary.getId());
     }
 
+    public void volumeBoostClicked() {
+        if (isVBAvailable()) {
+            setVolumeBoost(!isVolumeBoostEnabled());
+        }
+
+        updateVBButton();
+    }
+
+    private boolean isVBAvailable() {
+        if (mPrimary == null || mPrimary.getState() != Call.State.ACTIVE) {
+            return false;
+        }
+
+        int mode = AudioModeProvider.getInstance().getAudioMode();
+        int settingsTtyMode = Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.PREFERRED_TTY_MODE, TelecomManager.TTY_MODE_OFF);
+
+        if (mode != AudioState.ROUTE_EARPIECE && mode != AudioState.ROUTE_SPEAKER
+                && settingsTtyMode != TelecomManager.TTY_MODE_HCO) {
+            return false;
+        }
+
+        return !TextUtils.isEmpty(mAudioManager.getParameters(VOLUME_BOOST_PARAMETER));
+    }
+
+    private boolean isVolumeBoostEnabled() {
+        return mAudioManager.getParameters(VOLUME_BOOST_PARAMETER).contains("=on");
+    }
+
+    private void setVolumeBoost(boolean on) {
+        final String value = on ? "=on" : "=off";
+        mAudioManager.setParameters(VOLUME_BOOST_PARAMETER + value);
+    }
+
+    private void updateVBButton() {
+        boolean show = isVBAvailable();
+        boolean on = show && isVolumeBoostEnabled();
+        if (getUi() != null) {
+            getUi().setVolumeBoostButtonState(show, on);
+        }
+    }
+
     private String getNumberFromHandle(Uri handle) {
         return handle == null ? "" : handle.getSchemeSpecificPart();
     }
@@ -818,6 +897,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setCallbackNumber(String number, boolean isEmergencyCalls);
         void setPhotoVisible(boolean isVisible);
         void setProgressSpinnerVisible(boolean visible);
+        void setVolumeBoostButtonState(boolean visible, boolean on);
         void showManageConferenceCallButton(boolean visible);
         boolean isManageConferenceVisible();
     }

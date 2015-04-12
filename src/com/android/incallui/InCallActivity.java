@@ -661,10 +661,6 @@ public class InCallActivity extends Activity {
                     .findFragmentById(R.id.conferenceManagerFragment);
             mConferenceManagerFragment.getView().setVisibility(View.INVISIBLE);
         }
-
-        if (AudioModeProvider.getInstance() != null) {
-            AudioModeProvider.getInstance().setInCallActivity(this);
-        }
     }
 
     /**

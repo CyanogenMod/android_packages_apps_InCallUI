@@ -240,7 +240,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             }
             // mCallId will hold the state of the call. We don't clear the mCall variable here as
             // it may be useful for sending text messages after phone disconnects.
-            mCallId[phoneId] = null;
+            if (!isUpgradePending) {
+                mCallId[phoneId] = null;
+            }
             mHasTextMessages = false;
         } else if (!mHasTextMessages) {
             final List<String> textMsgs = CallList.getInstance().getTextResponses(call.getId());

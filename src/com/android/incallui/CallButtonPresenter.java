@@ -19,6 +19,7 @@ package com.android.incallui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telecom.AudioState;
 import android.telecom.InCallService.VideoCall;
@@ -47,6 +48,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
     private static final String KEY_AUTOMATICALLY_MUTED = "incall_key_automatically_muted";
     private static final String KEY_PREVIOUS_MUTE_STATE = "incall_key_previous_mute_state";
+    private static final String RECORDING_WARNING_PRESENTED = "recording_warning_presented";
 
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
@@ -338,6 +340,30 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     public void callRecordClicked(boolean startRecording) {
         CallRecorder recorder = CallRecorder.getInstance();
         if (startRecording) {
+            Context context = getUi().getContext();
+            final SharedPreferences prefs = InCallApp.getPrefs(context);
+            boolean warningPresented = prefs
+                    .getBoolean(RECORDING_WARNING_PRESENTED, false);
+            if (!warningPresented) {
+                new AlertDialog.Builder(context)
+                        .setTitle(R.string.recording_warning_title)
+                        .setMessage(R.string.recording_warning_text)
+                        .setPositiveButton(R.string.menu_start_record,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        prefs
+                                                .edit()
+                                                .putBoolean(RECORDING_WARNING_PRESENTED, true)
+                                                .apply();
+                                        callRecordClicked(true);
+                                    }
+                                })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .create()
+                        .show();
+                return;
+            }
             recorder.startRecording(mCall.getNumber(),
                     mCall.getCreateTimeMillis());
         } else if (recorder.isRecording()) {

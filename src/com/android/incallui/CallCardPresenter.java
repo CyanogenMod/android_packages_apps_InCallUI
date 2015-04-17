@@ -782,8 +782,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         Log.i(this, "Disconnecting call: " + mPrimary);
         mPrimary.setState(Call.State.DISCONNECTING);
+        Call temp = mPrimary;
         CallList.getInstance().onUpdate(mPrimary);
-        TelecomAdapter.getInstance().disconnectCall(mPrimary.getId());
+        TelecomAdapter.getInstance().disconnectCall(temp.getId());
     }
 
     private String getNumberFromHandle(Uri handle) {

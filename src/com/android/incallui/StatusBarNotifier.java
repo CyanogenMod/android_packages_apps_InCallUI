@@ -31,6 +31,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneCapabilities;
+import android.telecom.VideoProfile;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -330,7 +331,10 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         if (isVideoUpgradeRequest) {
             builder.setUsesChronometer(false);
             addDismissUpgradeRequestAction(builder);
-            addMoreAction(builder);
+            addAcceptUpgradeRequestAction(builder);
+            if (isMoreOptionRequired(call)) {
+                addMoreAction(builder);
+            }
         } else {
             createIncomingCallNotification(call, state, builder);
         }
@@ -344,6 +348,11 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         Log.d(this, "Notifying IN_CALL_NOTIFICATION: " + notification);
         mNotificationManager.notify(IN_CALL_NOTIFICATION, notification);
         mIsShowingNotification = true;
+    }
+
+    static private boolean isMoreOptionRequired(Call call) {
+        return VideoProfile.VideoState.isAudioOnly(call.getVideoState()) &&
+                VideoProfile.VideoState.isBidirectional(call.getModifyToVideoState());
     }
 
     private void createIncomingCallNotification(
@@ -595,6 +604,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener {
         builder.addAction(R.drawable.ic_call_white_24dp,
                 mContext.getText(R.string.notification_action_answer_voice),
                 answerVoicePendingIntent);
+    }
+
+    private void addAcceptUpgradeRequestAction(Notification.Builder builder) {
+        Log.i(this, "Will show \"accept\" video action in the incoming call Notification");
+
+        PendingIntent acceptVideoPendingIntent = createNotificationPendingIntent(
+                mContext, InCallApp.ACTION_ACCEPT_VIDEO_UPGRADE_REQUEST);
+        builder.addAction(0, mContext.getText(R.string.notification_action_accept),
+                acceptVideoPendingIntent);
     }
 
     private void addDismissUpgradeRequestAction(Notification.Builder builder) {

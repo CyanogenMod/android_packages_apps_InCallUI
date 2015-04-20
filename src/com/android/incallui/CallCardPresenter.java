@@ -726,8 +726,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 && mPrimary.getState() == Call.State.ACTIVE) {
             return mContext.getResources().getDrawable(R.drawable.ic_hd_audio);
         }
-
-        return null;
+        return getCallProviderIcon(mPrimary);
     }
 
     private boolean hasOutgoingGatewayCall() {

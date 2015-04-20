@@ -157,15 +157,24 @@ public class CallRecorder implements CallList.Listener {
             try {
                 final CallRecording recording = mService.stopRecording();
                 if (recording != null) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            CallRecordingDataStore dataStore = new CallRecordingDataStore();
-                            dataStore.open(mContext);
-                            dataStore.putRecording(recording);
-                            dataStore.close();
-                        }
-                    }).start();
+                    if (!TextUtils.isEmpty(recording.phoneNumber)) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                CallRecordingDataStore dataStore = new CallRecordingDataStore();
+                                dataStore.open(mContext);
+                                dataStore.putRecording(recording);
+                                dataStore.close();
+                            }
+                        }).start();
+                    } else {
+                        // Data store is an index by number so that we can link recordings in the
+                        // call detail page.  If phone number is not available (conference call or
+                        // unknown number) then just display a toast.
+                        String msg = mContext.getResources().getString(
+                                R.string.call_recording_file_location, recording.fileName);
+                        Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+                    }
                 }
             } catch (RemoteException e) {
                 Log.w(TAG, "Failed to stop recording", e);

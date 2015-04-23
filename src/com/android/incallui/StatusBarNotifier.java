@@ -210,9 +210,11 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         final int contentResId = getContentString(call);
         final String contentTitle = getContentTitle(contactInfo, call);
 
+        final boolean isVideoUpgradeRequest = call.getSessionModificationState()
+                == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST;
         final int notificationType;
         if ((state == Call.State.INCOMING
-                || state == Call.State.CALL_WAITING) &&
+                || state == Call.State.CALL_WAITING || isVideoUpgradeRequest) &&
                         !InCallPresenter.getInstance().isShowingInCallUi()) {
             notificationType = NOTIFICATION_INCOMING_CALL;
         } else {
@@ -237,7 +239,8 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         final PendingIntent inCallPendingIntent = createLaunchPendingIntent();
         builder.setContentIntent(inCallPendingIntent);
 
-        // Set the intent as a full screen intent as well if a call is incoming
+        // Set the intent as a full screen intent as well if a call is incoming or for a
+        // video upgrade request
         if (notificationType == NOTIFICATION_INCOMING_CALL) {
             configureFullScreenIntent(builder, inCallPendingIntent, call);
             // Set the notification category for incoming calls
@@ -251,8 +254,6 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         builder.setLargeIcon(largeIcon);
         builder.setColor(mContext.getResources().getColor(R.color.dialer_theme_color));
 
-        final boolean isVideoUpgradeRequest = call.getSessionModificationState()
-                == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST;
         if (isVideoUpgradeRequest) {
             builder.setUsesChronometer(false);
             addDismissUpgradeRequestAction(builder);

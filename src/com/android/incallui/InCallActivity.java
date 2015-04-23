@@ -411,8 +411,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
             return;
         }
 
-        // Nothing special to do.  Fall back to the default behavior.
-        super.onBackPressed();
+        // Just move the task to back instead of finishing activity.
+        moveTaskToBack(true);
     }
 
     @Override

@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">Soitetaan (odotetaan\u2026)</string>
   <string name="onscreenBlacklistText">Musta lista</string>
   <string name="call_recording_failed_message">Puhelun nauhoitus epäonnistui</string>
+  <string name="call_recording_file_location">Tallennettu nauhoitettu puhelu hakemistoon <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Lisää mustalle listalle</string>
   <string name="blacklist_dialog_message">Tulevat puhelut numerosta <xliff:g id="number">%s</xliff:g> estetään</string>
   <string name="card_title_video_call_paused">Videopuhelu (keskeytetty)</string>

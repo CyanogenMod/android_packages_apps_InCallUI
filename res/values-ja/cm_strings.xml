@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">ダイヤル中（待機中\u2026）</string>
   <string name="onscreenBlacklistText">ブラックリスト</string>
   <string name="call_recording_failed_message">通話録音を開始できませんでした</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>に録音通話を保存しました</string>
   <string name="blacklist_dialog_title">ブラックリストに追加</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>からの今後の着信はブロックされます</string>
   <string name="card_title_video_call_paused">ビデオ通話（一時停止中）</string>

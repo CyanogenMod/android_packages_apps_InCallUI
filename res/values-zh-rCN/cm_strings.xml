@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">正在拨号 (等待中\u2026)</string>
   <string name="onscreenBlacklistText">黑名单</string>
   <string name="call_recording_failed_message">启动通话录音失败</string>
+  <string name="call_recording_file_location">已保存通话录音至  <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">添加到黑名单</string>
   <string name="blacklist_dialog_message">今后将阻止 <xliff:g id="number">%s</xliff:g> 的来电</string>
   <string name="card_title_video_call_paused">视频通话（暂停）</string>

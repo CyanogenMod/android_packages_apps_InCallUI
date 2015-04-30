@@ -19,7 +19,9 @@ package com.android.incallui;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.os.AsyncResult;
 import android.os.Handler;
+import android.os.Message;
 import android.telecom.AudioState;
 import android.telecom.CameraCapabilities;
 import android.telecom.Connection;
@@ -166,10 +168,29 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     private int mCurrentCallSubstate;
 
-
     /** Handler which resets request state to NO_REQUEST after an interval. */
-    private Handler mSessionModificationResetHandler;
+    VideoCallHandler mSessionModificationResetHandler;
+
+    private class VideoCallHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.d(this, "Message received: what = " + msg.what);
+            switch (msg.what) {
+                case EVENT_CLEAR_SESSION_MODIFY_REQUEST:
+                    if (msg.obj != null && msg.obj instanceof Call) {
+                        Call call = (Call) msg.obj;
+                        Log.d(this, "Clearing sessionModificationState to NO_REQUEST");
+                        call.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
+                    }
+                    break;
+                default:
+                    Log.e(this, "Unknown message = " + msg.what);
+            }
+        }
+    };
+
     private static final long SESSION_MODIFICATION_RESET_DELAY_MS = 3000;
+    private static final int EVENT_CLEAR_SESSION_MODIFY_REQUEST = 0;
 
     /**
      * Initializes the presenter.
@@ -180,7 +201,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         mContext = Preconditions.checkNotNull(context);
         mMinimumVideoDimension = mContext.getResources().getDimension(
                 R.dimen.video_preview_small_dimension);
-        mSessionModificationResetHandler = new Handler();
+        mSessionModificationResetHandler = new VideoCallHandler();
     }
 
     /**
@@ -481,6 +502,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
         Log.d(this, "onPrimaryCallChanged: isVideoCall=" + isVideoCall + " isVideoMode="
                 + isVideoMode);
+
+        updateAudioMode(false);
 
         if (!isVideoCall && isVideoMode) {
             // Terminate video mode if new primary call is not a video call
@@ -937,7 +960,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      * @param dataUsage call data usage value
      */
     @Override
-    public void onCallDataUsageChange(long dataUsage) {
+    public void onCallDataUsageChange(int dataUsage) {
         Log.d(this, "onCallDataUsageChange dataUsage=" + dataUsage);
         VideoCallUi ui = getUi();
         if (ui == null) {
@@ -969,6 +992,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
+        mSessionModificationResetHandler.removeMessages(EVENT_CLEAR_SESSION_MODIFY_REQUEST);
         call.setSessionModificationTo(videoState);
     }
 
@@ -997,23 +1021,18 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
+        mSessionModificationResetHandler.removeMessages(EVENT_CLEAR_SESSION_MODIFY_REQUEST);
         if (status == VideoProvider.SESSION_MODIFY_REQUEST_TIMED_OUT) {
             call.setSessionModificationState(
                     Call.SessionModificationState.UPGRADE_TO_VIDEO_REQUEST_TIMED_OUT);
         } else {
             call.setSessionModificationState(Call.SessionModificationState.REQUEST_FAILED);
 
-            final Call modifyCall = call;
             // Start handler to change state from REQUEST_FAILED to NO_REQUEST after an interval.
-            mSessionModificationResetHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (modifyCall != null) {
-                        modifyCall
-                            .setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
-                    }
-                }
-            }, SESSION_MODIFICATION_RESET_DELAY_MS);
+            Message msg = mSessionModificationResetHandler.obtainMessage(
+                    EVENT_CLEAR_SESSION_MODIFY_REQUEST, call);
+            mSessionModificationResetHandler.sendMessageDelayed(msg
+                    , SESSION_MODIFICATION_RESET_DELAY_MS);
         }
     }
 
@@ -1180,7 +1199,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         void setPreviewSize(int width, int height);
         void setPreviewSurfaceSize(int width, int height);
         void setDisplayVideoSize(int width, int height);
-        void setCallDataUsage(Context context, long dataUsage);
+        void setCallDataUsage(Context context, int dataUsage);
         void displayCallSessionEvent(int event);
         Point getScreenSize();
         void cleanupSurfaces();

@@ -49,6 +49,10 @@ public class InCallVideoCallListener extends VideoCall.Listener {
     @Override
     public void onSessionModifyRequestReceived(VideoProfile videoProfile) {
         Log.d(this, " onSessionModifyRequestReceived videoProfile=" + videoProfile);
+
+        /* turn ON screen when already turned OFF */
+        InCallPresenter.getInstance().wakeUpScreen();
+
         int previousVideoState = CallUtils.toUnPausedVideoState(mCall.getVideoState());
         int newVideoState = CallUtils.toUnPausedVideoState(videoProfile.getVideoState());
 
@@ -133,7 +137,7 @@ public class InCallVideoCallListener extends VideoCall.Listener {
      * @param dataUsage The updated data usage.
      */
     @Override
-    public void onCallDataUsageChanged(long dataUsage) {
+    public void onCallDataUsageChanged(int dataUsage) {
         Log.d(this, "onCallDataUsageChanged: dataUsage = " + dataUsage);
         InCallVideoCallListenerNotifier.getInstance().callDataUsageChanged(dataUsage);
     }

@@ -277,8 +277,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         maybeShowManageConferenceCallButton();
 
         //Note that both primary and secondary calls can be modified
-        final boolean isModifyRequest = isPendingModifyRequest(mPrimary) ||
-                isPendingModifyRequest(mSecondary);
+        final boolean isModifyRequest = CallUtils.isPendingModifyRequest(mPrimary) ||
+                CallUtils.isPendingModifyRequest(mSecondary);
 
         final boolean enableEndCallButton = Call.State.isConnectingOrConnected(callState) &&
                 callState != Call.State.INCOMING && mPrimary != null && !isModifyRequest;
@@ -287,13 +287,6 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         getUi().setEndCallButtonEnabled(
                 enableEndCallButton, callState != Call.State.INCOMING &&
                 !isModifyRequest /* animate */);
-    }
-
-    //Return TRUE if there is a modify request pending user action
-    boolean isPendingModifyRequest(Call call) {
-        return (call != null && call.getSessionModificationState() ==
-                Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST);
-
     }
 
     @Override
@@ -330,7 +323,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimary.getSessionModificationState(),
                     mPrimary.getDisconnectCause(),
                     getConnectionLabel(),
-                    getConnectionIcon(),
+                    getCallStateIcon(),
                     getGatewayNumber(),
                     mPrimary.isWaitingForRemoteSide());
             setCallbackNumber();
@@ -717,13 +710,21 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         return getCallProviderLabel(mPrimary);
     }
 
-    private Drawable getConnectionIcon() {
+    private Drawable getCallStateIcon() {
+        // Return connection icon if one exists.
         StatusHints statusHints = mPrimary.getTelecommCall().getDetails().getStatusHints();
         if (statusHints != null && statusHints.getIconResId() != 0) {
             Drawable icon = statusHints.getIcon(mContext);
             if (icon != null) {
                 return icon;
             }
+        }
+
+        // Return high definition audio icon if the capability is indicated.
+        if (mPrimary.getTelecommCall().getDetails().can(
+                android.telecom.Call.Details.CAPABILITY_HIGH_DEF_AUDIO)
+                && mPrimary.getState() == Call.State.ACTIVE) {
+            return mContext.getResources().getDrawable(R.drawable.ic_hd_audio);
         }
         return getCallProviderIcon(mPrimary);
     }
@@ -780,8 +781,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         Log.i(this, "Disconnecting call: " + mPrimary);
         mPrimary.setState(Call.State.DISCONNECTING);
+        Call temp = mPrimary;
         CallList.getInstance().onUpdate(mPrimary);
-        TelecomAdapter.getInstance().disconnectCall(mPrimary.getId());
+        TelecomAdapter.getInstance().disconnectCall(temp.getId());
     }
 
     private String getNumberFromHandle(Uri handle) {

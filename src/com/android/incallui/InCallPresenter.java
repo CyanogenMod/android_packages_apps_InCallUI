@@ -36,6 +36,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.os.PowerManager;
+
 import com.google.common.base.Preconditions;
 import com.android.incalluibind.ObjectFactory;
 
@@ -90,6 +92,8 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
     private boolean mServiceConnected = false;
     private boolean mAccountSelectionCancelled = false;
     private InCallCameraManager mInCallCameraManager = null;
+    private PowerManager mPowerManager;
+    private PowerManager.WakeLock mWakeLock = null;
 
     private final Phone.Listener mPhoneListener = new Phone.Listener() {
         @Override
@@ -210,6 +214,10 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         mProximitySensor = new ProximitySensor(context, mAudioModeProvider);
         addListener(mProximitySensor);
+
+        mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
+                PowerManager.ACQUIRE_CAUSES_WAKEUP, "InCallPresenter");
 
         mCallList = callList;
 
@@ -617,6 +625,19 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
         }
     }
 
+    public void acceptUpgradeRequest(Context context) {
+       if (mCallList != null) {
+           Call call = mCallList.getVideoUpgradeRequestCall();
+           if (call != null) {
+               acceptUpgradeRequest(call.getModifyToVideoState(), context);
+           } else {
+               Log.e(this, "acceptUpgradeRequest Call is null");
+           }
+       } else {
+           Log.e(this, " acceptUpgradeRequest mCallList is empty");
+       }
+    }
+
     public void declineUpgradeRequest(Context context) {
         Log.d(this, " declineUpgradeRequest");
         // Bail if we have been shut down and the call list is null.
@@ -883,9 +904,13 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
 
         //If the call is auto answered bring up the InCallActivity
         boolean isAutoAnswer = false;
-        isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
-                           (newState == InCallState.INCALL) &&
-                           (mInCallActivity == null);
+
+        if ((mCallList.getDisconnectedCall() == null) &&
+                (mCallList.getDisconnectingCall() == null)) {
+            isAutoAnswer = (mInCallState == InCallState.INCOMING) &&
+                               (newState == InCallState.INCALL) &&
+                               (mInCallActivity == null);
+        }
 
         Log.d(this, "startOrFinishUi: " + isAutoAnswer);
 
@@ -1068,6 +1093,9 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
             }
             mProximitySensor = null;
 
+            mWakeLock = null;
+            mPowerManager = null;
+
             mAudioModeProvider = null;
 
             if (mStatusBarNotifier != null) {
@@ -1240,6 +1268,34 @@ public class InCallPresenter implements CallList.Listener, InCallPhoneListener {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } else {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
+    }
+
+    /* returns TRUE if screen is turned ON else false */
+    private boolean isScreenInteractive() {
+        return mPowerManager.isInteractive();
+    }
+
+    public void wakeUpScreen() {
+        if (!isScreenInteractive()) {
+            acquireWakeLock();
+            releaseWakeLock();
+        }
+    }
+
+    private void acquireWakeLock() {
+        Log.v(this, "acquireWakeLock");
+
+        if (mWakeLock != null) {
+            mWakeLock.acquire();
+        }
+    }
+
+    private void releaseWakeLock() {
+        Log.v(this, "releaseWakeLock");
+
+        if (mWakeLock != null && mWakeLock.isHeld()) {
+            mWakeLock.release();
         }
     }
 

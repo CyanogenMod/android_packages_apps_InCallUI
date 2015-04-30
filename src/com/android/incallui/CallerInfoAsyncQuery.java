@@ -369,7 +369,17 @@ public class CallerInfoAsyncQuery {
             subId = call.getSubId();
         }
         // check to see if these are recognized numbers, and use shortcuts if we can.
-        if (PhoneNumberUtils.isLocalEmergencyNumber(context, info.phoneNumber)) {
+        boolean isEmergencyNumber = true;
+        String maskEmergencyNumber = context.getResources()
+                .getString(R.string.mask_emergency_number);
+        if (!TextUtils.isEmpty(maskEmergencyNumber)
+                && info.phoneNumber.equals(maskEmergencyNumber)) {
+            isEmergencyNumber = false;
+        } else {
+            isEmergencyNumber = PhoneNumberUtils.isLocalEmergencyNumber(context, info.phoneNumber);
+        }
+
+        if (isEmergencyNumber) {
             cw.event = EVENT_EMERGENCY_NUMBER;
         } else if (info.isVoiceMailNumber()
                 || PhoneNumberUtils.isVoiceMailNumber(subId, info.phoneNumber)) {

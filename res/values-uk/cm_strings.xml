@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">Набираю (очікую\u2026)</string>
   <string name="onscreenBlacklistText">Чорний список</string>
   <string name="call_recording_failed_message">Не вдалося почати запис виклика</string>
+  <string name="call_recording_file_location">Запис виклику збережено до <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Додати в чорний список</string>
   <string name="blacklist_dialog_message">Майбутні дзвінки від <xliff:g id="number">%s</xliff:g> будуть заблоковані</string>
   <string name="card_title_video_call_paused">Відеовиклик (призупинено)</string>

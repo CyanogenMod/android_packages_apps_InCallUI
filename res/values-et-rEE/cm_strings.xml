@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
   <string name="onscreenBlacklistText">Must nimekiri</string>
   <string name="call_recording_failed_message">Kõne salvestuse alustamine nurjus</string>
+  <string name="call_recording_file_location">Kõne salvestatud kohta <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Lisa musta nimekirja</string>
   <string name="blacklist_dialog_message">Tulevased kõned numbrilt <xliff:g id="number">%s</xliff:g> blokeeritakse</string>
   <string name="card_title_video_call_paused">Videokõne (peatatud)</string>

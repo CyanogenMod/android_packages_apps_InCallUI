@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">Memanggil (menunggu\u2026)</string>
   <string name="onscreenBlacklistText">Blacklist</string>
   <string name="call_recording_failed_message">Gagal memulai perekam panggilan</string>
+  <string name="call_recording_file_location">Rekaman panggilan disimpan ke <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Tambahkan ke blacklist</string>
   <string name="blacklist_dialog_message">Panggilan mendatang dari <xliff:g id="number">%s</xliff:g> akan diblokir</string>
   <string name="card_title_video_call_paused">Panggilan video (dijeda)</string>

@@ -68,12 +68,12 @@
     <string name="unknown_call_session_event">Unknown call session event</string>
 
     <string name="onscreenCallRecordText">Start and stop call recording</string>
-    <string name="onscreenAddToBlacklistText">Add caller to blacklist</string>
+    <string name="onscreenAddToBlacklistText">Add caller to blocked caller list</string>
     <string name="menu_start_record">Record call</string>
     <string name="menu_stop_record">Stop recording</string>
     <string name="recording_time_text">Recording</string>
     <string name="recording_warning_title">Enable call recording?</string>
-    <string name="recording_warning_text">Notice:  You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
+    <string name="recording_warning_text">Notice: You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
 
     <!-- Set Subscription screen: label sub 1 -->
     <string name="sub_1">SIM 1</string>

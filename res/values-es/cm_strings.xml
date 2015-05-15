@@ -21,10 +21,8 @@
   <string name="callUnanswered_forwarded">Llamada no respondida y reenviada</string>
   <string name="incall_call_type_label_forwarded">Llamada desviada</string>
   <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
-  <string name="onscreenBlacklistText">Lista negra</string>
   <string name="call_recording_failed_message">Ocurrió un error al iniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Añadir a la lista negra</string>
   <string name="blacklist_dialog_message">Las llamadas de <xliff:g id="number">%s</xliff:g> serán bloqueadas</string>
   <string name="card_title_video_call_paused">Videollamada (en pausa)</string>
   <string name="onscreenAddParticipant">Añadir participante</string>
@@ -39,10 +37,6 @@
   <string name="camera_not_ready">Cámara no preparada</string>
   <string name="camera_ready">Cámara preparada</string>
   <string name="unknown_call_session_event">Evento de sesión de llamada desconocido</string>
-  <string name="volume_boost_notify_enabled">Potenciación de volumen habilitada</string>
-  <string name="volume_boost_notify_disabled">Potenciación de volumen deshabilitada</string>
-  <string name="volume_boost_notify_unavailable">La potenciación del volumen no está disponible cuando se utilizan auriculares</string>
-  <string name="onscreenMoreMenuText">Más opciones</string>
   <string name="menu_start_record">Registro de llamada</string>
   <string name="menu_stop_record">Detener grabación</string>
   <string name="recording_time_text">Grabando</string>

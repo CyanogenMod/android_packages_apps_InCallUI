@@ -21,9 +21,11 @@
   <string name="callUnanswered_forwarded">A hívás megválaszolatlan és továbbított</string>
   <string name="incall_call_type_label_forwarded">Átirányított hívás</string>
   <string name="card_title_dialing_waiting">Tárcsázás (várakozás\u2026)</string>
-  <string name="onscreenBlacklistText">Tiltólista</string>
+  <string name="card_title_waiting_call">Hívás tartva</string>
+  <string name="onscreenBlacklistText">Blokkolt hívók listája</string>
   <string name="call_recording_failed_message">Nem sikerült a felvételt elindítani</string>
-  <string name="blacklist_dialog_title">Hozzáadás a tiltólistához</string>
+  <string name="call_recording_file_location">Hívások mentése ide: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Hozzáadás a blokkolt hívók listájához</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> hívásai blokkolva lesznek</string>
   <string name="card_title_video_call_paused">Videohívás (felfüggesztve)</string>
   <string name="onscreenAddParticipant">Résztvevő hozzáadása</string>
@@ -38,13 +40,13 @@
   <string name="camera_not_ready">Kamera nem áll készen</string>
   <string name="camera_ready">Kamera készen áll</string>
   <string name="unknown_call_session_event">Ismeretlen hívásfolyamati esemény</string>
-  <string name="volume_boost_notify_enabled">Extra hangerő engedélyezve</string>
-  <string name="volume_boost_notify_disabled">Extra hangerő letiltva</string>
-  <string name="volume_boost_notify_unavailable">Extra hangerő nem elérhető fejhallgató használatakor</string>
-  <string name="onscreenMoreMenuText">További opciók</string>
+  <string name="onscreenCallRecordText">Hívás rögzítésének indítása és megállítása</string>
+  <string name="onscreenAddToBlacklistText">Hívó hozzáadása a blokkolt hívók listájához</string>
   <string name="menu_start_record">Hívás rögzítése</string>
   <string name="menu_stop_record">Felvétel leállítása</string>
   <string name="recording_time_text">Felvétel</string>
+  <string name="recording_warning_title">Hívás rögzítésének engedélyezése?</string>
+  <string name="recording_warning_text">Figyelmeztetés: A hívás rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Hívás folytatva</string>

@@ -21,16 +21,11 @@
   <string name="callUnanswered_forwarded">ඇමතුමට ප්‍රතිචාර නොදුණි එවිට ඉදිරියට යැවුනි</string>
   <string name="incall_call_type_label_forwarded">ඉදිරියට යැවූ ඇමතුම</string>
   <string name="card_title_dialing_waiting">අමතමින් (රැඳෙමින්\u2026)</string>
-  <string name="onscreenBlacklistText">අපලේඛණය</string>
-  <string name="blacklist_dialog_title">අපලේඛණයට එක් කරන්න</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>න් මින්පසු පැමිණෙන ඇමතුම් අවහිර කෙරේ</string>
   <string name="onscreenAddParticipant">සහභාගියෙක් එක් කරන්න</string>
   <string name="modify_call_option_vt_tx">වීඩියෝ සම්ප්‍රේෂණය</string>
   <string name="modify_call_option_vt_rx">වීඩියෝ ග්‍රහණය</string>
   <string name="modify_call_option_voice">කටහඬ පමණි</string>
-  <string name="volume_boost_notify_enabled">ශබ්දය වැඩිවීම සබලයි</string>
-  <string name="volume_boost_notify_disabled">ශබ්දය වැඩිවීම අබලයි</string>
-  <string name="volume_boost_notify_unavailable">කන්යොමුවක් භාවිතාකරන විට අමතර ශබ්දය ලබාගත නොහැක</string>
   <string name="sub_1">සිම් 1</string>
   <string name="sub_2">සිම් 2</string>
 </resources>

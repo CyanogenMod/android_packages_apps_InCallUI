@@ -21,10 +21,7 @@
   <string name="onHold">له‌سه‌ر خه‌ت به‌</string>
   <string name="unknown">نەزانراو</string>
   <string name="private_num">ژمارەی تایبەتی</string>
-  <string name="payphone">کڕینی مۆبایل</string>
   <string name="confCall">په‌یوه‌ندی کۆنگره‌</string>
-  <string name="call_lost">په‌یوه‌ندییه‌که‌ پچڕا.</string>
-  <string name="ok">باشه‌</string>
   <string name="audio_mode_speaker">بڵندگۆ</string>
   <string name="audio_mode_earpiece">ده‌سکی په‌یوه‌ندی گوێ</string>
   <string name="audio_mode_wired_headset">بیستۆک وایه‌ردار</string>
@@ -38,7 +35,6 @@
   <string name="caller_manage_header">په‌یوه‌ندی کۆنگره‌ <xliff:g id="conf_call_time">%s</xliff:g></string>
   <string name="voicemail_settings_number_label">ژماره‌ی ده‌نگه‌نامه‌</string>
   <string name="card_title_dialing">ژماره‌لێدان</string>
-  <string name="card_title_redialing">هه‌وڵدانه‌وه‌</string>
   <string name="card_title_conf_call">په‌یوه‌ندنی کۆنگره‌</string>
   <string name="card_title_incoming_call">په‌یوه‌ندی هاتوو</string>
   <string name="card_title_call_ended">په‌یوه‌ندی کۆتاییهات</string>
@@ -65,22 +61,9 @@
   <string name="notification_missedCall_message">نامه‌</string>
   <string name="incall_error_power_off">بۆ په‌یوه‌ندی. سه‌ره‌تا باری ناو فڕۆکه‌ بکوژێنه‌وه‌.</string>
   <string name="incall_error_emergency_only">تۆمارنه‌کراویت له‌سه‌ر تۆڕه‌که‌.</string>
-  <string name="incall_error_out_of_service">تۆڕی مۆبایل ئاماده‌نییه‌.</string>
-  <string name="incall_error_no_phone_number_supplied">په‌یوه‌ندی نه‌نێردرا.ژماره‌ی ڕاست نه‌نوسرا.</string>
-  <string name="incall_error_call_failed">په‌یوه‌ندی نه‌نێردرا.</string>
   <string name="incall_status_dialed_mmi">ده‌ستپێکردنی چوارگۆشه‌ی MMI \u2026</string>
-  <string name="incall_error_supp_service_unknown">خزمه‌تگوزاری پشتیوانیکراو نییه‌.</string>
-  <string name="incall_error_supp_service_switch">ئاڵ و گۆڕی په‌یوه‌ندی نه‌کرا.</string>
-  <string name="incall_error_supp_service_separate">جیاکردنه‌وه‌ی په‌یوه‌ندی نه‌کرا.</string>
-  <string name="incall_error_supp_service_transfer">گواستنه‌وه‌ی په‌یوه‌ندی نه‌کرا.</string>
-  <string name="incall_error_supp_service_conference">کۆنگره‌ی په‌یوه‌ندی نه‌کرا.</string>
-  <string name="incall_error_supp_service_reject">به‌رپه‌چدانه‌وه‌ی په‌یوه‌ندی نه‌کرا.</string>
-  <string name="incall_error_supp_service_hangup">ده‌ستلێبه‌ردانی په‌یوه‌ندی نه‌کرا.</string>
   <string name="emergency_enable_radio_dialog_title">پەیوەندیی فریاگوزاری</string>
   <string name="emergency_enable_radio_dialog_message">کارپێکردنی ڕادیۆ\u2026</string>
-  <string name="emergency_enable_radio_dialog_retry">له‌ ده‌ره‌وه‌ی خزمه‌تگوزاری شوێنه‌که‌ت. هه‌وڵدانه‌وه‌ \u2026</string>
-  <string name="dial_emergency_error">په‌یوه‌ندی نه‌ڕۆشت. <xliff:g id="non_emergency_number">%s</xliff:g> بریتی نییه‌ له‌ ژماره‌ی له‌ناکاو!</string>
-  <string name="dial_emergency_empty_error">په‌یوه‌ندی نه‌ڕۆشت. تکایه‌ ژماره‌ی له‌ناکاو لێبده‌!</string>
   <string name="dialerKeyboardHintText">ته‌خته‌کلیل به‌کاربهێنه‌ بۆ لێدانی ژماره‌</string>
   <string name="onscreenHoldText">هه‌ڵگرتن</string>
   <string name="onscreenEndCallText">کۆتایی</string>
@@ -103,21 +86,6 @@
   <string name="respond_via_sms_custom_message">خۆت شتێک بنووسه‌...</string>
   <string name="custom_message_cancel">هەڵوەشاندنەوە</string>
   <string name="custom_message_send">ناردن</string>
-  <string name="description_image_button_one">یه‌ک</string>
-  <string name="description_image_button_two">دوو</string>
-  <string name="description_image_button_three">سێ</string>
-  <string name="description_image_button_four">چوار</string>
-  <string name="description_image_button_five">پێنج</string>
-  <string name="description_image_button_six">شه‌ش</string>
-  <string name="description_image_button_seven">حه‌وت</string>
-  <string name="description_image_button_eight">هه‌شت</string>
-  <string name="description_image_button_nine">نۆ</string>
-  <string name="description_image_button_star">ده‌ستپێکردن</string>
-  <string name="description_image_button_zero">سفر</string>
-  <string name="description_image_button_pound">پاوه‌ند</string>
-  <string name="description_dial_button">لێدان</string>
-  <string name="description_delete_button">یه‌گه‌ڕانه‌وه‌</string>
-  <string name="accessibility_call_muted">په‌یوه‌ندی کپ کراوه‌.</string>
   <string name="description_target_answer">وه‌ڵام</string>
   <string name="description_target_send_sms">ناردنی SMS</string>
   <string name="description_target_decline">نەویستن</string>
@@ -130,7 +98,6 @@
   <string name="default_notification_description">ئاوازی بنێڕه‌ت  (<xliff:g id="default_sound_title">%1$s</xliff:g>)</string>
   <string name="ringtone_title" msgid="5379026328015343686">زەنگی مۆبایل</string>
   <string name="vibrate_on_ring_title">له‌رینه‌وه‌ کاتێک زه‌نگ لێده‌دات</string>
-  <string name="dial_pad_autocomplete">ژماره‌گری خۆکارانه‌ ته‌واوبوو</string>
   <string name="preference_category_ringtone">زه‌نگ  وamp; له‌رینه‌وه‌</string>
   <string name="manageConferenceLabel">به‌ڕێوه‌بردنی په‌یوه‌ندییه‌ کۆنگره‌ییه‌کان</string>
   <string name="emergency_call_dialog_number_for_display">ژمارەی فریاگوزاری</string>

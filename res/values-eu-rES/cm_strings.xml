@@ -17,9 +17,15 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Hartzaileak deiak jasotzea trabatu du.</string>
+  <string name="callUnanswered_forwarded">Erantzunik gabeko eta birbidalitako deia</string>
   <string name="incall_call_type_label_forwarded">Dei desbideratua</string>
   <string name="card_title_dialing_waiting">Deitzen (itxaroten\u2026)</string>
-  <string name="onscreenBlacklistText">Zerrenda beltza</string>
-  <string name="blacklist_dialog_title">Zerrenda beltzera gehitu</string>
-  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g> -(r)en deiak blokeatu egingo dira</string>
+  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g>(r)en deiak blokeatu egingo dira</string>
+  <string name="card_title_video_call_paused">Bideo deia (pausatuta)</string>
+  <string name="onscreenAddParticipant">Gehitu partaidea</string>
+  <string name="player_started">Erreproduzigailua hasi da</string>
+  <string name="player_stopped">Erreproduzigailua gelditu da</string>
+  <string name="menu_stop_record">Gelditu grabaketa</string>
+  <string name="call_substate_connected_suspended_video">Deia konektatuta dago, baina bideoa esekita dago</string>
 </resources>

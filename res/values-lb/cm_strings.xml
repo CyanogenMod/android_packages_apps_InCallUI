@@ -21,9 +21,11 @@
   <string name="callUnanswered_forwarded">Uruff net beäntwert a weidergeleet</string>
   <string name="incall_call_type_label_forwarded">Weidergeleeten Uruff</string>
   <string name="card_title_dialing_waiting">Gëtt gewielt (waart\u2026)</string>
-  <string name="onscreenBlacklistText">Schwaarz Lëscht</string>
+  <string name="card_title_waiting_call">Uruff gëtt gehalen</string>
+  <string name="onscreenBlacklistText">Lëscht vu blockéierten Nummeren</string>
   <string name="call_recording_failed_message">D\'Opnam vum Uruff konnt net gestart ginn</string>
-  <string name="blacklist_dialog_title">Op d\'schwaarz Lëscht setzen</string>
+  <string name="call_recording_file_location">Uruffopnam gespäichert als <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Op d\'Lëscht mat de blockéierten Nummere setzen</string>
   <string name="blacklist_dialog_message">An Zukunft ginn Uriff vun der Nummer <xliff:g id="number">%s</xliff:g> blockéiert</string>
   <string name="card_title_video_call_paused">Videouruff (pauséiert)</string>
   <string name="onscreenAddParticipant">Weidere Korrespondent</string>
@@ -38,13 +40,13 @@
   <string name="camera_not_ready">Kamera net prett</string>
   <string name="camera_ready">Kamera prett</string>
   <string name="unknown_call_session_event">Onbekannt Uruff-Evenement</string>
-  <string name="volume_boost_notify_enabled">Lautstäerktamplifikatioun ass aktivéiert</string>
-  <string name="volume_boost_notify_disabled">Lautstäerktamplifikatioun ass desaktivéiert</string>
-  <string name="volume_boost_notify_unavailable">D\'Amplifikation vun der Lautstäerkt ass net disponibel wann s du Kopfhörer benotz</string>
-  <string name="onscreenMoreMenuText">Méi Optiounen</string>
+  <string name="onscreenCallRecordText">Uruffopnam starten a stoppen</string>
+  <string name="onscreenAddToBlacklistText">Nummer op d\'Lëscht mat de blockéierten Nummere setzen</string>
   <string name="menu_start_record">Uruff ophuelen</string>
   <string name="menu_stop_record">Opnam stoppen</string>
   <string name="recording_time_text">Gëtt opgeholl</string>
+  <string name="recording_warning_title">Uruffopnam aktivéieren?</string>
+  <string name="recording_warning_text">Bemierkung: Du bass responsabel fir d\'Anhale vu Gesetzer, Regulatiounen a Regelen, déi op d\'Funktioun fir d\'Uruffopnam sou wéi fir d\'Benotzung an Distributioun vun dësen Opname gëllen.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Uruff fortgesat</string>

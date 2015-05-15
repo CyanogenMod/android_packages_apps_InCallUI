@@ -21,6 +21,7 @@
   <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
   <string name="incall_call_type_label_forwarded">Переадресованный вызов</string>
   <string name="card_title_dialing_waiting">Вызов (ожидание\u2026)</string>
+  <string name="card_title_waiting_call">Вызов на удержании</string>
   <string name="onscreenBlacklistText">Чёрный список</string>
   <string name="call_recording_failed_message">Не удалось начать запись разговора</string>
   <string name="call_recording_file_location">Запись разговора сохранена в <xliff:g id="filename">%s</xliff:g></string>
@@ -39,13 +40,13 @@
   <string name="camera_not_ready">Камера не готова</string>
   <string name="camera_ready">Камера готова</string>
   <string name="unknown_call_session_event">Неизвестное событие сеанса звонка</string>
-  <string name="volume_boost_notify_enabled">Увеличение громкости включено</string>
-  <string name="volume_boost_notify_disabled">Увеличение громкости отключено</string>
-  <string name="volume_boost_notify_unavailable">Увеличение громкости недоступно при использовании гарнитуры</string>
-  <string name="onscreenMoreMenuText">Дополнительные функции</string>
+  <string name="onscreenCallRecordText">Начать или остановить запись</string>
+  <string name="onscreenAddToBlacklistText">Добавить абонента в чёрный список</string>
   <string name="menu_start_record">Записать вызов</string>
   <string name="menu_stop_record">Остановить запись</string>
   <string name="recording_time_text">Идет запись</string>
+  <string name="recording_warning_title">Включить запись телефонных разговоров?</string>
+  <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и последующего распространения этих записей.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Звонок возобновлен</string>

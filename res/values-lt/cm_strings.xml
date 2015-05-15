@@ -21,10 +21,11 @@
   <string name="callUnanswered_forwarded">Skambutis neatsakytas ir peradresuotas</string>
   <string name="incall_call_type_label_forwarded">Peradresuotas skambutis</string>
   <string name="card_title_dialing_waiting">Renkamas numeris (laukiama\u2026)</string>
-  <string name="onscreenBlacklistText">Juodasis sąrašas</string>
+  <string name="card_title_waiting_call">Skambutis sulaikytas</string>
+  <string name="onscreenBlacklistText">Užblokuotų skambintojų sąrašas</string>
   <string name="call_recording_failed_message">Nepavyko pradėti skambučio įrašymo</string>
   <string name="call_recording_file_location">Skambučio įrašas išsaugotas į <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Pridėti į juodąjį sąrašą</string>
+  <string name="blacklist_dialog_title">Pridėti prie užblokuotų skambintojų sąrašo</string>
   <string name="blacklist_dialog_message">Skambučiai iš <xliff:g id="number">%s</xliff:g> bus blokuojami</string>
   <string name="card_title_video_call_paused">Vaizdo skambutis (sustabdytas)</string>
   <string name="onscreenAddParticipant">Pridėti dalyvį</string>
@@ -39,13 +40,13 @@
   <string name="camera_not_ready">Fotoaparatas nepasirengęs</string>
   <string name="camera_ready">Fotoaparatas pasirengęs</string>
   <string name="unknown_call_session_event">Nežinomo skambučio sesijos įvykis</string>
-  <string name="volume_boost_notify_enabled">Garsumo išryškinimas įgalintas</string>
-  <string name="volume_boost_notify_disabled">Garsumo išryškinimas neleidžiamas</string>
-  <string name="volume_boost_notify_unavailable">Papildomas garsumas nepasiekiamas, kai naudojama laisvų rankų įranga</string>
-  <string name="onscreenMoreMenuText">Daugiau parinkčių</string>
+  <string name="onscreenCallRecordText">Pradėti ir sustabdyti skambučio įrašymą</string>
+  <string name="onscreenAddToBlacklistText">Pridėti skambintoją prie užblokuotų skambintojų sąrašo</string>
   <string name="menu_start_record">Įrašyti skambutį</string>
   <string name="menu_stop_record">Sustabdyti įrašymą</string>
   <string name="recording_time_text">Įrašoma</string>
+  <string name="recording_warning_title">Įgalinti skambučio įrašymą?</string>
+  <string name="recording_warning_text">Pastaba: jūs esate atsakingas už įstatymų, teisės aktų ir taisyklių, kurios taikomos skambučių įrašymo naudojimuisi, funkcionalumui ir įrašų platinimui.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Skambutis atnaujintas</string>

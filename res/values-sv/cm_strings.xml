@@ -21,17 +21,12 @@
   <string name="callUnanswered_forwarded">Samtal obesvarat och vidarebefordrat</string>
   <string name="incall_call_type_label_forwarded">Vidarebefordrat samtal</string>
   <string name="card_title_dialing_waiting">Ringer (väntar\u2026)</string>
-  <string name="onscreenBlacklistText">Svartlista</string>
-  <string name="blacklist_dialog_title">Lägg till svartlistan</string>
   <string name="blacklist_dialog_message">Kommande samtal från <xliff:g id="number">%s</xliff:g> kommer att blockeras</string>
   <string name="onscreenAddParticipant">Lägg till deltagare</string>
   <string name="modify_call_option_vt">Videosamtal</string>
   <string name="modify_call_option_vt_tx">Videosändning</string>
   <string name="modify_call_option_vt_rx">Videomottagning</string>
   <string name="modify_call_option_voice">Endast röst</string>
-  <string name="volume_boost_notify_enabled">Volymförstärkning är aktiverad</string>
-  <string name="volume_boost_notify_disabled">Volymförstärkning är inaktiverad</string>
-  <string name="volume_boost_notify_unavailable">Extra volym är inte tillgänglig när du använder ett headset</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="video_quality_high">hög</string>

@@ -21,10 +21,7 @@
   <string name="onHold">N\'espera</string>
   <string name="unknown">Desconocíu</string>
   <string name="private_num">Númberu priváu</string>
-  <string name="payphone">Teléfonu públicu</string>
   <string name="confCall">Conferencia telefónica</string>
-  <string name="call_lost">La llamada perdióse.</string>
-  <string name="ok">Aceutar</string>
   <string name="audio_mode_speaker">Altavoz</string>
   <string name="audio_mode_earpiece">Auricular</string>
   <string name="audio_mode_wired_headset">Auriculares</string>
@@ -38,7 +35,6 @@
   <string name="caller_manage_header">Conferencia telefónica<xliff:g id="CONF_CALL_TIME">%s</xliff:g></string>
   <string name="voicemail_settings_number_label">Númberu del buzón de voz</string>
   <string name="card_title_dialing">Llamando</string>
-  <string name="card_title_redialing">Reintentando</string>
   <string name="card_title_conf_call">Conferencia telefónica</string>
   <string name="card_title_incoming_call">\u2026ta llamándote</string>
   <string name="card_title_call_ended">Llamada finada</string>
@@ -49,13 +45,6 @@
   <string name="card_title_video_call_connecting">Coneutando videu</string>
   <string name="card_title_video_call">Videollamada</string>
   <string name="card_title_video_call_requesting">Solicitando videu</string>
-  <string name="card_title_video_call_error">Nun pue afitase videollamada</string>
-  <string name="card_title_callback_number">El to númberu\n
-        <xliff:g id="dark_number">%1$s</xliff:g>
-    </string>
-  <string name="card_title_callback_number_emergency">El to númberu d\'emerxencia\n
-        <xliff:g id="dark_number">%1$s</xliff:g>
-    </string>
   <string name="notification_dialing">Llamando\u2026</string>
   <string name="notification_missedCallTitle">Llamada perdida</string>
   <string name="notification_missedCallsTitle">Llamaes perdíes</string>
@@ -81,23 +70,10 @@
   <string name="notification_missedCall_message">Mensaxe</string>
   <string name="incall_error_power_off">Pa facer una llamada, primero tienes de desactivar el mou avión.</string>
   <string name="incall_error_emergency_only">Nun pudo coneutase a la rede</string>
-  <string name="incall_error_out_of_service">La rede móvil nun ta disponible.</string>
-  <string name="incall_error_no_phone_number_supplied">Nun se fexo la llamada; el númberu inxertáu nun ye válidu.</string>
-  <string name="incall_error_call_failed">La llamada nun s\'unvió.</string>
   <string name="incall_status_dialed_mmi">Aniciando secuencia MMI\u2026</string>
-  <string name="incall_error_supp_service_unknown">Serviciu no almitíu</string>
-  <string name="incall_error_supp_service_switch">Nun pudo cambiase de llamada.</string>
-  <string name="incall_error_supp_service_separate">Nun pudo desvinculase la llamada.</string>
-  <string name="incall_error_supp_service_transfer">Nun pudo tresferise la llamada.</string>
-  <string name="incall_error_supp_service_conference">Nun pudo facese la conferencia telefónica.</string>
-  <string name="incall_error_supp_service_reject">Nun pudo refugase la llamada.</string>
-  <string name="incall_error_supp_service_hangup">Nun ye dable finar les llamaes actives.</string>
   <string name="incall_call_type_label_sip">llamada SIP</string>
   <string name="emergency_enable_radio_dialog_title">Llamada d\'emerxencia</string>
   <string name="emergency_enable_radio_dialog_message">Activando señal móvil\u2026</string>
-  <string name="emergency_enable_radio_dialog_retry">Área fuera de serviciu; reintentando\u2026</string>
-  <string name="dial_emergency_error">Nun s\'unvió la llamada. <xliff:g id="NON_EMERGENCY_NUMBER">%s</xliff:g> nun ye un númberu d\'emerxencia!</string>
-  <string name="dial_emergency_empty_error">La llamada nun s\'unvió. Marca un númberu d\'emerxencia!</string>
   <string name="dialerKeyboardHintText">Usar tecláu para marcar</string>
   <string name="overflowHoldMenuItemText">Retener llamada</string>
   <string name="overflowResumeMenuItemText">Reanudar llamada</string>
@@ -131,28 +107,6 @@
   <string name="respond_via_sms_custom_message">Escribi una rempuesta\u2026</string>
   <string name="custom_message_cancel">Encaboxar</string>
   <string name="custom_message_send">Unviar</string>
-  <string name="description_image_button_one">un</string>
-  <string name="description_image_button_two">dos</string>
-  <string name="description_image_button_three">tres</string>
-  <string name="description_image_button_four">cuatro</string>
-  <string name="description_image_button_five">cinco</string>
-  <string name="description_image_button_six">seis</string>
-  <string name="description_image_button_seven">siete</string>
-  <string name="description_image_button_eight">ocho</string>
-  <string name="description_image_button_nine">nueve</string>
-  <string name="description_image_button_star">estrella</string>
-  <string name="description_image_button_zero">cero</string>
-  <string name="description_image_button_pound">llibra</string>
-  <string name="description_dial_button">marcar</string>
-  <string name="description_delete_button">retroceder un espaciu</string>
-  <string name="accessibility_speakerphone_selected">Altavoz esbilláu</string>
-  <string name="accessibility_earpiece_selected">Auricular esbilláu</string>
-  <string name="accessibility_wired_headset_selected">Auricular con cable esbilláu</string>
-  <string name="accessibility_bluetooth_headset_selected">Auriculares bluetooth esbillaos</string>
-  <string name="accessibility_call_muted">Llamada silenciada</string>
-  <string name="accessibility_call_unmuted">Llamada silenciada</string>
-  <string name="accessibility_call_put_on_hold">Llamada n\'espera</string>
-  <string name="accessibility_call_removed_from_hold">Llamada recuperada.</string>
   <string name="description_target_answer">Responder</string>
   <string name="description_target_send_sms">Unviar SMS</string>
   <string name="description_target_decline">Refugar</string>
@@ -170,9 +124,7 @@
   <string name="default_notification_description">Soníu predetermináu (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)</string>
   <string name="ringtone_title" msgid="5379026328015343686">Tonu del teléfonu</string>
   <string name="vibrate_on_ring_title">Vibrar al sonar</string>
-  <string name="dial_pad_autocomplete">Autocompletar con tecláu</string>
   <string name="preference_category_ringtone">Tonu y vibración</string>
   <string name="manageConferenceLabel">Alministrar conferencia telefónica</string>
   <string name="emergency_call_dialog_number_for_display">Númberu d\'emerxencia</string>
-  <string name="select_account_dialog_title">Esbillar cuenta</string>
 </resources>

@@ -21,9 +21,7 @@
   <string name="callUnanswered_forwarded">Ubesvarte og videresendte anrop</string>
   <string name="incall_call_type_label_forwarded">Videresendt samtale</string>
   <string name="card_title_dialing_waiting">Ringer (venter\u2026)</string>
-  <string name="onscreenBlacklistText">Blokkeringsliste</string>
   <string name="call_recording_failed_message">Kunne ikke starte opptak av samtalen</string>
-  <string name="blacklist_dialog_title">Legg til i blokkeringsliste</string>
   <string name="blacklist_dialog_message">Fremtidige samtaler fra <xliff:g id="number">%s</xliff:g> vil bli blokkert</string>
   <string name="card_title_video_call_paused">Videoanrop (midlertidig stanset)</string>
   <string name="onscreenAddParticipant">Legg til deltaker</string>
@@ -38,10 +36,6 @@
   <string name="camera_not_ready">Kameraet er ikke klart</string>
   <string name="camera_ready">Kameraet er klart</string>
   <string name="unknown_call_session_event">Ukjent økt anropshendelse</string>
-  <string name="volume_boost_notify_enabled">Volum boost er aktivert</string>
-  <string name="volume_boost_notify_disabled">Volum boost er deaktivert</string>
-  <string name="volume_boost_notify_unavailable">Ekstra volum er ikke tilgjengelig når du bruker et hodesett</string>
-  <string name="onscreenMoreMenuText">Flere alternativer</string>
   <string name="menu_start_record">Ta opp samtale</string>
   <string name="menu_stop_record">Stopp Opptak</string>
   <string name="recording_time_text">Tar opp</string>

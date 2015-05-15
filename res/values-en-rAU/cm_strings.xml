@@ -21,9 +21,7 @@
   <string name="callUnanswered_forwarded">Call unanswered and forwarded</string>
   <string name="incall_call_type_label_forwarded">Forwarded call</string>
   <string name="card_title_dialing_waiting">Dialling (waiting\u2026)</string>
-  <string name="onscreenBlacklistText">Blacklist</string>
   <string name="call_recording_failed_message">Failed to start call recording</string>
-  <string name="blacklist_dialog_title">Add to blacklist</string>
   <string name="blacklist_dialog_message">Future calls from <xliff:g id="number">%s</xliff:g> will be blocked</string>
   <string name="card_title_video_call_paused">Video call (paused)</string>
   <string name="onscreenAddParticipant">Add participant</string>
@@ -38,10 +36,6 @@
   <string name="camera_not_ready">Camera is not ready</string>
   <string name="camera_ready">Camera is ready</string>
   <string name="unknown_call_session_event">Unknown call session event</string>
-  <string name="volume_boost_notify_enabled">Volume boost is enabled</string>
-  <string name="volume_boost_notify_disabled">Volume boost is disabled</string>
-  <string name="volume_boost_notify_unavailable">Extra volume is not available when using a headset</string>
-  <string name="onscreenMoreMenuText">More options</string>
   <string name="menu_start_record">Record call</string>
   <string name="menu_stop_record">Stop recording</string>
   <string name="recording_time_text">Recording</string>

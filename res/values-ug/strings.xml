@@ -21,10 +21,7 @@
   <string name="onHold">كۈتۈپ تۇر</string>
   <string name="unknown">يوچۇن</string>
   <string name="private_num">شەخسىي نومۇر</string>
-  <string name="payphone">ئاممىۋى تېلېفون</string>
   <string name="confCall">تېلېفون يىغىنى</string>
-  <string name="call_lost">چاقىرىش ئۈزۈلگەن.</string>
-  <string name="ok">جەزملە</string>
   <string name="audio_mode_speaker">ياڭراتقۇ</string>
   <string name="audio_mode_earpiece">تېلېفون تىڭشىغۇچ</string>
   <string name="audio_mode_wired_headset">سىملىق تىڭشىغۇچ</string>
@@ -38,7 +35,6 @@
   <string name="caller_manage_header">تېلېفون يىغىنى <xliff:g id="CONF_CALL_TIME">%s</xliff:g></string>
   <string name="voicemail_settings_number_label">ئۈنخەت نومۇرى</string>
   <string name="card_title_dialing">نومۇر بۇراۋاتىدۇ</string>
-  <string name="card_title_redialing">قايتا سىناۋاتىدۇ</string>
   <string name="card_title_conf_call">تېلېفون يىغىنى</string>
   <string name="card_title_incoming_call">چاقىرىلىش</string>
   <string name="card_title_call_ended">سۆزلىشىش تامام</string>
@@ -65,22 +61,9 @@
   <string name="notification_missedCall_message">خەت</string>
   <string name="incall_error_power_off">تېلېفون ئۇرماقچى بولسىڭىز، ئايروپىلان ھالىتىنى تاقاڭ.</string>
   <string name="incall_error_emergency_only">تورغا خەتلەتمىگەن.</string>
-  <string name="incall_error_out_of_service">كۆچمە تورنى ئىشلەتكىلى بولمايدۇ.</string>
-  <string name="incall_error_no_phone_number_supplied">چاقىرىش يوللانمىدى. كىرگۈزگەن نومۇر ئىناۋەتسىز.</string>
-  <string name="incall_error_call_failed">چاقىرىش يوللانمىدى.</string>
   <string name="incall_status_dialed_mmi">MMI تەرتىپىنى قوزغىتىۋاتىدۇ…</string>
-  <string name="incall_error_supp_service_unknown">قوللىمايدىغان مۇلازىمەت.</string>
-  <string name="incall_error_supp_service_switch">سۆزلىشىشنى ئالماشتۇرالمايدۇ.</string>
-  <string name="incall_error_supp_service_separate">سۆزلىشىشنى ئايرىيالمايدۇ.</string>
-  <string name="incall_error_supp_service_transfer">سۆزلىشىشنى ئۇلاپ يۆتكىيەلمەيدۇ.</string>
-  <string name="incall_error_supp_service_conference">تېلېفون يىغىنى ئېلىپ بارالمايدۇ.</string>
-  <string name="incall_error_supp_service_reject">چاقىرىشنى رەت قىلالمايدۇ.</string>
-  <string name="incall_error_supp_service_hangup">چاقىرىشنى ئۈزۈۋېتەلمەيدۇ.</string>
   <string name="emergency_enable_radio_dialog_title">جىددىي چاقىرىش</string>
   <string name="emergency_enable_radio_dialog_message">سىمسىز ئالاقىنى ئېچىۋاتىدۇ…</string>
-  <string name="emergency_enable_radio_dialog_retry">مۇلازىمەت دائىرىسىدىن ھالقىدى، قايتا سىناۋاتىدۇ…</string>
-  <string name="dial_emergency_error">چاقىرىش يوللانمىدى، <xliff:g id="NON_EMERGENCY_NUMBER">%s</xliff:g> جىددىي چاقىرىش نومۇرى ئەمەس!</string>
-  <string name="dial_emergency_empty_error">چاقىرىش يوللانمىدى. جىددىي چاقىرىش نومۇرىنى بۇراڭ!</string>
   <string name="dialerKeyboardHintText">ھەرپتاختىدا نومۇر بۇراش</string>
   <string name="onscreenHoldText">كۈتۈش</string>
   <string name="onscreenEndCallText">تامام</string>
@@ -103,20 +86,6 @@
   <string name="respond_via_sms_custom_message">جاۋابنى ئۆزلۈكىدىن ياز…</string>
   <string name="custom_message_cancel">ۋاز كەچ</string>
   <string name="custom_message_send">يوللا</string>
-  <string name="description_image_button_one">بىر</string>
-  <string name="description_image_button_two">ئىككى</string>
-  <string name="description_image_button_three">ئۈچ</string>
-  <string name="description_image_button_four">تۆت</string>
-  <string name="description_image_button_five">بەش</string>
-  <string name="description_image_button_six">ئالتە</string>
-  <string name="description_image_button_seven">يەتتە</string>
-  <string name="description_image_button_eight">سەككىز</string>
-  <string name="description_image_button_nine">توققۇز</string>
-  <string name="description_image_button_star">يۇلتۇز</string>
-  <string name="description_image_button_zero">نۆل</string>
-  <string name="description_image_button_pound">چارچاپ</string>
-  <string name="description_dial_button">نومۇر بۇراش</string>
-  <string name="accessibility_call_muted">چاقىرىش ئۈنسىز.</string>
   <string name="description_target_answer">جاۋاب </string>
   <string name="description_target_send_sms">قىسقا ئۇچۇر يوللا</string>
   <string name="description_target_decline">قوشۇلما</string>
@@ -129,7 +98,6 @@
   <string name="default_notification_description">كۆڭۈلدىكى ئەسكەرتىش ئاۋازى (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)</string>
   <string name="ringtone_title" msgid="5379026328015343686">تېلېفون قوڭغۇراق</string>
   <string name="vibrate_on_ring_title">قوڭغۇراق چېلىنغاندا تىترەت</string>
-  <string name="dial_pad_autocomplete">نومۇر تاختىنى ئۆزلۈكىدىن تاماملاش</string>
   <string name="preference_category_ringtone">قوڭغۇراق ئاۋازى ۋە تىترىتىش</string>
   <string name="manageConferenceLabel">تېلېفون يىغىنى باشقۇرۇش</string>
   <string name="emergency_call_dialog_number_for_display">جىددىي قۇتقۇزۇش ياكى ساقچىغا مەلۇم قىلىش تېلېفۇنى</string>

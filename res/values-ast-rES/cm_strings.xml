@@ -21,10 +21,8 @@
   <string name="callUnanswered_forwarded">Llamada non respondida y reunviada</string>
   <string name="incall_call_type_label_forwarded">Llamada esviada</string>
   <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
-  <string name="onscreenBlacklistText">Llista prieta</string>
   <string name="call_recording_failed_message">Hebo un fallu al aniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Amestar a la llista prieta</string>
   <string name="blacklist_dialog_message">Les llamaes de <xliff:g id="number">%s</xliff:g> van bloquiase</string>
   <string name="card_title_video_call_paused">Videollamada (en posa)</string>
   <string name="onscreenAddParticipant">Amestar participante</string>
@@ -39,10 +37,6 @@
   <string name="camera_not_ready">La cámara nun ta preparada</string>
   <string name="camera_ready">La cámara ta preparada</string>
   <string name="unknown_call_session_event">Eventu de sesión de llamada desconocíu</string>
-  <string name="volume_boost_notify_enabled">L\'amplificación del volume ta activada</string>
-  <string name="volume_boost_notify_disabled">L\'amplificación del volume ta desactivada</string>
-  <string name="volume_boost_notify_unavailable">La potenciación del volume nun ta disponible cuando s\'usen auriculares</string>
-  <string name="onscreenMoreMenuText">Más opciones</string>
   <string name="menu_start_record">Grabar la llamada</string>
   <string name="menu_stop_record">Parar de grabar</string>
   <string name="recording_time_text">Grabando</string>

@@ -39,13 +39,13 @@
   <string name="camera_not_ready">Camera is niet gereed</string>
   <string name="camera_ready">Camera is gereed</string>
   <string name="unknown_call_session_event">Onbekende oproepgebeurtenis</string>
-  <string name="volume_boost_notify_enabled">Volumeversterker ingeschakeld</string>
-  <string name="volume_boost_notify_disabled">Volumeversterker uitgeschakeld</string>
-  <string name="volume_boost_notify_unavailable">Volumeversterker niet beschikbaar bij gebruik van een koptelefoon</string>
-  <string name="onscreenMoreMenuText">Meer\u2026</string>
+  <string name="onscreenCallRecordText">Gespreksopname starten en stoppen</string>
+  <string name="onscreenAddToBlacklistText">Beller toevoegen aan zwarte lijst</string>
   <string name="menu_start_record">Oproep opnemen</string>
   <string name="menu_stop_record">Opnemen stoppen</string>
   <string name="recording_time_text">Opnemen\u2026</string>
+  <string name="recording_warning_title">Gespreksopname inschakelen?</string>
+  <string name="recording_warning_text">Let op: u bent zelf verantwoordelijk om de wetten, verordeningen en regels na te leven die van toepassing zijn bij het opnemen van gesprekken en het gebruik of verspreiding van zulke opnamen.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Gesprek hervat</string>

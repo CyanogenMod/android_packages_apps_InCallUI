@@ -21,9 +21,7 @@
   <string name="callUnanswered_forwarded">چاقىرىشتا ئىنكاس يوق ھەمدە ئۇلاپ يەتكۈزۈلدى</string>
   <string name="incall_call_type_label_forwarded">ئۇلاپ يەتكۈزۈلگەن چاقىرىش</string>
   <string name="card_title_dialing_waiting">چاقىرىۋاتىدۇ (كۈتۈۋاتىدۇ\u2026)</string>
-  <string name="onscreenBlacklistText">قارا تىزىم</string>
   <string name="call_recording_failed_message">چاقىرىشنى خاتىرىلەشنى باشلىيالمىدى</string>
-  <string name="blacklist_dialog_title">قارا تىزىمغا قوش</string>
   <string name="blacklist_dialog_message">كەلگۈسىدە <xliff:g id="number">%s</xliff:g> نىڭ چاقىرىشىنى توسىدۇ</string>
   <string name="card_title_video_call_paused">سىنلىق چاقىرىش (ۋاقىتلىق توختىدى)</string>
   <string name="onscreenAddParticipant">قاتناشقۇچى قوش</string>
@@ -38,10 +36,6 @@
   <string name="camera_not_ready">كامېرا تەييارلانمىدى</string>
   <string name="camera_ready">كامېرا تەييار</string>
   <string name="unknown_call_session_event">يوچۇن چاقىرىش ھادىسىسى</string>
-  <string name="volume_boost_notify_enabled">ئاۋازنى يۇقىرىلاتقۇچ قوزغىتىلدى</string>
-  <string name="volume_boost_notify_disabled">ئاۋازنى يۇقىرىلاتقۇچ چەكلەندى</string>
-  <string name="volume_boost_notify_unavailable">تىڭشىغۇچ ئىشلەتكەندە ئاۋاز يۇقىرىلاتقۇچنى ئىشلەتكىلى بولمايدۇ</string>
-  <string name="onscreenMoreMenuText">تېخىمۇ كۆپ تاللانما</string>
   <string name="menu_start_record">چاقىرىشنى خاتىرىلە</string>
   <string name="menu_stop_record">خاتىرىلەشنى توختات</string>
   <string name="recording_time_text">خاتىرىلەۋاتىدۇ</string>

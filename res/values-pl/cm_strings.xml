@@ -21,10 +21,10 @@
   <string name="callUnanswered_forwarded">Połączenie nieodebrane i przekazane dalej</string>
   <string name="incall_call_type_label_forwarded">Połączenie przekazane</string>
   <string name="card_title_dialing_waiting">Wybieranie (proszę czekać\u2026)</string>
-  <string name="onscreenBlacklistText">Czarna lista</string>
+  <string name="onscreenBlacklistText">Lista zablokowanych rozmówców</string>
   <string name="call_recording_failed_message">Nie udało się rozpocząć nagrywania</string>
   <string name="call_recording_file_location">Zapisano nagranie rozmowy do <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Dodaj do czarnej listy</string>
+  <string name="blacklist_dialog_title">Dodaj do listy zablokowanych rozmówców</string>
   <string name="blacklist_dialog_message">Przyszłe połączenia od  <xliff:g id="number">%s</xliff:g> będą blokowane</string>
   <string name="card_title_video_call_paused">Połączenie wideo (wstrzymane)</string>
   <string name="onscreenAddParticipant">Dodaj uczestnika</string>
@@ -39,13 +39,12 @@
   <string name="camera_not_ready">Aparat nie jest gotowy</string>
   <string name="camera_ready">Aparat jest gotowy</string>
   <string name="unknown_call_session_event">Nieznana sesja połączenia</string>
-  <string name="volume_boost_notify_enabled">Zwiększona głośność jest włączona</string>
-  <string name="volume_boost_notify_disabled">Zwiększona głośność jest wyłączona</string>
-  <string name="volume_boost_notify_unavailable">Wzmocniona głośność nie jest dostępna po podłączeniu zestawu słuchawkowego</string>
-  <string name="onscreenMoreMenuText">Więcej opcji</string>
+  <string name="onscreenCallRecordText">Rozpocznij i zakończ nagrywanie rozmów</string>
+  <string name="onscreenAddToBlacklistText">Dodaj rozmówcę do listy zablokowanych rozmówców</string>
   <string name="menu_start_record">Nagraj rozmowę</string>
   <string name="menu_stop_record">Zatrzymaj nagrywanie</string>
   <string name="recording_time_text">Nagrywanie</string>
+  <string name="recording_warning_title">Włączyć nagrywanie połączeń?</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Rozmowa wznowiona</string>

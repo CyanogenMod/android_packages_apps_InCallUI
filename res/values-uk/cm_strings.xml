@@ -21,10 +21,11 @@
   <string name="callUnanswered_forwarded">Виклик без відповіді і переадресований</string>
   <string name="incall_call_type_label_forwarded">Переадресований дзвінок</string>
   <string name="card_title_dialing_waiting">Набираю (очікую\u2026)</string>
-  <string name="onscreenBlacklistText">Чорний список</string>
+  <string name="card_title_waiting_call">Дзвінок утримується</string>
+  <string name="onscreenBlacklistText">Список заблокованих абонентів</string>
   <string name="call_recording_failed_message">Не вдалося почати запис виклика</string>
   <string name="call_recording_file_location">Запис виклику збережено до <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Додати в чорний список</string>
+  <string name="blacklist_dialog_title">Додати абонента до списку заблокованих</string>
   <string name="blacklist_dialog_message">Майбутні дзвінки від <xliff:g id="number">%s</xliff:g> будуть заблоковані</string>
   <string name="card_title_video_call_paused">Відеовиклик (призупинено)</string>
   <string name="onscreenAddParticipant">Додати учасника</string>
@@ -39,13 +40,13 @@
   <string name="camera_not_ready">Камера не готова</string>
   <string name="camera_ready">Камера готова</string>
   <string name="unknown_call_session_event">Невідома подія виклику</string>
-  <string name="volume_boost_notify_enabled">Підсиленя гучності увімкнено</string>
-  <string name="volume_boost_notify_disabled">Підсиленя гучності вимкнено</string>
-  <string name="volume_boost_notify_unavailable">Підсилення гучності недоступне під час використання гарнітури</string>
-  <string name="onscreenMoreMenuText">Додаткові налаштування</string>
+  <string name="onscreenCallRecordText">Запустити та зупинити запис дзвінка</string>
+  <string name="onscreenAddToBlacklistText">Додати абонента до списку заблокованих</string>
   <string name="menu_start_record">Записати виклик</string>
   <string name="menu_stop_record">Припинити запис</string>
   <string name="recording_time_text">Йде запис</string>
+  <string name="recording_warning_title">Увімкнути запис дзвінків?</string>
+  <string name="recording_warning_text">Повідомлення: Ви відповідальні за дотримання будь-яки законів, правил та обмежень, що стосуються використання функції запису дзвінків і використання або розповсюдження цих записів.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Виклик відновлений</string>

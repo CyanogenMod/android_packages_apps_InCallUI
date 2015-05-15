@@ -21,10 +21,8 @@
   <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
   <string name="incall_call_type_label_forwarded">Yönlendirilmiş çağrı</string>
   <string name="card_title_dialing_waiting">Aranıyor (bekliyor\u2026)</string>
-  <string name="onscreenBlacklistText">Kara liste</string>
   <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
   <string name="call_recording_file_location">Arama kaydı <xliff:g id="filename">%s</xliff:g> konumuna kaydedildi</string>
-  <string name="blacklist_dialog_title">Kara listeye ekle</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
   <string name="card_title_video_call_paused">Görüntülü arama (duraklatıldı)</string>
   <string name="onscreenAddParticipant">Katılımcı ekle</string>
@@ -39,10 +37,6 @@
   <string name="camera_not_ready">Kamera hazır değil</string>
   <string name="camera_ready">Kamera hazır</string>
   <string name="unknown_call_session_event">Bilinmeyen çağrı oturumu</string>
-  <string name="volume_boost_notify_enabled">Ses güçlendirici etkinleştirildi</string>
-  <string name="volume_boost_notify_disabled">Ses güçlendirici devre dışı bırakıldı</string>
-  <string name="volume_boost_notify_unavailable">Kulaklık kullanılırken fazladan ses kullanılamaz</string>
-  <string name="onscreenMoreMenuText">Daha fazla seçenek</string>
   <string name="menu_start_record">Aramayı kaydet</string>
   <string name="menu_stop_record">Kaydı durdur</string>
   <string name="recording_time_text">Kayıt ediliyor</string>

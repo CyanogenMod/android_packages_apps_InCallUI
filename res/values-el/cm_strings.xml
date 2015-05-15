@@ -21,10 +21,11 @@
   <string name="callUnanswered_forwarded">Η κλήση δεν απαντήθηκε και προωθήθηκε</string>
   <string name="incall_call_type_label_forwarded">Προωθημένη κλήση</string>
   <string name="card_title_dialing_waiting">Κλήση (αναμονή\u2026)</string>
-  <string name="onscreenBlacklistText">Μαύρη λίστα</string>
+  <string name="card_title_waiting_call">Κλήση σε αναμονή</string>
+  <string name="onscreenBlacklistText">Λίστα αποκλεισμένων καλούντων</string>
   <string name="call_recording_failed_message">Αποτυχία έναρξης της ηχογράφησης κλήσης</string>
   <string name="call_recording_file_location">Η ηχογράφηση κλήσης αποθηκεύτηκε ως <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Προσθήκη στη μαύρη λίστα</string>
+  <string name="blacklist_dialog_title">Προσθήκη στη λίστα αποκλεισμένων καλούντων</string>
   <string name="blacklist_dialog_message">Μελλοντικές κλήσεις από το <xliff:g id="number">%s</xliff:g> θα απορρίπτονται</string>
   <string name="card_title_video_call_paused">Βίντεο κλήση (σε παύση)</string>
   <string name="onscreenAddParticipant">Προσθήκη συμμετέχοντος</string>
@@ -39,13 +40,13 @@
   <string name="camera_not_ready">Η φωτογραφική μηχανή δεν είναι έτοιμη</string>
   <string name="camera_ready">Η φωτογραφική μηχανή είναι έτοιμη</string>
   <string name="unknown_call_session_event">Άγνωστο γεγονός συνεδρίας κλήσης</string>
-  <string name="volume_boost_notify_enabled">Η ενίσχυση ήχου είναι ενεργή</string>
-  <string name="volume_boost_notify_disabled">Η ενίσχυση ήχου είναι ανενεργή</string>
-  <string name="volume_boost_notify_unavailable">Η ενίσχυση ήχου δεν είναι διαθέσιμη όταν χρησιμοποιείτε ακουστικά</string>
-  <string name="onscreenMoreMenuText">Περισσότερες επιλογές</string>
+  <string name="onscreenCallRecordText">Έναρξη και διακοπή καταγραφής κλήσης</string>
+  <string name="onscreenAddToBlacklistText">Προσθήκη καλούντος στη λίστα αποκλεισμένων καλούντων</string>
   <string name="menu_start_record">Ηχογράφηση κλήσης</string>
   <string name="menu_stop_record">Διακοπή ηχογράφησης</string>
   <string name="recording_time_text">Γίνεται εγγραφή</string>
+  <string name="recording_warning_title">Ενεργοποίηση καταγραφής κλήσεων;</string>
+  <string name="recording_warning_text">Προσοχή: Είστε υπεύθυνοι για τη συμμόρφωση με οποιουσδήποτε νόμους, κανονισμούς και κανόνες που ισχύουν για τη χρήση της λειτουργίας καταγραφής κλήσεων και τη χρήση ή διανομή των καταγραφών αυτών.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Η κλήση συνεχίστηκε</string>

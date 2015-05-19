@@ -240,6 +240,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallCallbackNotifier.getInstance().addSessionModificationListener(this);
         mCurrentVideoState = VideoProfile.STATE_AUDIO_ONLY;
         mCurrentCallState = Call.State.INVALID;
+        mDeviceOrientation = ui.getCurrentRotation();
     }
 
     /**
@@ -688,6 +689,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             final int rotation = ui.getCurrentRotation();
             if (rotation != VideoCallFragment.ORIENTATION_UNKNOWN) {
                 videoCall.setDeviceOrientation(InCallPresenter.toRotationAngle(rotation));
+                onDeviceOrientationChanged(rotation);
             }
 
             enableCamera(videoCall, isCameraRequired(newVideoState));

@@ -152,7 +152,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     /**
      * Determines the device orientation (portrait/lanscape).
      */
-    private int mDeviceOrientation;
+    private int mDeviceOrientation = InCallOrientationEventListener.SCREEN_ORIENTATION_0;
 
     /**
      * Tracks the state of the preview surface negotiation with the telephony layer.
@@ -240,7 +240,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallCallbackNotifier.getInstance().addSessionModificationListener(this);
         mCurrentVideoState = VideoProfile.STATE_AUDIO_ONLY;
         mCurrentCallState = Call.State.INVALID;
-        mDeviceOrientation = ui.getCurrentRotation();
     }
 
     /**
@@ -686,12 +685,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
                 videoCall.setDisplaySurface(ui.getDisplayVideoSurface());
             }
 
-            final int rotation = ui.getCurrentRotation();
-            if (rotation != VideoCallFragment.ORIENTATION_UNKNOWN) {
-                videoCall.setDeviceOrientation(InCallPresenter.toRotationAngle(rotation));
-                onDeviceOrientationChanged(rotation);
-            }
-
+            videoCall.setDeviceOrientation(mDeviceOrientation);
             enableCamera(videoCall, isCameraRequired(newVideoState));
         }
         mCurrentVideoState = newVideoState;
@@ -991,21 +985,31 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
     /**
      * Handles changes to the device orientation.
-     *
-     * @param orientation The device orientation (one of: {@link Surface#ROTATION_0},
-     *      {@link Surface#ROTATION_90}, {@link Surface#ROTATION_180},
-     *      {@link Surface#ROTATION_270}).
+     * @param orientation The screen orientation of the device (one of:
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_0},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_90},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_180},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_270}).
      */
     @Override
     public void onDeviceOrientationChanged(int orientation) {
         mDeviceOrientation = orientation;
-        Point previewDimensions = getUi().getPreviewSize();
+
+        VideoCallUi ui = getUi();
+        if (ui == null) {
+            Log.e(this, "onDeviceOrientationChanged: VideoCallUi is null");
+            return;
+        }
+
+        Point previewDimensions = ui.getPreviewSize();
         if (previewDimensions == null) {
             return;
         }
         Log.d(this, "onDeviceOrientationChanged: orientation=" + orientation + " size: "
                 + previewDimensions);
         changePreviewDimensions(previewDimensions.x, previewDimensions.y);
+
+        ui.setPreviewRotation(mDeviceOrientation);
     }
 
     @Override
@@ -1055,10 +1059,12 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
 
     /**
      * Sets the preview surface size based on the current device orientation.
+     * See: {@link InCallOrientationEventListener#SCREEN_ORIENTATION_0},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_90},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_180},
+     * {@link InCallOrientationEventListener#SCREEN_ORIENTATION_270}).
      *
-     * @param orientation The device orientation (one of: {@link Surface#ROTATION_0},
-     *      {@link Surface#ROTATION_90}, {@link Surface#ROTATION_180},
-     *      {@link Surface#ROTATION_270}).
+     * @param orientation The device orientation
      * @param aspectRatio The aspect ratio of the camera (width / height).
      */
     private void setPreviewSize(int orientation, float aspectRatio) {
@@ -1070,8 +1076,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         int height;
         int width;
 
-        if (orientation == Surface.ROTATION_90 || orientation == Surface.ROTATION_270) {
-            // Landscape or reverse landscape orientation.
+        if (orientation == InCallOrientationEventListener.SCREEN_ORIENTATION_90 ||
+                orientation == InCallOrientationEventListener.SCREEN_ORIENTATION_270) {
             width = (int) (mMinimumVideoDimension * aspectRatio);
             height = (int) mMinimumVideoDimension;
         } else {
@@ -1351,5 +1357,6 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         void cleanupSurfaces();
         ImageView getPreviewPhotoView();
         void adjustPreviewLocation(boolean shiftUp, int offset);
+        void setPreviewRotation(int orientation);
     }
 }

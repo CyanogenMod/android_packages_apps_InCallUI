@@ -86,6 +86,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
 
     private boolean mIsVisible;
     private AlertDialog mDialog;
+    private InCallOrientationEventListener mInCallOrientationEventListener;
 
     /** Use to pass 'showDialpad' from {@link #onNewIntent} to {@link #onResume} */
     private boolean mShowDialpadRequested;
@@ -128,11 +129,6 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
 
     /** Listener for orientation changes. */
     private OrientationEventListener mOrientationEventListener;
-
-    /**
-     * Used to determine if a change in rotation has occurred.
-     */
-    private static int sPreviousRotation = -1;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -201,41 +197,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
             }
         }
 
-        mOrientationEventListener = new OrientationEventListener(this,
-                SensorManager.SENSOR_DELAY_NORMAL) {
-            @Override
-            public void onOrientationChanged(int orientation) {
-                // Device is flat, don't change orientation.
-                if (orientation == OrientationEventListener.ORIENTATION_UNKNOWN) {
-                    return;
-                }
-
-                int newRotation;
-                // We only shift if we're within 22.5 (23) degrees of the target
-                // orientation. This avoids flopping back and forth when holding
-                // the device at 45 degrees or so.
-                if (orientation >= 337 || orientation <= 23) {
-                    newRotation = Surface.ROTATION_0;
-                } else if (orientation >= 67 && orientation <= 113) {
-                    // Why not 90? Because screen and sensor orientation are
-                    // reversed.
-                    newRotation = Surface.ROTATION_270;
-                } else if (orientation >= 157 && orientation <= 203) {
-                    newRotation = Surface.ROTATION_180;
-                } else if (orientation >= 247 && orientation <= 293) {
-                    newRotation = Surface.ROTATION_90;
-                } else {
-                    // Device is between orientations, so leave orientation the same.
-                    return;
-                }
-
-                // Orientation is the current device orientation in degrees.  Ultimately we want
-                // the rotation (in fixed 90 degree intervals).
-                if (newRotation != sPreviousRotation) {
-                    doOrientationChanged(newRotation);
-                }
-            }
-        };
+        mInCallOrientationEventListener = new InCallOrientationEventListener(this);
 
         Log.d(this, "onCreate(): exit");
     }
@@ -268,6 +230,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
 
         // setting activity should be last thing in setup process
         InCallPresenter.getInstance().setActivity(this);
+        enableInCallOrientationEventListener(getRequestedOrientation() ==
+               InCallOrientationEventListener.FULL_SENSOR_SCREEN_ORIENTATION);
 
         InCallPresenter.getInstance().onActivityStarted();
     }
@@ -317,6 +281,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     protected void onStop() {
         Log.d(this, "onStop()...");
         mIsVisible = false;
+        enableInCallOrientationEventListener(false);
         InCallPresenter.getInstance().updateIsChangingConfigurations();
         InCallPresenter.getInstance().onActivityStopped();
         mOrientationEventListener.disable();
@@ -518,25 +483,6 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         }
 
         return false;
-    }
-
-    /**
-     * Handles changes in device rotation.
-     *
-     * @param rotation The new device rotation (one of: {@link Surface#ROTATION_0},
-     *      {@link Surface#ROTATION_90}, {@link Surface#ROTATION_180},
-     *      {@link Surface#ROTATION_270}).
-     */
-    private void doOrientationChanged(int rotation) {
-        Log.d(this, "doOrientationChanged prevOrientation=" + sPreviousRotation +
-                " newOrientation=" + rotation);
-        // Check to see if the rotation changed to prevent triggering rotation change events
-        // for other configuration changes.
-        if (rotation != sPreviousRotation) {
-            sPreviousRotation = rotation;
-            InCallPresenter.getInstance().onDeviceRotationChange(rotation);
-            InCallPresenter.getInstance().onDeviceOrientationChange(sPreviousRotation);
-        }
     }
 
     public CallButtonFragment getCallButtonFragment() {
@@ -880,6 +826,19 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
                     Log.e(TAG, "RuntimeException when excluding task from recents.", e);
                 }
             }
+        }
+    }
+
+     /**
+     * Enables the OrientationEventListener if enable flag is true. Disables it if enable is
+     * false
+     * @param enable true or false.
+     */
+    public void enableInCallOrientationEventListener(boolean enable) {
+        if (enable) {
+            mInCallOrientationEventListener.enable(enable);
+        } else {
+            mInCallOrientationEventListener.disable();
         }
     }
 }

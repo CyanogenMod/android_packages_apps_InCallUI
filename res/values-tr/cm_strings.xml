@@ -21,8 +21,11 @@
   <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
   <string name="incall_call_type_label_forwarded">Yönlendirilmiş çağrı</string>
   <string name="card_title_dialing_waiting">Aranıyor (bekliyor\u2026)</string>
+  <string name="card_title_waiting_call">Arama bekletiliyor</string>
+  <string name="onscreenBlacklistText">Engellenen arayan listesi</string>
   <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
   <string name="call_recording_file_location">Arama kaydı <xliff:g id="filename">%s</xliff:g> konumuna kaydedildi</string>
+  <string name="blacklist_dialog_title">Engellenen arayan listesine ekle</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
   <string name="card_title_video_call_paused">Görüntülü arama (duraklatıldı)</string>
   <string name="onscreenAddParticipant">Katılımcı ekle</string>
@@ -37,9 +40,13 @@
   <string name="camera_not_ready">Kamera hazır değil</string>
   <string name="camera_ready">Kamera hazır</string>
   <string name="unknown_call_session_event">Bilinmeyen çağrı oturumu</string>
+  <string name="onscreenCallRecordText">Arama kaydını başlat ve durdur</string>
+  <string name="onscreenAddToBlacklistText">Arayan kişiyi engellenenler listesine ekle</string>
   <string name="menu_start_record">Aramayı kaydet</string>
   <string name="menu_stop_record">Kaydı durdur</string>
   <string name="recording_time_text">Kayıt ediliyor</string>
+  <string name="recording_warning_title">Arama kaydı etkinleştirilsin mi?</string>
+  <string name="recording_warning_text">Dikkat: Arama kaydı işlevini kullanırken veya bu kayıtları dağıtırken ilgili yasa, düzenleme ve kurallara karşı sorumlusunuz.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Görüşmeye geri dönüldü</string>

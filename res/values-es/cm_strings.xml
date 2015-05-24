@@ -21,8 +21,11 @@
   <string name="callUnanswered_forwarded">Llamada no respondida y reenviada</string>
   <string name="incall_call_type_label_forwarded">Llamada desviada</string>
   <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
+  <string name="card_title_waiting_call">Llamada en espera</string>
+  <string name="onscreenBlacklistText">Lista de contactos bloqueados</string>
   <string name="call_recording_failed_message">Ocurrió un error al iniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Agregar a lista de contactos bloqueados</string>
   <string name="blacklist_dialog_message">Las llamadas de <xliff:g id="number">%s</xliff:g> serán bloqueadas</string>
   <string name="card_title_video_call_paused">Videollamada (en pausa)</string>
   <string name="onscreenAddParticipant">Añadir participante</string>
@@ -37,9 +40,13 @@
   <string name="camera_not_ready">Cámara no preparada</string>
   <string name="camera_ready">Cámara preparada</string>
   <string name="unknown_call_session_event">Evento de sesión de llamada desconocido</string>
+  <string name="onscreenCallRecordText">Iniciar y detener la grabación de la llamada</string>
+  <string name="onscreenAddToBlacklistText">Agregar contacto a lista de contactos bloqueados</string>
   <string name="menu_start_record">Registro de llamada</string>
   <string name="menu_stop_record">Detener grabación</string>
   <string name="recording_time_text">Grabando</string>
+  <string name="recording_warning_title">¿Habilitar la grabación de llamada?</string>
+  <string name="recording_warning_text">Aviso: Tú eres el responsable de cumplir con cualquier ley, reglamento o norma que se aplique al uso de la funcionalidad de grabación de llamadas y el uso o distribución de esas grabaciones.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Llamada reanudada</string>

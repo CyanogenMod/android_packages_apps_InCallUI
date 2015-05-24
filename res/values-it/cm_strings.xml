@@ -22,8 +22,10 @@
   <string name="incall_call_type_label_forwarded">Chiamata inoltrata</string>
   <string name="card_title_dialing_waiting">Composizione (attendere\u2026)</string>
   <string name="card_title_waiting_call">Chiamata in attesa</string>
+  <string name="onscreenBlacklistText">Elenco chiamanti bloccati</string>
   <string name="call_recording_failed_message">Impossibile avviare la registrazione della chiamata</string>
   <string name="call_recording_file_location">Registrazione chiamata salvata su <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Aggiungi all\'elenco chiamanti bloccati</string>
   <string name="blacklist_dialog_message">Le prossime chiamate provenienti dal <xliff:g id="number">%s</xliff:g> saranno bloccate</string>
   <string name="card_title_video_call_paused">Videochiamata (in pausa)</string>
   <string name="onscreenAddParticipant">Aggiungi partecipante</string>
@@ -39,10 +41,12 @@
   <string name="camera_ready">Fotocamera pronta</string>
   <string name="unknown_call_session_event">Evento di sessione sconosciuto</string>
   <string name="onscreenCallRecordText">Avviare e interrompi la registrazione della chiamata</string>
+  <string name="onscreenAddToBlacklistText">Aggiungi all\'elenco chiamanti bloccati</string>
   <string name="menu_start_record">Registra chiamata</string>
   <string name="menu_stop_record">Interrompi la registrazione</string>
   <string name="recording_time_text">Registrazione in corso</string>
   <string name="recording_warning_title">Abilitare la registrazione della chiamata?</string>
+  <string name="recording_warning_text">Avviso: Tu sei responsabile della conformità con eventuali leggi, regolamenti e norme che si applicano all\'utilizzo, condivisione e distribuzione sulle registrazioni delle chiamate.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Chiamata ripresa</string>

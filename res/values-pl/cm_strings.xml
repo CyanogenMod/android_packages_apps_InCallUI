@@ -21,6 +21,7 @@
   <string name="callUnanswered_forwarded">Połączenie nieodebrane i przekazane dalej</string>
   <string name="incall_call_type_label_forwarded">Połączenie przekazane</string>
   <string name="card_title_dialing_waiting">Wybieranie (proszę czekać\u2026)</string>
+  <string name="card_title_waiting_call">Połączenie wstrzymane</string>
   <string name="onscreenBlacklistText">Lista zablokowanych rozmówców</string>
   <string name="call_recording_failed_message">Nie udało się rozpocząć nagrywania</string>
   <string name="call_recording_file_location">Zapisano nagranie rozmowy do <xliff:g id="filename">%s</xliff:g></string>
@@ -45,6 +46,7 @@
   <string name="menu_stop_record">Zatrzymaj nagrywanie</string>
   <string name="recording_time_text">Nagrywanie</string>
   <string name="recording_warning_title">Włączyć nagrywanie połączeń?</string>
+  <string name="recording_warning_text">Uwaga; Ponosisz odpowiedzialność za wszelkie komplikacje z prawem związane z nagrywaniem rozmów i ich udostępnianiem bądź rozpowszechnianiem tych nagrań.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Rozmowa wznowiona</string>

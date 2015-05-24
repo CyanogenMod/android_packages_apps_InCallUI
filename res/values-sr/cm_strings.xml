@@ -21,8 +21,11 @@
   <string name="callUnanswered_forwarded">Позив неодговорен и прослеђен</string>
   <string name="incall_call_type_label_forwarded">Позив је прослеђен</string>
   <string name="card_title_dialing_waiting">Позивање (чекање\u2026)</string>
+  <string name="card_title_waiting_call">Позив на чекању</string>
+  <string name="onscreenBlacklistText">Листа блокираних саговорника</string>
   <string name="call_recording_failed_message">Снимање позива није успело</string>
   <string name="call_recording_file_location">Снимак позива сачуван у <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Додај у листу блокираних саговорника</string>
   <string name="blacklist_dialog_message">Будући позиви од <xliff:g id="number">%s</xliff:g> ће бити блокирани</string>
   <string name="card_title_video_call_paused">Видео позив (паузиран)</string>
   <string name="onscreenAddParticipant">Додај учесника</string>
@@ -37,9 +40,13 @@
   <string name="camera_not_ready">Камера није спремна</string>
   <string name="camera_ready">Камера је спремна</string>
   <string name="unknown_call_session_event">Сесија догађаја непознатог позива</string>
+  <string name="onscreenCallRecordText">Почни и заустави снимак позива</string>
+  <string name="onscreenAddToBlacklistText">Додај позиваоца у листу блокираних саговорника</string>
   <string name="menu_start_record">Сними позив</string>
   <string name="menu_stop_record">Заустави снимање</string>
   <string name="recording_time_text">Снимање</string>
+  <string name="recording_warning_title">Омогући снимање позива?</string>
+  <string name="recording_warning_text">Белешка: Ви сте одговорни за сагласност са законима, регулацијама и правилима који се примењују за коришћење функције снимања позива и дистрибуције тих снимака.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Позив настављен</string>

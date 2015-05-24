@@ -21,11 +21,41 @@
   <string name="callUnanswered_forwarded">Erantzunik gabeko eta birbidalitako deia</string>
   <string name="incall_call_type_label_forwarded">Dei desbideratua</string>
   <string name="card_title_dialing_waiting">Deitzen (itxaroten\u2026)</string>
+  <string name="card_title_waiting_call">Deia zai</string>
+  <string name="onscreenBlacklistText">Blokeatutako deitzaileen zerrenda</string>
+  <string name="call_recording_failed_message">Huts egin du deia grabatzen hasteak</string>
+  <string name="call_recording_file_location">Deiaren grabaketa hemen gorde da: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Gehitu blokeatutako deitzaileen zerrendara</string>
   <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g>(r)en deiak blokeatu egingo dira</string>
   <string name="card_title_video_call_paused">Bideo deia (pausatuta)</string>
   <string name="onscreenAddParticipant">Gehitu partaidea</string>
+  <string name="modify_call_option_title">Hautatu dei mota</string>
+  <string name="modify_call_option_vt">Bideo-deia</string>
+  <string name="modify_call_option_vt_tx">Bideo igorpena</string>
+  <string name="modify_call_option_vt_rx">Bideo harrera</string>
+  <string name="modify_call_option_voice">Ahotsa bakarrik</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Ezgaitu TTY modua bideo-deiak baimentzeko</string>
   <string name="player_started">Erreproduzigailua hasi da</string>
   <string name="player_stopped">Erreproduzigailua gelditu da</string>
+  <string name="camera_not_ready">Kamera ez dago prest</string>
+  <string name="camera_ready">Kamera prest dago</string>
+  <string name="unknown_call_session_event">Dei saio gertaera ezezaguna</string>
+  <string name="onscreenCallRecordText">Hsi eta gelditu dei grabazioa</string>
+  <string name="onscreenAddToBlacklistText">Gehitu deitzailea blokeatutako deitzaileen zerrendara</string>
+  <string name="menu_start_record">Grabatu deia</string>
   <string name="menu_stop_record">Gelditu grabaketa</string>
+  <string name="recording_time_text">Grabazioa</string>
+  <string name="recording_warning_title">Gaitu deien grabaketa?</string>
+  <string name="recording_warning_text">Oharra: Zu zara deien grabaketei eta hauek erabili edo banatzeari dagokien legeak edo bestelako arauak betetzearen erantzulea.</string>
+  <string name="sub_1">1. SIM</string>
+  <string name="sub_2">2. SIM</string>
+  <string name="call_substate_call_resumed">Deia berrekin da</string>
+  <string name="call_substate_connected_suspended_audio">Deia konektatuta dago, baina audioa esekita dago</string>
   <string name="call_substate_connected_suspended_video">Deia konektatuta dago, baina bideoa esekita dago</string>
+  <string name="call_substate_avp_retry">Bideo kalitatea antzematen\u2026</string>
+  <string name="video_quality_changed">Bideo kalitatea aldatu da, orain <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">handia</string>
+  <string name="video_quality_medium">ertaina</string>
+  <string name="video_quality_low">baxua</string>
+  <string name="video_quality_unknown">ezezaguna</string>
 </resources>

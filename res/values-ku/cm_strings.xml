@@ -21,11 +21,40 @@
   <string name="callUnanswered_forwarded">پەیوەندی وەڵام نەدرایەوە و پشتگوێخرا</string>
   <string name="incall_call_type_label_forwarded">په‌یوه‌ندییه‌ به‌دواکه‌وتنه‌کان</string>
   <string name="card_title_dialing_waiting">لێدان (وه‌ستان\u2026)</string>
+  <string name="card_title_waiting_call">تەلەفۆنەکە لەسەر چاوەڕێیە</string>
+  <string name="onscreenBlacklistText">لیستی تەلەفۆنە بلۆکراوەکان</string>
+  <string name="call_recording_failed_message">هنه‌توانرا تۆمارکردنی په‌یوه‌ندی ده‌ستپێبکرێت</string>
+  <string name="call_recording_file_location">تەلەفۆنی تۆمارکراو پاشەکەوتکرا بۆ <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">زیاکردکردنی بۆ لیستی پەیوەندی</string>
   <string name="blacklist_dialog_message">په‌یوه‌ندی داهاتوو له‌لایه‌ن <xliff:g id="number">%s</xliff:g> بلۆک ده‌کرێت</string>
+  <string name="card_title_video_call_paused">تەلەفۆنی ڤیدۆی (وەستێنرا)</string>
   <string name="onscreenAddParticipant">زیادکردنی بەشداربوو</string>
+  <string name="modify_call_option_title">دیارکردنی جۆری پەیوەندی</string>
+  <string name="modify_call_option_vt">په‌یوه‌ندی وێنه‌یی</string>
   <string name="modify_call_option_vt_tx">ناردنی ڤیدیۆ</string>
   <string name="modify_call_option_vt_rx">وەەرگرتنی ڤیدیۆ</string>
   <string name="modify_call_option_voice">تەنیا دەنگ</string>
+  <string name="video_call_not_allowed_if_tty_enabled">تکایە باری TTY لەکاربخە بۆ ڕێگەدان بە پەیوەندی ڤیدۆی</string>
+  <string name="player_started">لێدەر دەستیپێکرد</string>
+  <string name="player_stopped">لێدەر وەستێنرا</string>
+  <string name="camera_not_ready">کامێراکە ئامادە نیە</string>
+  <string name="camera_ready">کامێرەکە ئامادەیە</string>
+  <string name="unknown_call_session_event">پەیوەندیەکی نەناسراو</string>
+  <string name="onscreenCallRecordText">دەستپێکردن و وەستانی تۆماکردنی پەیوەندی</string>
+  <string name="onscreenAddToBlacklistText">زیادکردنی پەیوەندی بۆ لیستی بلۆکراوەکان</string>
+  <string name="menu_start_record">تۆمارکردنی پەیوەندی</string>
+  <string name="menu_stop_record">وه‌ستانی تۆمارکردن</string>
+  <string name="recording_time_text">تۆمارکردن</string>
+  <string name="recording_warning_title">چالاککردنی تۆمارکردنی پەیوەندی?</string>
   <string name="sub_1">سیمکارتی ١</string>
   <string name="sub_2">سیمکارتی ٢</string>
+  <string name="call_substate_call_resumed">دەستپێکردنەوەی پەیوەندی</string>
+  <string name="call_substate_connected_suspended_audio">پەیوەندی پەیوەندکرا، بەڵام دەنگ بەسەرچوو</string>
+  <string name="call_substate_connected_suspended_video">پەیوەندی پەیوەندکرا، بەڵام ڤیدۆ بەسەرچوو</string>
+  <string name="call_substate_avp_retry">جۆری ڤیدۆ کواڵتی\u2026</string>
+  <string name="video_quality_changed">کواڵتی ڤیدۆ گۆڕڕا بۆ <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">بەرز</string>
+  <string name="video_quality_medium">ناوەند</string>
+  <string name="video_quality_low">که‌م</string>
+  <string name="video_quality_unknown">نه‌زانراو</string>
 </resources>

@@ -196,6 +196,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            mIsDialpadShowing = savedInstanceState.getBoolean("mIsDialpadShowing");
+        }
+
         mRevealAnimationDuration = getResources().getInteger(R.integer.reveal_animation_duration);
         mShrinkAnimationDuration = getResources().getInteger(R.integer.shrink_animation_duration);
         mVideoAnimationDuration = getResources().getInteger(R.integer.video_animation_duration);
@@ -1229,6 +1233,12 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             v.setTop(oldTop);
             v.setBottom(oldBottom);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("mIsDialpadShowing", mIsDialpadShowing);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

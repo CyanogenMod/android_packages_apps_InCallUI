@@ -17,10 +17,43 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">DIAL päring muudeti USSD päringuks.</string>
+  <string name="callFailed_dialToSs">DIAL päring muudeti SS päringuks.</string>
+  <string name="callFailed_dialToDial">DIAL päring muudeti teise numbriga DIAL päringuks.</string>
+  <string name="callFailed_incoming_cb_enabled">Osapool on piiranud kõik sisenevad kõned.</string>
+  <string name="callUnanswered_forwarded">Kõne vastamata ja edasi suunatud</string>
+  <string name="modify_call_prompt_yes">Jah</string>
+  <string name="modify_call_prompt_no">Ei</string>
+  <string name="modify_call_failure_str">Kõne muutmise päring ebaõnnestus\n</string>
+  <string name="modify_call_option_title">Valige kõne tüüp</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Edasta video</string>
+  <string name="modify_call_option_vt_rx">Võta video vastu</string>
+  <string name="modify_call_option_voice">Ainult heli</string>
+  <string name="accept_modify_call_request_prompt">Aksepteeri kõnetüübi muutmise päringut?</string>
+  <string name="upgrade_vt_prompt">Kas soovite kõne muuta videokõneks?</string>
+  <string name="upgrade_vt_tx_prompt">Kas soovite kõne muuta ainult videoedastuskõneks?</string>
+  <string name="upgrade_vt_rx_prompt">Kas soovite uuendada kõne, et vastu võtta ainult videot kõne ajal?</string>
+  <string name="onscreenModifyCallText">Muuda kõne</string>
+  <string name="onscreenAddParticipant">Lisa osaleja</string>
+  <string name="description_target_answer_video">Vasta videokõnena</string>
+  <string name="description_target_answer_tx_video">Vasta TX videona</string>
+  <string name="description_target_answer_rx_video">Vasta RX videona</string>
+  <string name="description_direction_up_right">Üles paremale</string>
+  <string name="description_direction_up_left">Üles vasakule</string>
+  <string name="description_direction_down_left">Alla vasakule</string>
+  <string name="description_direction_down_right">Alla paremale</string>
   <string name="incall_call_type_label_forwarded">Edastatud kõne</string>
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
   <string name="card_title_waiting_call">Ootel kõne</string>
   <string name="onscreenBlacklistText">Must nimekiri</string>
+  <string name="onscreenRecordText">Alusta/lõpeta salvestus</string>
+  <string name="call_recording_failed_message">Kõne salvestuse alustamine nurjus</string>
   <string name="blacklist_dialog_title">Lisa musta nimekirja</string>
   <string name="blacklist_dialog_message">Tulevased kõned numbrilt <xliff:g id="number">%s</xliff:g> blokeeritakse</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="volume_boost_notify_enabled">Helivõimendi on lubatud</string>
+  <string name="volume_boost_notify_disabled">Helivõimendi on keelatud</string>
+  <string name="volume_boost_notify_unavailable">Lisa heli pole saadaval kasutates peakomplekti</string>
 </resources>

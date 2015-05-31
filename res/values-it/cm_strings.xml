@@ -40,12 +40,12 @@
   <string name="camera_not_ready">La fotocamera non è pronta</string>
   <string name="camera_ready">Fotocamera pronta</string>
   <string name="unknown_call_session_event">Evento di sessione sconosciuto</string>
-  <string name="onscreenCallRecordText">Avviare e interrompi la registrazione della chiamata</string>
+  <string name="onscreenCallRecordText">Avvia e interrompi la registrazione della chiamata</string>
   <string name="onscreenAddToBlacklistText">Aggiungi all\'elenco chiamanti bloccati</string>
   <string name="menu_start_record">Registra chiamata</string>
   <string name="menu_stop_record">Interrompi la registrazione</string>
   <string name="recording_time_text">Registrazione in corso</string>
-  <string name="recording_warning_title">Abilitare la registrazione della chiamata?</string>
+  <string name="recording_warning_title">Attivare la registrazione della chiamata?</string>
   <string name="recording_warning_text">Avviso: Tu sei responsabile della conformità con eventuali leggi, regolamenti e norme che si applicano all\'utilizzo, condivisione e distribuzione sulle registrazioni delle chiamate.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>

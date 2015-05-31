@@ -21,7 +21,11 @@
   <string name="callUnanswered_forwarded">응답되지 않고 전환된 통화</string>
   <string name="incall_call_type_label_forwarded">착신전환된 전화</string>
   <string name="card_title_dialing_waiting">전화 거는 중 (대기 중\u2026)</string>
+  <string name="card_title_waiting_call">대기 중인 전화</string>
+  <string name="onscreenBlacklistText">차단된 발신자 목록</string>
   <string name="call_recording_failed_message">통화 녹음을 시작하지 못했습니다</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>에 통화 녹음이 저장됨</string>
+  <string name="blacklist_dialog_title">차단된 발신자 목록에 추가합니다</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>에서 오는 전화가 차단됩니다</string>
   <string name="card_title_video_call_paused">영상 통화 (일시 중지됨)</string>
   <string name="onscreenAddParticipant">참가자 추가</string>
@@ -36,9 +40,13 @@
   <string name="camera_not_ready">카메라가 준비되지 않음</string>
   <string name="camera_ready">카메라 준비됨</string>
   <string name="unknown_call_session_event">알 수 없는 통화 세션 이벤트</string>
+  <string name="onscreenCallRecordText">통화 녹음을 시작하거나 중지합니다</string>
+  <string name="onscreenAddToBlacklistText">통화 차단 목록에 추가</string>
   <string name="menu_start_record">통화 녹음</string>
   <string name="menu_stop_record">녹음 중단</string>
   <string name="recording_time_text">녹음 중</string>
+  <string name="recording_warning_title">통화 녹음을 활성화 할까요?</string>
+  <string name="recording_warning_text">주의 사항: 통화 녹음 기능의 사용과 녹음된 파일의 사용 및 배포에 적용되는 모든 법, 규정 및 규칙을 준수해야 합니다.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">통화 재개</string>

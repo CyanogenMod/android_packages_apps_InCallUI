@@ -20,11 +20,40 @@
   <string name="callFailed_dialToUssd">DIAL eskaera USSD eskaerara eraldatu da.</string>
   <string name="callFailed_dialToSs">DIAL eskaera SS eskaerara eraldatu da.</string>
   <string name="callFailed_dialToDial">DIAL eskaera zenbaki ezberdina duen DIAL eskaerara eraldatu da.</string>
+  <string name="callFailed_incoming_cb_enabled">Hartzaileak deiak jasotzea trabatu du.</string>
+  <string name="callUnanswered_forwarded">Erantzunik gabeko eta birbidalitako deia</string>
   <string name="modify_call_prompt_yes">Bai</string>
+  <string name="modify_call_prompt_no">Ez</string>
+  <string name="modify_call_failure_str">Deiaren modifikaziorako eskaerak huts egin du\n</string>
+  <string name="modify_call_option_title">Hautatu dei mota</string>
+  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt_tx">Bideo igorpena</string>
+  <string name="modify_call_option_vt_rx">Bideo harrera</string>
+  <string name="modify_call_option_voice">Ahotsa bakarrik</string>
+  <string name="accept_modify_call_request_prompt">Onartu deia aldatzeko eskaera?</string>
+  <string name="upgrade_vt_prompt">Deia bideo-dei bihurtu nahi duzu?</string>
+  <string name="upgrade_vt_tx_prompt">Deia bideo igorpen dei hutsa bihurtu nahi duzu?</string>
+  <string name="upgrade_vt_rx_prompt">Deia bideo harrera dei hutsa bihurtu nahi duzu?</string>
+  <string name="onscreenModifyCallText">Eraldatu deia</string>
+  <string name="onscreenAddParticipant">Gehitu partaidea</string>
+  <string name="description_target_answer_video">Erantzun bideo-dei bidez</string>
+  <string name="description_target_answer_tx_video">Erantzun bideo igorpen bidez</string>
+  <string name="description_target_answer_rx_video">Erantzun bideo harrera bidez</string>
+  <string name="description_direction_up_right">Goi-eskuma</string>
+  <string name="description_direction_up_left">Goi-ezkerra</string>
+  <string name="description_direction_down_left">Behe-ezkerra</string>
+  <string name="description_direction_down_right">Behe-eskuma</string>
   <string name="incall_call_type_label_forwarded">Dei desbideratua</string>
   <string name="card_title_dialing_waiting">Deitzen (itxaroten\u2026)</string>
   <string name="card_title_waiting_call">Deia zain</string>
   <string name="onscreenBlacklistText">Zerrenda beltza</string>
-  <string name="blacklist_dialog_title">Zerrenda beltzera gehitu</string>
-  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g> -(r)en deiak blokeatu egingo dira</string>
+  <string name="onscreenRecordText">Hasi/gelditu grabaketa</string>
+  <string name="call_recording_failed_message">Huts egin du deia grabatzen hasteak</string>
+  <string name="blacklist_dialog_title">Gehitu zerrenda beltzera</string>
+  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g>(r)en deiak blokeatu egingo dira</string>
+  <string name="sub_1">1. SIM</string>
+  <string name="sub_2">2. SIM</string>
+  <string name="volume_boost_notify_enabled">Bolumen indartzea gaituta dago</string>
+  <string name="volume_boost_notify_disabled">Bolumen indartzea ezgaituta dago</string>
+  <string name="volume_boost_notify_unavailable">Bolumen gehigarria ez dago erabilgarri aurikularrak erabiltzerakoan</string>
 </resources>

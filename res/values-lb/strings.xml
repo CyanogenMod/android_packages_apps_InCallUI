@@ -148,7 +148,7 @@
   <string name="accessibility_wired_headset_selected">Verkaabelte Kopfhörer ausgewielt</string>
   <string name="accessibility_bluetooth_headset_selected">Bluetooth-Headset ausgewielt</string>
   <string name="accessibility_call_muted">Uruff roueg geschalt.</string>
-  <string name="accessibility_call_unmuted">Uruff net méi stomm.</string>
+  <string name="accessibility_call_unmuted">Uruff net méi roueg.</string>
   <string name="accessibility_call_put_on_hold">Uruff gëtt gehalen.</string>
   <string name="accessibility_call_removed_from_hold">Uruff gëtt net méi gehalen.</string>
   <string name="description_target_answer">Äntweren</string>

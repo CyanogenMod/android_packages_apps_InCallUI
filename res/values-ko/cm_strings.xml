@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">전화 거는 중 (대기 중\u2026)</string>
   <string name="onscreenBlacklistText">블랙리스트</string>
   <string name="call_recording_failed_message">통화 녹음을 시작하지 못했습니다</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>에 통화 녹음이 저장됨</string>
   <string name="blacklist_dialog_title">블랙리스트에 추가</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>에서 오는 전화가 차단됩니다</string>
   <string name="card_title_video_call_paused">영상 통화 (일시 중지됨)</string>

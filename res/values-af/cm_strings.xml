@@ -23,6 +23,7 @@
   <string name="card_title_dialing_waiting">Skakel (wag\u2026)</string>
   <string name="onscreenBlacklistText">Swartlys</string>
   <string name="call_recording_failed_message">Kon nie oproep opname begin nie</string>
+  <string name="call_recording_file_location">Stoor oproep opname na <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Voeg by swartlys</string>
   <string name="blacklist_dialog_message">Toekomstige oproepe van <xliff:g id="number">%s</xliff:g> sal geblokkeer word</string>
   <string name="card_title_video_call_paused">Video-oproep (gestop)</string>

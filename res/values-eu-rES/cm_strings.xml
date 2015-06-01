@@ -17,9 +17,44 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Hartzaileak deiak jasotzea trabatu du.</string>
+  <string name="callUnanswered_forwarded">Erantzunik gabeko eta birbidalitako deia</string>
   <string name="incall_call_type_label_forwarded">Dei desbideratua</string>
   <string name="card_title_dialing_waiting">Deitzen (itxaroten\u2026)</string>
   <string name="onscreenBlacklistText">Zerrenda beltza</string>
-  <string name="blacklist_dialog_title">Zerrenda beltzera gehitu</string>
-  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g> -(r)en deiak blokeatu egingo dira</string>
+  <string name="call_recording_failed_message">Huts egin du deia grabatzen hasteak</string>
+  <string name="call_recording_file_location">Deiaren grabaketa hemen gorde da: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Gehitu zerrenda beltzera</string>
+  <string name="blacklist_dialog_message">Etorkizunean <xliff:g id="number">%s</xliff:g>(r)en deiak blokeatu egingo dira</string>
+  <string name="card_title_video_call_paused">Bideo-deia (pausatuta)</string>
+  <string name="onscreenAddParticipant">Gehitu partaidea</string>
+  <string name="modify_call_option_title">Hautatu dei mota</string>
+  <string name="modify_call_option_vt">Bideo-deia</string>
+  <string name="modify_call_option_vt_tx">Bideo igorpena</string>
+  <string name="modify_call_option_vt_rx">Bideo harrera</string>
+  <string name="modify_call_option_voice">Ahotsa bakarrik</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Ezgaitu TTY modua bideo-deiak baimentzeko</string>
+  <string name="player_started">Erreproduzigailua hasi da</string>
+  <string name="player_stopped">Erreproduzigailua gelditu da</string>
+  <string name="camera_not_ready">Kamera ez dago prest</string>
+  <string name="camera_ready">Kamera prest dago</string>
+  <string name="unknown_call_session_event">Dei saio gertaera ezezaguna</string>
+  <string name="volume_boost_notify_enabled">Bolumen indartzea gaituta dago</string>
+  <string name="volume_boost_notify_disabled">Bolumen indartzea ezgaituta gado</string>
+  <string name="volume_boost_notify_unavailable">Bolumen gehigarria ez dago erabilgarri aurikularrak erabiltzerakoan</string>
+  <string name="onscreenMoreMenuText">Aukera gehiago</string>
+  <string name="menu_start_record">Grabatu deia</string>
+  <string name="menu_stop_record">Gelditu grabaketa</string>
+  <string name="recording_time_text">Grabatzen</string>
+  <string name="sub_1">1. SIM</string>
+  <string name="sub_2">2. SIM</string>
+  <string name="call_substate_call_resumed">Deia berrekin da</string>
+  <string name="call_substate_connected_suspended_audio">Deia konektatuta dago, baina audioa esekita dago</string>
+  <string name="call_substate_connected_suspended_video">Deia konektatuta dago, baina bideoa esekita dago</string>
+  <string name="call_substate_avp_retry">Bideo kalitatea antzematen\u2026</string>
+  <string name="video_quality_changed">Bideo kalitatea aldatu da, orain <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">handia</string>
+  <string name="video_quality_medium">ertaina</string>
+  <string name="video_quality_low">baxua</string>
+  <string name="video_quality_unknown">ezezaguna</string>
 </resources>

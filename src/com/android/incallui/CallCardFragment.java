@@ -877,9 +877,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             case Call.State.ACTIVE:
                 // We normally don't show a "call state label" at all in this state
                 // (but we can use the call state label to display the provider name).
-                if ((isAccount || isWifi || isConference) && hasSuggestedLabel) {
-                    callStateLabel = label;
-                } else if (sessionModificationState
+                if (sessionModificationState
                         == Call.SessionModificationState.REQUEST_REJECTED) {
                     callStateLabel = context.getString(R.string.card_title_video_call_rejected);
                     isAutoDismissing = true;
@@ -895,6 +893,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                     callStateLabel = context.getString(R.string.card_title_video_call_requesting);
                 } else if (CallUtils.isVideoCall(videoState)) {
                     callStateLabel = context.getString(R.string.card_title_video_call);
+                }
+
+                if ((isAccount || isWifi || isConference) && hasSuggestedLabel) {
+                   label += (callStateLabel != null) ? (" " + callStateLabel) : "";
+                   callStateLabel = label;
                 }
                 break;
             case Call.State.ONHOLD:

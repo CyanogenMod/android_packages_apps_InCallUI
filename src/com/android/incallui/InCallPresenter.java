@@ -393,6 +393,9 @@ public class InCallPresenter implements CallList.Listener,
             updateListeners = true;
             mInCallActivity = null;
 
+            // Cancel any pending dialogs
+            cancelAccountSelection();
+
             // We attempt cleanup for the destroy case but only after we recalculate the state
             // to see if we need to come back up or stay shut down. This is why we do the
             // cleanup after the call to onCallListChange() instead of directly here.
@@ -1357,9 +1360,10 @@ public class InCallPresenter implements CallList.Listener,
             boolean showCircularReveal, boolean newTask) {
         final Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
-                | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                | Intent.FLAG_ACTIVITY_NO_USER_ACTION | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         if (newTask) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
         intent.setClass(mContext, InCallActivity.class);

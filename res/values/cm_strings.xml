@@ -26,9 +26,14 @@
 
     <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
     <string name="card_title_dialing_waiting">Dialing (waiting\u2026)</string>
+    <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
+    <string name="calling_via_waiting_template">Calling via <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
 
     <!-- In-call screen: status label for a call that is held remotely -->
     <string name="card_title_waiting_call">Call on hold</string>
+    <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
+    <string name="card_title_waiting_via_template">Call on hold (via <xliff:g id="provider_name">%s</xliff:g>)</string>
 
     <!-- Text for the onscreen "Blacklist" button -->
     <string name="onscreenBlacklistText">Blocked caller list</string>

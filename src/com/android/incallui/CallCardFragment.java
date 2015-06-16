@@ -803,7 +803,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             case Call.State.ACTIVE:
                 // We normally don't show a "call state label" at all in this state
                 // (but we can use the call state label to display the provider name).
-                if (isAccount) {
+                if (isAccount && isWaitingForRemoteSide) {
+                    callStateLabel = context.getString(
+                            R.string.card_title_waiting_via_template, label);
+                } else if (isAccount) {
                     callStateLabel = label;
                 } else if (sessionModificationState
                         == Call.SessionModificationState.REQUEST_FAILED) {
@@ -827,7 +830,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             case Call.State.CONNECTING:
             case Call.State.DIALING:
                 if (isSpecialCall) {
-                    callStateLabel = context.getString(R.string.calling_via_template, label);
+                    int resId = isWaitingForRemoteSide
+                            ? R.string.calling_via_waiting_template
+                            : R.string.calling_via_template;
+                    callStateLabel = context.getString(resId, label);
                 } else if (isWaitingForRemoteSide) {
                     callStateLabel = context.getString(R.string.card_title_dialing_waiting);
                 } else {

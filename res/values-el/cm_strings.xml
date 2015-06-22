@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Η κλήση δεν απαντήθηκε και προωθήθηκε</string>
   <string name="incall_call_type_label_forwarded">Προωθημένη κλήση</string>
   <string name="card_title_dialing_waiting">Κλήση (αναμονή\u2026)</string>
+  <string name="calling_via_waiting_template">Κλήση μέσω <xliff:g id="provider_name">%s</xliff:g> (Αναμονή\u2026)</string>
   <string name="card_title_waiting_call">Κλήση σε αναμονή</string>
+  <string name="card_title_waiting_via_template">Κλήση σε αναμονή (μέσω <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Λίστα αποκλεισμένων καλούντων</string>
   <string name="call_recording_failed_message">Αποτυχία έναρξης της ηχογράφησης κλήσης</string>
   <string name="call_recording_file_location">Η ηχογράφηση κλήσης αποθηκεύτηκε ως <xliff:g id="filename">%s</xliff:g></string>

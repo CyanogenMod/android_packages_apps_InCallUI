@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Erantzunik gabeko eta birbidalitako deia</string>
   <string name="incall_call_type_label_forwarded">Dei desbideratua</string>
   <string name="card_title_dialing_waiting">Deitzen (itxaroten\u2026)</string>
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> bidez deitzen (Itxaroten\u2026)</string>
   <string name="card_title_waiting_call">Deia zai</string>
+  <string name="card_title_waiting_via_template">Deia zai (<xliff:g id="provider_name">%s</xliff:g> bidez)</string>
   <string name="onscreenBlacklistText">Blokeatutako deitzaileen zerrenda</string>
   <string name="call_recording_failed_message">Huts egin du deia grabatzen hasteak</string>
   <string name="call_recording_file_location">Deiaren grabaketa hemen gorde da: <xliff:g id="filename">%s</xliff:g></string>

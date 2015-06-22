@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">שיחה שהועברה מבלי להיענות</string>
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">מחייג (ממתין\u2026)</string>
+  <string name="calling_via_waiting_template">מתקשר באמצעות <xliff:g id="provider_name">%s</xliff:g> (ממתין\u2026)</string>
   <string name="card_title_waiting_call">שיחה בהמתנה</string>
+  <string name="card_title_waiting_via_template">שיחה בהמתנה (דרך <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">רשימת המתקשרים החסומים</string>
   <string name="call_recording_failed_message">נכשל בהתחלת הקלטת השיחה</string>
   <string name="call_recording_file_location">שמר את הקלטת השיחה כ-<xliff:g id="filename">%s</xliff:g></string>

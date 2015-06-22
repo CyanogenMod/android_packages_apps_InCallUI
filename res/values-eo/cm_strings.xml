@@ -17,6 +17,36 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Videkunveno malpermesis ĉiujn envenajn alvokojn.</string>
+  <string name="incall_call_type_label_forwarded">Plusendita alvoko</string>
+  <string name="card_title_waiting_call">Detenata alvoko</string>
+  <string name="onscreenBlacklistText">Listo de blokitaj alvokantoj</string>
+  <string name="call_recording_failed_message">Registrado de alvoko fiaskis</string>
+  <string name="call_recording_file_location">Alvoko registrata en la dosiero <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Aldoni al la listo de blokitaj alvokantoj</string>
+  <string name="blacklist_dialog_message">Venontaj alvokoj de <xliff:g id="number">%s</xliff:g> estos blokitaj</string>
+  <string name="card_title_video_call_paused">Vida alvoko (paŭzita)</string>
+  <string name="onscreenAddParticipant">Aldoni partoprenanton</string>
+  <string name="modify_call_option_title">Elekti alvokan tipon</string>
+  <string name="modify_call_option_vt">Vida alvoko</string>
+  <string name="modify_call_option_vt_tx">Vida transsendo</string>
+  <string name="modify_call_option_vt_rx">Vida ricevo</string>
+  <string name="modify_call_option_voice">Nur voĉo</string>
+  <string name="player_started">Ludilo lanĉita</string>
+  <string name="player_stopped">Ludilo haltita</string>
+  <string name="camera_not_ready">Fotilo ne pretas</string>
+  <string name="camera_ready">Fotilo pretas</string>
+  <string name="unknown_call_session_event">Nekonata alvoka evento</string>
+  <string name="onscreenAddToBlacklistText">Aldoni alvokanton al blokita listo</string>
+  <string name="menu_start_record">Registri alvokon</string>
+  <string name="recording_time_text">Registrado</string>
+  <string name="recording_warning_text">Noto : Vi respondecas pri leĝoj kaj reguloj rilate al la registrado de alvokoj kaj ties uzo.</string>
+  <string name="sub_1">SIM-karto 1</string>
+  <string name="sub_2">SIM-karto 2</string>
+  <string name="call_substate_call_resumed">Daŭrigo de alvoko</string>
+  <string name="call_substate_connected_suspended_audio">Alvoko estas konektita sed sono haltetis</string>
+  <string name="call_substate_connected_suspended_video">Alvoko estas konektita sed vido haltetis</string>
+  <string name="video_quality_changed">Vida kvalito ŝanĝiĝis al <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">alta</string>
   <string name="video_quality_medium">meza</string>
   <string name="video_quality_low">malalta</string>

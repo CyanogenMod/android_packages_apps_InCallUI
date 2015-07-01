@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Çağrı cevaplanmayıp yönlendirildi</string>
   <string name="incall_call_type_label_forwarded">Yönlendirilmiş çağrı</string>
   <string name="card_title_dialing_waiting">Aranıyor (bekliyor\u2026)</string>
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ile aranıyor (Bekleniyor\u2026)</string>
   <string name="card_title_waiting_call">Arama bekletiliyor</string>
+  <string name="card_title_waiting_via_template">Arama beklemede (<xliff:g id="provider_name">%s</xliff:g> ile)</string>
   <string name="onscreenBlacklistText">Engellenen arayan listesi</string>
   <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
   <string name="call_recording_file_location">Arama kaydı <xliff:g id="filename">%s</xliff:g> konumuna kaydedildi</string>

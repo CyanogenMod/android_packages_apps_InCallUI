@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Oproep was onbeantwoord en aangestuur</string>
   <string name="incall_call_type_label_forwarded">Aangestuurde oproep</string>
   <string name="card_title_dialing_waiting">Skakel (wag\u2026)</string>
+  <string name="calling_via_waiting_template">Skakel via <xliff:g id="provider_name">%s</xliff:g> (Wag asb\u2026)</string>
   <string name="card_title_waiting_call">Oproep word aangehou</string>
+  <string name="card_title_waiting_via_template">Oproep wag (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Lys geblokkeerde oproepers</string>
   <string name="call_recording_failed_message">Kon nie oproep opname begin nie</string>
   <string name="call_recording_file_location">Stoor oproep opname na <xliff:g id="filename">%s</xliff:g></string>

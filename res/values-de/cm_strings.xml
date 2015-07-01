@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Anruf unbeantwortet und weitergeleitet</string>
   <string name="incall_call_type_label_forwarded">Weitergeleiteter Anruf</string>
   <string name="card_title_dialing_waiting">Rufaufbau (klopft an\u2026)</string>
+  <string name="calling_via_waiting_template">Anruf über <xliff:g id="provider_name">%s</xliff:g> (klopft an\u2026)</string>
   <string name="card_title_waiting_call">Anruf wird gehalten</string>
+  <string name="card_title_waiting_via_template">Anruf wird gehalten (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Anrufer-Sperrliste</string>
   <string name="call_recording_failed_message">Starten der Anrufaufzeichnung fehlgeschlagen</string>
   <string name="call_recording_file_location">Anrufaufnahme auf <xliff:g id="filename">%s</xliff:g>  gespeichert</string>

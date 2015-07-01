@@ -23,10 +23,14 @@
   <string name="card_title_dialing_waiting">Ringer (väntar\u2026)</string>
   <string name="blacklist_dialog_message">Kommande samtal från <xliff:g id="number">%s</xliff:g> kommer att blockeras</string>
   <string name="onscreenAddParticipant">Lägg till deltagare</string>
+  <string name="modify_call_option_title">Välj samtalstyp</string>
   <string name="modify_call_option_vt">Videosamtal</string>
   <string name="modify_call_option_vt_tx">Videosändning</string>
   <string name="modify_call_option_vt_rx">Videomottagning</string>
   <string name="modify_call_option_voice">Endast röst</string>
+  <string name="camera_not_ready">Kameran är inte redo</string>
+  <string name="camera_ready">Kameran är redo</string>
+  <string name="menu_stop_record">Stoppa inspelning</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="video_quality_high">hög</string>

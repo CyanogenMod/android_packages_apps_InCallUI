@@ -18,8 +18,12 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_incoming_cb_enabled">Videkunveno malpermesis ĉiujn envenajn alvokojn.</string>
+  <string name="callUnanswered_forwarded">Nesponda kaj plusendita alvoko</string>
   <string name="incall_call_type_label_forwarded">Plusendita alvoko</string>
+  <string name="card_title_dialing_waiting">Numerumo (Paciencu\u2026)</string>
+  <string name="calling_via_waiting_template">Alvodado per <xliff:g id="provider_name">%s</xliff:g> (Atendado\u2026)</string>
   <string name="card_title_waiting_call">Detenata alvoko</string>
+  <string name="card_title_waiting_via_template">Alvoki dum deteno (per <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Listo de blokitaj alvokantoj</string>
   <string name="call_recording_failed_message">Registrado de alvoko fiaskis</string>
   <string name="call_recording_file_location">Alvoko registrata en la dosiero <xliff:g id="filename">%s</xliff:g></string>
@@ -32,20 +36,25 @@
   <string name="modify_call_option_vt_tx">Vida transsendo</string>
   <string name="modify_call_option_vt_rx">Vida ricevo</string>
   <string name="modify_call_option_voice">Nur voĉo</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Bonvolu malŝalti TTY reĝimo por permesi vidajn alvokojn</string>
   <string name="player_started">Ludilo lanĉita</string>
   <string name="player_stopped">Ludilo haltita</string>
   <string name="camera_not_ready">Fotilo ne pretas</string>
   <string name="camera_ready">Fotilo pretas</string>
   <string name="unknown_call_session_event">Nekonata alvoka evento</string>
+  <string name="onscreenCallRecordText">Lanĉi kaj ĉesi alvokan registron</string>
   <string name="onscreenAddToBlacklistText">Aldoni alvokanton al blokita listo</string>
   <string name="menu_start_record">Registri alvokon</string>
+  <string name="menu_stop_record">Ĉesi registradon</string>
   <string name="recording_time_text">Registrado</string>
+  <string name="recording_warning_title">Ĉu ebligi registradon de alvokoj?</string>
   <string name="recording_warning_text">Noto : Vi respondecas pri leĝoj kaj reguloj rilate al la registrado de alvokoj kaj ties uzo.</string>
   <string name="sub_1">SIM-karto 1</string>
   <string name="sub_2">SIM-karto 2</string>
   <string name="call_substate_call_resumed">Daŭrigo de alvoko</string>
   <string name="call_substate_connected_suspended_audio">Alvoko estas konektita sed sono haltetis</string>
   <string name="call_substate_connected_suspended_video">Alvoko estas konektita sed vido haltetis</string>
+  <string name="call_substate_avp_retry">Detektado de vida kvalito\u2026</string>
   <string name="video_quality_changed">Vida kvalito ŝanĝiĝis al <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">alta</string>
   <string name="video_quality_medium">meza</string>

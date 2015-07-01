@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Виклик без відповіді і переадресований</string>
   <string name="incall_call_type_label_forwarded">Переадресований дзвінок</string>
   <string name="card_title_dialing_waiting">Набираю (очікую\u2026)</string>
+  <string name="calling_via_waiting_template">Виклик за допомогою <xliff:g id="provider_name">%s </xliff:g> (Очікування\u2026)</string>
   <string name="card_title_waiting_call">Дзвінок утримується</string>
+  <string name="card_title_waiting_via_template">Виклик на утриманні (через <xliff:g id="provider_name">%s </xliff:g>)</string>
   <string name="onscreenBlacklistText">Список заблокованих абонентів</string>
   <string name="call_recording_failed_message">Не вдалося почати запис виклика</string>
   <string name="call_recording_file_location">Запис виклику збережено до <xliff:g id="filename">%s</xliff:g></string>

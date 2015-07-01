@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">응답되지 않고 전환된 통화</string>
   <string name="incall_call_type_label_forwarded">착신전환된 전화</string>
   <string name="card_title_dialing_waiting">전화 거는 중 (대기 중\u2026)</string>
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g>을(를) 통하여 전화 중 (기다리는 중\u2026)</string>
   <string name="card_title_waiting_call">대기 중인 전화</string>
+  <string name="card_title_waiting_via_template">통화 대기중 (<xliff:g id="provider_name">%s</xliff:g>을(를) 통하여)</string>
   <string name="onscreenBlacklistText">차단된 발신자 목록</string>
   <string name="call_recording_failed_message">통화 녹음을 시작하지 못했습니다</string>
   <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>에 통화 녹음이 저장됨</string>

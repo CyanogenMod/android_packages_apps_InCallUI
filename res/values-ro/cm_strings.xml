@@ -35,4 +35,5 @@
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Apelul a fost reluat</string>
+  <string name="video_quality_unknown">necunoscută</string>
 </resources>

@@ -21,7 +21,9 @@
   <string name="onHold">Gehalen</string>
   <string name="unknown">Onbekannt</string>
   <string name="private_num">Privat Nummer</string>
+  <string name="payphone">Telefonskabinn</string>
   <string name="confCall">Konferenzuruff</string>
+  <string name="call_lost">Uruff ofgebrach</string>
   <string name="audio_mode_speaker">Lautsprecher</string>
   <string name="audio_mode_earpiece">Telefonshörer</string>
   <string name="audio_mode_wired_headset">Verkaabelte Kopfhörer</string>
@@ -35,6 +37,7 @@
   <string name="caller_manage_header">Konferenzuruff <xliff:g id="conf_call_time">%s</xliff:g></string>
   <string name="voicemail_settings_number_label">Mailbox-Nummer</string>
   <string name="card_title_dialing">Gëtt gewielt</string>
+  <string name="card_title_redialing">Gëtt nees gewielt</string>
   <string name="card_title_conf_call">Konferenzuruff</string>
   <string name="card_title_incoming_call">Erakommenden Uruff</string>
   <string name="card_title_call_ended">Uruff ofgeschloss</string>
@@ -45,6 +48,9 @@
   <string name="card_title_video_call_connecting">Video gëtt verbonnen</string>
   <string name="card_title_video_call">Videouruff</string>
   <string name="card_title_video_call_requesting">Video gëtt ugefrot</string>
+  <string name="card_title_video_call_error">Videouruff kann net verbonne ginn</string>
+  <string name="card_title_callback_number">Deng Réckruffnummer\n<xliff:g id="dark_number">%1$s</xliff:g></string>
+  <string name="card_title_callback_number_emergency">Deng Réckruffnummer fir den Noutruffdéngscht\n <xliff:g id="dark_number">%1$s</xliff:g></string>
   <string name="notification_dialing">Gëtt gewielt</string>
   <string name="notification_missedCallTitle">Verpassten Uruff</string>
   <string name="notification_missedCallsTitle">Verpasst Uriff</string>
@@ -61,8 +67,10 @@
   <string name="notification_voicemail_no_vm_number">Mailbox-Nummer onbekannt</string>
   <string name="notification_network_selection_title">Kee Service</string>
   <string name="notification_network_selection_text">Ausgewielt Netzwierk (<xliff:g id="operator_name">%s</xliff:g>) net erreechbar</string>
+  <string name="notification_action_answer">Äntweren</string>
   <string name="notification_action_end_call">Anhänken</string>
   <string name="notification_action_answer_video">Video</string>
+  <string name="notification_action_answer_more">Méi</string>
   <string name="notification_action_answer_voice">Stëmm</string>
   <string name="notification_action_accept">Acceptéieren</string>
   <string name="notification_action_dismiss">Verwerfen</string>
@@ -70,16 +78,31 @@
   <string name="notification_missedCall_message">Message schécken</string>
   <string name="incall_error_power_off">Desaktivéier de Fligermodus, fir unzeruffen.</string>
   <string name="incall_error_emergency_only">Net am Netzwierk registréiert.</string>
+  <string name="incall_error_out_of_service">Handynetzwierk net disponibel.</string>
+  <string name="incall_error_no_phone_number_supplied">Uruff gouf net gesat, gëff eng gëlteg Nummer an.</string>
+  <string name="incall_error_call_failed">Uruff net méiglech.</string>
   <string name="incall_status_dialed_mmi">MMI-Sequenz gëtt gestartet\u2026</string>
+  <string name="incall_error_supp_service_unknown">Service gëtt net ënnerstëtzt.</string>
+  <string name="incall_error_supp_service_switch">Uruff kann net gewiesselt ginn.</string>
+  <string name="incall_error_supp_service_separate">Uruff kann net getrennt ginn.</string>
+  <string name="incall_error_supp_service_transfer">Uruff kann net transferéiert ginn.</string>
+  <string name="incall_error_supp_service_conference">Konferenzschaltung net méiglech.</string>
+  <string name="incall_error_supp_service_reject">Uruff kann net refuséiert ginn.</string>
+  <string name="incall_error_supp_service_hangup">Uriff kënnen net fräigi ginn.</string>
   <string name="incall_call_type_label_sip">SIP-Uruff</string>
   <string name="emergency_enable_radio_dialog_title">Noutruff</string>
   <string name="emergency_enable_radio_dialog_message">Mobilfunkverbindung gëtt aktivéiert\u2026</string>
+  <string name="emergency_enable_radio_dialog_retry">Kee Service. Gëtt nees versicht\u2026</string>
+  <string name="dial_emergency_error">Uruff net geschéckt. <xliff:g id="non_emergency_number">%s</xliff:g> ass keng Noutruffnummer.</string>
+  <string name="dial_emergency_empty_error">Uruff net méiglech. Wiel eng Noutruffnummer.</string>
   <string name="dialerKeyboardHintText">D\'Tastatur benotze fir ze wielen</string>
   <string name="overflowHoldMenuItemText">Uruff halen</string>
   <string name="overflowResumeMenuItemText">Uruff weiderféieren</string>
   <string name="overflowAddMenuItemText">Uruff dobäisetzen</string>
   <string name="overflowMergeMenuItemText">Uriff zesummeféieren</string>
   <string name="overflowSwapMenuItemText">Uriff austauschen</string>
+  <string name="overflowAddParticipantMenuItemText">Korrespondent dobäisetzen</string>
+  <string name="overflowManageConferenceMenuItemText">Konferenz geréieren</string>
   <string name="onscreenHoldText">Halen</string>
   <string name="onscreenEndCallText">Anhänken</string>
   <string name="onscreenShowDialpadText">Wieltasten</string>
@@ -114,6 +137,10 @@
   <string name="description_target_answer_audio_call">Als Tounuruff beäntweren</string>
   <string name="description_target_accept_upgrade_to_video_request">Videoufro acceptéieren</string>
   <string name="description_target_decline_upgrade_to_video_request">Videoufro refuséieren</string>
+  <string name="description_target_accept_upgrade_to_video_transmit_request">Ufro fir Videotransmissioun acceptéieren</string>
+  <string name="description_target_decline_upgrade_to_video_transmit_request">Ufro fir Videotransmissioun refuséieren</string>
+  <string name="description_target_accept_upgrade_to_video_receive_request">Videoufro acceptéieren</string>
+  <string name="description_target_decline_upgrade_to_video_receive_request">Videoufro refuséieren</string>
   <string name="description_direction_up">Eropwësche fir \"<xliff:g id="target_description" example="Unlock">%s</xliff:g>\".</string>
   <string name="description_direction_left">No lénks wësche fir \"<xliff:g id="target_description" example="Unlock">%s</xliff:g>\".</string>
   <string name="description_direction_right">No riets wësche fir \"<xliff:g id="target_description" example="Unlock">%s</xliff:g>\".</string>
@@ -124,6 +151,7 @@
   <string name="default_notification_description">Standard-Toun (<xliff:g id="default_sound_title">%1$s</xliff:g>)</string>
   <string name="ringtone_title" msgid="5379026328015343686">Schelltoun</string>
   <string name="vibrate_on_ring_title">Vibréiere beim Schellen</string>
+  <string name="dial_pad_autocomplete">Autovervollst. fir Wieltasten</string>
   <string name="preference_category_ringtone">Schelltoun a Vibratioun</string>
   <string name="manageConferenceLabel">Telefonskonferenz verwalten</string>
   <string name="emergency_call_dialog_number_for_display">Noutruffnummer</string>

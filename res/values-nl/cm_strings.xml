@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Gesprek onbeantwoord en doorgeschakeld</string>
   <string name="incall_call_type_label_forwarded">Doorgeschakeld gesprek</string>
   <string name="card_title_dialing_waiting">Bellen (wachten\u2026)</string>
+  <string name="calling_via_waiting_template">Bellen via  <xliff:g id="provider_name">%s</xliff:g> (wachten\u2026)</string>
   <string name="card_title_waiting_call">Gesprek in de wacht</string>
+  <string name="card_title_waiting_via_template">Gesprek in de wacht (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Zwarte lijst</string>
   <string name="call_recording_failed_message">Gespreksopname starten mislukt</string>
   <string name="call_recording_file_location">Gespreksopname opgeslagen als <xliff:g id="filename">%s</xliff:g></string>

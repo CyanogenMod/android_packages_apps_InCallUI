@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Ubesvarte og videresendte anrop</string>
   <string name="incall_call_type_label_forwarded">Videresendt samtale</string>
   <string name="card_title_dialing_waiting">Ringer (venter\u2026)</string>
+  <string name="calling_via_waiting_template">Ringer via <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
   <string name="card_title_waiting_call">Samtale på vent</string>
+  <string name="card_title_waiting_via_template">Samtale pauset (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Blokkert samtaleliste</string>
   <string name="call_recording_failed_message">Kunne ikke starte opptak av samtalen</string>
   <string name="call_recording_file_location">Lagrer samtaleopptak til <xliff:g id="filename">%s</xliff:g></string>

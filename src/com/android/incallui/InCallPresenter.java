@@ -248,8 +248,10 @@ public class InCallPresenter implements CallList.Listener,
         InCallUiStateNotifier.getInstance().setUp(mContext);
         VideoPauseController.getInstance().setUp(this);
         InCallMessageController.getInstance().setUp(mContext);
+        OrientationModeHandler.getInstance().setUp();
         addDetailsListener(CallSubstateNotifier.getInstance());
         InCallZoomController.getInstance().setUp(mContext);
+        addDetailsListener(SessionModificationCauseNotifier.getInstance());
 
         Log.d(this, "Finished InCallPresenter.setUp");
     }
@@ -270,8 +272,10 @@ public class InCallPresenter implements CallList.Listener,
         VideoPauseController.getInstance().tearDown();
         InCallUiStateNotifier.getInstance().tearDown();
         InCallMessageController.getInstance().tearDown();
+        OrientationModeHandler.getInstance().tearDown();
         removeDetailsListener(CallSubstateNotifier.getInstance());
         InCallZoomController.getInstance().tearDown();
+        removeDetailsListener(SessionModificationCauseNotifier.getInstance());
     }
 
     private void attemptFinishActivity() {

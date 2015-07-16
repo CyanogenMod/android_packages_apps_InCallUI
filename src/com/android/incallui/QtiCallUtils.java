@@ -29,18 +29,19 @@
 
 package com.android.incallui;
 
-
-import android.telecom.VideoProfile;
-import android.telecom.Connection.VideoProvider;
-import android.widget.Toast;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.telecom.InCallService.VideoCall;
-
+import android.telecom.Connection.VideoProvider;
+import android.telecom.VideoProfile;
+import android.widget.Toast;
 import java.util.ArrayList;
+
+import org.codeaurora.QtiVideoCallConstants;
 
 /**
  * This class contains Qti specific utiltity functions.
@@ -274,5 +275,23 @@ public class QtiCallUtils {
         final String PREFERRED_TTY_MODE = "preferred_tty_mode";
         return (android.provider.Settings.Secure.getInt(context.getContentResolver(),
                 PREFERRED_TTY_MODE, TTY_MODE_OFF) != TTY_MODE_OFF);
+    }
+
+
+    /**
+     * This method converts the QtiVideoCallConstants' Orientation modes to the ActivityInfo
+     * screen orientation mode.
+     */
+    public static int toUiOrientationMode(int orientationMode) {
+        switch(orientationMode) {
+            case QtiVideoCallConstants.ORIENTATION_MODE_LANDSCAPE:
+                return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+            case QtiVideoCallConstants.ORIENTATION_MODE_PORTRAIT:
+                return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+            case QtiVideoCallConstants.ORIENTATION_MODE_DYNAMIC:
+                return ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+            default:
+                return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+        }
     }
 }

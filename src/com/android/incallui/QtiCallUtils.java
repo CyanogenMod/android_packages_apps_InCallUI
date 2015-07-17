@@ -1,4 +1,5 @@
-/* Copyright (c) 2015, The Linux Foundation. All rights reserved.
+/**
+ * Copyright (c) 2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -28,16 +29,33 @@
 
 package com.android.incallui;
 
+
 import android.telecom.VideoProfile;
 import android.telecom.Connection.VideoProvider;
 import android.widget.Toast;
 import android.content.Context;
 import android.content.res.Resources;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.telecom.InCallService.VideoCall;
+
+import java.util.ArrayList;
+
 /**
  * This class contains Qti specific utiltity functions.
  */
 public class QtiCallUtils {
+
+    private static final int INVALID_INDEX = -1;
+
+    private static String LOG_TAG = "QtiCallUtils";
+
+    /**
+     * Private constructor for QtiCallUtils as we don't want to instantiate this class
+     */
+    private QtiCallUtils() {
+    }
 
     /**
      * This utility method checks to see if bits in the mask are enabled in the value
@@ -101,5 +119,138 @@ public class QtiCallUtils {
      */
     public static void displayToast(Context context, int resourceId) {
         displayToast(context, context.getResources().getString(resourceId));
+    }
+
+    /**
+     * The function is called when Modify Call button gets pressed. The function creates and
+     * displays modify call options.
+     */
+    public static void displayModifyCallOptions(final Call call, final Context context) {
+        if (call == null) {
+            Log.d(LOG_TAG, "Can't display modify call options. Call is null");
+            return;
+        }
+
+        final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
+        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
+        final Resources res = context.getResources();
+        // Prepare the string array and mapping.
+        items.add(res.getText(R.string.modify_call_option_voice));
+        itemToCallType.add(VideoProfile.STATE_AUDIO_ONLY);
+
+        items.add(res.getText(R.string.modify_call_option_vt_rx));
+        itemToCallType.add(VideoProfile.STATE_RX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt_tx));
+        itemToCallType.add(VideoProfile.STATE_TX_ENABLED);
+
+        items.add(res.getText(R.string.modify_call_option_vt));
+        itemToCallType.add(VideoProfile.STATE_BIDIRECTIONAL);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(R.string.modify_call_option_title);
+        final AlertDialog alert;
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(context, items.get(item), Toast.LENGTH_SHORT).show();
+                final int selCallType = itemToCallType.get(item);
+                Log.v(this, "Videocall: ModifyCall: upgrade/downgrade to "
+                        + callTypeToString(selCallType));
+                VideoProfile videoProfile = new VideoProfile(selCallType);
+                changeToVideoClicked(call, videoProfile);
+                dialog.dismiss();
+            }
+        };
+        final int currUnpausedVideoState = CallUtils.getUnPausedVideoState(call.getVideoState());
+        final int index = itemToCallType.indexOf(currUnpausedVideoState);
+        if (index == INVALID_INDEX) {
+            return;
+        }
+        builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
+        alert = builder.create();
+        alert.show();
+    }
+
+    /**
+     * Converts the call type to string
+     */
+    public static String callTypeToString(int callType) {
+        switch (callType) {
+            case VideoProfile.STATE_BIDIRECTIONAL:
+                return "VT";
+            case VideoProfile.STATE_TX_ENABLED:
+                return "VT_TX";
+            case VideoProfile.STATE_RX_ENABLED:
+                return "VT_RX";
+        }
+        return "";
+    }
+
+    /**
+     * Sends a session modify request to the telephony framework
+     */
+    private static void changeToVideoClicked(Call call, VideoProfile videoProfile) {
+        VideoCall videoCall = call.getVideoCall();
+        if (videoCall == null) {
+            return;
+        }
+        videoCall.sendSessionModifyRequest(videoProfile);
+        call.setSessionModificationState(Call.SessionModificationState.WAITING_FOR_RESPONSE);
+    }
+
+    /**
+     * Checks the boolean flag in config file to figure out if we are going to use Qti extension or
+     * not
+     */
+    public static boolean useExt(Context context) {
+        if (context == null) {
+            Log.w(context, "Context is null...");
+        }
+        return context != null && context.getResources().getBoolean(R.bool.video_call_use_ext);
+    }
+
+    /**
+     * Returns user options for accepting an incoming video call based on Qti extension flag
+     */
+    public static int getIncomingCallAnswerOptions(Context context, boolean withSms) {
+        if (!useExt(context)) {
+            return withSms ? AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS :
+                    AnswerFragment.TARGET_SET_FOR_VIDEO_WITHOUT_SMS;
+        } else {
+            return withSms ? AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_WITH_SMS :
+                    AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_WITHOUT_SMS;
+        }
+    }
+
+    /**
+     * Returns the session modification user options based on session modify request video states
+     * (current video state and modify request video state)
+     */
+    public static int getSessionModificationOptions(Context context, int currentVideoState,
+            int modifyToVideoState) {
+        if (!useExt(context)) {
+            return AnswerFragment.TARGET_SET_FOR_VIDEO_ACCEPT_REJECT_REQUEST;
+        }
+
+        if (showVideoUpgradeOptions(currentVideoState, modifyToVideoState)) {
+            return AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_ACCEPT_REJECT_REQUEST;
+        } else if (isEnabled(VideoProfile.STATE_BIDIRECTIONAL, modifyToVideoState)) {
+            return AnswerFragment.TARGET_SET_FOR_QTI_BIDIRECTIONAL_VIDEO_ACCEPT_REJECT_REQUEST;
+        } else if (isEnabled(VideoProfile.STATE_TX_ENABLED, modifyToVideoState)) {
+            return AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_TRANSMIT_ACCEPT_REJECT_REQUEST;
+        } else if (isEnabled(VideoProfile.STATE_RX_ENABLED, modifyToVideoState)) {
+            return AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_RECEIVE_ACCEPT_REJECT_REQUEST;
+        }
+        return AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_ACCEPT_REJECT_REQUEST;
+    }
+
+    /**
+     * Returns true if we are upgrading from Voice to Bidirectional video, false otherwise
+     */
+    private static boolean showVideoUpgradeOptions(int currentVideoState, int modifyToVideoState) {
+        return currentVideoState == VideoProfile.STATE_AUDIO_ONLY &&
+                isEnabled(VideoProfile.STATE_BIDIRECTIONAL, modifyToVideoState);
     }
 }

@@ -261,6 +261,12 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     }
 
     public void changeToVideoClicked() {
+        final Context context = getUi().getContext();
+        if (QtiCallUtils.useExt(context)) {
+            QtiCallUtils.displayModifyCallOptions(mCall, context);
+            return;
+        }
+
         VideoCall videoCall = mCall.getVideoCall();
         if (videoCall == null) {
             return;
@@ -369,10 +375,12 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 && call.can(android.telecom.Call.Details.CAPABILITY_HOLD);
         final boolean isCallOnHold = call.getState() == Call.State.ONHOLD;
 
+        final boolean useExt = QtiCallUtils.useExt(ui.getContext());
+
         final boolean showAddCall = TelecomAdapter.getInstance().canAddCall();
         final boolean showMerge = call.can(
                 android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE);
-        final boolean showUpgradeToVideo = !isVideo &&
+        final boolean showUpgradeToVideo = (!isVideo || useExt) &&
                 (call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL_TX)
                 && call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE_RX));
 
@@ -386,8 +394,8 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showButton(BUTTON_ADD_CALL, showAddCall);
         ui.showButton(BUTTON_UPGRADE_TO_VIDEO, showUpgradeToVideo);
         ui.showButton(BUTTON_SWITCH_CAMERA, isVideo);
-        ui.showButton(BUTTON_PAUSE_VIDEO, isVideo);
-        ui.showButton(BUTTON_DIALPAD, true);
+        ui.showButton(BUTTON_PAUSE_VIDEO, isVideo && !useExt);
+        ui.showButton(BUTTON_DIALPAD, !isVideo);
         ui.showButton(BUTTON_MERGE, showMerge);
 
         ui.updateButtonStates();

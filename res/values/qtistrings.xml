@@ -67,4 +67,11 @@
 
     <!-- Message indicating data usage -->
     <string name="data_usage_label">"Data usage : "</string>
+
+    <!-- In-call screen: Modify Call Options for IMS call -->
+    <string name="modify_call_option_title" translatable="false">Which type of call?</string>
+    <string name="modify_call_option_vt" translatable="false">Video bidirectional</string>
+    <string name="modify_call_option_vt_tx" translatable="false">Video Transmit</string>
+    <string name="modify_call_option_vt_rx" translatable="false">Video Receive</string>
+    <string name="modify_call_option_voice" translatable="false">Voice Only</string>
 </resources>

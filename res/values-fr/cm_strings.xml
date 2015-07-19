@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">Appel sans réponse et transmis</string>
   <string name="incall_call_type_label_forwarded">Appel renvoyé</string>
   <string name="card_title_dialing_waiting">Composition (patientez\u2026)</string>
+  <string name="calling_via_waiting_template">Appel via <xliff:g id="provider_name">%s</xliff:g> (en attente\u2026)</string>
   <string name="card_title_waiting_call">Appel en attente</string>
+  <string name="card_title_waiting_via_template">Appel en attente (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Liste des appelants bloqués</string>
   <string name="call_recording_failed_message">Impossible de démarrer l\'enregistrement de l\'appel</string>
   <string name="call_recording_file_location">Enregistrement de l\'appel sauvegardé dans <xliff:g id="filename">%s</xliff:g></string>

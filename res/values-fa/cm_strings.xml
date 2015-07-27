@@ -17,8 +17,47 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">فرد مورد نظر تمام تماس‌های ورودی را مسدود کرده است.</string>
+  <string name="callUnanswered_forwarded">تماس پاسخ داده نشد و انتقال یافت</string>
+  <string name="incall_call_type_label_forwarded">تماس انتقال یافته</string>
+  <string name="card_title_dialing_waiting">شماره‌گیری (صبر کنید\u2026)</string>
+  <string name="calling_via_waiting_template">تماس از طریق <xliff:g id="provider_name">%s</xliff:g> (در حال انتظار\u2026)</string>
+  <string name="card_title_waiting_call">تماس در انتظار</string>
+  <string name="card_title_waiting_via_template">تماس در انتظار (via <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="onscreenBlacklistText">لیست تما‌س‌گیرنده مسدود</string>
+  <string name="call_recording_failed_message">شروع ضبط تماس ناموفق بود</string>
+  <string name="call_recording_file_location">ذخیره تماس ضبط شده در <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">افزودن به لیست تماس‌گیرنده‌های مسدود شده</string>
+  <string name="blacklist_dialog_message">تماس های آتی از <xliff:g id="number">%s </xliff:g> مسدود خواهند شد</string>
   <string name="card_title_video_call_paused">تماس ویدیویی (مکث)</string>
+  <string name="onscreenAddParticipant">افزودن شرکت‌کننده</string>
+  <string name="modify_call_option_title">نوع تماس را انتخاب کنید</string>
   <string name="modify_call_option_vt">تماس ویدیویی</string>
+  <string name="modify_call_option_vt_tx">انتقال‌دهنده ویدیو</string>
+  <string name="modify_call_option_vt_rx">دریافت ویدیو</string>
+  <string name="modify_call_option_voice">فقط صدا</string>
+  <string name="video_call_not_allowed_if_tty_enabled">لطفاً حالت TTY را برای برقراری تماس تصویری غیرفعال کنید</string>
+  <string name="player_started">آغاز پخش‌کننده</string>
+  <string name="player_stopped">توقف پخش‌کننده</string>
+  <string name="camera_not_ready">دوربین آماده نیست</string>
+  <string name="camera_ready">دوربین آماده است</string>
+  <string name="unknown_call_session_event">رویداد تماس ناشناس</string>
+  <string name="onscreenCallRecordText">شروع و توقف ضبط تماس</string>
+  <string name="onscreenAddToBlacklistText">افزودن تماس‌گیرنده به لیست تماس‌گیرنده مسدود شده</string>
+  <string name="menu_start_record">ضبط تماس</string>
+  <string name="menu_stop_record">توقف ضبط</string>
+  <string name="recording_time_text">در حال ضبط</string>
+  <string name="recording_warning_title">فعال‌کردن ضبط تماس؟</string>
+  <string name="recording_warning_text">توجه: شما مسئول تبعیت از قوانین، قواعد و مقررات مربوط به قابلیت استفاده از ضبط صدا و استفاده از آن برای پخش موارد ضبط‌شده هستید.</string>
+  <string name="sub_1">سیم‌کارت ۱</string>
+  <string name="sub_2">سیم‌کارت ۲</string>
+  <string name="call_substate_call_resumed">تماس از سر گرفته شد</string>
+  <string name="call_substate_connected_suspended_audio">تماس متصل است، اما صدا معلق است</string>
   <string name="call_substate_connected_suspended_video">تماس متصل است، اما ویدیو معلق است</string>
+  <string name="call_substate_avp_retry">در حال تشخیص کیفیت ویدئو\u2026</string>
+  <string name="video_quality_changed">کیفیت ویدئو به <xliff:g id="quality" example="high">%1$s </xliff:g> تغییر کرد</string>
+  <string name="video_quality_high">زیاد</string>
+  <string name="video_quality_medium">متوسط</string>
+  <string name="video_quality_low">کم</string>
   <string name="video_quality_unknown">ناشناخته</string>
 </resources>

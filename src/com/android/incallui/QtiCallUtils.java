@@ -28,6 +28,12 @@
 
 package com.android.incallui;
 
+import android.telecom.VideoProfile;
+import android.telecom.Connection.VideoProvider;
+import android.widget.Toast;
+import android.content.Context;
+import android.content.res.Resources;
+
 /**
  * This class contains Qti specific utiltity functions.
  */
@@ -47,5 +53,53 @@ public class QtiCallUtils {
      */
     public static boolean isNotEnabled(final int mask, final int value) {
         return (mask & value) == 0;
+    }
+
+    /**
+     * Method to get the video quality display string resource id given the video quality
+     */
+    public static int getVideoQualityResourceId(int videoQuality) {
+        switch (videoQuality) {
+            case VideoProfile.QUALITY_HIGH:
+                return R.string.video_quality_high;
+            case VideoProfile.QUALITY_MEDIUM:
+                return R.string.video_quality_medium;
+            case VideoProfile.QUALITY_LOW:
+                return R.string.video_quality_low;
+            default:
+                return R.string.video_quality_unknown;
+        }
+    }
+
+    /**
+     * Returns the call session resource id given the call session event
+     */
+    public static int getCallSessionResourceId(int event) {
+        switch (event) {
+            case VideoProvider.SESSION_EVENT_RX_PAUSE:
+                return R.string.player_stopped;
+            case VideoProvider.SESSION_EVENT_RX_RESUME:
+                return R.string.player_started;
+            case VideoProvider.SESSION_EVENT_CAMERA_FAILURE:
+                return R.string.camera_not_ready;
+            case VideoProvider.SESSION_EVENT_CAMERA_READY:
+                return R.string.camera_ready;
+            default:
+                return R.string.unknown_call_session_event;
+        }
+    }
+
+    /**
+     * Displays the message as a Toast on the UI
+     */
+    public static void displayToast(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Displays the string corresponding to the resourceId as a Toast on the UI
+     */
+    public static void displayToast(Context context, int resourceId) {
+        displayToast(context, context.getResources().getString(resourceId));
     }
 }

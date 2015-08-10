@@ -41,4 +41,30 @@
     <string name="call_substate_connected_suspended_video">Connected Suspended (Video) \u000a</string>
     <!-- Call substate label for avp retry -->
     <string name="call_substate_avp_retry">Avp Retry \u000a</string>
+
+    <!-- Video quality changed message -->
+    <string name="video_quality_changed"> : Video quality changed to \u0020</string>
+    <!-- Video quality High -->
+    <string name="video_quality_high">High</string>
+    <!-- Video quality Medium -->
+    <string name="video_quality_medium">Medium</string>
+    <!-- Video quality Low -->
+    <string name="video_quality_low">Low</string>
+    <!-- Video quality Unknown -->
+    <string name="video_quality_unknown">Unknown</string>
+
+    <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+    <string name="player_started">Player Started</string>
+    <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+    <string name="player_stopped">Player Stopped</string>
+    <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
+    <string name="camera_not_ready">Camera not ready</string>
+    <!-- Message indicating that camera is ready/available -->
+    <string name="camera_ready">Camera ready</string>
+    <!-- Message indicating unknown call session event -->
+    <string name="unknown_call_session_event">"Unkown call session event"</string>
+
+    <!-- Message indicating data usage -->
+    <string name="data_usage_label">"Data usage : "</string>
 </resources>

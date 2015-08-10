@@ -28,11 +28,12 @@
 
 package com.android.incallui;
 
-import android.widget.Toast;
 import android.content.Context;
+import android.content.res.Resources;
 
 import org.codeaurora.QtiVideoCallConstants;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
+import com.android.incallui.InCallVideoCallCallbackNotifier.VideoEventListener;
 
 
 /**
@@ -42,7 +43,7 @@ import com.android.incallui.InCallPresenter.InCallDetailsListener;
  * For e.g., this class implements {@class InCallSubstateListener} and when call substate changes,
  * {@class CallSubstateNotifier} notifies it through the onCallSubstateChanged callback.
  */
-public class InCallMessageController implements InCallSubstateListener {
+public class InCallMessageController implements InCallSubstateListener, VideoEventListener {
 
     private static InCallMessageController sInCallMessageController;
     private Context mContext;
@@ -60,6 +61,7 @@ public class InCallMessageController implements InCallSubstateListener {
     public void setUp(Context context) {
         mContext = context;
         CallSubstateNotifier.getInstance().addListener(this);
+        InCallVideoCallCallbackNotifier.getInstance().addVideoEventListener(this);
     }
 
     /**
@@ -69,6 +71,7 @@ public class InCallMessageController implements InCallSubstateListener {
     public void tearDown() {
         mContext = null;
         CallSubstateNotifier.getInstance().removeListener(this);
+        InCallVideoCallCallbackNotifier.getInstance().removeVideoEventListener(this);
     }
 
     /**
@@ -87,7 +90,8 @@ public class InCallMessageController implements InCallSubstateListener {
      */
     @Override
     public void onCallSubstateChanged(final Call call, final int callSubstate) {
-        Log.d(this, "onCallSubstateChanged - call substate changed to "  + callSubstate);
+        Log.d(this, "onCallSubstateChanged - Call : " + call + " call substate changed to " +
+                callSubstate);
 
         if (mContext == null) {
             Log.e(this, "onCallSubstateChanged - Context is null. Return");
@@ -123,8 +127,64 @@ public class InCallMessageController implements InCallSubstateListener {
         if (!callSubstateChangedText.isEmpty()) {
             String callSubstateLabelText = call.getId() + mContext.getResources().getString(
                     R.string.call_substate_label);
-            Toast.makeText(mContext, callSubstateLabelText + callSubstateChangedText,
-                    Toast.LENGTH_SHORT).show();
+            QtiCallUtils.displayToast(mContext, callSubstateLabelText + callSubstateChangedText);
         }
+    }
+
+    /**
+     * This method overrides onVideoQualityChanged method of {@interface VideoEventListener}
+     * We are notified when video quality of the call changed and display a message on the UI.
+     */
+    @Override
+    public void onVideoQualityChanged(final Call call, final int videoQuality) {
+        Log.d(this, "Call : " + call + " onVideoQualityChanged. Video quality changed to " +
+                videoQuality);
+
+        if (mContext == null) {
+            Log.e(this, "onVideoQualityChanged - Context is null. Return");
+            return;
+        }
+
+        final Resources resources = mContext.getResources();
+        final String videoQualityChangedText = call.getId() +
+            resources.getString(R.string.video_quality_changed) +
+            resources.getString(QtiCallUtils.getVideoQualityResourceId(videoQuality));
+        QtiCallUtils.displayToast(mContext, videoQualityChangedText);
+    }
+
+    /**
+     * This method overrides onCallSessionEvent method of {@interface VideoEventListener}
+     * We are notified when a new call session event is sent and display a message on the UI.
+     */
+    @Override
+    public void onCallSessionEvent(final int event) {
+        Log.d(this, "onCallSessionEvent: event = " + event);
+
+        if (mContext == null) {
+            Log.e(this, "onCallSessionEvent - Context is null. Return");
+            return;
+        }
+        QtiCallUtils.displayToast(mContext, QtiCallUtils.getCallSessionResourceId(event));
+    }
+
+    /**
+     * This method overrides onCallDataUsageChange method of {@interface VideoEventListener}
+     *  We are notified when data usage is changed and display a message on the UI.
+     */
+    @Override
+    public void onCallDataUsageChange(final long dataUsage) {
+        Log.d(this, "onCallDataUsageChange: dataUsage = " + dataUsage);
+        final String dataUsageChangedText = mContext.getResources().getString(
+                R.string.data_usage_label) + dataUsage;
+        QtiCallUtils.displayToast(mContext, dataUsageChangedText);
+    }
+
+    /**
+     * This method overrides onPeerPauseStateChanged method of {@interface VideoEventListener}
+     * Added for completeness. No implementation yet.
+     */
+    @Override
+    public void onPeerPauseStateChanged(final Call call, final boolean paused) {
+        //no-op
     }
 }

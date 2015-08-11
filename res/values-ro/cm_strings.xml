@@ -27,7 +27,7 @@
   <string name="blacklist_dialog_message">Viitoarele apeluri de la <xliff:g id="number">%s</xliff:g> vor fi blocate</string>
   <string name="card_title_video_call_paused">Apel video (în pauză)</string>
   <string name="onscreenAddParticipant">Adaugă participant</string>
-  <string name="modify_call_option_title">Selectaţi tipul de apel</string>
+  <string name="modify_call_option_title">Selectați tipul de apel</string>
   <string name="modify_call_option_vt">Apel video</string>
   <string name="modify_call_option_vt_tx">Transmisie video</string>
   <string name="modify_call_option_vt_rx">Recepție video</string>

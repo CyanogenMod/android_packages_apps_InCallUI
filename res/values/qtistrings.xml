@@ -74,4 +74,7 @@
     <string name="modify_call_option_vt_tx" translatable="false">Video Transmit</string>
     <string name="modify_call_option_vt_rx" translatable="false">Video Receive</string>
     <string name="modify_call_option_voice" translatable="false">Voice Only</string>
+
+    <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+    <string name="video_call_not_allowed_if_tty_enabled">Please disable TTY Mode to upgrade to video calls.</string>
 </resources>

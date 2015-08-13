@@ -41,7 +41,7 @@ import com.google.common.base.Preconditions;
  * to the background and subsequently brought back to the foreground.
  */
 class VideoPauseController implements InCallStateListener, IncomingCallListener,
-        SessionModificationListener {
+        SessionModificationListener, InCallUiStateNotifierListener {
     private static final String TAG = "VideoPauseController:";
 
     /**
@@ -119,6 +119,7 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
         mInCallPresenter.addListener(this);
         mInCallPresenter.addIncomingCallListener(this);
         InCallVideoCallCallbackNotifier.getInstance().addSessionModificationListener(this);
+        InCallUiStateNotifier.getInstance().addListener(this);
     }
 
     /**
@@ -127,6 +128,7 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
      */
     public void tearDown() {
         log("tearDown...");
+        InCallUiStateNotifier.getInstance().removeListener(this);
         InCallVideoCallCallbackNotifier.getInstance().removeSessionModificationListener(this);
         mInCallPresenter.removeListener(this);
         mInCallPresenter.removeIncomingCallListener(this);
@@ -256,10 +258,13 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
     }
 
     /**
-     * Called when UI goes in/out of the foreground.
-     * @param showing true if UI is in the foreground, false otherwise.
+     * This method gets invoked when visibility of InCallUI is changed. For eg.
+     * when UE moves in/out of the foreground, display either turns ON/OFF
+     * @param showing true if InCallUI is visible, false  otherwise.
      */
+    @Override
     public void onUiShowing(boolean showing) {
+        log("onUiShowing, showing = " + showing);
         // Only send pause/unpause requests if we are in the INCALL state.
         if (mInCallPresenter == null) {
             return;
@@ -320,6 +325,11 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
     private void onResume(boolean isInCall) {
         log("onResume");
 
+        if (!mIsInBackground) {
+            log("onResume, Ignoring... already resumed");
+            return;
+        }
+
         mIsInBackground = false;
         if (canVideoPause(mPrimaryCallContext) && isInCall) {
             sendRequest(mPrimaryCallContext.getCall(), true);
@@ -335,6 +345,11 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
      */
     private void onPause(boolean isInCall) {
         log("onPause");
+
+        if (mIsInBackground) {
+            log("onPause, Ignoring... already paused");
+            return;
+        }
 
         mIsInBackground = true;
         if (canVideoPause(mPrimaryCallContext) && isInCall) {

@@ -68,7 +68,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         IncomingCallListener, InCallOrientationListener, InCallStateListener,
         InCallDetailsListener, SurfaceChangeListener, VideoEventListener,
         InCallVideoCallCallbackNotifier.SessionModificationListener,
-        InCallPresenter.InCallEventListener {
+        InCallPresenter.InCallEventListener, InCallUiStateNotifierListener {
     public static final String TAG = "VideoCallPresenter";
 
     public static final boolean DEBUG = false;
@@ -240,6 +240,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallCallbackNotifier.getInstance().addSurfaceChangeListener(this);
         InCallVideoCallCallbackNotifier.getInstance().addVideoEventListener(this);
         InCallVideoCallCallbackNotifier.getInstance().addSessionModificationListener(this);
+        InCallUiStateNotifier.getInstance().addListener(this);
         mCurrentVideoState = VideoProfile.STATE_AUDIO_ONLY;
         mCurrentCallState = Call.State.INVALID;
     }
@@ -263,6 +264,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         InCallVideoCallCallbackNotifier.getInstance().removeSurfaceChangeListener(this);
         InCallVideoCallCallbackNotifier.getInstance().removeVideoEventListener(this);
         InCallVideoCallCallbackNotifier.getInstance().removeSessionModificationListener(this);
+        InCallUiStateNotifier.getInstance().removeListener(this);
     }
 
     /**
@@ -288,8 +290,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             if (mPreviewSurfaceState == PreviewSurfaceState.CAPABILITIES_RECEIVED) {
                 mPreviewSurfaceState = PreviewSurfaceState.SURFACE_SET;
                 mVideoCall.setPreviewSurface(ui.getPreviewVideoSurface());
-            } else if (mPreviewSurfaceState == PreviewSurfaceState.NONE && isCameraRequired()){
-                enableCamera(mVideoCall, true);
+            } else {
+                maybeEnableCamera();
             }
         } else if (surface == VideoCallFragment.SURFACE_DISPLAY) {
             mVideoCall.setDisplaySurface(ui.getDisplayVideoSurface());
@@ -848,6 +850,38 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
      */
     public static boolean showOutgoingVideo(int videoState) {
         return VideoProfile.isTransmissionEnabled(videoState);
+    }
+
+    /**
+     * Opens camera if the camera has not yet been set on the {@link VideoCall}; negotiation has
+     * not yet started and if camera is required
+     */
+    private void maybeEnableCamera() {
+        if (mPreviewSurfaceState == PreviewSurfaceState.NONE && isCameraRequired()) {
+            enableCamera(mVideoCall, true);
+        }
+    }
+
+    /**
+     * This method gets invoked when visibility of InCallUI is changed. For eg.
+     * when UE moves in/out of the foreground, display either turns ON/OFF
+     * @param showing true if InCallUI is visible, false  otherwise.
+     */
+    @Override
+    public void onUiShowing(boolean showing) {
+        Log.d(this, "onUiShowing, showing = " + showing + " mPrimaryCall = " + mPrimaryCall +
+                " mPreviewSurfaceState = " + mPreviewSurfaceState);
+
+        if (mPrimaryCall == null || !CallUtils.isActiveVideoCall(mPrimaryCall)) {
+            Log.w(this, "onUiShowing, received for non-active video call");
+            return;
+        }
+
+        if (showing) {
+            maybeEnableCamera();
+        } else if (mPreviewSurfaceState != PreviewSurfaceState.NONE) {
+            enableCamera(mVideoCall, false);
+        }
     }
 
     /**

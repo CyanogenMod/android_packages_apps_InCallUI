@@ -238,6 +238,7 @@ public class InCallPresenter implements CallList.Listener,
         // will kick off an update and the whole process can start.
         mCallList.addListener(this);
 
+        InCallUiStateNotifier.getInstance().setUp(mContext);
         VideoPauseController.getInstance().setUp(this);
         InCallMessageController.getInstance().setUp(mContext);
         addDetailsListener(CallSubstateNotifier.getInstance());
@@ -260,6 +261,7 @@ public class InCallPresenter implements CallList.Listener,
         attemptCleanup();
 
         VideoPauseController.getInstance().tearDown();
+        InCallUiStateNotifier.getInstance().tearDown();
         InCallMessageController.getInstance().tearDown();
         removeDetailsListener(CallSubstateNotifier.getInstance());
         InCallZoomController.getInstance().tearDown();
@@ -867,20 +869,20 @@ public class InCallPresenter implements CallList.Listener,
     /*package*/
     void onActivityStarted() {
         Log.d(this, "onActivityStarted");
-        notifyVideoPauseController(true);
+        notifyInCallUiStateNotifier(true);
     }
 
     /*package*/
     void onActivityStopped() {
         Log.d(this, "onActivityStopped");
-        notifyVideoPauseController(false);
+        notifyInCallUiStateNotifier(false);
     }
 
-    private void notifyVideoPauseController(boolean showing) {
-        Log.d(this, "notifyVideoPauseController: mIsChangingConfigurations=" +
+    private void notifyInCallUiStateNotifier(boolean showing) {
+        Log.d(this, "notifyInCallUiStateNotifier: mIsChangingConfigurations=" +
                 mIsChangingConfigurations);
         if (!mIsChangingConfigurations) {
-            VideoPauseController.getInstance().onUiShowing(showing);
+            InCallUiStateNotifier.getInstance().onUiShowing(showing);
         }
     }
 

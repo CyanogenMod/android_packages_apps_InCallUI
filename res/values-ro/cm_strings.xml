@@ -22,6 +22,7 @@
   <string name="incall_call_type_label_forwarded">Apel redirecționat</string>
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
   <string name="card_title_waiting_call">Apel în așteptare</string>
+  <string name="card_title_waiting_via_template">Apel în așteptare (prin <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Lista apelanților blocați</string>
   <string name="call_recording_failed_message">Înregistrarea apelului a eșuat</string>
   <string name="call_recording_file_location">S-a salvat înregistrarea apelului către <xliff:g id="filename">%s</xliff:g></string>
@@ -33,6 +34,10 @@
   <string name="modify_call_option_vt_tx">Transmisie video</string>
   <string name="modify_call_option_vt_rx">Recepție video</string>
   <string name="modify_call_option_voice">Numai voce</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Vă rugăm să dezactivați modul TTY pentru a permite apeluri video</string>
+  <string name="player_started">Redarea a început</string>
+  <string name="camera_not_ready">Camera foto nu este pregătită</string>
+  <string name="camera_ready">Camera foto este gata</string>
   <string name="unknown_call_session_event">Eveniment necunoscut al sesiunii de apel</string>
   <string name="menu_start_record">Înregistrare apel</string>
   <string name="menu_stop_record">Oprește înregistrarea</string>

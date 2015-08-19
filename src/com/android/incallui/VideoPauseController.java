@@ -417,7 +417,8 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
      * @return {@code true} if the call is in incoming or waiting state, {@code false} otherwise.
      */
     private static boolean isIncomingCall(CallContext call) {
-        return call != null && isIncomingCall(call.getCall());
+        return call != null && (call.getState() == Call.State.CALL_WAITING
+                || call.getState() == Call.State.INCOMING);
     }
 
     /**

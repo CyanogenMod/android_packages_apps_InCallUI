@@ -17,9 +17,44 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">منع الطرف الآخر جميع المكالمات الواردة.</string>
+  <string name="callUnanswered_forwarded">لم تتلق المكالمة رداً وتم إعادة توجيهها</string>
   <string name="incall_call_type_label_forwarded">مكالمة المعاد توجيهها</string>
   <string name="card_title_dialing_waiting">الطلب الهاتفي (إنتظار\u2026)</string>
   <string name="onscreenBlacklistText">القائمة السوداء</string>
+  <string name="call_recording_failed_message">فشل البدء في تسجيل المكالمات</string>
+  <string name="call_recording_file_location">تم حفظ تسجيل المكالمة في <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">إضافة إلى القائمة السوداء</string>
   <string name="blacklist_dialog_message">سيتم حظر المكالمات القادمة من <xliff:g id="number">%s</xliff:g></string>
+  <string name="card_title_video_call_paused">مكالمة فيديو (إيقاف مؤقت)</string>
+  <string name="onscreenAddParticipant">إضافة مشترك</string>
+  <string name="modify_call_option_title">حدد نوع المكالمة</string>
+  <string name="modify_call_option_vt">إجراء مكالمة فيديو</string>
+  <string name="modify_call_option_vt_tx">إرسال الفيديو</string>
+  <string name="modify_call_option_vt_rx">تلقي الفيديو</string>
+  <string name="modify_call_option_voice">صوت فقط</string>
+  <string name="video_call_not_allowed_if_tty_enabled">الرجاء تعطيل وضع TTY السماح بمكالمات الفيديو</string>
+  <string name="player_started">بدأ المشغل</string>
+  <string name="player_stopped">توقف المشغل</string>
+  <string name="camera_not_ready">الكاميرا ليست مستعدة</string>
+  <string name="camera_ready">الكاميرا مستعدة</string>
+  <string name="unknown_call_session_event">حدث جلسة اتصال غير معروف</string>
+  <string name="volume_boost_notify_enabled">تم تمكين التقوية</string>
+  <string name="volume_boost_notify_disabled">تم تعطيل التقوية</string>
+  <string name="volume_boost_notify_unavailable">لا يتوافر صوت إضافي عند استخدام سماعات الرأس</string>
+  <string name="onscreenMoreMenuText">المزيد من الخيارات</string>
+  <string name="menu_start_record">تسجيل المكالمة</string>
+  <string name="menu_stop_record">إيقاف التسجيل</string>
+  <string name="recording_time_text">تسجيل</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">استئناف المكالمة</string>
+  <string name="call_substate_connected_suspended_audio">تم توصيل المكالمة، ولكن تم تعطيل الصوت</string>
+  <string name="call_substate_connected_suspended_video">تم توصيل المكالمة، ولكن تم تعطيل الصورة</string>
+  <string name="call_substate_avp_retry">جاري الكشف عن جودة  الفيديو \u2026</string>
+  <string name="video_quality_changed">جودة الفيديو تغيرت إلى <xliff:g id="quality" example="high">%1$s </xliff:g></string>
+  <string name="video_quality_high">عالي</string>
+  <string name="video_quality_medium">متوسط</string>
+  <string name="video_quality_low">منخفض</string>
+  <string name="video_quality_unknown">غير معروف</string>
 </resources>

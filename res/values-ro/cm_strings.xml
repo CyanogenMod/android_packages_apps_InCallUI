@@ -21,6 +21,7 @@
   <string name="callUnanswered_forwarded">Apel nerăspuns și redirecționat</string>
   <string name="incall_call_type_label_forwarded">Apel redirecționat</string>
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
+  <string name="calling_via_waiting_template">Apelare via <xliff:g id="provider_name">%s</xliff:g> (În așteptare\u2026)</string>
   <string name="card_title_waiting_call">Apel în așteptare</string>
   <string name="card_title_waiting_via_template">Apel în așteptare (prin <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Lista apelanților blocați</string>
@@ -47,6 +48,7 @@
   <string name="call_substate_call_resumed">Apelul a fost reluat</string>
   <string name="call_substate_connected_suspended_audio">Apelul este conectat, dar redarea audio este suspendată</string>
   <string name="call_substate_connected_suspended_video">Apelul este conectat, dar imaginea este suspendată</string>
+  <string name="call_substate_avp_retry">Detectarea calității semnalului video\u2026</string>
   <string name="video_quality_changed">Calitatea video s-a schimbat în <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">ridicată</string>
   <string name="video_quality_medium">medie</string>

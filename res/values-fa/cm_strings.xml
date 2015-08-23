@@ -17,6 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_dialToUssd">درخواست DIAL به USSD تغییر یافت.</string>
+  <string name="callFailed_dialToDial">درخواست DIAL به DIAL با شماره‌ی دیگری تغییر یافت.</string>
   <string name="modify_call_prompt_yes">بله</string>
   <string name="modify_call_prompt_no">خیر</string>
 </resources>

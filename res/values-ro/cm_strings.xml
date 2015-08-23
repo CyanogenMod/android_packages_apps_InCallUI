@@ -21,11 +21,11 @@
   <string name="callFailed_dialToSs">Cererea APEL a fost modificată în cerere SS.</string>
   <string name="callFailed_dialToDial">Cererea APEL a fost modificată pentru APEL cu un număr diferit.</string>
   <string name="callFailed_incoming_cb_enabled">Apelatul a blocat toate apelurile primite.</string>
-  <string name="callUnanswered_forwarded">Apel nerăspuns și transmis mai departe</string>
+  <string name="callUnanswered_forwarded">Apel nerăspuns și redirecționat</string>
   <string name="modify_call_prompt_yes">Da</string>
   <string name="modify_call_prompt_no">Nu</string>
   <string name="modify_call_failure_str">Cererea de modificare a apelului a eșuat\n</string>
-  <string name="modify_call_option_title">Selectaţi tipul de apel</string>
+  <string name="modify_call_option_title">Selectați tipul de apel</string>
   <string name="modify_call_option_vt">VT</string>
   <string name="modify_call_option_vt_tx">Transmisie video</string>
   <string name="modify_call_option_vt_rx">Recepție video</string>
@@ -55,5 +55,5 @@
   <string name="sub_2">SIM 2</string>
   <string name="volume_boost_notify_enabled">Îmbunătățirea de volumul este activată</string>
   <string name="volume_boost_notify_disabled">Îmbunătățirea de volumul este dezactivată</string>
-  <string name="volume_boost_notify_unavailable">Volumul suplimentar nu este disponibil atunci când utilizaţi un set de caști</string>
+  <string name="volume_boost_notify_unavailable">Volumul suplimentar nu este disponibil atunci când utilizați un set de căști</string>
 </resources>

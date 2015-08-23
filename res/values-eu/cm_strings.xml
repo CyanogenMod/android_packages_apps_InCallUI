@@ -26,7 +26,7 @@
   <string name="modify_call_prompt_no">Ez</string>
   <string name="modify_call_failure_str">Deiaren modifikaziorako eskaerak huts egin du\n</string>
   <string name="modify_call_option_title">Hautatu dei mota</string>
-  <string name="modify_call_option_vt">VT</string>
+  <string name="modify_call_option_vt">Bideodeia</string>
   <string name="modify_call_option_vt_tx">Bideo igorpena</string>
   <string name="modify_call_option_vt_rx">Bideo harrera</string>
   <string name="modify_call_option_voice">Ahotsa bakarrik</string>

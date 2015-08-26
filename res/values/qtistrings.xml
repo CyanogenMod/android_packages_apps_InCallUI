@@ -81,4 +81,8 @@
     <!-- Text for the onscreen "Add Participant" button -->
     <string name="onscreenAddParticipant">Add Participant</string>
 
+    <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+    <string name="qti_description_target_deflect">Deflect</string>
+    <string name="qti_description_deflect_error">Number not set. Provide the number via IMS settings and retry.</string>
+    <string name="qti_description_deflect_service_error">Call Deflection service is not supported.</string>
 </resources>

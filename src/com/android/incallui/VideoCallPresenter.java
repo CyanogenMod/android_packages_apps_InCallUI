@@ -708,7 +708,14 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         maybeAutoEnterFullscreen(call);
     }
 
-    //TODO: Move this into Telecom. InCallUI should not be this close to audio functionality.
+    /**
+     * This function has been deprecated. Please refrain from using this to set audio path for
+     * IMS video/voice calls.
+     *
+     * @deprecated This has been deprecated because we have a new implementation for audio policy
+     * @see {@class InCallAudioManager}
+     */
+    @Deprecated
     private void updateAudioMode(boolean enableSpeaker) {
         if (!isSpeakerEnabledForVideoCalls()) {
             Log.d(this, "Speaker is disabled. Can't update audio mode");
@@ -739,7 +746,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             sPrevVideoAudioMode = currentAudioMode;
 
             Log.d(this, "Routing audio to speaker");
-            telecomAdapter.setAudioRoute(CallAudioState.ROUTE_SPEAKER);
+            //telecomAdapter.setAudioRoute(CallAudioState.ROUTE_SPEAKER);
         }
     }
 

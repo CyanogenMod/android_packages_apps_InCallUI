@@ -204,6 +204,7 @@ public class QtiCallUtils {
         }
         videoCall.sendSessionModifyRequest(videoProfile);
         call.setSessionModificationState(Call.SessionModificationState.WAITING_FOR_RESPONSE);
+        InCallAudioManager.getInstance().onModifyCallClicked(call, videoProfile.getVideoState());
     }
 
     /**

@@ -747,6 +747,7 @@ public class InCallPresenter implements CallList.Listener,
             VideoProfile videoProfile = new VideoProfile(videoState);
             call.getVideoCall().sendSessionModifyResponse(videoProfile);
             call.setSessionModificationState(Call.SessionModificationState.NO_REQUEST);
+            InCallAudioManager.getInstance().onAcceptUpgradeRequest(call, videoState);
         }
     }
 

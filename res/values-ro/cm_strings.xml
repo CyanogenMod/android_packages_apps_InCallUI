@@ -27,6 +27,7 @@
   <string name="onscreenBlacklistText">Lista apelanților blocați</string>
   <string name="call_recording_failed_message">Înregistrarea apelului a eșuat</string>
   <string name="call_recording_file_location">S-a salvat înregistrarea apelului către <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Adăugare la lista apelanților blocați</string>
   <string name="blacklist_dialog_message">Viitoarele apeluri de la <xliff:g id="number">%s</xliff:g> vor fi blocate</string>
   <string name="card_title_video_call_paused">Apel video (în pauză)</string>
   <string name="onscreenAddParticipant">Adaugă participant</string>
@@ -40,9 +41,12 @@
   <string name="camera_not_ready">Camera foto nu este pregătită</string>
   <string name="camera_ready">Camera foto este gata</string>
   <string name="unknown_call_session_event">Eveniment necunoscut al sesiunii de apel</string>
+  <string name="onscreenAddToBlacklistText">Adăugare apelant la lista apelanților blocați</string>
   <string name="menu_start_record">Înregistrare apel</string>
   <string name="menu_stop_record">Oprește înregistrarea</string>
   <string name="recording_time_text">Înregistrare</string>
+  <string name="recording_warning_title">Activați înregistrarea apelurilor?</string>
+  <string name="recording_warning_text">Anunț: Sunteți responsabil pentru respectarea oricărei legi, regulament și normă care se aplică la utilizarea funcției de înregistrare și folosirea sau distribuirea acestor înregistrări.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Apelul a fost reluat</string>

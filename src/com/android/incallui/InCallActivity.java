@@ -370,7 +370,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     }
 
     private boolean hasPendingDialogs() {
-        return mDialog != null || (mAnswerFragment != null && mAnswerFragment.hasPendingDialogs());
+        return mDialog != null || (mAnswerFragment != null && mAnswerFragment.hasPendingDialogs())
+                || InCallCsRedialHandler.getInstance().hasPendingDialogs();
     }
 
     @Override
@@ -829,6 +830,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         if (mAnswerFragment != null) {
             mAnswerFragment.dismissPendingDialogs();
         }
+        InCallCsRedialHandler.getInstance().dismissPendingDialogs();
     }
 
     /**

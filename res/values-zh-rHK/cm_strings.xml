@@ -17,7 +17,46 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callUnanswered_forwarded">來電未接聽並已轉駁</string>
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <string name="card_title_dialing_waiting">正在撥號 (等待中\ u2026)</string>
+  <string name="calling_via_waiting_template">經由 <xliff:g id="provider_name">%s</xliff:g> 來電（等待中\u2026）</string>
+  <string name="card_title_waiting_call">來電等待接聽</string>
+  <string name="card_title_waiting_via_template">來電等待接聽（經由 <xliff:g id="provider_name">%s</xliff:g>）</string>
+  <string name="onscreenBlacklistText">通話黑名單</string>
+  <string name="call_recording_failed_message">未能啟動通話錄音</string>
+  <string name="call_recording_file_location">已將通話錄音儲存至 <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">新增至通話黑名單</string>
   <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的電話將列入黑名單</string>
+  <string name="card_title_video_call_paused">視像通話（已暫停）</string>
+  <string name="onscreenAddParticipant">新增參與者</string>
+  <string name="modify_call_option_title">選擇通話類型</string>
+  <string name="modify_call_option_vt">視像通話</string>
+  <string name="modify_call_option_vt_tx">影片傳輸</string>
+  <string name="modify_call_option_vt_rx">影片接收</string>
+  <string name="modify_call_option_voice">僅語音</string>
+  <string name="video_call_not_allowed_if_tty_enabled">請停用 TTY 模式以進行視像通話</string>
+  <string name="player_started">播放器已開始</string>
+  <string name="player_stopped">播放器已停止</string>
+  <string name="camera_not_ready">相機尚未就緒</string>
+  <string name="camera_ready">相機已就緒</string>
+  <string name="unknown_call_session_event">不明的通話事件</string>
+  <string name="onscreenCallRecordText">開始和結束通話錄音</string>
+  <string name="onscreenAddToBlacklistText">新增來電者至通話黑名單</string>
+  <string name="menu_start_record">通話錄音</string>
+  <string name="menu_stop_record">停止錄音</string>
+  <string name="recording_time_text">錄音</string>
+  <string name="recording_warning_title">啟用通話錄音？</string>
+  <string name="recording_warning_text">注意：在使用通話錄音功能和散佈這些錄音時，您有責任遵守任何相關法律、法規和規章。</string>
+  <string name="sub_1">SIM 卡 1</string>
+  <string name="sub_2">SIM 卡 2</string>
+  <string name="call_substate_call_resumed">已繼續通話</string>
+  <string name="call_substate_connected_suspended_audio">通話已連接，但音訊被暫停</string>
+  <string name="call_substate_connected_suspended_video">通話已連接，但視像被暫停</string>
+  <string name="call_substate_avp_retry">正在檢測影片質素\u2026</string>
+  <string name="video_quality_changed">影片質素改為 <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">高</string>
+  <string name="video_quality_medium">中</string>
+  <string name="video_quality_low">低</string>
+  <string name="video_quality_unknown">不明</string>
 </resources>

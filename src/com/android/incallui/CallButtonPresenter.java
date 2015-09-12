@@ -388,9 +388,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         final boolean showAddCall = TelecomAdapter.getInstance().canAddCall();
         final boolean showMerge = call.can(
                 android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE);
+        final int callState = call.getState();
         final boolean showUpgradeToVideo = (!isVideo || useExt) &&
-                (call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL_TX)
-                && call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE_RX));
+                (QtiCallUtils.hasVideoCapabilities(call) ||
+                QtiCallUtils.hasVoiceCapabilities(call)) &&
+                (callState == Call.State.ACTIVE || callState == Call.State.ONHOLD);
 
         final boolean showMute = call.can(android.telecom.Call.Details.CAPABILITY_MUTE);
         final boolean showAddParticipant = call.can(

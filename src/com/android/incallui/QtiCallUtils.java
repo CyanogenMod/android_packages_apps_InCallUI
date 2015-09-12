@@ -36,9 +36,11 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 
 import android.telecom.InCallService.VideoCall;
+import android.telecom.Connection;
 import android.telecom.Connection.VideoProvider;
 import android.telecom.VideoProfile;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import org.codeaurora.QtiVideoCallConstants;
@@ -47,8 +49,6 @@ import org.codeaurora.QtiVideoCallConstants;
  * This class contains Qti specific utiltity functions.
  */
 public class QtiCallUtils {
-
-    private static final int INVALID_INDEX = -1;
 
     private static String LOG_TAG = "QtiCallUtils";
 
@@ -141,18 +141,23 @@ public class QtiCallUtils {
         final ArrayList<CharSequence> items = new ArrayList<CharSequence>();
         final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
         final Resources res = context.getResources();
+
         // Prepare the string array and mapping.
-        items.add(res.getText(R.string.modify_call_option_voice));
-        itemToCallType.add(VideoProfile.STATE_AUDIO_ONLY);
+        if (hasVoiceCapabilities(call)) {
+            items.add(res.getText(R.string.modify_call_option_voice));
+            itemToCallType.add(VideoProfile.STATE_AUDIO_ONLY);
+        }
 
-        items.add(res.getText(R.string.modify_call_option_vt_rx));
-        itemToCallType.add(VideoProfile.STATE_RX_ENABLED);
+        if (hasBidirectionalVideoCapabilities(call)) {
+            items.add(res.getText(R.string.modify_call_option_vt_rx));
+            itemToCallType.add(VideoProfile.STATE_RX_ENABLED);
 
-        items.add(res.getText(R.string.modify_call_option_vt_tx));
-        itemToCallType.add(VideoProfile.STATE_TX_ENABLED);
+            items.add(res.getText(R.string.modify_call_option_vt_tx));
+            itemToCallType.add(VideoProfile.STATE_TX_ENABLED);
 
-        items.add(res.getText(R.string.modify_call_option_vt));
-        itemToCallType.add(VideoProfile.STATE_BIDIRECTIONAL);
+            items.add(res.getText(R.string.modify_call_option_vt));
+            itemToCallType.add(VideoProfile.STATE_BIDIRECTIONAL);
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.modify_call_option_title);
@@ -172,9 +177,6 @@ public class QtiCallUtils {
         };
         final int currUnpausedVideoState = CallUtils.getUnPausedVideoState(call.getVideoState());
         final int index = itemToCallType.indexOf(currUnpausedVideoState);
-        if (index == INVALID_INDEX) {
-            return;
-        }
         builder.setSingleChoiceItems(items.toArray(new CharSequence[0]), index, listener);
         alert = builder.create();
         alert.show();
@@ -277,7 +279,6 @@ public class QtiCallUtils {
                 PREFERRED_TTY_MODE, TTY_MODE_OFF) != TTY_MODE_OFF);
     }
 
-
     /**
      * This method converts the QtiVideoCallConstants' Orientation modes to the ActivityInfo
      * screen orientation mode.
@@ -293,5 +294,23 @@ public class QtiCallUtils {
             default:
                 return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
         }
+    }
+
+    public static boolean hasBidirectionalVideoCapabilities(Call call) {
+        return call != null && call.can(Connection.CAPABILITY_SUPPORTS_VT_LOCAL_BIDIRECTIONAL)
+                && call.can(Connection.CAPABILITY_SUPPORTS_VT_REMOTE_BIDIRECTIONAL);
+    }
+
+    public static boolean hasVoiceCapabilities(Call call) {
+        return call != null && call.can(Connection.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_LOCAL)
+                && call.can(Connection.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_REMOTE);
+    }
+
+    public static boolean hasVideoCapabilities(Call call) {
+        return call != null &&
+                ((call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL_TX)
+                && call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE_RX)) ||
+                (call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_LOCAL_RX) &&
+                call.can(android.telecom.Call.Details.CAPABILITY_SUPPORTS_VT_REMOTE_TX)));
     }
 }

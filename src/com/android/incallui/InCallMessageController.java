@@ -35,7 +35,7 @@ import android.os.Bundle;
 import org.codeaurora.QtiVideoCallConstants;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 import com.android.incallui.InCallVideoCallCallbackNotifier.VideoEventListener;
-
+import com.android.incallui.InCallVideoCallCallbackNotifier.SessionModificationListener;
 
 /**
  * This class listens to incoming events for the listener classes it implements. It should
@@ -45,7 +45,7 @@ import com.android.incallui.InCallVideoCallCallbackNotifier.VideoEventListener;
  * {@class CallSubstateNotifier} notifies it through the onCallSubstateChanged callback.
  */
 public class InCallMessageController implements InCallSubstateListener, VideoEventListener,
-        CallList.Listener {
+        CallList.Listener, SessionModificationListener {
 
     private static InCallMessageController sInCallMessageController;
     private Context mContext;
@@ -65,6 +65,7 @@ public class InCallMessageController implements InCallSubstateListener, VideoEve
         CallSubstateNotifier.getInstance().addListener(this);
         InCallVideoCallCallbackNotifier.getInstance().addVideoEventListener(this);
         CallList.getInstance().addListener(this);
+        InCallVideoCallCallbackNotifier.getInstance().addSessionModificationListener(this);
     }
 
     /**
@@ -76,6 +77,7 @@ public class InCallMessageController implements InCallSubstateListener, VideoEve
         CallSubstateNotifier.getInstance().removeListener(this);
         InCallVideoCallCallbackNotifier.getInstance().removeVideoEventListener(this);
         CallList.getInstance().removeListener(this);
+        InCallVideoCallCallbackNotifier.getInstance().removeSessionModificationListener(this);
     }
 
     /**
@@ -250,5 +252,37 @@ public class InCallMessageController implements InCallSubstateListener, VideoEve
          default:
              break;
        }
+    }
+
+    @Override
+    public void onUpgradeToVideoRequest(Call call, int videoState) {
+        //no-op
+    }
+
+    @Override
+    public void onUpgradeToVideoSuccess(Call call) {
+        //no-op
+    }
+
+    @Override
+    public void onUpgradeToVideoFail(int error, Call call) {
+        Log.d(this, "onUpgradeToVideoFail: error = " + error);
+        showUpgradeFailInfo(error);
+    }
+
+    @Override
+    public void onDowngradeToAudio(Call call) {
+        //no-op
+    }
+
+    private void showUpgradeFailInfo(int errorCode) {
+        switch (errorCode) {
+            case QtiVideoCallConstants.CAUSE_CODE_SESSION_MODIFY_REQUEST_LOW_BATTERY:
+                QtiCallUtils.displayToast(mContext,
+                        R.string.modify_call_failed_due_to_low_battery);
+                break;
+            default:
+                break;
+        }
     }
 }

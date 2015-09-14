@@ -331,6 +331,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         // Determine how much space there is below or to the side of the call card.
         final float spaceBesideCallCard = getSpaceBesideCallCard();
 
+        doActionOnPredraw(visible, isLayoutRtl, videoView, spaceBesideCallCard);
         // We need to translate the video surface, but we need to know its position after the layout
         // has occurred so use a {@code ViewTreeObserver}.
         final ViewTreeObserver observer = getView().getViewTreeObserver();
@@ -339,73 +340,77 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             public boolean onPreDraw() {
                 // We don't want to continue getting called.
                 getView().getViewTreeObserver().removeOnPreDrawListener(this);
-
-                float videoViewTranslation = 0f;
-
-                // Translate the call card to its pre-animation state.
-                if (!mIsLandscape) {
-                    mPrimaryCallCardContainer.setTranslationY(visible ?
-                            -mPrimaryCallCardContainer.getHeight() : 0);
-
-                    if (visible) {
-                        videoViewTranslation = videoView.getHeight() / 2 - spaceBesideCallCard / 2;
-                    }
-                }
-
-                // Perform animation of video view.
-                ViewPropertyAnimator videoViewAnimator = videoView.animate()
-                        .setInterpolator(AnimUtils.EASE_OUT_EASE_IN)
-                        .setDuration(mVideoAnimationDuration);
-                if (mIsLandscape) {
-                    videoViewAnimator
-                            .translationX(videoViewTranslation)
-                            .start();
-                } else {
-                    videoViewAnimator
-                            .translationY(videoViewTranslation)
-                            .start();
-                }
-                videoViewAnimator.start();
-
-                // Animate the call card sliding.
-                ViewPropertyAnimator callCardAnimator = mPrimaryCallCardContainer.animate()
-                        .setInterpolator(AnimUtils.EASE_OUT_EASE_IN)
-                        .setDuration(mVideoAnimationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if (!visible) {
-                                    mPrimaryCallCardContainer.setVisibility(View.GONE);
-                                }
-                            }
-
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                super.onAnimationStart(animation);
-                                if (visible) {
-                                    mPrimaryCallCardContainer.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
-
-                if (mIsLandscape) {
-                    float translationX = mPrimaryCallCardContainer.getWidth();
-                    translationX *= isLayoutRtl ? 1 : -1;
-                    callCardAnimator
-                            .translationX(visible ? 0 : translationX)
-                            .start();
-                } else {
-                    callCardAnimator
-                            .translationY(visible ? 0 : -mPrimaryCallCardContainer.getHeight())
-                            .start();
-                }
-
+                doActionOnPredraw(visible, isLayoutRtl, videoView, spaceBesideCallCard);
                 return true;
             }
         });
     }
 
+    private void doActionOnPredraw(final boolean visible, final boolean isLayoutRtl,
+            final View videoView, final float spaceBesideCallCard) {
+
+        float videoViewTranslation = 0f;
+
+        // Translate the call card to its pre-animation state.
+        if (!mIsLandscape) {
+            mPrimaryCallCardContainer.setTranslationY(visible ?
+                    -mPrimaryCallCardContainer.getHeight() : 0);
+
+            if (visible) {
+                videoViewTranslation = videoView.getHeight() / 2 - spaceBesideCallCard / 2;
+            }
+        }
+
+        // Perform animation of video view.
+        ViewPropertyAnimator videoViewAnimator = videoView.animate()
+                .setInterpolator(AnimUtils.EASE_OUT_EASE_IN)
+                .setDuration(mVideoAnimationDuration);
+        if (mIsLandscape) {
+            videoViewAnimator
+                    .translationX(videoViewTranslation)
+                    .start();
+        } else {
+            videoViewAnimator
+                    .translationY(videoViewTranslation)
+                    .start();
+        }
+        videoViewAnimator.start();
+
+        // Animate the call card sliding.
+        ViewPropertyAnimator callCardAnimator = mPrimaryCallCardContainer.animate()
+                .setInterpolator(AnimUtils.EASE_OUT_EASE_IN)
+                .setDuration(mVideoAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        if (!visible) {
+                            mPrimaryCallCardContainer.setVisibility(View.GONE);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        if (visible) {
+                            mPrimaryCallCardContainer.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+        if (mIsLandscape) {
+            float translationX = mPrimaryCallCardContainer.getWidth();
+            translationX *= isLayoutRtl ? 1 : -1;
+            callCardAnimator
+                    .translationX(visible ? 0 : translationX)
+                    .start();
+        } else {
+            callCardAnimator
+                    .translationY(visible ? 0 : -mPrimaryCallCardContainer.getHeight())
+                    .start();
+        }
+
+    }
     /**
      * Determines the amount of space below the call card for portrait layouts), or beside the
      * call card for landscape layouts.

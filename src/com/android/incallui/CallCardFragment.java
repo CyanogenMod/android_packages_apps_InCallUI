@@ -571,11 +571,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         Log.v(this, "setSecondaryInfoVisible: wasVisible = " + wasVisible + " isVisible = "
                 + isVisible);
 
-        // If visibility didn't change, nothing to do.
-        if (wasVisible == isVisible) {
-            return;
-        }
-
         // If we are showing the secondary info, we need to show it before animating so that its
         // height will be determined on layout.
         if (isVisible) {

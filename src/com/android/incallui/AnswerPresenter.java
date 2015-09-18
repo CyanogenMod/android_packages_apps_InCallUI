@@ -247,8 +247,10 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             phoneId = CallList.getInstance().getPhoneId(subId);
         } else {
             for (int i = 0; i < mCall.length; i++) {
-                if (mCall[i] != null) {
+                if ((mCall[i] != null) && ((mCall[i].getState() == Call.State.INCOMING)
+                        || (mCall[i].getState() == Call.State.CALL_WAITING))) {
                     phoneId = i;
+                    break;
                 }
             }
         }

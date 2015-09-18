@@ -313,6 +313,7 @@ public class InCallPresenter implements CallList.Listener,
                 // This finish is a result of account selection cancellation
                 // do not include activity ending transition
                 mInCallActivity.overridePendingTransition(0, 0);
+                unsetActivity(mInCallActivity);
             }
         }
     }

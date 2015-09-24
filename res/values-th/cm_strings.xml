@@ -21,7 +21,9 @@
   <string name="callUnanswered_forwarded">ไม่รับสายและส่งต่อ</string>
   <string name="incall_call_type_label_forwarded">ส่งต่อสาย</string>
   <string name="card_title_dialing_waiting">กำลังโทรออก  (รอ\u2026)</string>
+  <string name="calling_via_waiting_template">การโทรผ่าน <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
   <string name="card_title_waiting_call">พักสาย</string>
+  <string name="card_title_waiting_via_template">สายการโทรที่รอยู่ (via <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">รายชื่อผู้ที่ถูกบล็อค</string>
   <string name="call_recording_failed_message">ไม่สามารถเริ่มการบันทึกการสนทนาได้</string>
   <string name="call_recording_file_location">บันทึกการสนทนาไปยัง  <xliff:g id="filename">%s</xliff:g> แล้ว</string>

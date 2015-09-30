@@ -520,6 +520,8 @@ public class InCallPresenter implements CallList.Listener,
         if (isActivityStarted()) {
             mInCallActivity.dismissKeyguard(false);
         }
+
+        wakeUpScreen();
     }
 
     /**

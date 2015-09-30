@@ -305,7 +305,10 @@ class VideoPauseController implements InCallStateListener, IncomingCallListener,
      */
     @Override
     public void onUpgradeToVideoFail(int status, Call call) {
-        // TODO (ims-vt) Automatically bring in call ui to foreground.
+        log("onUpgradeToVideoFail status: " + status + "call: " + call);
+        if (mIsInBackground) {
+            bringToForeground();
+        }
     }
 
     /**

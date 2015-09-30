@@ -26,6 +26,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
@@ -105,6 +106,8 @@ public class InCallPresenter implements CallList.Listener,
     private boolean mServiceConnected = false;
     private boolean mAccountSelectionCancelled = false;
     private InCallCameraManager mInCallCameraManager = null;
+    private PowerManager mPowerManager;
+    private PowerManager.WakeLock mWakeLock = null;
 
     private final Phone.Listener mPhoneListener = new Phone.Listener() {
         @Override
@@ -266,6 +269,10 @@ public class InCallPresenter implements CallList.Listener,
         mCallList.addListener(this);
 
         VideoPauseController.getInstance().setUp(this);
+
+        mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK |
+        PowerManager.ACQUIRE_CAUSES_WAKEUP, "InCallPresenter");
 
         Log.d(this, "Finished InCallPresenter.setUp");
     }
@@ -516,6 +523,8 @@ public class InCallPresenter implements CallList.Listener,
         if (isActivityStarted()) {
             mInCallActivity.dismissKeyguard(false);
         }
+
+        wakeUpScreen();
     }
 
     @Override
@@ -1276,6 +1285,9 @@ public class InCallPresenter implements CallList.Listener,
             mOrientationListeners.clear();
             mInCallEventListeners.clear();
 
+            mWakeLock = null;
+            mPowerManager = null;
+
             Log.d(this, "Finished InCallPresenter.CleanUp");
         }
     }
@@ -1483,6 +1495,34 @@ public class InCallPresenter implements CallList.Listener,
         } else {
             mInCallActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
+    }
+
+    /* returns TRUE if screen is turned ON else false */
+    private boolean isScreenInteractive() {
+         return mPowerManager.isInteractive();
+     }
+
+    public void wakeUpScreen() {
+         if (!isScreenInteractive()) {
+             acquireWakeLock();
+             releaseWakeLock();
+         }
+     }
+
+    private void acquireWakeLock() {
+         Log.v(this, "acquireWakeLock");
+
+         if (mWakeLock != null) {
+             mWakeLock.acquire();
+         }
+     }
+
+    private void releaseWakeLock() {
+         Log.v(this, "releaseWakeLock");
+
+         if (mWakeLock != null && mWakeLock.isHeld()) {
+             mWakeLock.release();
+         }
     }
 
     public void enableScreenTimeout(boolean v) {

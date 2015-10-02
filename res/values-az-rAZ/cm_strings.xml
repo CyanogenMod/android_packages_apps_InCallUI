@@ -20,4 +20,44 @@
   <string name="callFailed_incoming_cb_enabled">Qrup bütün gələn zəngləri əngəlləndi.</string>
   <string name="callUnanswered_forwarded">Zəng cavablanmayıb yönləndirildi</string>
   <string name="incall_call_type_label_forwarded">Yönləndirilmiş zəng</string>
+  <string name="card_title_dialing_waiting">Yığılır (gözləyir\u2026)</string>
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ilə zəng edilir (Gözləyin\u2026)</string>
+  <string name="card_title_waiting_call">Zəng gözlədilir</string>
+  <string name="card_title_waiting_via_template">Zəng gözləmədədir (<xliff:g id="provider_name">%s</xliff:g> ilə)</string>
+  <string name="onscreenBlacklistText">Əngəllənən zəng edənlərin siyahısı</string>
+  <string name="call_recording_failed_message">Zəng səsyazması başladılmadı</string>
+  <string name="call_recording_file_location">Zəng səsyazmasının saxlanıldığı yer: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Əngəllənən zəng edənlər siyahısına əlavə et</string>
+  <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> nömrəsindən gələcək zənglər əngəllənəcək</string>
+  <string name="card_title_video_call_paused">Görüntülü zəng (ara verildi)</string>
+  <string name="onscreenAddParticipant">İştirakçı əlavə et</string>
+  <string name="modify_call_option_title">Zəng növünü seçin</string>
+  <string name="modify_call_option_vt">Görüntülü zəng</string>
+  <string name="modify_call_option_vt_tx">Video ötürmə</string>
+  <string name="modify_call_option_vt_rx">Video qəbulu</string>
+  <string name="modify_call_option_voice">Yalnız səs</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Görüntülü zənglərə icazə vermək üçün zəhmət olmasa TTY rejimi ləğv edin</string>
+  <string name="player_started">Oynadıcı başladı</string>
+  <string name="player_stopped">Oynadıcı dayandı</string>
+  <string name="camera_not_ready">Kamera hazır deyil</string>
+  <string name="camera_ready">Kamera hazırdır</string>
+  <string name="unknown_call_session_event">Bilinməyən zəng seansı</string>
+  <string name="onscreenCallRecordText">Zəng səsyazmasını başlat və dayandır</string>
+  <string name="onscreenAddToBlacklistText">Zəng edən şəxsi əngəllənənlər siyahısına əlavə et</string>
+  <string name="menu_start_record">Zəngin səsini yaz</string>
+  <string name="menu_stop_record">Səsyazmanı dayandır</string>
+  <string name="recording_time_text">Səs yazılır</string>
+  <string name="recording_warning_title">Zəng səsyazma fəallaşdırılsın?</string>
+  <string name="recording_warning_text">Diqqət: Zəng səsyazma funksiyasını istifadə edərkən və bu səsyazmaları paylaşarkən əlaqəli qanun,  nizamnamə və qaydalara uyğun olaraq məsuliyyət daşıyırsınız.</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Zəngə qayıdıldı</string>
+  <string name="call_substate_connected_suspended_audio">Bağlantı yaradıldı, ancaq səs gözlədilir</string>
+  <string name="call_substate_connected_suspended_video">Bağlantı yaradıldı, ancaq görüntü gözlədilir</string>
+  <string name="call_substate_avp_retry">Görüntü keyfiyyəti aşkarlanır\u2026</string>
+  <string name="video_quality_changed">Görüntü keyfiyyəti <xliff:g id="quality" example="high">%1$s</xliff:g> olaraq dəyişdirildi</string>
+  <string name="video_quality_high">yüksək</string>
+  <string name="video_quality_medium">orta</string>
+  <string name="video_quality_low">aşağı</string>
+  <string name="video_quality_unknown">bilinməyən</string>
 </resources>

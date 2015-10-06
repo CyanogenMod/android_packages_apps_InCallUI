@@ -215,6 +215,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
                 if (call == null) {
                     call = mCalls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
                 }
+                if (call == null) {
+                    call = mCalls.getCallWithState(Call.State.ACTIVE, 0, subId[0]);
+                }
                 if (mCallId[i] != null && call == null) {
                     mCalls.removeCallUpdateListener(mCallId[i], this);
                     mCalls.removeActiveSubChangeListener(this);

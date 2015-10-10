@@ -19,7 +19,7 @@
 
     <!-- Official label of the phone app, as seen in "Manage Applications"
          and other settings UIs. -->
-    <string name="phoneAppLabel" product="default">Phone</string>
+    <string name="phoneAppLabel" product="default"></string>
 
     <!-- Official label for the in-call UI. DO NOT TRANSLATE. -->
     <string name="inCallLabel" translate="false">InCallUI</string>

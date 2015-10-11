@@ -196,6 +196,10 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     private int mAutoFullscreenTimeoutMillis = 0;
 
     /**
+     *Caches information about whether InCall UI is in the background or foreground
+     */
+    private boolean mIsInBackground;
+    /**
      * Determines if the countdown is currently running to automatically enter full screen video
      * mode.
      */
@@ -665,9 +669,9 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         }
     }
 
-    private static boolean isCameraRequired(int videoState) {
-        return VideoProfile.isBidirectional(videoState) ||
-                VideoProfile.isTransmissionEnabled(videoState);
+    private boolean isCameraRequired(int videoState) {
+        return ((VideoProfile.isBidirectional(videoState) ||
+                VideoProfile.isTransmissionEnabled(videoState)) && !mIsInBackground);
     }
 
     private boolean isCameraRequired() {
@@ -877,6 +881,7 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
+        mIsInBackground = !showing;
         if (showing) {
             maybeEnableCamera();
         } else if (mPreviewSurfaceState != PreviewSurfaceState.NONE) {

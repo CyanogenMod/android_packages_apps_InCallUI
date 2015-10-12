@@ -21,8 +21,13 @@
   <string name="callUnanswered_forwarded">Llamada non respondida y reunviada</string>
   <string name="incall_call_type_label_forwarded">Llamada esviada</string>
   <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
+  <string name="calling_via_waiting_template">Llamando pente <xliff:g id="provider_name">%s</xliff:g> (Esperando\u2026)</string>
+  <string name="card_title_waiting_call">Llamada n\'espera</string>
+  <string name="card_title_waiting_via_template">Llamada n\'espera (pente <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="onscreenBlacklistText">Llista de contautos bloquiaos</string>
   <string name="call_recording_failed_message">Hebo un fallu al aniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Amestar a llista de contautos bloquiaos</string>
   <string name="blacklist_dialog_message">Les llamaes de <xliff:g id="number">%s</xliff:g> van bloquiase</string>
   <string name="card_title_video_call_paused">Videollamada (en posa)</string>
   <string name="onscreenAddParticipant">Amestar participante</string>
@@ -37,9 +42,13 @@
   <string name="camera_not_ready">La cámara nun ta preparada</string>
   <string name="camera_ready">La cámara ta preparada</string>
   <string name="unknown_call_session_event">Eventu de sesión de llamada desconocíu</string>
+  <string name="onscreenCallRecordText">Anicia y para la grabación de llamaes</string>
+  <string name="onscreenAddToBlacklistText">Amestar contautu a llista de contautos bloquiaos</string>
   <string name="menu_start_record">Grabar la llamada</string>
   <string name="menu_stop_record">Parar de grabar</string>
   <string name="recording_time_text">Grabando</string>
+  <string name="recording_warning_title">¿Habilitar grabación de llamada?</string>
+  <string name="recording_warning_text">Avisu: Yes responsable del cumplimientu con cualesquier llei, regulación y regla que s\'aplique al usar la funcionalidá de grabación de llamada y l\'usu o districución d\'eses grabaciones.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Llamada reanudada</string>

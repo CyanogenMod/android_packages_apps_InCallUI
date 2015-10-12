@@ -221,6 +221,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 ui.isManageConferenceVisible() != shouldShowManageConference())) {
             // primary call has changed
             if (previousPrimary != null) {
+                //clear progess spinner (if any) related to previous primary call
+                maybeShowProgressSpinner(previousPrimary.getState(),
+                        Call.SessionModificationState.NO_REQUEST);
                 CallList.getInstance().removeCallUpdateListener(previousPrimary.getId(), this);
             }
             CallList.getInstance().addCallUpdateListener(mPrimary.getId(), this);
@@ -233,6 +236,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
 
         if (previousPrimary != null && mPrimary == null) {
+            //clear progess spinner (if any) related to previous primary call
+            maybeShowProgressSpinner(previousPrimary.getState(),
+                    Call.SessionModificationState.NO_REQUEST);
             CallList.getInstance().removeCallUpdateListener(previousPrimary.getId(), this);
         }
 

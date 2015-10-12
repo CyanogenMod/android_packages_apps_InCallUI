@@ -625,7 +625,8 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
     }
 
     private void checkForOrientationAllowedChange(Call call) {
-        InCallPresenter.getInstance().setInCallAllowsOrientationChange(CallUtils.isVideoCall(call));
+        InCallPresenter.getInstance().setInCallAllowsOrientationChange(
+                OrientationModeHandler.getInstance().getOrientation(call));
     }
 
     /**

@@ -73,7 +73,7 @@
     <FrameLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/primary_call_info_container"
+        android:layout_toEndOf="@id/primary_call_info_container"
         android:id="@+id/call_card_content">
 
         <ImageView android:id="@+id/photo"

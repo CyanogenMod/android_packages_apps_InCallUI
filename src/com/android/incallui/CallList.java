@@ -792,7 +792,9 @@ public class CallList {
             PhoneAccountHandle ph = call.getAccountHandle();
             try {
                 if ((call.getState() == state) && ((ph == null) ||
-                        (ph != null && (Integer.parseInt(ph.getId()) == subId)))) {
+                        (ph != null && (ph.getId() != null) &&
+                        (ph.getId().contains("sip") ||
+                        Integer.parseInt(ph.getId()) == subId)))) {
                     if (position >= positionToFind) {
                         retval = call;
                         break;

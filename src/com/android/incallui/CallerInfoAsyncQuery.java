@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
 import android.telephony.PhoneNumberUtils;
@@ -249,7 +250,8 @@ public class CallerInfoAsyncQuery {
                     if (cw.event == EVENT_EMERGENCY_NUMBER) {
                         // Note we're setting the phone number here (refer to javadoc
                         // comments at the top of CallerInfo class).
-                        if (mQueryContext.getResources().getBoolean(R.bool.mark_emergency_call)) {
+                        if (mQueryContext.getResources().getBoolean(R.bool.mark_emergency_call) ||
+                                "cmcc".equals(SystemProperties.get("persist.carrier.mode"))) {
                             Log.d(this, "Emergency Number and Mark Emergency Number enabled");
                             mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext,
                                                                             cw.number);

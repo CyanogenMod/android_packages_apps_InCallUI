@@ -28,6 +28,7 @@
 
 package com.android.incallui;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 import org.codeaurora.QtiVideoCallConstants;
@@ -39,7 +40,7 @@ import org.codeaurora.QtiVideoCallConstants;
  * on the activity to set the orientation mode for the device.
  *
  */
-public class OrientationModeHandler implements InCallDetailsListener{
+public class OrientationModeHandler implements InCallDetailsListener {
 
     private static OrientationModeHandler sOrientationModeHandler;
 
@@ -123,6 +124,26 @@ public class OrientationModeHandler implements InCallDetailsListener{
         if (inCallActivity != null) {
             inCallActivity.setRequestedOrientation(QtiCallUtils.toUiOrientationMode(
                     orientationMode));
+        }
+    }
+
+    /**
+     * Returns the current orientation mode based on the receipt of DISPLAY_MODE_EVT from lower
+     * layers and whether the call is a video call or not. If we have a video call and we
+     * did receive a valid orientation mode, return the corresponding
+     * {@link ActivityInfo#ScreenOrientation} else return
+     * ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR. If we are in a voice call, return
+     * ActivityInfo.SCREEN_ORIENTATION_NOSENSOR.
+     *
+     * @param call The current call.
+     */
+    public int getOrientation(Call call) {
+        if (CallUtils.isVideoCall(call)) {
+            return (mOrientationMode == QtiVideoCallConstants.ORIENTATION_MODE_UNSPECIFIED) ?
+                    ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR :
+                    QtiCallUtils.toUiOrientationMode(mOrientationMode);
+        } else {
+            return ActivityInfo.SCREEN_ORIENTATION_NOSENSOR;
         }
     }
 }

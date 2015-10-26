@@ -290,7 +290,7 @@ public class QtiCallUtils {
             case QtiVideoCallConstants.ORIENTATION_MODE_PORTRAIT:
                 return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
             case QtiVideoCallConstants.ORIENTATION_MODE_DYNAMIC:
-                return ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+                return ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR;
             default:
                 return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
         }

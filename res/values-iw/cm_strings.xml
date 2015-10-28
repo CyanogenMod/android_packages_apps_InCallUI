@@ -17,7 +17,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="callFailed_incoming_cb_enabled">שיחת ועידה חסמה קבלת שיחות נכנסות.</string>
+  <string name="callFailed_incoming_cb_enabled">הועידה חסמה קבלת שיחות נכנסות.</string>
   <string name="callUnanswered_forwarded">שיחה שהועברה מבלי להיענות</string>
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <string name="card_title_dialing_waiting">מחייג (ממתין\u2026)</string>
@@ -26,7 +26,7 @@
   <string name="card_title_waiting_via_template">שיחה בהמתנה (דרך <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">רשימת המתקשרים החסומים</string>
   <string name="call_recording_failed_message">נכשל בהתחלת הקלטת השיחה</string>
-  <string name="call_recording_file_location">שמר את הקלטת השיחה כ-<xliff:g id="filename">%s</xliff:g></string>
+  <string name="call_recording_file_location">שמר את הקלטת השיחה ב-<xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">הוסף לרשימת המתקשרים החסומים</string>
   <string name="blacklist_dialog_message">שיחות עתידיות מ-<xliff:g id="number">%s</xliff:g> ייחסמו</string>
   <string name="card_title_video_call_paused">שיחת וידאו (מושהה)</string>
@@ -43,7 +43,7 @@
   <string name="camera_ready">המצלמה מוכנה</string>
   <string name="unknown_call_session_event">אירוע שיחה לא ידועה</string>
   <string name="onscreenCallRecordText">התחל/הפסק הקלטת שיחה</string>
-  <string name="onscreenAddToBlacklistText">הוסף את המתקשר לרשימת החסומים</string>
+  <string name="onscreenAddToBlacklistText">הוסף את המתקשר לרשימת המתקשרים החסומים</string>
   <string name="menu_start_record">הקלט שיחה</string>
   <string name="menu_stop_record">עצור הקלטה</string>
   <string name="recording_time_text">מקליט</string>

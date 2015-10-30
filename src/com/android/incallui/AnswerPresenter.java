@@ -23,6 +23,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.Settings;
 
 import com.android.dialer.util.TelecomUtil;
 import com.android.incallui.InCallPresenter.InCallState;
@@ -532,7 +533,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
                 getUi().showTargets(QtiCallUtils.getIncomingCallAnswerOptions(
                         getUi().getContext(), withSms));
             }
-        } else if (isCallDeflectSupported(call.getExtras())) {
+        } else if (isCallDeflectSupported()) {
             /**
              * Only present the user with the option to deflect call,
              * if the incoming call is only an audio call.
@@ -554,12 +555,19 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     }
 
     /**
-     * Checks the call extra to conclude on the call deflect support.
+     * Checks the Settings to conclude on the call deflect support.
      * Returns true if call deflect is possible, false otherwise.
      */
-    public boolean isCallDeflectSupported(Bundle extras) {
-        return (extras != null) &&
-               extras.getBoolean(QtiImsInterfaceUtils.QTI_IMS_DEFLECT_EXTRA_KEY, false);
+    public boolean isCallDeflectSupported() {
+        int value = 0;
+        try{
+            value = android.provider.Settings.Global.getInt(
+                              getUi().getContext().getContentResolver(),
+                              QtiImsInterfaceUtils.QTI_IMS_DEFLECT_ENABLED);
+        } catch(Settings.SettingNotFoundException e) {
+            //do Nothing
+        }
+        return (value == 1);
     }
 
     interface AnswerUi extends Ui {

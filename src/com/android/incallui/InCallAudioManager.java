@@ -147,7 +147,7 @@ public class InCallAudioManager {
         final int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
         Log.v(LOG_TAG, "enableEarpiece: Current audio mode is - " + currentAudioMode);
 
-        if (!QtiCallUtils.isEnabled(CallAudioState.ROUTE_EARPIECE |
+        if (QtiCallUtils.isNotEnabled(CallAudioState.ROUTE_EARPIECE |
                 CallAudioState.ROUTE_BLUETOOTH | CallAudioState.ROUTE_WIRED_HEADSET,
                 currentAudioMode)) {
             Log.v(LOG_TAG, "enableEarpiece: Set audio route to earpiece");
@@ -169,7 +169,7 @@ public class InCallAudioManager {
         final int currentAudioMode = AudioModeProvider.getInstance().getAudioMode();
         Log.v(LOG_TAG, "enableSpeaker: Current audio mode is - " + currentAudioMode);
 
-        if(!QtiCallUtils.isEnabled(CallAudioState.ROUTE_SPEAKER |
+        if(QtiCallUtils.isNotEnabled(CallAudioState.ROUTE_SPEAKER |
                 CallAudioState.ROUTE_BLUETOOTH | CallAudioState.ROUTE_WIRED_HEADSET,
                 currentAudioMode)) {
             Log.v(LOG_TAG, "enableSpeaker: Set audio route to speaker");

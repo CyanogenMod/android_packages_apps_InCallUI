@@ -34,6 +34,7 @@ import java.util.List;
 import org.codeaurora.ims.qtiims.IQtiImsInterface;
 import org.codeaurora.ims.qtiims.IQtiImsInterfaceListener;
 import org.codeaurora.ims.qtiims.QtiImsInterfaceUtils;
+import org.codeaurora.ims.qtiims.QtiViceInfo;
 import org.codeaurora.QtiVideoCallConstants;
 
 /**
@@ -121,6 +122,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         /* Handles call deflect response */
         public void receiveCallDeflectResponse(int result) {
             Log.w(this, "receiveCallDeflectResponse: " + result);
+        }
+
+        public void notifyRefreshViceInfo(QtiViceInfo qtiViceInfo) {
         }
     };
 

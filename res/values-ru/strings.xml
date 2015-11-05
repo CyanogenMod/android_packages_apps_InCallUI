@@ -75,7 +75,7 @@
     <string name="notification_action_answer_video" msgid="7809271910870211729">"Видео"</string>
     <string name="notification_action_answer_voice" msgid="1770796916369437773">"Голосовой вызов"</string>
     <string name="notification_action_accept" msgid="2898609801209468429">"Принять"</string>
-    <string name="notification_action_dismiss" msgid="2679969397930852858">"Закрыть"</string>
+    <string name="notification_action_dismiss" msgid="2679969397930852858">"Отклонить"</string>
     <string name="notification_missedCall_call_back" msgid="2684890353590890187">"Позвонить"</string>
     <string name="notification_missedCall_message" msgid="3049928912736917988">"Написать"</string>
     <string name="incall_error_power_off" msgid="6550191216405193368">"Перед тем как звонить, отключите режим полета."</string>
@@ -175,4 +175,6 @@
     </plurals>
     <string name="profile_photo_description" msgid="5609894336203315400">"Фото профиля"</string>
     <string name="camera_off_description" msgid="5689494614359429889">"Камера отключена"</string>
+    <string name="child_number" msgid="7437330400723805538">"через <xliff:g id="CHILD_NUMBER">%s</xliff:g>"</string>
+    <string name="note_sent" msgid="3548700178238244595">"Сообщение отправлено"</string>
 </resources>

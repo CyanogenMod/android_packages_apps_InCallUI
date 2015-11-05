@@ -18,24 +18,28 @@ package com.android.incallui;
 
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.testing.NeededForTesting;
-import com.android.incallui.CallList.Listener;
 
 import android.content.Context;
 import android.hardware.camera2.CameraCharacteristics;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Trace;
+import android.telecom.Connection;
 import android.telecom.DisconnectCause;
 import android.telecom.GatewayInfo;
 import android.telecom.InCallService.VideoCall;
+import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
+import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 import android.telephony.SubscriptionManager;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Describes a single call and its state.
@@ -244,6 +248,8 @@ public class Call {
 
     public boolean mIsActiveSub = false;
     private android.telecom.Call mTelecommCall;
+    private boolean mIsEmergencyCall;
+    private Uri mHandle;
     private final String mId;
     private int mState = State.INVALID;
     private DisconnectCause mDisconnectCause;
@@ -256,6 +262,16 @@ public class Call {
     private int mModifyToVideoState = VideoProfile.STATE_AUDIO_ONLY;
 
     private InCallVideoCallCallback mVideoCallCallback;
+    private String mChildNumber;
+    private String mLastForwardedNumber;
+    private String mCallSubject;
+    private PhoneAccountHandle mPhoneAccountHandle;
+
+    /**
+     * Indicates whether the phone account associated with this call supports specifying a call
+     * subject.
+     */
+    private boolean mIsCallSubjectSupported;
 
     /**
      * Used only to create mock calls for testing
@@ -270,6 +286,7 @@ public class Call {
     public Call(android.telecom.Call telecommCall) {
         mTelecommCall = telecommCall;
         mId = ID_PREFIX + Integer.toString(sIdCounter++);
+
         updateFromTelecommCall();
         mTelecommCall.registerCallback(mTelecomCallCallback);
     }
@@ -317,6 +334,73 @@ public class Call {
                     CallList.getInstance().getCallByTelecommCall(
                             mTelecommCall.getChildren().get(i)).getId());
         }
+
+        Bundle callExtras = mTelecommCall.getDetails().getExtras();
+        if (callExtras != null) {
+            // Check for a change in the child address and notify any listeners.
+            if (callExtras.containsKey(Connection.EXTRA_CHILD_ADDRESS)) {
+                String childNumber = callExtras.getString(Connection.EXTRA_CHILD_ADDRESS);
+
+                if (!Objects.equals(childNumber, mChildNumber)) {
+                    mChildNumber = childNumber;
+                    CallList.getInstance().onChildNumberChange(this);
+                }
+            }
+
+            // Last forwarded number comes in as an array of strings.  We want to choose the last
+            // item in the array.  The forwarding numbers arrive independently of when the call is
+            // originally set up, so we need to notify the the UI of the change.
+            if (callExtras.containsKey(Connection.EXTRA_LAST_FORWARDED_NUMBER)) {
+                ArrayList<String> lastForwardedNumbers =
+                        callExtras.getStringArrayList(Connection.EXTRA_LAST_FORWARDED_NUMBER);
+
+                if (lastForwardedNumbers != null) {
+                    String lastForwardedNumber = null;
+                    if (!lastForwardedNumbers.isEmpty()) {
+                        lastForwardedNumber = lastForwardedNumbers.get(
+                                lastForwardedNumbers.size() - 1);
+                    }
+
+                    if (!Objects.equals(lastForwardedNumber, mLastForwardedNumber)) {
+                        mLastForwardedNumber = lastForwardedNumber;
+                        CallList.getInstance().onLastForwardedNumberChange(this);
+                    }
+                }
+            }
+
+            // Call subject is present in the extras at the start of call, so we do not need to
+            // notify any other listeners of this.
+            if (callExtras.containsKey(Connection.EXTRA_CALL_SUBJECT)) {
+                String callSubject = callExtras.getString(Connection.EXTRA_CALL_SUBJECT);
+                if (!Objects.equals(mCallSubject, callSubject)) {
+                    mCallSubject = callSubject;
+                }
+            }
+        }
+
+        // If the handle of the call has changed, update state for the call determining if it is an
+        // emergency call.
+        Uri newHandle = mTelecommCall.getDetails().getHandle();
+        if (!Objects.equals(mHandle, newHandle)) {
+            mHandle = newHandle;
+            updateEmergencyCallState();
+        }
+
+        // If the phone account handle of the call is set, cache capability bit indicating whether
+        // the phone account supports call subjects.
+        PhoneAccountHandle newPhoneAccountHandle = mTelecommCall.getDetails().getAccountHandle();
+        if (!Objects.equals(mPhoneAccountHandle, newPhoneAccountHandle)) {
+            mPhoneAccountHandle = newPhoneAccountHandle;
+
+            if (mPhoneAccountHandle != null) {
+                TelecomManager mgr = InCallPresenter.getInstance().getTelecomManager();
+                PhoneAccount phoneAccount = mgr.getPhoneAccount(mPhoneAccountHandle);
+                if (phoneAccount != null) {
+                    mIsCallSubjectSupported = phoneAccount.hasCapabilities(
+                            PhoneAccount.CAPABILITY_CALL_SUBJECT);
+                }
+            }
+        }
     }
 
     private static int translateState(int state) {
@@ -362,6 +446,10 @@ public class Call {
         return mTelecommCall == null ? null : mTelecommCall.getDetails().getHandle();
     }
 
+    public boolean isEmergencyCall() {
+        return mIsEmergencyCall;
+    }
+
     public int getState() {
         if (mTelecommCall != null && mTelecommCall.getParent() != null) {
             return State.CONFERENCED;
@@ -394,6 +482,35 @@ public class Call {
 
     public Bundle getExtras() {
         return mTelecommCall == null ? null : mTelecommCall.getDetails().getExtras();
+    }
+
+    /**
+     * @return The child number for the call, or {@code null} if none specified.
+     */
+    public String getChildNumber() {
+        return mChildNumber;
+    }
+
+    /**
+     * @return The last forwarded number for the call, or {@code null} if none specified.
+     */
+    public String getLastForwardedNumber() {
+        return mLastForwardedNumber;
+    }
+
+    /**
+     * @return The call subject, or {@code null} if none specified.
+     */
+    public String getCallSubject() {
+        return mCallSubject;
+    }
+
+    /**
+     * @return {@code true} if the call's phone account supports call subjects, {@code false}
+     *      otherwise.
+     */
+    public boolean isCallSubjectSupported() {
+        return mIsCallSubjectSupported;
     }
 
     /** Returns call disconnect cause, defined by {@link DisconnectCause}. */
@@ -545,7 +662,7 @@ public class Call {
     public void setSessionModificationState(int state) {
         if (state == Call.SessionModificationState.RECEIVED_UPGRADE_TO_VIDEO_REQUEST) {
             Log.e(this,
-            "setSessionModificationState not to be called for RECEIVED_UPGRADE_TO_VIDEO_REQUEST");
+                    "setSessionModificationState not valid for RECEIVED_UPGRADE_TO_VIDEO_REQUEST");
             return;
         }
 
@@ -556,6 +673,16 @@ public class Call {
         if (hasChanged) {
             CallList.getInstance().onSessionModificationStateChange(this, state);
         }
+    }
+
+    /**
+     * Determines if the call handle is an emergency number or not and caches the result to avoid
+     * repeated calls to isEmergencyNumber.
+     */
+    private void updateEmergencyCallState() {
+        Uri handle = mTelecommCall.getDetails().getHandle();
+        mIsEmergencyCall = PhoneNumberUtils.isEmergencyNumber(
+                handle == null ? "" : handle.getSchemeSpecificPart());
     }
 
     private void setModifyToVideoState(int newVideoState) {

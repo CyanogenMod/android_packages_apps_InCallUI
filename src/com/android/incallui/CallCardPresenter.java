@@ -67,7 +67,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private static final String TAG = CallCardPresenter.class.getSimpleName();
     private static final long CALL_TIME_UPDATE_INTERVAL_MS = 1000;
 
-    private final EmergencyCallListener mEmergencyCallListener = ObjectFactory.newEmergencyCallListener();
+    private final EmergencyCallListener mEmergencyCallListener =
+            ObjectFactory.newEmergencyCallListener();
 
     private Call mPrimary;
     private Call mSecondary;
@@ -78,6 +79,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     private boolean mSpinnerShowing = false;
     private boolean mIsFullscreen = false;
     private long mBaseChronometerTime = 0;
+    private boolean mHasShownToast = false;
 
     public static class ContactLookupCallback implements ContactInfoCacheCallback {
         private final WeakReference<CallCardPresenter> mCallCardPresenter;
@@ -122,6 +124,12 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // Call may be null if disconnect happened already.
         if (call != null) {
             mPrimary = call;
+            if (shouldShowNoteSentToast(mPrimary)) {
+                final CallCardUi ui = getUi();
+                if (ui != null) {
+                    ui.showNoteSentToast();
+                }
+            }
             CallList.getInstance().addCallUpdateListener(call.getId(), this);
 
             // start processing lookups right away.
@@ -209,16 +217,22 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 Call.areSameNumber(mPrimary, primary));
         final boolean secondaryChanged = !(Call.areSame(mSecondary, secondary) &&
                 Call.areSameNumber(mSecondary, secondary));
+        final boolean shouldShowCallSubject = shouldShowCallSubject(mPrimary);
 
         mSecondary = secondary;
         Call previousPrimary = mPrimary;
         mPrimary = primary;
 
+        if (primaryChanged && shouldShowNoteSentToast(primary)) {
+            ui.showNoteSentToast();
+        }
+
         // Refresh primary call information if either:
         // 1. Primary call changed.
         // 2. The call's ability to manage conference has changed.
         if (mPrimary != null && (primaryChanged ||
-                ui.isManageConferenceVisible() != shouldShowManageConference())) {
+                ui.isManageConferenceVisible() != shouldShowManageConference()) ||
+                ui.isCallSubjectVisible() != shouldShowCallSubject) {
             // primary call has changed
             if (previousPrimary != null) {
                 CallList.getInstance().removeCallUpdateListener(previousPrimary.getId(), this);
@@ -326,6 +340,32 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         updatePrimaryCallState();
     }
 
+    /**
+     * Handles a change to the last forwarding number by refreshing the primary call info.
+     */
+    @Override
+    public void onLastForwardedNumberChange() {
+        Log.v(this, "onLastForwardedNumberChange");
+
+        if (mPrimary == null) {
+            return;
+        }
+        updatePrimaryDisplayInfo();
+    }
+
+    /**
+     * Handles a change to the child number by refreshing the primary call info.
+     */
+    @Override
+    public void onChildNumberChange() {
+        Log.v(this, "onChildNumberChange");
+
+        if (mPrimary == null) {
+            return;
+        }
+        updatePrimaryDisplayInfo();
+    }
+
     private String getSubscriptionNumber() {
         // If it's an emergency call, and they're not populating the callback number,
         // then try to fall back to the phone sub info (to hopefully get the SIM's
@@ -354,12 +394,20 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimary.hasProperty(Details.PROPERTY_WIFI),
                     mPrimary.isConferenceCall());
 
-            boolean showHdAudioIndicator =
-                    isPrimaryCallActive() && mPrimary.hasProperty(Details.PROPERTY_HIGH_DEF_AUDIO);
-            getUi().showHdAudioIndicator(showHdAudioIndicator);
-
+            maybeShowHdAudioIcon();
             setCallbackNumber();
         }
+    }
+
+    /**
+     * Show the HD icon if the call is active and has {@link Details#PROPERTY_HIGH_DEF_AUDIO},
+     * except if the call has a last forwarded number (we will show that icon instead).
+     */
+    private void maybeShowHdAudioIcon() {
+        boolean showHdAudioIndicator =
+                isPrimaryCallActive() && mPrimary.hasProperty(Details.PROPERTY_HIGH_DEF_AUDIO) &&
+                TextUtils.isEmpty(mPrimary.getLastForwardedNumber());
+        getUi().showHdAudioIndicator(showHdAudioIndicator);
     }
 
     /**
@@ -407,11 +455,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         // 1. This is an emergency call.
         // 2. The phone is in Emergency Callback Mode, which means we should show the callback
         //    number.
-        boolean isEmergencyCall = PhoneNumberUtils.isEmergencyNumber(
-                getNumberFromHandle(mPrimary.getHandle()));
         boolean showCallbackNumber = mPrimary.hasProperty(Details.PROPERTY_EMERGENCY_CALLBACK_MODE);
 
-        if (isEmergencyCall || showCallbackNumber) {
+        if (mPrimary.isEmergencyCall() || showCallbackNumber) {
             callbackNumber = getSubscriptionNumber();
         } else {
             StatusHints statusHints = mPrimary.getTelecommCall().getDetails().getStatusHints();
@@ -431,7 +477,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             callbackNumber = null;
         }
 
-        getUi().setCallbackNumber(callbackNumber, isEmergencyCall || showCallbackNumber);
+        getUi().setCallbackNumber(callbackNumber, mPrimary.isEmergencyCall() || showCallbackNumber);
     }
 
     public void updateCallTime() {
@@ -485,7 +531,15 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
     }
 
     private void onContactInfoComplete(String callId, ContactCacheEntry entry, boolean isPrimary) {
-        updateContactEntry(entry, isPrimary);
+        final boolean entryMatchesExistingCall =
+                (isPrimary && mPrimary != null && TextUtils.equals(callId,  mPrimary.getId())) ||
+                (!isPrimary && mSecondary != null && TextUtils.equals(callId, mSecondary.getId()));
+        if (entryMatchesExistingCall) {
+            updateContactEntry(entry, isPrimary);
+        } else {
+            Log.w(this, "Dropping stale contact lookup info for " + callId);
+        }
+
         if (entry.name != null) {
             Log.d(TAG, "Contact found: " + entry);
         }
@@ -594,13 +648,38 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
             Log.d(TAG, "Update primary display info for " + mPrimaryContactInfo);
 
             String name = getNameForCall(mPrimaryContactInfo);
-            String number = getNumberForCall(mPrimaryContactInfo);
+            String number;
+
+            boolean isChildNumberShown = !TextUtils.isEmpty(mPrimary.getChildNumber());
+            boolean isForwardedNumberShown = !TextUtils.isEmpty(mPrimary.getLastForwardedNumber());
+            boolean isCallSubjectShown = shouldShowCallSubject(mPrimary);
+
+            if (isCallSubjectShown) {
+                ui.setCallSubject(mPrimary.getCallSubject());
+            } else {
+                ui.setCallSubject(null);
+            }
+
+            if (isCallSubjectShown) {
+                number = null;
+            } else if (isChildNumberShown) {
+                number = mContext.getString(R.string.child_number, mPrimary.getChildNumber());
+            } else if (isForwardedNumberShown) {
+                // Use last forwarded number instead of second line, if present.
+                number = mPrimary.getLastForwardedNumber();
+            } else {
+                number = getNumberForCall(mPrimaryContactInfo);
+            }
+
+            ui.showForwardIndicator(isForwardedNumberShown);
+            maybeShowHdAudioIcon();
+
             boolean nameIsNumber = name != null && name.equals(mPrimaryContactInfo.number);
             ui.setPrimary(
                     number,
                     name,
                     nameIsNumber,
-                    mPrimaryContactInfo.label,
+                    isChildNumberShown || isCallSubjectShown ? null : mPrimaryContactInfo.label,
                     mPrimaryContactInfo.photo,
                     mPrimaryContactInfo.isSipCall,
                     showContactPhoto);
@@ -610,8 +689,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
 
         if (mEmergencyCallListener != null) {
-            boolean isEmergencyCall = PhoneNumberUtils.isEmergencyNumber(
-                    getNumberFromHandle(mPrimary.getHandle()));
+            boolean isEmergencyCall = mPrimary.isEmergencyCall();
             mEmergencyCallListener.onCallUpdated((BaseFragment) ui, isEmergencyCall);
         }
     }
@@ -870,6 +948,40 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         }
     }
 
+    /**
+     * Determines whether the call subject should be visible on the UI.  For the call subject to be
+     * visible, the call has to be in an incoming or waiting state, and the subject must not be
+     * empty.
+     *
+     * @param call The call.
+     * @return {@code true} if the subject should be shown, {@code false} otherwise.
+     */
+    private boolean shouldShowCallSubject(Call call) {
+        if (call == null) {
+            return false;
+        }
+
+        boolean isIncomingOrWaiting = mPrimary.getState() == Call.State.INCOMING ||
+                mPrimary.getState() == Call.State.CALL_WAITING;
+        return isIncomingOrWaiting && !TextUtils.isEmpty(call.getCallSubject()) &&
+                call.getNumberPresentation() == TelecomManager.PRESENTATION_ALLOWED &&
+                call.isCallSubjectSupported();
+    }
+
+    /**
+     * Determines whether the "note sent" toast should be shown.  It should be shown for a new
+     * outgoing call with a subject.
+     *
+     * @param call The call
+     * @return {@code true} if the toast should be shown, {@code false} otherwise.
+     */
+    private boolean shouldShowNoteSentToast(Call call) {
+        return call != null && !TextUtils
+                .isEmpty(call.getTelecommCall().getDetails().getIntentExtras().getString(
+                        TelecomManager.EXTRA_CALL_SUBJECT)) &&
+                (call.getState() == Call.State.DIALING || call.getState() == Call.State.CONNECTING);
+    }
+
     public interface CallCardUi extends Ui {
         void setVisible(boolean on);
         void setCallCardVisible(boolean visible);
@@ -890,11 +1002,15 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setPrimaryLabel(String label);
         void setEndCallButtonEnabled(boolean enabled, boolean animate);
         void setCallbackNumber(String number, boolean isEmergencyCalls);
+        void setCallSubject(String callSubject);
         void setProgressSpinnerVisible(boolean visible);
         void showHdAudioIndicator(boolean visible);
+        void showForwardIndicator(boolean visible);
         void showManageConferenceCallButton(boolean visible);
         boolean isManageConferenceVisible();
+        boolean isCallSubjectVisible();
         void animateForNewOutgoingCall();
         void sendAccessibilityAnnouncement();
+        void showNoteSentToast();
     }
 }

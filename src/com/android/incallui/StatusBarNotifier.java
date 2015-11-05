@@ -29,6 +29,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.telecom.Call.Details;
 import android.telecom.PhoneAccount;
+import android.telecom.TelecomManager;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
 import android.telecom.VideoProfile;
@@ -43,6 +44,8 @@ import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
 import com.android.incallui.InCallPresenter.InCallState;
 
 import com.google.common.base.Preconditions;
+
+import java.util.Objects;
 
 /**
  * This class adds Notifications to the status bar for the in-call experience.
@@ -66,7 +69,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
     private int mCurrentNotification = NOTIFICATION_NONE;
     private int mCallState = Call.State.INVALID;
     private int mSavedIcon = 0;
-    private int mSavedContent = 0;
+    private String mSavedContent = null;
     private Bitmap mSavedLargeIcon;
     private String mSavedContentTitle;
     private String mCallId = null;
@@ -212,7 +215,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         // Check if data has changed; if nothing is different, don't issue another notification.
         final int iconResId = getIconToDisplay(call);
         Bitmap largeIcon = getLargeIconToDisplay(contactInfo, call);
-        final int contentResId = getContentString(call);
+        final String content = getContentString(call);
         final String contentTitle = getContentTitle(contactInfo, call);
 
         final boolean isVideoUpgradeRequest = call.getSessionModificationState()
@@ -226,7 +229,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
             notificationType = NOTIFICATION_IN_CALL;
         }
 
-        if (!checkForChangeAndSaveData(iconResId, contentResId, largeIcon, contentTitle, state,
+        if (!checkForChangeAndSaveData(iconResId, content, largeIcon, contentTitle, state,
                 notificationType)) {
             return;
         }
@@ -236,7 +239,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         }
 
         // set the content
-        String contentText = mContext.getString(contentResId);
+        String contentText = content;
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
             SubscriptionInfo info =
                     SubscriptionManager.from(mContext).getActiveSubscriptionInfo(call.getSubId());
@@ -335,7 +338,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
      * are already displaying. If the data is exactly the same, we return false so that
      * we do not issue a new notification for the exact same data.
      */
-    private boolean checkForChangeAndSaveData(int icon, int content, Bitmap largeIcon,
+    private boolean checkForChangeAndSaveData(int icon, String content, Bitmap largeIcon,
             String contentTitle, int state, int notificationType) {
 
         // The two are different:
@@ -346,7 +349,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
                 (contentTitle == null && mSavedContentTitle != null);
 
         // any change means we are definitely updating
-        boolean retval = (mSavedIcon != icon) || (mSavedContent != content) ||
+        boolean retval = (mSavedIcon != icon) || !Objects.equals(mSavedContent, content) ||
                 (mCallState != state) || (mSavedLargeIcon != largeIcon) ||
                 contentTitleChanged;
 
@@ -466,13 +469,22 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
     /**
      * Returns the message to use with the notification.
      */
-    private int getContentString(Call call) {
+    private String getContentString(Call call) {
+        boolean isIncomingOrWaiting = call.getState() == Call.State.INCOMING ||
+                call.getState() == Call.State.CALL_WAITING;
+
+        if (isIncomingOrWaiting && !TextUtils.isEmpty(call.getCallSubject()) &&
+                call.getNumberPresentation() == TelecomManager.PRESENTATION_ALLOWED &&
+                call.isCallSubjectSupported()) {
+            return call.getCallSubject();
+        }
+
         int resId = R.string.notification_ongoing_call;
         if (call.hasProperty(Details.PROPERTY_WIFI)) {
             resId = R.string.notification_ongoing_call_wifi;
         }
 
-        if (call.getState() == Call.State.INCOMING || call.getState() == Call.State.CALL_WAITING) {
+        if (isIncomingOrWaiting) {
             if (call.hasProperty(Details.PROPERTY_WIFI)) {
                 resId = R.string.notification_incoming_call_wifi;
             } else {
@@ -487,7 +499,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
             resId = R.string.notification_requesting_video_call;
         }
 
-        return resId;
+        return mContext.getString(resId);
     }
 
     /**
@@ -699,5 +711,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
 
             updateNotification(mInCallState, CallList.getInstance());
         }
+    }
+
+    @Override
+    public void onLastForwardedNumberChange() {
+        // no-op
+    }
+
+    @Override
+    public void onChildNumberChange() {
+        // no-op
     }
 }

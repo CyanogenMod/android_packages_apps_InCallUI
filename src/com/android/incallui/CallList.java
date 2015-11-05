@@ -206,6 +206,37 @@ public class CallList {
         }
     }
 
+    /**
+     * Called when the last forwarded number changes for a call.  With IMS, the last forwarded
+     * number changes due to a supplemental service notification, so it is not pressent at the
+     * start of the call.
+     *
+     * @param call The call.
+     */
+    public void onLastForwardedNumberChange(Call call) {
+        final List<CallUpdateListener> listeners = mCallUpdateListenerMap.get(call.getId());
+        if (listeners != null) {
+            for (CallUpdateListener listener : listeners) {
+                listener.onLastForwardedNumberChange();
+            }
+        }
+    }
+
+    /**
+     * Called when the child number changes for a call.  The child number can be received after a
+     * call is initially set up, so we need to be able to inform listeners of the change.
+     *
+     * @param call The call.
+     */
+    public void onChildNumberChange(Call call) {
+        final List<CallUpdateListener> listeners = mCallUpdateListenerMap.get(call.getId());
+        if (listeners != null) {
+            for (CallUpdateListener listener : listeners) {
+                listener.onChildNumberChange();
+            }
+        }
+    }
+
     public void notifyCallUpdateListeners(Call call) {
         final List<CallUpdateListener> listeners = mCallUpdateListenerMap.get(call.getId());
         if (listeners != null) {
@@ -671,6 +702,16 @@ public class CallList {
          * @param sessionModificationState The new session modification state.
          */
         public void onSessionModificationStateChange(int sessionModificationState);
+
+        /**
+         * Notifies of a change to the last forwarded number for a call.
+         */
+        public void onLastForwardedNumberChange();
+
+        /**
+         * Notifies of a change to the child number for a call.
+         */
+        public void onChildNumberChange();
     }
 
     /**

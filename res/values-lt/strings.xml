@@ -123,7 +123,7 @@
     <string name="voicemail_settings" msgid="72448049107749316">"Sąranka"</string>
     <string name="voicemail_number_not_set" msgid="6724904736891087856">"&lt;Nenustatyta&gt;"</string>
     <string name="other_settings" msgid="3672912580359716394">"Kiti skambučio nustatymai"</string>
-    <string name="calling_via_template" msgid="4839419581866928142">"Skambinama naudojantis „<xliff:g id="PROVIDER_NAME">%s</xliff:g>“ paslaugomis"</string>
+    <string name="calling_via_template" msgid="4839419581866928142">"Skam. naudojant „<xliff:g id="PROVIDER_NAME">%s</xliff:g>“"</string>
     <string name="incoming_via_template" msgid="1696993226115570960">"Gaunama per „<xliff:g id="PROVIDER_NAME">%s</xliff:g>“"</string>
     <string name="contactPhoto" msgid="4713193418046639466">"kontakto nuotrauka"</string>
     <string name="goPrivate" msgid="865837794424530980">"naudoti privatų režimą"</string>
@@ -175,4 +175,6 @@
     </plurals>
     <string name="profile_photo_description" msgid="5609894336203315400">"Profilio nuotrauka"</string>
     <string name="camera_off_description" msgid="5689494614359429889">"Fotoaparatas išjungtas"</string>
+    <string name="child_number" msgid="7437330400723805538">"naudojant <xliff:g id="CHILD_NUMBER">%s</xliff:g>"</string>
+    <string name="note_sent" msgid="3548700178238244595">"Užrašas išsiųstas"</string>
 </resources>

@@ -123,7 +123,7 @@
     <string name="voicemail_settings" msgid="72448049107749316">"সেটআপ"</string>
     <string name="voicemail_number_not_set" msgid="6724904736891087856">"&lt;সেট করা নেই&gt;"</string>
     <string name="other_settings" msgid="3672912580359716394">"অন্যান্য কল সেটিংস"</string>
-    <string name="calling_via_template" msgid="4839419581866928142">"<xliff:g id="PROVIDER_NAME">%s</xliff:g> এর মাধ্যমে কল করা হচ্ছে"</string>
+    <string name="calling_via_template" msgid="4839419581866928142">"<xliff:g id="PROVIDER_NAME">%s</xliff:g> এর দ্বারা কল হচ্ছে"</string>
     <string name="incoming_via_template" msgid="1696993226115570960">"<xliff:g id="PROVIDER_NAME">%s</xliff:g> এর মাধ্যমে ইনকামিং কল"</string>
     <string name="contactPhoto" msgid="4713193418046639466">"পরিচিতির ফটো"</string>
     <string name="goPrivate" msgid="865837794424530980">"ব্যক্তিগতভাবে কাজ করুন"</string>
@@ -169,4 +169,6 @@
     </plurals>
     <string name="profile_photo_description" msgid="5609894336203315400">"প্রোফাইল ফটো"</string>
     <string name="camera_off_description" msgid="5689494614359429889">"ক্যামেরা বন্ধ"</string>
+    <string name="child_number" msgid="7437330400723805538">"<xliff:g id="CHILD_NUMBER">%s</xliff:g> এর মাধ্যমে"</string>
+    <string name="note_sent" msgid="3548700178238244595">"নোট পাঠানো হয়েছে"</string>
 </resources>

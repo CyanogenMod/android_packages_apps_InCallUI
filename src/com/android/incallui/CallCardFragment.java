@@ -666,7 +666,11 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mSecondaryCallInfo.setVisibility(View.VISIBLE);
         }
 
-        updateFabPositionForSecondaryCallInfo();
+        // If secondary info visibility hasn't changed, don't animate. Return.
+        if (wasVisible == isVisible) {
+            return;
+        }
+
         // We need to translate the secondary caller info, but we need to know its position after
         // the layout has occurred so use a {@code ViewTreeObserver}.
         final ViewTreeObserver observer = getView().getViewTreeObserver();
@@ -680,6 +684,10 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 // Get the height of the secondary call info now, and then re-hide the view prior
                 // to doing the actual animation.
                 int secondaryHeight = mSecondaryCallInfo.getHeight();
+
+                // Update floating end call button position onPreDraw
+                updateFabPositionForSecondaryCallInfo();
+
                 if (isVisible) {
                     mSecondaryCallInfo.setVisibility(View.GONE);
                 }

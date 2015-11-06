@@ -186,6 +186,11 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
+    private boolean checkSubId(int phoneId) {
+        int subId[] = mCalls.getSubId(phoneId);
+        return (subId != null && subId.length > 0);
+    }
+
     @Override
     public void onUiShowing(boolean showing) {
         if (showing) {
@@ -196,12 +201,16 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             // for DSDA.
             for (int i = 0; i < InCallServiceImpl.sPhoneCount; i++) {
                 int[] subId = mCalls.getSubId(i);
-                call = mCalls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
-                if (call == null) {
-                    call = mCalls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
-                }
-                if (call != null) {
-                    processIncomingCall(call);
+                if (checkSubId(i)) {
+                    call = mCalls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
+                    if (call == null) {
+                        call = mCalls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
+                    }
+                    if (call != null) {
+                        processIncomingCall(call);
+                    }
+                } else {
+                    Log.d(TAG, "No valid sub");
                 }
             }
             call = mCalls.getVideoUpgradeRequestCall();
@@ -216,16 +225,20 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             // This happens when back button is pressed while incoming call is still being shown.
             for (int i = 0; i < InCallServiceImpl.sPhoneCount; i++) {
                 int[] subId = mCalls.getSubId(i);
-                Call call = mCalls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
-                if (call == null) {
-                    call = mCalls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
-                }
-                if (call == null) {
-                    call = mCalls.getCallWithState(Call.State.ACTIVE, 0, subId[0]);
-                }
-                if (mCallId[i] != null && call == null) {
-                    mCalls.removeCallUpdateListener(mCallId[i], this);
-                    mCalls.removeActiveSubChangeListener(this);
+                if (checkSubId(i)) {
+                    Call call = mCalls.getCallWithState(Call.State.INCOMING, 0, subId[0]);
+                    if (call == null) {
+                        call = mCalls.getCallWithState(Call.State.CALL_WAITING, 0, subId[0]);
+                    }
+                    if (call == null) {
+                        call = mCalls.getCallWithState(Call.State.ACTIVE, 0, subId[0]);
+                    }
+                    if (mCallId[i] != null && call == null) {
+                        mCalls.removeCallUpdateListener(mCallId[i], this);
+                        mCalls.removeActiveSubChangeListener(this);
+                    }
+                } else {
+                    Log.d(TAG, "No valid sub");
                 }
             }
         }

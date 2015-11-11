@@ -881,12 +881,13 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
         Log.d(this, "onUiShowing, showing = " + showing + " mPrimaryCall = " + mPrimaryCall +
                 " mPreviewSurfaceState = " + mPreviewSurfaceState);
 
+        mIsInBackground = !showing;
+
         if (mPrimaryCall == null || !CallUtils.isActiveVideoCall(mPrimaryCall)) {
             Log.w(this, "onUiShowing, received for non-active video call");
             return;
         }
 
-        mIsInBackground = !showing;
         if (showing) {
             maybeEnableCamera();
         } else if (mPreviewSurfaceState != PreviewSurfaceState.NONE) {

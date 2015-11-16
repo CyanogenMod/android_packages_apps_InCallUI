@@ -1147,18 +1147,15 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
-        int height;
-        int width;
+        final int adjustedDimension = (int) (mMinimumVideoDimension * aspectRatio);
+        final int min = (int) Math.min(mMinimumVideoDimension, adjustedDimension);
+        final int max = (int) Math.max(mMinimumVideoDimension, adjustedDimension);
 
-        if (orientation == InCallOrientationEventListener.SCREEN_ORIENTATION_90 ||
-                orientation == InCallOrientationEventListener.SCREEN_ORIENTATION_270) {
-            width = (int) (mMinimumVideoDimension * aspectRatio);
-            height = (int) mMinimumVideoDimension;
-        } else {
-            // Portrait or reverse portrait orientation.
-            width = (int) mMinimumVideoDimension;
-            height = (int) (mMinimumVideoDimension * aspectRatio);
-        }
+        // When orientation is dynamic (CVO), we dynamically rotate the camera preview, hence
+        // here we make sure that the height of the preview is always greater than the width.
+        int height = max;
+        int width = min;
+
         ui.setPreviewSize(width, height);
     }
 

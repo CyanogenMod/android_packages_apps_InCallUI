@@ -273,8 +273,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         InCallPresenter.getInstance().setThemeColors();
         InCallPresenter.getInstance().onUiShowing(true);
 
-        // Clear fullscreen state onResume; the stored value may not match reality.
-        InCallPresenter.getInstance().clearFullscreen();
+        // Exit fullscreen state onResume; the stored value may not match reality.
+        InCallPresenter.getInstance().setFullScreen(false);
 
         // If there is a pending request to show or hide the dialpad, handle that now.
         if (mShowDialpadRequest != DIALPAD_REQUEST_NONE) {

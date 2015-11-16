@@ -27,21 +27,8 @@
   ~ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 <resources>
-    <!-- Determines UI extensions for video calls should be used. -->
-    <bool name="video_call_use_ext">true</bool>
-    <!-- Label for "More" notification action. This is a displayed on the notification for an
-        incoming call, and brings the phone application to foreground and displays multiple options
-        for accepting (or declining) the call. [CHAR LIMIT=12] -->
-    <string name="notification_action_answer_more">More</string>
-    <!-- Dtermine whether emergency calls should be marked. -->
-    <bool name="mark_emergency_call">false</bool>
-    <!-- Condition to check if home location should be enabled or not. -->
-    <bool name="enable_home_location">false</bool>
-    <!-- Flag to display home location on status bar-->
-    <bool name="display_home_location_on_statusbar">false</bool>
-    <!--
-    customize the default value to control Clear-Code feature,
-    default value is false, true is for LatamOpenAMX
-    -->
-    <bool name="def_incallui_clearcode_enabled">false</bool>
+    <!-- Duration of the InCallUI reveal and shrink animations after a call is placed -->
+    <integer name="reveal_animation_duration">1</integer>
+    <integer name="shrink_animation_duration">1</integer>
+    <integer name="video_animation_duration">1</integer>
 </resources>

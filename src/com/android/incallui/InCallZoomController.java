@@ -224,9 +224,15 @@ public class InCallZoomController implements InCallPresenter.IncomingCallListene
     }
 
     private void dismissAlertDialog() {
-        if (mAlertDialog != null) {
-            mAlertDialog.dismiss();
-            mAlertDialog = null;
+        try {
+            if (mAlertDialog != null) {
+                mAlertDialog.dismiss();
+                mAlertDialog = null;
+            }
+        } catch (Exception e) {
+            // Since exceptions caused in zoom control dialog should not crash the phone process,
+            // we intentionally capture the exception and ignore.
+            Log.e(this, "dismissAlertDialog: Exception: " + e);
         }
     }
 

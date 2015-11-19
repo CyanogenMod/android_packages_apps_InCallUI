@@ -22,14 +22,6 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentStart="true" >
 
-    <fragment android:name="com.android.incallui.VideoCallFragment"
-              android:layout_alignParentStart="true"
-              android:layout_gravity="start|center_vertical"
-              android:id="@+id/videoCallFragment"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_alignParentBottom="true" />
-
     <!-- Secondary "Call info" block, for the background ("on hold") call. -->
     <include layout="@layout/secondary_call_info"
              android:id="@+id/secondary_call_info"
@@ -118,6 +110,14 @@
             android:src="@drawable/img_no_image_automirrored" />
 
     </FrameLayout>
+
+    <fragment android:name="com.android.incallui.VideoCallFragment"
+              android:layout_alignParentStart="true"
+              android:layout_gravity="start|center_vertical"
+              android:id="@+id/videoCallFragment"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentBottom="true" />
 
     <include layout="@layout/manage_conference_call_button"
         android:layout_width="match_parent"

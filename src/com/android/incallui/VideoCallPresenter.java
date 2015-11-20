@@ -979,8 +979,14 @@ public class VideoCallPresenter extends Presenter<VideoCallPresenter.VideoCallUi
             return;
         }
 
-        mPreviewSurfaceState = PreviewSurfaceState.CAPABILITIES_RECEIVED;
         changePreviewDimensions(width, height);
+
+        if (mPreviewSurfaceState == PreviewSurfaceState.NONE) {
+            Log.w(this, "Received camera capabilities when camera is closed");
+            return;
+        }
+
+        mPreviewSurfaceState = PreviewSurfaceState.CAPABILITIES_RECEIVED;
 
         // Check if the preview surface is ready yet; if it is, set it on the {@code VideoCall}.
         // If it not yet ready, it will be set when when creation completes.

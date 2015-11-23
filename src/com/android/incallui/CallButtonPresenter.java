@@ -39,6 +39,7 @@ import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 
 import java.util.Objects;
+import org.codeaurora.QtiVideoCallConstants;
 
 /**
  * Logic for call buttons.
@@ -467,7 +468,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
 
         final boolean showMute = call.can(android.telecom.Call.Details.CAPABILITY_MUTE);
         final boolean showAddParticipant = call.can(
-                android.telecom.Call.Details.CAPABILITY_ADD_PARTICIPANT);
+                QtiVideoCallConstants.CAPABILITY_ADD_PARTICIPANT);
 
         final CallRecorder recorder = CallRecorder.getInstance();
         boolean showCallRecordOption = recorder.isEnabled()

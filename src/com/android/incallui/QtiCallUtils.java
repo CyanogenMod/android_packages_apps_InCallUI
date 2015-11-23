@@ -306,8 +306,9 @@ public class QtiCallUtils {
     }
 
     public static boolean hasVoiceCapabilities(Call call) {
-        return call != null && call.can(Connection.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_LOCAL)
-                && call.can(Connection.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_REMOTE);
+        return call != null
+                && call.can(QtiVideoCallConstants.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_LOCAL)
+                && call.can(QtiVideoCallConstants.CAPABILITY_SUPPORTS_DOWNGRADE_TO_VOICE_REMOTE);
     }
 
     public static boolean hasVideoCapabilities(Call call) {

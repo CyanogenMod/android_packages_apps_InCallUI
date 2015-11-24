@@ -454,14 +454,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         }
         if (TextUtils.isEmpty(contactInfo.name)) {
             String contactNumberDisplayed = TextUtils.isEmpty(contactInfo.number) ?
-                "" : contactInfo.number.toString();
+                    "" : contactInfo.number.toString();
             if (mContext.getResources().
-                getBoolean(R.bool.display_home_location_on_statusbar)) {
-                    contactNumberDisplayed =  contactNumberDisplayed + " " + contactInfo.location;
+                    getBoolean(R.bool.display_home_location_on_statusbar) &&
+                    !TextUtils.isEmpty(contactInfo.location)) {
+                contactNumberDisplayed =  contactNumberDisplayed + " " + contactInfo.location;
             }
             return TextUtils.isEmpty(contactNumberDisplayed) ? null
                     : BidiFormatter.getInstance().unicodeWrap(
-                            contactNumberDisplayed, TextDirectionHeuristics.LTR);
+                    contactNumberDisplayed, TextDirectionHeuristics.LTR);
         }
 
         return contactInfo.name;

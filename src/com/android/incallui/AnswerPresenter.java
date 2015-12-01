@@ -273,7 +273,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
 
     @Override
     public void onDisconnect(Call call) {
-        // no-op
+        int subId = call.getSubId();
+        int phoneId = mCalls.getPhoneId(subId);
+        mCall[phoneId] = null;
     }
 
     public void onSessionModificationStateChange(int sessionModificationState) {

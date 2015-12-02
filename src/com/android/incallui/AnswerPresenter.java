@@ -32,6 +32,7 @@ import com.android.internal.telephony.util.BlacklistUtils;
 import com.cyanogen.lookup.phonenumber.provider.LookupProviderImpl;
 import org.codeaurora.ims.qtiims.IQtiImsInterface;
 import org.codeaurora.ims.qtiims.IQtiImsInterfaceListener;
+import org.codeaurora.ims.qtiims.QtiImsInterfaceListenerBaseImpl;
 import org.codeaurora.ims.qtiims.QtiImsInterfaceUtils;
 import org.codeaurora.ims.qtiims.QtiViceInfo;
 import org.codeaurora.QtiVideoCallConstants;
@@ -97,31 +98,12 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     };
 
-    /* IQtiImsInterfaceListener instance to handle call deflection response */
-    private IQtiImsInterfaceListener imsInterfaceListener = new IQtiImsInterfaceListener.Stub() {
-        public void onSetCallForwardUncondTimer(int status) {
-            /* Not implemented, dummy implementation to avoid compilation errors */
-        }
-
-        public void onGetCallForwardUncondTimer(int startHour, int endHour,
-                int startMinute, int endMinute, int reason, int status,
-                String number, int serviceClass) {
-            /* Not implemented, dummy implementation to avoid compilation errors */
-        }
-
-        public void onUTReqFailed(int errCode, String errString) {
-            /* Not implemented, dummy implementation to avoid compilation errors */
-        }
-
-        public void onGetPacketCount(int status, long packetCount) {
-            /* Not implemented, dummy implementation to avoid compilation errors */
-        }
-
-        public void onGetPacketErrorCount(int status, long packetErrorCount) {
-            /* Not implemented, dummy implementation to avoid compilation errors */
-        }
+    /* QtiImsInterfaceListenerBaseImpl instance to handle call deflection response */
+    private QtiImsInterfaceListenerBaseImpl imsInterfaceListener =
+            new QtiImsInterfaceListenerBaseImpl() {
 
         /* Handles call deflect response */
+        @Override
         public void receiveCallDeflectResponse(int result) {
             Log.w(this, "receiveCallDeflectResponse: " + result);
         }

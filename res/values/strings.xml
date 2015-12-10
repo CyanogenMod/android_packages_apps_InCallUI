@@ -19,7 +19,7 @@
 
     <!-- Official label of the phone app, as seen in "Manage Applications"
          and other settings UIs. -->
-    <string name="phoneAppLabel" product="default"></string>
+    <string name="phoneAppLabel" product="default">Phone</string>
 
     <!-- Official label for the in-call UI. DO NOT TRANSLATE. -->
     <string name="inCallLabel" translate="false">InCallUI</string>
@@ -456,12 +456,6 @@
     <!-- Description of the "camera off" icon displayed when the device's camera is disabled during
          a video call. [CHAR LIMIT=NONE] -->
     <string name="camera_off_description">Camera off</string>
-    <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
-    <string name="select_account_dialog_title">Select Account</string>
-    <!-- Set Subscription screen: label sub 1 -->
-    <string name="sub_1">SUB 1</string>
-    <!-- Set Subscription screen: label sub 2 -->
-    <string name="sub_2">SUB 2</string>
 
     <!-- Used to inform the user that a call was received via a number other than the primary
         phone number associated with their device. [CHAR LIMIT=16] -->

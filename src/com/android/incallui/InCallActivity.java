@@ -238,7 +238,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
             if (icicle.containsKey(SHOW_DIALPAD_EXTRA)) {
                 boolean showDialpad = icicle.getBoolean(SHOW_DIALPAD_EXTRA);
                 mShowDialpadRequest = showDialpad ? DIALPAD_REQUEST_SHOW : DIALPAD_REQUEST_HIDE;
-                mAnimateDialpadOnShow = false;
+                mAnimateDialpadOnShow = showDialpad;
             }
             mDtmfText = icicle.getString(DIALPAD_TEXT_EXTRA);
 

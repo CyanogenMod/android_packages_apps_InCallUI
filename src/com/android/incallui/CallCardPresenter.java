@@ -208,6 +208,23 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         } else if (newState == InCallState.INCALL) {
             primary = getCallToDisplay(callList, null, false);
             secondary = getCallToDisplay(callList, primary, true);
+            // During swap scenarios, two calls can be ACTIVE at the same time momentarily.
+            // In such cases secondary above will be null. To avoid flickering of secondary
+            // call view, assign the non primary call as secondary here.
+            if (secondary == null && primary != null) {
+                Call probableSecondary = null;
+                if (primary == mPrimary) {
+                    probableSecondary = mSecondary;
+                } else if (primary == mSecondary) {
+                    probableSecondary = mPrimary;
+                }
+                if (probableSecondary != null &&
+                        probableSecondary.getState() == Call.State.ACTIVE &&
+                        primary.getSubId() == probableSecondary.getSubId()) {
+                    Log.v(this, "Two calls ACTIVE");
+                    secondary = probableSecondary;
+                }
+            }
         }
 
         Log.d(this, "Primary call: " + primary);

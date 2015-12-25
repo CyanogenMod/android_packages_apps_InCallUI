@@ -18,16 +18,15 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_incoming_cb_enabled">La conferencia tiene prohibidas todas las llamadas entrantes.</string>
-  <string name="callUnanswered_forwarded">Llamada no respondida y reenviada</string>
+  <string name="callUnanswered_forwarded">Llamada no respondida y desviada</string>
   <string name="incall_call_type_label_forwarded">Llamada desviada</string>
-  <string name="card_title_dialing_waiting">Llamando (esperando\u2026)</string>
+  <string name="card_title_dialing_waiting">Marcando (esperando\u2026)</string>
   <string name="calling_via_waiting_template">Llamando vía <xliff:g id="provider_name">%s</xliff:g> (Esperando\u2026)</string>
   <string name="card_title_waiting_call">Llamada en espera</string>
   <string name="card_title_waiting_via_template">Llamada en espera (vía <xliff:g id="provider_name">%s </xliff:g>)</string>
   <string name="onscreenBlacklistText">Lista de contactos bloqueados</string>
   <string name="call_recording_failed_message">Ocurrió un error al iniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
-  <string name="blacklist_dialog_title">Agregar a lista de contactos bloqueados</string>
   <string name="blacklist_dialog_message">Las llamadas de <xliff:g id="number">%s</xliff:g> serán bloqueadas</string>
   <string name="card_title_video_call_paused">Videollamada (en pausa)</string>
   <string name="onscreenAddParticipant">Añadir participante</string>
@@ -38,26 +37,22 @@
   <string name="modify_call_option_voice">Solo voz</string>
   <string name="video_call_not_allowed_if_tty_enabled">Deshabilita el modo TTY para permitir videollamadas</string>
   <string name="player_started">Reproductor iniciado</string>
-  <string name="player_stopped">Reproductor detenido</string>
-  <string name="camera_not_ready">Cámara no preparada</string>
-  <string name="camera_ready">Cámara preparada</string>
+  <string name="camera_not_ready">La cámara no está preparada</string>
+  <string name="camera_ready">La cámara está preparada</string>
   <string name="unknown_call_session_event">Evento de sesión de llamada desconocido</string>
   <string name="onscreenCallRecordText">Iniciar y detener la grabación de la llamada</string>
-  <string name="onscreenAddToBlacklistText">Agregar contacto a lista de contactos bloqueados</string>
-  <string name="menu_start_record">Registro de llamada</string>
+  <string name="onscreenAddToBlacklistText">Añadir contacto a lista de contactos bloqueados</string>
+  <string name="menu_start_record">Grabar llamada</string>
   <string name="menu_stop_record">Detener grabación</string>
   <string name="recording_time_text">Grabando</string>
-  <string name="recording_warning_title">¿Habilitar la grabación de llamada?</string>
-  <string name="recording_warning_text">Aviso: Tú eres el responsable de cumplir con cualquier ley, reglamento o norma que se aplique al uso de la funcionalidad de grabación de llamadas y el uso o distribución de esas grabaciones.</string>
+  <string name="recording_warning_title">¿Activar la grabación de llamada?</string>
+  <string name="recording_warning_text">Aviso: Eres responsable de cumplir con cualquier ley, reglamento o norma que se aplique al uso de la funcionalidad de grabación de llamadas y el uso o distribución de esas grabaciones.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Llamada reanudada</string>
   <string name="call_substate_connected_suspended_audio">La llamada está conectada, pero el audio está suspendido</string>
-  <string name="call_substate_connected_suspended_video">La llamada está conectada, pero el vídeo está suspendido</string>
   <string name="call_substate_avp_retry">Detectando calidad del vídeo\u2026</string>
-  <string name="video_quality_changed">Calidad de vídeo cambiada a <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">alta</string>
   <string name="video_quality_medium">media</string>
-  <string name="video_quality_low">baja</string>
   <string name="video_quality_unknown">desconocida</string>
 </resources>

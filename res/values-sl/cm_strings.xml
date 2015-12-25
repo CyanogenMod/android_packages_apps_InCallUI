@@ -36,7 +36,7 @@
   <string name="modify_call_option_vt_tx">Video prenos</string>
   <string name="modify_call_option_vt_rx">Video prejem</string>
   <string name="modify_call_option_voice">Samo glas</string>
-  <string name="video_call_not_allowed_if_tty_enabled">Onemogočite način TTY, da omogočite video klice</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Onemogočite način TTY, da dovolite video klice</string>
   <string name="player_started">Predvajalnik zagnan</string>
   <string name="player_stopped">Predvajalnik ustavljen</string>
   <string name="camera_not_ready">Kamera ni pripravljena</string>

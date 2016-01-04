@@ -17,13 +17,13 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="callFailed_incoming_cb_enabled">Todas as chamadas recebidas em multi-conferência estao barradas.</string>
+  <string name="callFailed_incoming_cb_enabled">Todas as chamadas recebidas em multi-conferência foram barradas.</string>
   <string name="callUnanswered_forwarded">Chamada não respondida e reencaminhada</string>
   <string name="incall_call_type_label_forwarded">Chamada reencaminhada</string>
   <string name="card_title_dialing_waiting">A marcar (aguarde\u2026)</string>
-  <string name="calling_via_waiting_template">A chamar através <xliff:g id="provider_name">%s</xliff:g> (aguarde\u2026)</string>
+  <string name="calling_via_waiting_template">A chamar através de <xliff:g id="provider_name">%s</xliff:g> (aguarde\u2026)</string>
   <string name="card_title_waiting_call">Chamada em espera</string>
-  <string name="card_title_waiting_via_template">Chamada em espera (através <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="card_title_waiting_via_template">Chamada em espera (através de <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Lista de números bloqueados</string>
   <string name="call_recording_failed_message">Falha ao iniciar a gravação de chamadas</string>
   <string name="call_recording_file_location">A gravação da chamada foi guardada em <xliff:g id="filename">%s</xliff:g></string>
@@ -37,8 +37,8 @@
   <string name="modify_call_option_vt_rx">Receção de vídeo</string>
   <string name="modify_call_option_voice">Apenas voz</string>
   <string name="video_call_not_allowed_if_tty_enabled">Por favor, desative o modo TTY para permitir chamadas de vídeo</string>
-  <string name="player_started">Leitor de música iniciou</string>
-  <string name="player_stopped">Leitor de música parou</string>
+  <string name="player_started">O leitor de vídeo foi iniciado</string>
+  <string name="player_stopped">O leitor de vídeo parou</string>
   <string name="camera_not_ready">A câmara não está pronta</string>
   <string name="camera_ready">A câmara está pronta</string>
   <string name="unknown_call_session_event">Evento de sessão de chamada desconhecido</string>
@@ -55,7 +55,7 @@
   <string name="call_substate_connected_suspended_audio">A chamada está conectada, mas o áudio está suspenso</string>
   <string name="call_substate_connected_suspended_video">A chamada está conectada, mas o vídeo está suspenso</string>
   <string name="call_substate_avp_retry">A detetar a qualidade do vídeo\u2026</string>
-  <string name="video_quality_changed">A qualidade do vídeo alterou para <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_changed">A qualidade do vídeo mudou para <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">alta</string>
   <string name="video_quality_medium">média</string>
   <string name="video_quality_low">baixa</string>

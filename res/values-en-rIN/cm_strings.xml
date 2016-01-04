@@ -21,7 +21,13 @@
   <string name="callUnanswered_forwarded">Call unanswered and forwarded</string>
   <string name="incall_call_type_label_forwarded">Forwarded call</string>
   <string name="card_title_dialing_waiting">Dialing (waiting\u2026)</string>
+  <string name="calling_via_waiting_template">Calling via <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
+  <string name="card_title_waiting_call">Call on hold</string>
+  <string name="card_title_waiting_via_template">Call on hold (via <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="onscreenBlacklistText">Blocked caller list</string>
   <string name="call_recording_failed_message">Failed to start call recording</string>
+  <string name="call_recording_file_location">Saved call recording to <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Add to blocked caller list</string>
   <string name="blacklist_dialog_message">Future calls from <xliff:g id="number">%s</xliff:g> will be blocked</string>
   <string name="card_title_video_call_paused">Video call (paused)</string>
   <string name="onscreenAddParticipant">Add participant</string>
@@ -36,9 +42,13 @@
   <string name="camera_not_ready">Camera is not ready</string>
   <string name="camera_ready">Camera is ready</string>
   <string name="unknown_call_session_event">Unknown call session event</string>
+  <string name="onscreenCallRecordText">Start and stop call recording</string>
+  <string name="onscreenAddToBlacklistText">Add caller to blocked caller list</string>
   <string name="menu_start_record">Record call</string>
   <string name="menu_stop_record">Stop recording</string>
   <string name="recording_time_text">Recording</string>
+  <string name="recording_warning_title">Enable call recording?</string>
+  <string name="recording_warning_text">Notice: You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Call resumed</string>

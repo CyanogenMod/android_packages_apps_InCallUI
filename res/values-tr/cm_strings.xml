@@ -24,10 +24,10 @@
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ile aranıyor (Bekleniyor\u2026)</string>
   <string name="card_title_waiting_call">Arama bekletiliyor</string>
   <string name="card_title_waiting_via_template">Arama beklemede (<xliff:g id="provider_name">%s</xliff:g> ile)</string>
-  <string name="onscreenBlacklistText">Engellenen arayan listesi</string>
+  <string name="onscreenBlacklistText">Engelli arayan listesi</string>
   <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
   <string name="call_recording_file_location">Arama kaydı <xliff:g id="filename">%s</xliff:g> konumuna kaydedildi</string>
-  <string name="blacklist_dialog_title">Engellenen arayan listesine ekle</string>
+  <string name="blacklist_dialog_title">Engelli arayan listesine ekle</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> numarasından gelecek çağrılar engellenecek</string>
   <string name="card_title_video_call_paused">Görüntülü arama (duraklatıldı)</string>
   <string name="onscreenAddParticipant">Katılımcı ekle</string>
@@ -41,9 +41,9 @@
   <string name="player_stopped">Oynatıcı durdu</string>
   <string name="camera_not_ready">Kamera hazır değil</string>
   <string name="camera_ready">Kamera hazır</string>
-  <string name="unknown_call_session_event">Bilinmeyen çağrı oturumu</string>
+  <string name="unknown_call_session_event">Bilinmeyen çağrı oturum etkinliği</string>
   <string name="onscreenCallRecordText">Arama kaydını başlat ve durdur</string>
-  <string name="onscreenAddToBlacklistText">Arayan kişiyi engellenenler listesine ekle</string>
+  <string name="onscreenAddToBlacklistText">Arayan kişiyi engelliler listesine ekle</string>
   <string name="menu_start_record">Aramayı kaydet</string>
   <string name="menu_stop_record">Kaydı durdur</string>
   <string name="recording_time_text">Kayıt ediliyor</string>
@@ -53,9 +53,9 @@
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Görüşmeye geri dönüldü</string>
   <string name="call_substate_connected_suspended_audio">Bağlantı kuruldu, ama ses bekletiliyor</string>
-  <string name="call_substate_connected_suspended_video">Bağlantı kuruldu, ama video bekletiliyor</string>
+  <string name="call_substate_connected_suspended_video">Bağlantı kuruldu ama video bekletiliyor</string>
   <string name="call_substate_avp_retry">Video kalitesi tespit ediliyor\u2026</string>
-  <string name="video_quality_changed">Video kalitesi <xliff:g id="quality" example="high">%1$s</xliff:g> ayarlara değiştirildi</string>
+  <string name="video_quality_changed">Video kalitesi <xliff:g id="quality" example="high">%1$s</xliff:g> olarak değiştirildi</string>
   <string name="video_quality_high">yüksek</string>
   <string name="video_quality_medium">orta</string>
   <string name="video_quality_low">düşük</string>

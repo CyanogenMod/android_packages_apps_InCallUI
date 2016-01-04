@@ -20,6 +20,44 @@
   <string name="callFailed_incoming_cb_enabled">บุคคลได้กีดกันสายเข้าทั้งหมด</string>
   <string name="callUnanswered_forwarded">ไม่รับสายและส่งต่อ</string>
   <string name="incall_call_type_label_forwarded">สายที่ส่งต่อ</string>
-  <string name="calling_via_waiting_template">การโทรผ่าน <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
-  <string name="card_title_waiting_via_template">สายการโทรที่รอยู่ (via <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="card_title_dialing_waiting">กำลังโทรออก (รอ\u2026)</string>
+  <string name="calling_via_waiting_template">กำลังโทรผ่าน <xliff:g id="provider_name">%s</xliff:g> (รอ\u2026)</string>
+  <string name="card_title_waiting_call">รอสาย</string>
+  <string name="card_title_waiting_via_template">สายการโทรที่รออยู่ (ผ่าน <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="onscreenBlacklistText">รายชื่อผู้โทรที่ถูกบล็อค</string>
+  <string name="call_recording_failed_message">ไม่สามารถเริ่มบันทึกการสนทนาได้</string>
+  <string name="call_recording_file_location">บันทึกการสนทนาไปยัง  <xliff:g id="filename">%s</xliff:g> แล้ว</string>
+  <string name="blacklist_dialog_title">เพิ่มไปยังรายชื่อผู้โทรที่ถูกบล็อค</string>
+  <string name="blacklist_dialog_message">การโทรจาก <xliff:g id="number">%s</xliff:g> ในอนาคตจะถูกบล็อค</string>
+  <string name="card_title_video_call_paused">สายวิดีโอ (หยุดชั่วคราว)</string>
+  <string name="onscreenAddParticipant">เพิ่มผู้เข้าร่วม</string>
+  <string name="modify_call_option_title">เลือกประเภทการสนทนา</string>
+  <string name="modify_call_option_vt">สนทนาวิดีโอ</string>
+  <string name="modify_call_option_vt_tx">ตัวส่งวิดีโอ</string>
+  <string name="modify_call_option_vt_rx">ตัวรับวิดีโอ</string>
+  <string name="modify_call_option_voice">เสียงเท่านั้น</string>
+  <string name="video_call_not_allowed_if_tty_enabled">กรุณาปิดใช้งานรูปแบบ TTY เพื่อให้ใช้สายวิดีโอได้</string>
+  <string name="player_started">เริ่มเล่น</string>
+  <string name="player_stopped">หยุดเล่น</string>
+  <string name="camera_not_ready">กล้องไม่พร้อม</string>
+  <string name="camera_ready">กล้องพร้อมแล้ว</string>
+  <string name="unknown_call_session_event">ไม่รู้จักกิจกรรมการโทร</string>
+  <string name="onscreenCallRecordText">เริ่มต้นและหยุดการบันทึกการโทร</string>
+  <string name="onscreenAddToBlacklistText">เพิ่มผู้โทรไปยังรายชื่อที่ถูกบล็อค</string>
+  <string name="menu_start_record">บันทึกการสนทนา</string>
+  <string name="menu_stop_record">หยุดบันทึก</string>
+  <string name="recording_time_text">เวลาบันทึก</string>
+  <string name="recording_warning_title">เปิดบันทึกการโทรหรือไม่</string>
+  <string name="recording_warning_text">ข้อสังเกต: คุณมีภาระรับผิดชอบในการปฏิบัติตามกฎหมาย ระเบียบข้อบังคับ และกฎที่ใช้กับการใช้ฟังก์ชันบันทึกการสนทนาและการใช้หรือการเผยแพร่ของบันทึกเหล่านั้น</string>
+  <string name="sub_1">ซิม 1</string>
+  <string name="sub_2">ซิม 2</string>
+  <string name="call_substate_call_resumed">สนทนาต่อ</string>
+  <string name="call_substate_connected_suspended_audio">เชื่อมต่อสายแล้ว แต่เสียงถูกระงับไว้</string>
+  <string name="call_substate_connected_suspended_video">เชื่อมต่อสายแล้ว แต่วิดีโอถูกระงับไว้</string>
+  <string name="call_substate_avp_retry">กำลังหาคุณภาพวิดีโอ\u2026</string>
+  <string name="video_quality_changed">คุณภาพวีดีโอเปลี่ยนเป็น<xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">สูง</string>
+  <string name="video_quality_medium">ปานกลาง</string>
+  <string name="video_quality_low">ต่ำ</string>
+  <string name="video_quality_unknown">ไม่ทราบ</string>
 </resources>

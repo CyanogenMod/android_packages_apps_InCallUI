@@ -27,6 +27,7 @@
   <string name="onscreenBlacklistText">Lista de contactos bloqueados</string>
   <string name="call_recording_failed_message">Ocurrió un error al iniciar la grabación</string>
   <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Añadir a la lista de contactos bloqueados</string>
   <string name="blacklist_dialog_message">Las llamadas de <xliff:g id="number">%s</xliff:g> serán bloqueadas</string>
   <string name="card_title_video_call_paused">Videollamada (en pausa)</string>
   <string name="onscreenAddParticipant">Añadir participante</string>
@@ -37,6 +38,7 @@
   <string name="modify_call_option_voice">Solo voz</string>
   <string name="video_call_not_allowed_if_tty_enabled">Deshabilita el modo TTY para permitir videollamadas</string>
   <string name="player_started">Reproductor iniciado</string>
+  <string name="player_stopped">Reproductor detenido</string>
   <string name="camera_not_ready">La cámara no está preparada</string>
   <string name="camera_ready">La cámara está preparada</string>
   <string name="unknown_call_session_event">Evento de sesión de llamada desconocido</string>
@@ -51,8 +53,11 @@
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Llamada reanudada</string>
   <string name="call_substate_connected_suspended_audio">La llamada está conectada, pero el audio está suspendido</string>
+  <string name="call_substate_connected_suspended_video">La llamada está conectada, pero el vídeo está suspendido</string>
   <string name="call_substate_avp_retry">Detectando calidad del vídeo\u2026</string>
+  <string name="video_quality_changed">Calidad de vídeo cambiada a <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <string name="video_quality_high">alta</string>
   <string name="video_quality_medium">media</string>
+  <string name="video_quality_low">baja</string>
   <string name="video_quality_unknown">desconocida</string>
 </resources>

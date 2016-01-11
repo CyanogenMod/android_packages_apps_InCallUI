@@ -96,10 +96,6 @@
     <string name="cs_redial_option">Redial</string>
     <!-- Message text of the IMS to CS redial dialog -->
     <string name="cs_redial_msg">Unable to make an IMS video call, redial as non-IMS voice call?</string>
-    <!-- Yes option of the IMS to CS redial dialog -->
-    <string name="cs_redial_yes">Yes</string>
-    <!-- No option of the IMS to CS redial dialog -->
-    <string name="cs_redial_no">No</string>
 
     <!-- Session modify cause unspecified -->
     <string name="session_modify_cause_unspecified" translatable="false"></string>

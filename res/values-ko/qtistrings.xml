@@ -61,8 +61,6 @@
   <string name="call_failed_ho_not_feasible">LTE에서 3G/2G 핸드오버가 불가능하기 때문에 통화가 종료되었습니다.</string>
   <string name="cs_redial_option">다시 걸기</string>
   <string name="cs_redial_msg">IMS 영상 통화가 실패했습니다. 비 IMS 음성 통화로 다시 거시겠습니까?</string>
-  <string name="cs_redial_yes">예</string>
-  <string name="cs_redial_no">아니요</string>
   <string name="session_modify_cause_upgrade_local_request">사용자 요청에 의해 통화 업그레이드됨</string>
   <string name="session_modify_cause_upgrade_remote_request">상대 사용자 요청에 의해 통화 업그레이드됨</string>
   <string name="session_modify_cause_downgrade_local_request">사용자 요청에 의해 통화 다운그레이드됨</string>

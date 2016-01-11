@@ -31,10 +31,48 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Arama alt durumu:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <string name="call_substate_call_resumed">Görüşmeye geri dönüldü</string>
   <string name="call_substate_connected_suspended_audio">Bağlantı kuruldu, ama ses bekletiliyor</string>
   <string name="call_substate_connected_suspended_video">Bağlantı kuruldu, ama video bekletiliyor</string>
+  <string name="call_substate_avp_retry">Video kalitesi tespit ediliyor\u2026</string>
   <string name="video_quality_changed">Video kalitesi <xliff:g id="quality" example="high">%1$s</xliff:g> ayarlara değiştirildi</string>
+  <string name="video_quality_high">yüksek</string>
+  <string name="video_quality_medium">orta</string>
+  <string name="video_quality_low">düşük</string>
+  <string name="video_quality_unknown">bilinmeyen</string>
+  <string name="player_started">Oynatıcı başladı</string>
+  <string name="player_stopped">Oynatıcı durdu</string>
+  <string name="camera_not_ready">Kamera hazır değil</string>
+  <string name="camera_ready">Kamera hazır</string>
+  <string name="unknown_call_session_event">Bilinmeyen çağrı oturumu etkinliği</string>
+  <string name="data_usage_label">Veri kullanımı: <xliff:g id="usage">%1$s </xliff:g></string>
+  <string name="modify_call_option_title">Arama türü seçin</string>
   <string name="modify_call_option_vt">Görüntülü arama</string>
+  <string name="modify_call_option_vt_tx">Video aktarımı</string>
+  <string name="modify_call_option_vt_rx">Video alımı</string>
+  <string name="modify_call_option_voice">Sadece ses</string>
+  <string name="modify_call_failed_due_to_low_battery">Düşük pil yüzünden arama değiştirme başarısız oldu.</string>
   <string name="video_call_not_allowed_if_tty_enabled">Görüntülü aramalara izin vermek için lütfen TTY modunu devre dışı bırakın</string>
+  <string name="onscreenAddParticipant">Katılımcı ekle</string>
+  <string name="qti_description_target_deflect">Aktar</string>
+  <string name="qti_description_deflect_error">Numara ayarlanmamış. IMS ayarlarıyla numarayı girin ve yeniden deneyin.</string>
+  <string name="qti_description_deflect_service_error">Çağrı aktarma hizmeti desteklenmiyor.</string>
+  <string name="call_failed_ho_not_feasible">LTE\'den 3G/2G\'ye geçiş uygun olmadığı için arama sona erdi.</string>
+  <string name="cs_redial_option">Yeniden çevir</string>
+  <string name="cs_redial_msg">IMS video araması yapılamıyor, IMS dışı ses araması olarak aransın mı?</string>
+  <string name="session_modify_cause_upgrade_local_request">Arama kullanıcı isteği üzerine yükseltildi</string>
+  <string name="session_modify_cause_upgrade_remote_request">Arama uzak kullanıcı isteği üzerine yükseltildi</string>
+  <string name="session_modify_cause_downgrade_local_request">Kullanıcı isteği ile arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_remote_request">Uzak kullanıcı isteği ile arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP zaman aşımı nedeniyle arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_qos">Hizmet kalitesi nedeniyle arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_packet_loss">Veri kaybı nedeniyle arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_low_thrput">Düşük çıktı nedeniyle arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Isı azaltma için arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_lipsync">Eşitleyememe nedeniyle arama düşürüldü</string>
+  <string name="session_modify_cause_downgrade_generic_error">Genel bir hata nedeniyle arama düşürüldü</string>
+  <string name="select_account_dialog_title">SIM kart seçin</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
 </resources>

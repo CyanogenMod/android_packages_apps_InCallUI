@@ -17,6 +17,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Phía bên kia đã chặn tất cả cuộc gọi đến.</string>
+  <string name="callUnanswered_forwarded">Cuộc gọi không được trả lời và chuyển tiếp</string>
+  <string name="incall_call_type_label_forwarded">Chuyển tiếp cuộc gọi</string>
+  <string name="card_title_dialing_waiting">Quay số (đang chờ\u2026)</string>
   <string name="calling_via_waiting_template">Gọi thông qua <xliff:g id="provider_name">%s</xliff:g> (Đang chờ\u2026)</string>
   <string name="card_title_waiting_call">Cuộc gọi đang được giữ</string>
 </resources>

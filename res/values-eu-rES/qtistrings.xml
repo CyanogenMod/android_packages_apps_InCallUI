@@ -61,8 +61,6 @@
   <string name="call_failed_ho_not_feasible">Deia eten da LTEtik 3G/2Gra aldatzea ez zelako posible.</string>
   <string name="cs_redial_option">Birmarkatu</string>
   <string name="cs_redial_msg">Ezin izan da IMS bideo-dei bat egin, birmarkatu ez-IMS bideo-dei gisa?</string>
-  <string name="cs_redial_yes">Bai</string>
-  <string name="cs_redial_no">Ez</string>
   <string name="session_modify_cause_upgrade_local_request">Deia mailaz igo da erabiltzaileak eskatuta</string>
   <string name="session_modify_cause_upgrade_remote_request">Deia mailaz igo da urruneko erabiltzaileak eskatuta</string>
   <string name="session_modify_cause_downgrade_local_request">Deia mailaz jaitsi da erabiltzaileak eskatuta</string>

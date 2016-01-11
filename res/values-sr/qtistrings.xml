@@ -61,8 +61,6 @@
   <string name="call_failed_ho_not_feasible">Позив је завршен јер прелаз из LTE у 3G/2G није био изводљив.</string>
   <string name="cs_redial_option">Поновно бирање</string>
   <string name="cs_redial_msg">Није могуће направити IMS видео позив, поново бирати као не-IMS видео позив?</string>
-  <string name="cs_redial_yes">Да</string>
-  <string name="cs_redial_no">Не</string>
   <string name="session_modify_cause_upgrade_local_request">Позив надограђен на захтев корисника</string>
   <string name="session_modify_cause_upgrade_remote_request">Позив надограђен на захтев удаљеног корисника</string>
   <string name="session_modify_cause_downgrade_local_request">Позив деградиран на корисников захтев</string>

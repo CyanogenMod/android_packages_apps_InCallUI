@@ -61,8 +61,6 @@
   <string name="call_failed_ho_not_feasible">A chamada foi terminada porque a passagem de LTE para 3G/2G não foi possível.</string>
   <string name="cs_redial_option">Voltar a marcar</string>
   <string name="cs_redial_msg">Impossível fazer a chamada IMS. Remarcar como uma chamada de voz não IMS?</string>
-  <string name="cs_redial_yes">Sim</string>
-  <string name="cs_redial_no">Não</string>
   <string name="session_modify_cause_upgrade_local_request">Qualidade da chamada aumentada a pedido do utilizador</string>
   <string name="session_modify_cause_upgrade_remote_request">Qualidade da chamada aumentada por pedido remoto do utilizador</string>
   <string name="session_modify_cause_downgrade_local_request">Qualidade da chamada diminuída por pedido do utilizador</string>

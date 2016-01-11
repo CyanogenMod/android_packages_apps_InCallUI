@@ -22,5 +22,6 @@
   <string name="incall_call_type_label_forwarded">Átirányított hívás</string>
   <string name="card_title_dialing_waiting">Tárcsázás (várakozás\u2026)</string>
   <string name="calling_via_waiting_template">Hívás ezen: <xliff:g id="provider_name">%s</xliff:g> (Várakozás\u2026)</string>
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (ezen: <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Hívás tartva</string>
 </resources>

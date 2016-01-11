@@ -19,6 +19,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="callFailed_incoming_cb_enabled">منع الطرف الآخر كافة المكالمات الواردة.</string>
   <string name="callUnanswered_forwarded">لم يتم الرد على المكالمة وأُعيد توجيهها</string>
+  <string name="incall_call_type_label_forwarded">مكالمة المعاد توجيهها</string>
+  <string name="card_title_dialing_waiting">الطلب الهاتفي (إنتظار\u2026)</string>
   <string name="calling_via_waiting_template">جاري الاتصال عبر <xliff:g id="provider">%s</xliff:g>\u2026 (قيد الانتظار \u2026)</string>
   <string name="card_title_waiting_call">المكالمة قيد الانتظار</string>
 </resources>

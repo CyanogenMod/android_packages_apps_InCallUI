@@ -31,6 +31,7 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="call_substate_call_resumed">שיחה חודשה</string>
   <string name="call_substate_connected_suspended_audio">השיחה מחוברת, אבל השמע מושהה</string>
   <string name="call_substate_connected_suspended_video">השיחה מחוברת, אבל הוידאו מושהה</string>
   <string name="call_substate_avp_retry">מזהה איכות וידאו\u2026</string>
@@ -52,8 +53,6 @@
   <string name="modify_call_failed_due_to_low_battery">שינוי השיחה נכשל עקב סוללה חלשה.</string>
   <string name="onscreenAddParticipant">הוסף משתתף</string>
   <string name="cs_redial_option">חיוג חוזר</string>
-  <string name="cs_redial_yes">כן</string>
-  <string name="cs_redial_no">לא</string>
   <string name="session_modify_cause_upgrade_local_request">השיחה שודרגה לבקשת המשתמש</string>
   <string name="session_modify_cause_upgrade_remote_request">השיחה שודרגה לבקשת המשתמש המרוחק</string>
   <string name="select_account_dialog_title">בחר כרטיס SIM</string>

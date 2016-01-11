@@ -31,16 +31,47 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="call_substate_label"><xliff:g id="id">%1$s </xliff:g>: Stan rozmowy: \u000a <xliff:g id="state" example="Resumed">%2$s </xliff:g></string>
+  <string name="call_substate_call_resumed">Wznowiono</string>
+  <string name="call_substate_connected_suspended_audio">Połączenie jest nawiązane, ale dźwięk jest zawieszony</string>
+  <string name="call_substate_connected_suspended_video">Połączenie jest nawiązane, ale obraz jest zawieszony</string>
+  <string name="call_substate_avp_retry">Wykrywanie jakości obrazu\u2026</string>
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Jakość wideo zmieniono na <xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <string name="video_quality_high">wysoka</string>
   <string name="video_quality_medium">średnia</string>
   <string name="video_quality_low">niska</string>
   <string name="video_quality_unknown">nieznana</string>
+  <string name="player_started">Rozpoczęto rozmowę</string>
+  <string name="player_stopped">Zatrzymano rozmowę</string>
   <string name="camera_not_ready">Aparat nie jest gotowy</string>
   <string name="camera_ready">Aparat jest gotowy</string>
+  <string name="unknown_call_session_event">Nieznana sesja połączenia</string>
   <string name="data_usage_label">Zużycie danych: <xliff:g id="usage">%1$s</xliff:g></string>
+  <string name="modify_call_option_title">Wybierz typ połączenia</string>
+  <string name="modify_call_option_vt">Dwukierunkowe wideo</string>
+  <string name="modify_call_option_vt_tx">Transmisja wideo</string>
+  <string name="modify_call_option_vt_rx">Odbiór wideo</string>
   <string name="modify_call_option_voice">Tylko głos</string>
-  <string name="cs_redial_yes">Tak</string>
-  <string name="cs_redial_no">Nie</string>
+  <string name="modify_call_failed_due_to_low_battery">Nie udało się zmodyfikować połączenia ze względu na niski stan baterii.</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Proszę wyłączyć tryb TTY, aby rozpocząć połączenie wideo.</string>
+  <string name="onscreenAddParticipant">Dodaj uczestnika</string>
+  <string name="qti_description_target_deflect">Przekieruj</string>
+  <string name="qti_description_deflect_error">Numer nie jest ustawiony. Podaj numer za pomocą ustawień IMS i spróbuj ponownie.</string>
+  <string name="qti_description_deflect_service_error">Usługa przekierowywania połączeń nie jest obsługiwana.</string>
+  <string name="call_failed_ho_not_feasible">Rozmowa została zakończona, ponieważ przekazanie z sieci LTE do 3G/2G nie było możliwe.</string>
+  <string name="cs_redial_option">Ponowne wybranie</string>
+  <string name="cs_redial_msg">Nie można nawiązać połączenia wideo IMS, ponowić wybieranie jako połączenie głosowe?</string>
+  <string name="session_modify_cause_upgrade_local_request">Połączenie uaktualnione na życzenie użytkownika</string>
+  <string name="session_modify_cause_upgrade_remote_request">Wywołanie uaktualnione na żądanie użytkownika zdalnego</string>
+  <string name="session_modify_cause_downgrade_local_request">Połączenie zdegradowane na żądanie użytkownika</string>
+  <string name="session_modify_cause_downgrade_remote_request">Wywołanie zdegradowane na żądanie użytkownika zdalnego</string>
+  <string name="session_modify_cause_downgrade_rtp_timeout">Połączenie zdegradowane z powodu przekroczenia limitu czasu RTP</string>
+  <string name="session_modify_cause_downgrade_qos">Połączenie zdegradowane ze względu na jakość usług</string>
+  <string name="session_modify_cause_downgrade_packet_loss">Połączenie zdegradowane z powodu utraty pakietów</string>
+  <string name="session_modify_cause_downgrade_low_thrput">Połączenie zdegradowane ze względu na niską przepływność</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Połączenie zdegradowane ze względu na przekroczenie temperatury</string>
+  <string name="session_modify_cause_downgrade_lipsync">Połączenie zdegradowane z powodu opóźnienia</string>
+  <string name="session_modify_cause_downgrade_generic_error">Połączenie zdegradowane ze względu na błąd rodzajowy</string>
   <string name="select_account_dialog_title">Wybierz kartę SIM</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>

@@ -20,6 +20,44 @@
   <string name="callFailed_incoming_cb_enabled">O receptor ten prohibidas todas as chamadas entrantes.</string>
   <string name="callUnanswered_forwarded">Chamar ás perdidas e desviadas</string>
   <string name="incall_call_type_label_forwarded">Chamada desviada</string>
+  <string name="card_title_dialing_waiting">Marcando (agardando\u2026)</string>
   <string name="calling_via_waiting_template">Chamando mediante <xliff:g id="provider_name">%s</xliff:g> (Agardando\u2026)</string>
   <string name="card_title_waiting_call">Chamada en agarda</string>
+  <string name="card_title_waiting_via_template">Chamada en espera (por <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="onscreenBlacklistText">Lista de números bloqueados</string>
+  <string name="call_recording_failed_message">Produciuse un erro ao iniciar a gravación de chamadas</string>
+  <string name="call_recording_file_location">Gardouse a gravación da chamada en <xliff:g id="filename">%s</xliff:g></string>
+  <string name="blacklist_dialog_title">Engadir á lista de números bloqueados</string>
+  <string name="blacklist_dialog_message">Bloquearanse as chamadas futuras de <xliff:g id="number">%s</xliff:g></string>
+  <string name="card_title_video_call_paused">Videochamada (detida)</string>
+  <string name="onscreenAddParticipant">Engadir un participante</string>
+  <string name="modify_call_option_title">Seleccionar o tipo de chamada</string>
+  <string name="modify_call_option_vt">Videochamada</string>
+  <string name="modify_call_option_vt_tx">Transmisión de vídeo</string>
+  <string name="modify_call_option_vt_rx">Recepción de vídeo</string>
+  <string name="modify_call_option_voice">Tan só voz</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Desactive o modo TTY para permitir videochamadas</string>
+  <string name="player_started">Iniciouse o reproductor</string>
+  <string name="player_stopped">Deteuse o reproductor</string>
+  <string name="camera_not_ready">A cámara non está lista</string>
+  <string name="camera_ready">A cámara está lista</string>
+  <string name="unknown_call_session_event">Sesión de chamada descoñecida</string>
+  <string name="onscreenCallRecordText">Iniciar e deter a gravación de chamadas</string>
+  <string name="onscreenAddToBlacklistText">Engadir número á lista de números bloqueados</string>
+  <string name="menu_start_record">Gravar a chamada</string>
+  <string name="menu_stop_record">Deter a gravación</string>
+  <string name="recording_time_text">Gravando</string>
+  <string name="recording_warning_title">Activar a gravación das chamadas?</string>
+  <string name="recording_warning_text">Aviso: É a súa responsabilidade respectar as leis, normas e regras que afecten á función de gravación de chamadas e á distribución desas gravacións.</string>
+  <string name="sub_1">SIM 1</string>
+  <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Chamada retomada</string>
+  <string name="call_substate_connected_suspended_audio">Conectouse a chamada, pero suspendeuse o son</string>
+  <string name="call_substate_connected_suspended_video">Conectouse a chamada, pero suspendeuse o vídeo</string>
+  <string name="call_substate_avp_retry">Detectando a calidade do vídeo\u2026</string>
+  <string name="video_quality_changed">Cambiouse a calidade de vídeo a <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_high">alta</string>
+  <string name="video_quality_medium">media</string>
+  <string name="video_quality_low">baixa</string>
+  <string name="video_quality_unknown">descoñecida</string>
 </resources>

@@ -17,7 +17,6 @@
 package com.android.incallui;
 
 import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -26,6 +25,8 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -37,6 +38,7 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Trace;
+import android.support.design.widget.Snackbar;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccountHandle;
 import android.text.TextUtils;
@@ -71,6 +73,7 @@ import java.util.Locale;
 public class InCallActivity extends Activity implements FragmentDisplayManager {
 
     public static final String TAG = InCallActivity.class.getSimpleName();
+    public static final boolean DEBUG = false;
 
     public static final String SHOW_DIALPAD_EXTRA = "InCallActivity.show_dialpad";
     public static final String DIALPAD_TEXT_EXTRA = "InCallActivity.dialpad_text";
@@ -86,6 +89,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     private static final int DIALPAD_REQUEST_SHOW = 2;
     private static final int DIALPAD_REQUEST_HIDE = 3;
 
+    private static final int SNACKBAR_TIMEOUT = 10000; // 10 seconds auto dismiss
+
     private CallButtonFragment mCallButtonFragment;
     private CallCardFragment mCallCardFragment;
     private AnswerFragment mAnswerFragment;
@@ -96,6 +101,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     private boolean mIsVisible;
     private AlertDialog mDialog;
     private InCallOrientationEventListener mInCallOrientationEventListener;
+    private Snackbar mInviteSnackbar;
 
     /**
      * Used to indicate whether the dialpad should be hidden or shown {@link #onResume}.
@@ -310,6 +316,11 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     @Override
     protected void onPause() {
         Log.d(this, "onPause()...");
+
+        if (mInviteSnackbar != null) {
+            mInviteSnackbar.dismiss();
+        }
+
         if (mDialpadFragment != null ) {
             mDialpadFragment.onDialerKeyUp(null);
         }
@@ -743,6 +754,9 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         if ((show && isDialpadVisible()) || (!show && !isDialpadVisible())) {
             return;
         }
+        if (mInviteSnackbar != null) {
+            mInviteSnackbar.dismiss();
+        }
         // We don't do a FragmentTransaction on the hide case because it will be dealt with when
         // the listener is fired after an animation finishes.
         if (!animate) {
@@ -1013,5 +1027,29 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         } else {
             mInCallOrientationEventListener.disable();
         }
+    }
+
+    public void showInviteSnackbar(final PendingIntent inviteIntent, String inviteText) {
+        final View rootView = getCallCardFragment().getView();
+        if (rootView.getVisibility() != View.VISIBLE || TextUtils.isEmpty(inviteText)) {
+            return;
+        }
+        mInviteSnackbar = Snackbar.make(rootView, inviteText, SNACKBAR_TIMEOUT);
+        if (inviteIntent != null) {
+            mInviteSnackbar.setActionTextColor(getResources()
+                    .getColor(R.color.snackbar_action_text_color))
+                    .setAction(R.string.snackbar_invite_action_text, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                inviteIntent.send();
+                            } catch (PendingIntent.CanceledException e) {
+                                Log.e(TAG, "Caught CanceledException from InCall Plugin invite" +
+                                        " intent", e);
+                            }
+                        }
+                    });
+        }
+        mInviteSnackbar.show();
     }
 }

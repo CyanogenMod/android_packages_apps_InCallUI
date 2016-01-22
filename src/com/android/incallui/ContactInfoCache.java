@@ -16,6 +16,7 @@
 
 package com.android.incallui;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,25 +30,37 @@ import android.provider.ContactsContract.DisplayNameSources;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telecom.TelecomManager;
 import android.text.TextUtils;
-
+import com.android.contacts.common.model.Contact;
+import com.android.contacts.common.model.RawContact;
 import com.android.contacts.common.util.PhoneNumberHelper;
+import com.android.contacts.common.util.UriUtils;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
+import com.android.incallui.incallapi.InCallPluginInfo;
+import com.android.incallui.incallapi.InCallPluginInfoAsyncTask;
 import com.android.incallui.service.PhoneNumberService;
 import com.android.incalluibind.ObjectFactory;
 import com.android.services.telephony.common.MoreStrings;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.cyanogen.ambient.incall.extension.InCallContactInfo;
+import com.cyanogen.ambient.incall.util.InCallHelper;
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Class responsible for querying Contact Information for Call objects. Can perform asynchronous
@@ -63,8 +76,9 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
     private final Context mContext;
     private final PhoneNumberService mPhoneNumberService;
     private final CachedNumberLookupService mCachedNumberLookupService;
-    private final HashMap<String, ContactCacheEntry> mInfoMap = Maps.newHashMap();
+    private final ConcurrentHashMap<String, ContactCacheEntry> mInfoMap = new ConcurrentHashMap();
     private final HashMap<String, Set<ContactInfoCacheCallback>> mCallBacks = Maps.newHashMap();
+    private InCallPluginInfoAsyncTask mPluginInfoAsyncTask;
 
     private static ContactInfoCache sCache = null;
 
@@ -221,6 +235,22 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         sendInfoNotifications(callId, cacheEntry);
 
         if (didLocalLookup) {
+            if (!callerInfo.isEmergencyNumber() && cacheEntry.inCallPluginInfoList == null &&
+                    (cacheEntry.lookupUri != null || !TextUtils.isEmpty(cacheEntry.number))) {
+                if (mPluginInfoAsyncTask != null) {
+                    mPluginInfoAsyncTask.cancel(true);
+                    mPluginInfoAsyncTask = null;
+                }
+
+                final InCallPluginInfoAsyncTask.IInCallPostExecute callback =
+                        new InCallPluginInfoCallback(callId);
+                final InCallContactInfo contactInfo = new InCallContactInfo(cacheEntry.name,
+                        cacheEntry.number, cacheEntry.lookupUri);
+                mPluginInfoAsyncTask =
+                        new InCallPluginInfoAsyncTask(mContext, contactInfo, callback);
+                mPluginInfoAsyncTask.execute();
+            }
+
             // Before issuing a request for more data from other services, we only check that the
             // contact wasn't found in the local DB.  We don't check the if the cache entry already
             // has a name because we allow overriding cnap data with data from other services.
@@ -278,23 +308,26 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                         mContext.getResources(), type, label);
                 entry.label = typeStr == null ? null : typeStr.toString();
             }
-            final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
-            if (oldEntry != null) {
-                // Location is only obtained from local lookup so persist
-                // the value for remote lookups. Once we have a name this
-                // field is no longer used; it is persisted here in case
-                // the UI is ever changed to use it.
-                entry.location = oldEntry.location;
-            }
+            synchronized (mInfoMap) {
+                final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
+                if (oldEntry != null) {
+                    // Location is only obtained from local lookup so persist
+                    // the value for remote lookups. Once we have a name this
+                    // field is no longer used; it is persisted here in case
+                    // the UI is ever changed to use it.
+                    entry.location = oldEntry.location;
+                    entry.inCallPluginInfoList = oldEntry.inCallPluginInfoList;
+                }
 
-            // If no image and it's a business, switch to using the default business avatar.
-            if (info.getImageUrl() == null && info.isBusiness()) {
-                Log.d(TAG, "Business has no image. Using default.");
-                entry.photo = mContext.getResources().getDrawable(R.drawable.img_business);
-            }
+                // If no image and it's a business, switch to using the default business avatar.
+                if (info.getImageUrl() == null && info.isBusiness()) {
+                    Log.d(TAG, "Business has no image. Using default.");
+                    entry.photo = mContext.getResources().getDrawable(R.drawable.img_business);
+                }
 
-            // Add the contact info to the cache.
-            mInfoMap.put(mCallId, entry);
+                // Add the contact info to the cache.
+                mInfoMap.put(mCallId, entry);
+            }
             sendInfoNotifications(mCallId, entry);
 
             // If there is no image then we should not expect another callback.
@@ -307,6 +340,34 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         @Override
         public void onImageFetchComplete(Bitmap bitmap) {
             onImageLoadComplete(TOKEN_UPDATE_PHOTO_FOR_CALL_STATE, null, bitmap, mCallId);
+        }
+    }
+
+    class InCallPluginInfoCallback implements InCallPluginInfoAsyncTask.IInCallPostExecute {
+
+        private String mCallId;
+
+        public InCallPluginInfoCallback(String callId) {
+            mCallId = callId;
+        }
+
+        @Override
+        public void onPostExecuteTask(List<InCallPluginInfo> inCallPluginInfoList) {
+            // If we got a miss, return.
+            if (inCallPluginInfoList == null || inCallPluginInfoList.isEmpty()) {
+                Log.d(TAG, "No InCall plugins associated with this contact.");
+                return;
+            }
+
+            synchronized (mInfoMap) {
+                final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
+                ContactCacheEntry entry = new ContactCacheEntry(oldEntry);
+                entry.inCallPluginInfoList = inCallPluginInfoList;
+
+                // Add the contact info to the cache.
+                mInfoMap.put(mCallId, entry);
+                sendInfoNotifications(mCallId, entry);
+            }
         }
     }
 
@@ -587,6 +648,25 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         public Uri displayPhotoUri;
         public Uri lookupUri; // Sent to NotificationMananger
         public String lookupKey;
+        public List<InCallPluginInfo> inCallPluginInfoList;
+
+        public ContactCacheEntry() {}
+
+        public ContactCacheEntry(ContactCacheEntry entry) {
+            if (entry != null) {
+                this.name = entry.name;
+                this.number = entry.number;
+                this.location = entry.location;
+                this.label = entry.label;
+                this.photo = entry.photo;
+                this.isSipCall = entry.isSipCall;
+                this.contactUri = entry.contactUri;
+                this.displayPhotoUri = entry.displayPhotoUri;
+                this.lookupUri = entry.lookupUri;
+                this.lookupKey = entry.lookupKey;
+                this.inCallPluginInfoList = entry.inCallPluginInfoList;
+            }
+        }
 
         @Override
         public String toString() {

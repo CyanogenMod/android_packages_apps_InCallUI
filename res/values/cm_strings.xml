@@ -44,4 +44,11 @@
     <string name="recording_warning_title">Enable call recording?</string>
     <string name="recording_warning_text">Notice: You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
     <string name="onscreenTransferCall">Transfer call</string>
+
+    <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+    <string name="video_call_option_title">Select video service</string>
+
+    <string name="snackbar_incall_plugin_no_invite_found">This contact is not a <xliff:g id="incall_plugin">%s</xliff:g> contact. You must add this person first to make video calls.</string>
+    <string name="snackbar_incall_plugin_contact_invite">This contact is not a <xliff:g id="incall_plugin">%s</xliff:g> contact. Invite this contact?</string>
+    <string name="snackbar_invite_action_text">INVITE</string>
 </resources>

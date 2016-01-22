@@ -19,18 +19,30 @@ package com.android.incallui;
 import static com.android.incallui.CallButtonFragment.Buttons.*;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.telecom.CallAudioState;
 import android.telecom.InCallService.VideoCall;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.VideoProfile;
+import android.text.TextUtils;
 
 import com.android.incallui.AudioModeProvider.AudioModeListener;
+import com.android.incallui.ContactInfoCache;
+import com.android.incallui.ContactInfoCache.ContactCacheEntry;
+import com.android.incallui.incallapi.InCallPluginInfo;
 import com.android.incallui.InCallCameraManager.Listener;
 import com.android.incallui.InCallPresenter.CanAddCallListener;
 import com.android.incallui.InCallPresenter.InCallState;
@@ -38,6 +50,16 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 
+import com.android.phone.common.ambient.AmbientConnection;
+import com.android.phone.common.util.StartInCallCallReceiver;
+
+import com.cyanogen.ambient.common.api.AmbientApiClient;
+import com.cyanogen.ambient.incall.InCallServices;
+import com.cyanogen.ambient.incall.extension.OriginCodes;
+import com.cyanogen.ambient.incall.extension.StatusCodes;
+import com.cyanogen.ambient.incall.extension.StartCallRequest;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,15 +67,38 @@ import java.util.Objects;
  */
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
         implements InCallStateListener, AudioModeListener, IncomingCallListener,
-        InCallDetailsListener, CanAddCallListener, CallList.ActiveSubChangeListener, Listener {
+        InCallDetailsListener, CanAddCallListener, CallList.ActiveSubChangeListener, Listener,
+        StartInCallCallReceiver.Receiver {
 
+    private static final String TAG = CallButtonPresenter.class.getSimpleName();
     private static final String KEY_AUTOMATICALLY_MUTED = "incall_key_automatically_muted";
     private static final String KEY_PREVIOUS_MUTE_STATE = "incall_key_previous_mute_state";
     private static final String RECORDING_WARNING_PRESENTED = "recording_warning_presented";
+    private static final boolean DEBUG = false;
 
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
     private boolean mPreviousMuteState = false;
+
+    private StartInCallCallReceiver mCallback;
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        if (DEBUG) Log.i(TAG, "Got InCallPlugin result callback code = " + resultCode);
+
+        switch (resultCode)  {
+            case StatusCodes.StartCall.HANDOVER_CONNECTED:
+                if (mCall == null) {
+                    return;
+                }
+
+                if (DEBUG) Log.i(TAG, "Disconnecting call: " + mCall);
+                TelecomAdapter.getInstance().disconnectCall(mCall.getId());
+                break;
+            default:
+                Log.i(TAG, "Nothing to do for this InCallPlugin resultcode = " + resultCode);
+        }
+    }
 
     public CallButtonPresenter() {
     }
@@ -258,6 +303,77 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().sendAddParticipantIntent();
     }
 
+    public List<InCallPluginInfo> getContactInCallPluginInfoList() {
+        List<InCallPluginInfo> inCallPluginInfoList = null;
+        if (mCall != null) {
+            ContactCacheEntry contactInfo =
+                    ContactInfoCache.getInstance(getUi().getContext()).getInfo(mCall.getId());
+            if (contactInfo != null) {
+                inCallPluginInfoList = contactInfo.inCallPluginInfoList;
+            }
+        }
+        return inCallPluginInfoList;
+    }
+
+    public void handoverCallToVoIPPlugin() {
+        handoverCallToVoIPPlugin(0);
+    }
+
+    public void handoverCallToVoIPPlugin(int contactPluginIndex) {
+        List<InCallPluginInfo> inCallPluginInfoList = getContactInCallPluginInfoList();
+        if (inCallPluginInfoList != null && inCallPluginInfoList.size() > contactPluginIndex) {
+            InCallPluginInfo info = inCallPluginInfoList.get(contactPluginIndex);
+            final ComponentName component = info.getPluginComponent();
+            final String userId = info.getUserId();
+            final String mimeType = info.getMimeType();
+            if (component != null && !TextUtils.isEmpty(component.flattenToString()) &&
+                    !TextUtils.isEmpty(mimeType)) {
+                // Attempt call handover
+                final PendingIntent inviteIntent = info.getPluginInviteIntent();
+                if (!TextUtils.isEmpty(userId)) {
+                    AmbientApiClient client = AmbientConnection.CLIENT
+                            .get(getUi().getContext().getApplicationContext());
+
+                    mCallback = new StartInCallCallReceiver(new Handler(Looper.myLooper()));
+                    mCallback.setReceiver(CallButtonPresenter.this);
+                    StartCallRequest request = new StartCallRequest(userId,
+                            OriginCodes.CALL_HANDOVER,
+                            StartCallRequest.FLAG_CALL_TRANSFER,
+                            mCallback);
+
+                    if (DEBUG) Log.i(TAG, "Starting InCallPlugin call for = " + userId);
+                    InCallServices.getInstance().startVideoCall(client, component, request);
+                } else if (inviteIntent != null) {
+                    // Attempt contact invite
+                    if (DEBUG) {
+                        final com.android.incallui.ContactInfoCache cache =
+                                ContactInfoCache.getInstance(getUi().getContext());
+                        ContactCacheEntry entry = cache.getInfo(mCall.getId());
+                        Uri lookupUri = entry.lookupUri;
+                        Log.i(TAG, "Attempting invite for " + lookupUri.toString());
+                    }
+                    String inviteText = getUi().getContext().getApplicationContext()
+                            .getString(R.string.snackbar_incall_plugin_contact_invite,
+                                    info.getPluginTitle());
+                    getUi().showInviteSnackbar(inviteIntent, inviteText);
+                } else {
+                    // Inform user to add contact manually, no invite intent found
+                    if (DEBUG) {
+                        final com.android.incallui.ContactInfoCache cache =
+                                ContactInfoCache.getInstance(getUi().getContext());
+                        ContactCacheEntry entry = cache.getInfo(mCall.getId());
+                        Uri lookupUri = entry.lookupUri;
+                        Log.i(TAG, "No invite intent for " + lookupUri.toString());
+                    }
+                    String inviteText = getUi().getContext().getApplicationContext()
+                            .getString(R.string.snackbar_incall_plugin_no_invite_found,
+                                    info.getPluginTitle());
+                    getUi().showInviteSnackbar(null, inviteText);
+                }
+            }
+        }
+    }
+
     public void addCallClicked() {
         // Automatically mute the current call
         mAutomaticallyMuted = true;
@@ -301,6 +417,22 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         VideoProfile videoProfile = new VideoProfile(currUnpausedVideoState);
         videoCall.sendSessionModifyRequest(videoProfile);
         mCall.setSessionModificationState(Call.SessionModificationState.WAITING_FOR_RESPONSE);
+    }
+
+    public void switchToVideoCall() {
+        boolean canVideoCall = canVideoCall();
+        List<InCallPluginInfo> contactInCallPlugins = getContactInCallPluginInfoList();
+        int listSize = (contactInCallPlugins != null) ? contactInCallPlugins.size() : 0;
+        if (canVideoCall && listSize == 0) {
+            // If only VT Call available
+            changeToVideoClicked();
+        } else if (!canVideoCall && listSize == 1) {
+            // If only one InCall Plugin available
+            handoverCallToVoIPPlugin();
+        } else if (canVideoCall || listSize > 0){
+            // If multiple sources available
+            getUi().displayVideoCallOptions();
+        }
     }
 
     /**
@@ -433,6 +565,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         updateButtonsState(call);
     }
 
+    public boolean canVideoCall() {
+        return (mCall == null) ? false : (QtiCallUtils.hasVideoCapabilities(mCall) ||
+                QtiCallUtils.hasVoiceCapabilities(mCall));
+    }
+
     /**
      * Updates the buttons applicable for the UI.
      *
@@ -441,7 +578,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     private void updateButtonsState(Call call) {
         Log.v(this, "updateButtonsState");
         final CallButtonUi ui = getUi();
-
         final boolean isVideo = CallUtils.isVideoCall(call);
 
         // Common functionality (audio, hold, etc).
@@ -460,9 +596,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         final boolean showMerge = call.can(
                 android.telecom.Call.Details.CAPABILITY_MERGE_CONFERENCE);
         final int callState = call.getState();
+        List<InCallPluginInfo> contactInCallPlugins = getContactInCallPluginInfoList();
         final boolean showUpgradeToVideo = (!isVideo || useExt) &&
                 (QtiCallUtils.hasVideoCapabilities(call) ||
-                QtiCallUtils.hasVoiceCapabilities(call)) &&
+                        QtiCallUtils.hasVoiceCapabilities(call) ||
+                        (contactInCallPlugins != null && !contactInCallPlugins.isEmpty())) &&
                 (callState == Call.State.ACTIVE || callState == Call.State.ONHOLD);
 
         final boolean showMute = call.can(android.telecom.Call.Details.CAPABILITY_MUTE);
@@ -482,6 +620,9 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showButton(BUTTON_MUTE, showMute);
         ui.showButton(BUTTON_ADD_CALL, showAddCall);
         ui.showButton(BUTTON_UPGRADE_TO_VIDEO, showUpgradeToVideo);
+        if (showUpgradeToVideo) {
+            ui.modifyChangeToVideoButton();
+        }
         ui.showButton(BUTTON_SWITCH_CAMERA, isVideo);
         ui.showButton(BUTTON_PAUSE_VIDEO, isVideo && !useExt);
         ui.showButton(BUTTON_DIALPAD, !isVideo || useExt);
@@ -536,6 +677,9 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void requestCallRecordingPermission(String[] permissions);
         void displayDialpad(boolean on, boolean animate);
         boolean isDialpadVisible();
+        void modifyChangeToVideoButton();
+        void displayVideoCallOptions();
+        void showInviteSnackbar(PendingIntent inviteIntent, String inviteText);
 
         /**
          * Once showButton() has been called on each of the individual buttons in the UI, call

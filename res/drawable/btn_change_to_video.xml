@@ -21,7 +21,7 @@
     <item android:id="@+id/backgroundItem"
           android:drawable="@drawable/btn_background" />
 
-    <item>
+    <item android:id="@+id/foregroundItem">
         <bitmap android:src="@drawable/ic_toolbar_video"
             android:gravity="center"
             android:tint="@color/selectable_icon_tint"

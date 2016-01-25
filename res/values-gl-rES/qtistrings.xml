@@ -31,14 +31,5 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_substate_call_resumed">Reluat</string>
-  <string name="video_quality_high">ridicată</string>
-  <string name="video_quality_medium">medie</string>
-  <string name="video_quality_low">scăzută</string>
-  <string name="video_quality_unknown">necunoscută</string>
-  <string name="modify_call_option_title">Selectați tipul de apel</string>
-  <string name="cs_redial_option">Reapelare</string>
-  <string name="select_account_dialog_title">Selectați cartela SIM</string>
-  <string name="sub_1">SIM 1</string>
-  <string name="sub_2">SIM 2</string>
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Subestado da chamada:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
 </resources>

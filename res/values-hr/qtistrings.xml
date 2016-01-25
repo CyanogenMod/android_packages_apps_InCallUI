@@ -31,6 +31,48 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: podstanje poziva:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <string name="call_substate_call_resumed">Poziv nastavljen</string>
+  <string name="call_substate_connected_suspended_audio">Poziv je spojen, ali zvuk je suspendiran</string>
+  <string name="call_substate_connected_suspended_video">Poziv je spojen, ali slika je suspendirana</string>
+  <string name="call_substate_avp_retry">Otkrivanje kvalitete videa\u2026</string>
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Video kvaliteta promijenjena u <xliff:g id="quality" example="high">%2$s</xliff:g></string>
+  <string name="video_quality_high">visoko</string>
+  <string name="video_quality_medium">srednje</string>
+  <string name="video_quality_low">niska</string>
+  <string name="video_quality_unknown">nepoznato</string>
+  <string name="player_started">Reproduciranje započelo</string>
+  <string name="player_stopped">Reproduciranje zaustavljeno</string>
+  <string name="camera_not_ready">Kamera nije spremna</string>
+  <string name="camera_ready">Kamera je spremna</string>
+  <string name="unknown_call_session_event">Nepoznata sesija poziva</string>
+  <string name="data_usage_label">Korištenje podataka: <xliff:g id="usage">%1$s</xliff:g></string>
+  <string name="modify_call_option_title">Odaberite vrstu poziva</string>
+  <string name="modify_call_option_vt">Video poziv</string>
+  <string name="modify_call_option_vt_tx">Video prijenos</string>
+  <string name="modify_call_option_vt_rx">Video prijam</string>
+  <string name="modify_call_option_voice">Samo glas</string>
+  <string name="modify_call_failed_due_to_low_battery">Promjena poziva nije uspjela zbog slabe baterije.</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Onemogućite TTY način, da omogućite video pozive.</string>
+  <string name="onscreenAddParticipant">Dodaj sudionika</string>
+  <string name="qti_description_target_deflect">Odstupanja</string>
+  <string name="qti_description_deflect_error">Broj nije postavljen. Unesite broj putem IMS postavki i pokušajte ponovno.</string>
+  <string name="qti_description_deflect_service_error">Usluga odbacivanja poziva nije podržana.</string>
+  <string name="call_failed_ho_not_feasible">Poziv je završio jer prijelaz iz LTE na 3G/2G nije moguć.</string>
+  <string name="cs_redial_option">Ponovno biranje</string>
+  <string name="cs_redial_msg">Nije moguće napraviti IMS video poziv, ponovno pozvati kao glasovni poziv bez IMS-a?</string>
+  <string name="session_modify_cause_upgrade_local_request">Poziv je nadograđen na zahtjev korisnika</string>
+  <string name="session_modify_cause_upgrade_remote_request">Poziv je nadograđen na zahtjev udaljenog korisnika</string>
+  <string name="session_modify_cause_downgrade_local_request">Poziv umanjen na zahtjev korisnika</string>
+  <string name="session_modify_cause_downgrade_remote_request">Poziv umanjen na zahtjev udaljenog korisnika</string>
+  <string name="session_modify_cause_downgrade_rtp_timeout">Poziv umanjen zbog isteka roka RTP-a</string>
+  <string name="session_modify_cause_downgrade_qos">Poziv umanjen zbog kvalitete usluge</string>
+  <string name="session_modify_cause_downgrade_packet_loss">Poziv umanjen zbog gubitka paketa</string>
+  <string name="session_modify_cause_downgrade_low_thrput">Poziv umanjen zbog niske propusnosti</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Poziv umanjen zbog ublažavanja topline</string>
+  <string name="session_modify_cause_downgrade_lipsync">Poziv umanjen zbog sinkronizacije usana</string>
+  <string name="session_modify_cause_downgrade_generic_error">Poziv umanjen zbog opće pogreške</string>
+  <string name="select_account_dialog_title">Odaberite SIM karticu</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

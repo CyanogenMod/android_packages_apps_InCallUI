@@ -37,6 +37,9 @@
   <string name="video_quality_low">låg</string>
   <string name="camera_not_ready">Kameran är inte redo</string>
   <string name="camera_ready">Kameran är redo</string>
+  <string name="modify_call_option_voice">Endast röst</string>
+  <string name="onscreenAddParticipant">Lägg till deltagare</string>
+  <string name="cs_redial_option">Återuppringning</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
 </resources>

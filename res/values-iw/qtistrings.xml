@@ -31,10 +31,12 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: מצב שיחה:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <string name="call_substate_call_resumed">שיחה חודשה</string>
   <string name="call_substate_connected_suspended_audio">השיחה מחוברת, אבל השמע מושהה</string>
   <string name="call_substate_connected_suspended_video">השיחה מחוברת, אבל הוידאו מושהה</string>
   <string name="call_substate_avp_retry">מזהה איכות וידאו\u2026</string>
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: איכות הוידאו שונתה ל<xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <string name="video_quality_high">גבוהה</string>
   <string name="video_quality_medium">בינונית</string>
   <string name="video_quality_low">נמוכה</string>
@@ -51,10 +53,25 @@
   <string name="modify_call_option_vt_rx">קבלת וידאו</string>
   <string name="modify_call_option_voice">קול בלבד</string>
   <string name="modify_call_failed_due_to_low_battery">שינוי השיחה נכשל עקב סוללה חלשה.</string>
+  <string name="video_call_not_allowed_if_tty_enabled">אנא בטל את מצב TTY כדי לאפשר שיחות וידאו.</string>
   <string name="onscreenAddParticipant">הוסף משתתף</string>
+  <string name="qti_description_target_deflect">העבר</string>
+  <string name="qti_description_deflect_error">המספר אינו מוגדר. ספק את המספר באמצעות הגדרות IMS ונסה שוב.</string>
+  <string name="qti_description_deflect_service_error">שירות העברת שיחה אינו נתמך.</string>
+  <string name="call_failed_ho_not_feasible">השיחה הסתיימה כיוון שהעברה מ-LTE ל-3G/2G איננה מעשית.</string>
   <string name="cs_redial_option">חיוג חוזר</string>
+  <string name="cs_redial_msg">לא ניתן לעשות שיחת וידאו IMS, לחייג שוב כשיחה קולית שאיננה IMS?</string>
   <string name="session_modify_cause_upgrade_local_request">השיחה שודרגה לבקשת המשתמש</string>
   <string name="session_modify_cause_upgrade_remote_request">השיחה שודרגה לבקשת המשתמש המרוחק</string>
+  <string name="session_modify_cause_downgrade_local_request">השיחה שונמכה עקב בקשת המשתמש</string>
+  <string name="session_modify_cause_downgrade_remote_request">השיחה שונמכה עקב בקשת המשתמש המרוחק</string>
+  <string name="session_modify_cause_downgrade_rtp_timeout">השיחה שונמכה עקב סוף הקצבת זמן של RTP</string>
+  <string name="session_modify_cause_downgrade_qos">השיחה שונמכה עקב איכות השירות</string>
+  <string name="session_modify_cause_downgrade_packet_loss">שיחה שונמכה עקב אובדן חבילות נתונים</string>
+  <string name="session_modify_cause_downgrade_low_thrput">שיחת שונמכה עקב תפוקה נמוכה</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">השיחה שונמכה כדי למנוע חימום יתר</string>
+  <string name="session_modify_cause_downgrade_lipsync">שיחה שונמכה עקב חוסר התאמה בסינכרון שפתיים</string>
+  <string name="session_modify_cause_downgrade_generic_error">שיחה שונמכה עקב שגיאה כללית</string>
   <string name="select_account_dialog_title">בחר כרטיס SIM</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>

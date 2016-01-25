@@ -22,5 +22,6 @@
   <string name="incall_call_type_label_forwarded">Přesměrovaný hovor</string>
   <string name="card_title_dialing_waiting">Vytáčení (čekající\u2026)</string>
   <string name="calling_via_waiting_template">Volání přes <xliff:g id="provider_name">%s</xliff:g> (Vyčkávání\u2026)</string>
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Hovor přidržen">%1$s</xliff:g> (přes <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Přidržení hovoru</string>
 </resources>

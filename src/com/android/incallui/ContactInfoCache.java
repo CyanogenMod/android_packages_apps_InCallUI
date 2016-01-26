@@ -53,6 +53,7 @@ import com.google.common.collect.Sets;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
@@ -235,22 +236,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         sendInfoNotifications(callId, cacheEntry);
 
         if (didLocalLookup) {
-            if (!callerInfo.isEmergencyNumber() && cacheEntry.inCallPluginInfoList == null &&
-                    (cacheEntry.lookupUri != null || !TextUtils.isEmpty(cacheEntry.number))) {
-                if (mPluginInfoAsyncTask != null) {
-                    mPluginInfoAsyncTask.cancel(true);
-                    mPluginInfoAsyncTask = null;
-                }
-
-                final InCallPluginInfoAsyncTask.IInCallPostExecute callback =
-                        new InCallPluginInfoCallback(callId);
-                final InCallContactInfo contactInfo = new InCallContactInfo(cacheEntry.name,
-                        cacheEntry.number, cacheEntry.lookupUri);
-                mPluginInfoAsyncTask =
-                        new InCallPluginInfoAsyncTask(mContext, contactInfo, callback);
-                mPluginInfoAsyncTask.execute();
-            }
-
             // Before issuing a request for more data from other services, we only check that the
             // contact wasn't found in the local DB.  We don't check the if the cache entry already
             // has a name because we allow overriding cnap data with data from other services.
@@ -273,6 +258,69 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                             + " no remote lookup service available.");
                 }
                 clearCallbacks(callId);
+            }
+        }
+    }
+
+    public void refreshPluginInfo(final Call call, ContactInfoCacheCallback callback) {
+        if (call != null) {
+            final String callId = call.getId();
+            ContactCacheEntry entry = mInfoMap.get(callId);
+            if (entry == null) {
+                findInfo(call, call.getState() == Call.State.INCOMING, callback);
+            } else {
+                lookupPluginInfo(callId, entry, callback);
+            }
+        }
+    }
+
+    private boolean lookupPluginInfo(final String callId, ContactCacheEntry cacheEntry,
+            ContactInfoCacheCallback cacheCallback) {
+        if (!cacheEntry.isEmergencyNumber &&
+                (cacheEntry.lookupUri != null || !TextUtils.isEmpty(cacheEntry.number))) {
+            if (mPluginInfoAsyncTask != null) {
+                mPluginInfoAsyncTask.cancel(true);
+                mPluginInfoAsyncTask = null;
+            }
+
+            final InCallPluginInfoAsyncTask.IInCallPostExecute callback =
+                    new InCallPluginInfoCallback(callId, cacheCallback);
+            final InCallContactInfo contactInfo = new InCallContactInfo(cacheEntry.name,
+                    cacheEntry.number, cacheEntry.lookupUri);
+            mPluginInfoAsyncTask =
+                    new InCallPluginInfoAsyncTask(mContext, contactInfo, callback);
+            mPluginInfoAsyncTask.execute();
+            return true;
+        }
+        return false;
+    }
+
+    class InCallPluginInfoCallback implements InCallPluginInfoAsyncTask.IInCallPostExecute {
+        private String mCallId;
+        private WeakReference<ContactInfoCacheCallback> mCallback;
+
+        public InCallPluginInfoCallback(String callId, ContactInfoCacheCallback callback) {
+            mCallId = callId;
+            if (callback != null) {
+                mCallback = new WeakReference<ContactInfoCacheCallback>(callback);
+            }
+        }
+
+        @Override
+        public void onPostExecuteTask(List<InCallPluginInfo> inCallPluginInfoList) {
+            synchronized (mInfoMap) {
+                final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
+                ContactCacheEntry entry = new ContactCacheEntry(oldEntry);
+                entry.inCallPluginInfoList = inCallPluginInfoList;
+
+                // Add the contact info to the cache.
+                mInfoMap.put(mCallId, entry);
+                if (mCallback != null) {
+                    ContactInfoCacheCallback callback = mCallback.get();
+                    if (callback != null) {
+                        callback.onContactInfoComplete(mCallId, entry);
+                    }
+                }
             }
         }
     }
@@ -340,34 +388,6 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         @Override
         public void onImageFetchComplete(Bitmap bitmap) {
             onImageLoadComplete(TOKEN_UPDATE_PHOTO_FOR_CALL_STATE, null, bitmap, mCallId);
-        }
-    }
-
-    class InCallPluginInfoCallback implements InCallPluginInfoAsyncTask.IInCallPostExecute {
-
-        private String mCallId;
-
-        public InCallPluginInfoCallback(String callId) {
-            mCallId = callId;
-        }
-
-        @Override
-        public void onPostExecuteTask(List<InCallPluginInfo> inCallPluginInfoList) {
-            // If we got a miss, return.
-            if (inCallPluginInfoList == null || inCallPluginInfoList.isEmpty()) {
-                Log.d(TAG, "No InCall plugins associated with this contact.");
-                return;
-            }
-
-            synchronized (mInfoMap) {
-                final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
-                ContactCacheEntry entry = new ContactCacheEntry(oldEntry);
-                entry.inCallPluginInfoList = inCallPluginInfoList;
-
-                // Add the contact info to the cache.
-                mInfoMap.put(mCallId, entry);
-                sendInfoNotifications(mCallId, entry);
-            }
         }
     }
 
@@ -563,6 +583,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         cce.location = displayLocation;
         cce.label = label;
         cce.isSipCall = isSipCall;
+        cce.isEmergencyNumber = info.isEmergencyNumber();
     }
 
     /**
@@ -648,6 +669,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         public Uri displayPhotoUri;
         public Uri lookupUri; // Sent to NotificationMananger
         public String lookupKey;
+        public boolean isEmergencyNumber;
         public List<InCallPluginInfo> inCallPluginInfoList;
 
         public ContactCacheEntry() {}
@@ -664,6 +686,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 this.displayPhotoUri = entry.displayPhotoUri;
                 this.lookupUri = entry.lookupUri;
                 this.lookupKey = entry.lookupKey;
+                this.isEmergencyNumber = entry.isEmergencyNumber;
                 this.inCallPluginInfoList = entry.inCallPluginInfoList;
             }
         }

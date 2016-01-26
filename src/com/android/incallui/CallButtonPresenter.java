@@ -42,9 +42,11 @@ import android.text.TextUtils;
 import com.android.incallui.AudioModeProvider.AudioModeListener;
 import com.android.incallui.ContactInfoCache;
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
+import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
 import com.android.incallui.incallapi.InCallPluginInfo;
 import com.android.incallui.InCallCameraManager.Listener;
 import com.android.incallui.InCallPresenter.CanAddCallListener;
+import com.android.incallui.InCallPresenter.InCallPluginUpdateListener;
 import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
@@ -68,7 +70,7 @@ import java.util.Objects;
 public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButtonUi>
         implements InCallStateListener, AudioModeListener, IncomingCallListener,
         InCallDetailsListener, CanAddCallListener, CallList.ActiveSubChangeListener, Listener,
-        StartInCallCallReceiver.Receiver {
+        StartInCallCallReceiver.Receiver, ContactInfoCacheCallback, InCallPluginUpdateListener {
 
     private static final String TAG = CallButtonPresenter.class.getSimpleName();
     private static final String KEY_AUTOMATICALLY_MUTED = "incall_key_automatically_muted";
@@ -116,6 +118,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         inCallPresenter.addDetailsListener(this);
         inCallPresenter.addCanAddCallListener(this);
         inCallPresenter.getInCallCameraManager().addCameraSelectionListener(this);
+        inCallPresenter.addInCallPluginUpdateListener(this);
         CallList.getInstance().addActiveSubChangeListener(this);
 
         // Update the buttons state immediately for the current call
@@ -133,6 +136,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         InCallPresenter.getInstance().removeDetailsListener(this);
         InCallPresenter.getInstance().getInCallCameraManager().removeCameraSelectionListener(this);
         InCallPresenter.getInstance().removeCanAddCallListener(this);
+        InCallPresenter.getInstance().removeInCallPluginUpdateListener(this);
         CallList.getInstance().removeActiveSubChangeListener(this);
     }
 
@@ -306,10 +310,15 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     public List<InCallPluginInfo> getContactInCallPluginInfoList() {
         List<InCallPluginInfo> inCallPluginInfoList = null;
         if (mCall != null) {
-            ContactCacheEntry contactInfo =
-                    ContactInfoCache.getInstance(getUi().getContext()).getInfo(mCall.getId());
-            if (contactInfo != null) {
-                inCallPluginInfoList = contactInfo.inCallPluginInfoList;
+            final ContactInfoCache cache = ContactInfoCache.getInstance(getUi().getContext());
+            if (cache != null) {
+                ContactCacheEntry contactInfo = cache.getInfo(mCall.getId());
+                if (contactInfo != null) {
+                    inCallPluginInfoList = contactInfo.inCallPluginInfoList;
+                }
+                if (inCallPluginInfoList == null) {
+                    cache.refreshPluginInfo(mCall, this);
+                }
             }
         }
         return inCallPluginInfoList;
@@ -346,7 +355,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 } else if (inviteIntent != null) {
                     // Attempt contact invite
                     if (DEBUG) {
-                        final com.android.incallui.ContactInfoCache cache =
+                        final ContactInfoCache cache =
                                 ContactInfoCache.getInstance(getUi().getContext());
                         ContactCacheEntry entry = cache.getInfo(mCall.getId());
                         Uri lookupUri = entry.lookupUri;
@@ -359,7 +368,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 } else {
                     // Inform user to add contact manually, no invite intent found
                     if (DEBUG) {
-                        final com.android.incallui.ContactInfoCache cache =
+                        final ContactInfoCache cache =
                                 ContactInfoCache.getInstance(getUi().getContext());
                         ContactCacheEntry entry = cache.getInfo(mCall.getId());
                         Uri lookupUri = entry.lookupUri;
@@ -644,6 +653,30 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             muteClicked(mPreviousMuteState);
         }
         mAutomaticallyMuted = false;
+    }
+
+    private void contactUpdated() {
+        if (DEBUG) Log.i(this, "contactUpdated");
+        if (getUi() != null && mCall != null) {
+            updateButtonsState(mCall);
+        }
+    }
+
+    @Override
+    public void onInCallPluginUpdated() {
+        if (DEBUG) Log.i(this, "onInCallPluginUpdated");
+        contactUpdated();
+    }
+
+    @Override
+    public void onContactInfoComplete(String callId, ContactInfoCache.ContactCacheEntry entry) {
+        if (DEBUG) Log.i(this, "onContactInfoComplete");
+        contactUpdated();
+    }
+
+    @Override
+    public void onImageLoadComplete(String callId, ContactInfoCache.ContactCacheEntry entry) {
+        // Stub
     }
 
     @Override

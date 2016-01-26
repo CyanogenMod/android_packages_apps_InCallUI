@@ -30,6 +30,8 @@ import android.provider.ContactsContract.Data;
 import android.text.TextUtils;
 import android.util.Log;
 import com.android.phone.common.ambient.AmbientConnection;
+import com.android.phone.common.incall.CallMethodHelper;
+import com.android.phone.common.incall.CallMethodInfo;
 import com.cyanogen.ambient.common.api.AmbientApiClient;
 import com.cyanogen.ambient.incall.InCallApi;
 import com.cyanogen.ambient.incall.InCallServices;
@@ -85,11 +87,8 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
         List<InCallPluginInfo.Builder> inCallPluginInfoBuilderList =
                 new ArrayList<InCallPluginInfo.Builder>();
         Map<String, Integer> pluginIndex = new HashMap<String, Integer>();
-        AmbientApiClient client = AmbientConnection.CLIENT.get(mContext.getApplicationContext());
-        InCallApi inCallServices = InCallServices.getInstance();
-        List<ComponentName> plugins = inCallServices.getInstalledPlugins(client).await().components;
-        MimeTypeListResult mimeTypeListResult =
-                inCallServices.getVideoCallableMimeTypeList(client).await();
+        HashMap<ComponentName, CallMethodInfo> plugins = CallMethodHelper.getAllCallMethods();
+        String mimeTypes = CallMethodHelper.getAllEnabledVideoCallableMimeTypes();
 
         if (mContactInfo == null) {
             return inCallPluginList;
@@ -115,12 +114,11 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
                                 mContactInfo.mLookupUri + "\")");
             }
 
-            if (mimeTypeListResult != null && mimeTypeListResult.mimeTypeList != null &&
-                    !mimeTypeListResult.mimeTypeList.isEmpty() && queryUri != null) {
+            if (!TextUtils.isEmpty(mimeTypes) && queryUri != null) {
                 Cursor cursor = mContext.getContentResolver().query(
                         queryUri,
                         CONTACT_PROJECTION,
-                        constructSelection(mimeTypeListResult.mimeTypeList),
+                        constructSelection(mimeTypes),
                         null,
                         null);
                 if (cursor != null) {
@@ -150,74 +148,46 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
 
         // Fill in plugin Info.
         if (plugins != null && !plugins.isEmpty()) {
-            PackageManager packageManager = mContext.getPackageManager();
-            for (ComponentName component : plugins) {
-                PluginStatusResult statusResult =
-                        inCallServices.getPluginStatus(client, component).await();
-                MimeTypeResult mimeTypeResult =
-                        inCallServices.getVideoCallableMimeType(client, component).await();
-
-                if (statusResult.status != PluginStatus.ENABLED) {
-                    // Contact does not have account with this plugin OR plugin is not enabled.
+            InCallApi inCallServices = InCallServices.getInstance();
+            for (CallMethodInfo callMethod : plugins.values()) {
+                if (callMethod.mStatus != PluginStatus.ENABLED) {
                     if (DEBUG) {
-                        Log.d(TAG, "Contact does not have account with this plugin OR plugin is not"
-                                + " enabled. Component=" + component.flattenToString());
+                        Log.e(TAG, "Plugin not enabled." + callMethod.mComponent.flattenToString());
                     }
                     continue;
                 }
-
-                if (!pluginIndex.containsKey(mimeTypeResult.mimeType)) {
+                if (!pluginIndex.containsKey(callMethod.mVideoCallableMimeType)) {
                     if (DEBUG) {
                         Log.d(TAG, "Contact does not have account with this plugin, looking up" +
-                                " invite for Component=" + component.flattenToString() + " and Uri="
-                                + mContactInfo.mLookupUri.toString());
+                                " invite for Component=" + callMethod.mComponent.flattenToString() +
+                                " and Uri=" + mContactInfo.mLookupUri.toString());
                     }
                     PendingIntentResult inviteResult =
-                            inCallServices.getInviteIntent(client, component, mContactInfo)
-                                    .await();
+                            inCallServices.getInviteIntent(
+                                    AmbientConnection.CLIENT.get(mContext.getApplicationContext()),
+                                    callMethod.mComponent, mContactInfo).await();
                     InCallPluginInfo.Builder infoBuilder =
                             new InCallPluginInfo.Builder().setUserId(null)
-                                    .setMimeType(mimeTypeResult.mimeType)
+                                    .setMimeType(callMethod.mVideoCallableMimeType)
                                     .setPluginInviteIntent(inviteResult == null ?
                                             null : inviteResult.intent);
                     inCallPluginInfoBuilderList.add(infoBuilder);
-                    pluginIndex.put(mimeTypeResult.mimeType,
+                    pluginIndex.put(callMethod.mVideoCallableMimeType,
                             inCallPluginInfoBuilderList.size() - 1);
                 }
 
-                Resources pluginResources = null;
+                int index = pluginIndex.get(callMethod.mVideoCallableMimeType);
+                InCallPluginInfo.Builder infoBuilder = inCallPluginInfoBuilderList.get(index);
+                infoBuilder.setPluginComponent(callMethod.mComponent)
+                        .setPluginTitle(callMethod.mName)
+                        .setPluginColorIcon(callMethod.mBrandIcon)
+                        .setPluginSingleColorIcon(callMethod.mSingleColorBrandIcon);
+
                 try {
-                    pluginResources = packageManager.getResourcesForApplication(
-                            component.getPackageName());
-                } catch (PackageManager.NameNotFoundException e) {
-                    Log.e(TAG, "Plugin isn't installed: " + component);
+                    inCallPluginList.add(infoBuilder.build());
+                } catch (IllegalStateException e) {
+                    Log.e(TAG, "Failed to build InCallPluginInfo object.");
                     continue;
-                }
-
-                InCallProviderInfoResult providerInfo =
-                        inCallServices.getProviderInfo(client, component).await();
-                if (providerInfo != null && providerInfo.inCallProviderInfo != null &&
-                        pluginResources != null) {
-                    int index = pluginIndex.get(mimeTypeResult.mimeType);
-                    InCallPluginInfo.Builder infoBuilder = inCallPluginInfoBuilderList.get(index);
-                    infoBuilder.setPluginComponent(component)
-                            .setPluginTitle(providerInfo.inCallProviderInfo.getTitle());
-
-                    try {
-                        infoBuilder.setPluginColorIcon(pluginResources.getDrawable(
-                                providerInfo.inCallProviderInfo.getBrandIcon(), null))
-                                .setPluginSingleColorIcon(pluginResources.getDrawable(
-                                        providerInfo.inCallProviderInfo.getSingleColorBrandIcon(),
-                                        null));
-
-                        inCallPluginList.add(infoBuilder.build());
-                    } catch (Resources.NotFoundException e) {
-                        Log.e(TAG, "Unable to retrieve icon for plugin: " + component);
-                        continue;
-                    } catch (IllegalStateException e) {
-                        Log.e(TAG, "Failed to build InCallPluginInfo object.");
-                        continue;
-                    }
                 }
             }
         }
@@ -234,11 +204,11 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
         }
     }
 
-    private String constructSelection(List<String> mimeTypesList) {
+    private String constructSelection(String mimeTypes) {
         StringBuilder selection = new StringBuilder();
-        if (mimeTypesList != null && !mimeTypesList.isEmpty()) {
+        if (!TextUtils.isEmpty(mimeTypes)) {
             selection.append(Data.MIMETYPE + " IN ('");
-            selection.append(Joiner.on("', '").skipNulls().join(mimeTypesList));
+            selection.append(mimeTypes);
             selection.append("') AND " + Data.DATA1 + " NOT NULL");
         }
         return selection.toString();

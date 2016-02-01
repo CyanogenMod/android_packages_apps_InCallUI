@@ -21,13 +21,14 @@ import android.os.Message;
 import android.os.Trace;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccount;
+import android.telecom.PhoneAccountHandle;
+import android.telephony.SubscriptionManager;
+import android.text.TextUtils;
 
 import com.android.contacts.common.testing.NeededForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import android.telecom.PhoneAccountHandle;
-import android.telephony.SubscriptionManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -848,6 +849,15 @@ public class CallList {
             }
         }
         return retval;
+    }
+
+     public Call getCallWithStateAndNumber(int state, String number) {
+         for (Call call : mCallById.values()) {
+             if (TextUtils.equals(call.getNumber(), number) && call.getState() == state) {
+                 return call;
+             }
+         }
+         return null;
     }
 
     void addActiveSubChangeListener(ActiveSubChangeListener listener) {

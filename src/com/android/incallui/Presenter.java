@@ -17,6 +17,8 @@
 package com.android.incallui;
 
 import android.os.Bundle;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 /**
  * Base class for Presenters.
@@ -55,5 +57,13 @@ public abstract class Presenter<U extends Ui> {
 
     public U getUi() {
         return mUi;
+    }
+
+    public static SharedPreferences getPrefs(Context context) {
+        // This replicates PreferenceManager.getDefaultSharedPreferences, except
+        // that we need multi process preferences, as the pref is written in a separate
+        // process (com.android.dialer vs. com.android.incallui)
+        final String prefName = context.getPackageName() + "_preferences";
+        return context.getSharedPreferences(prefName, Context.MODE_MULTI_PROCESS);
     }
 }

@@ -18,7 +18,9 @@ package com.android.incallui;
 
 import static com.android.incallui.CallButtonFragment.Buttons.*;
 
+import android.annotation.NonNull;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -60,6 +62,8 @@ public class CallButtonFragment
     // The button has been collapsed into the overflow menu
     private static final int BUTTON_MENU = 3;
 
+    private static final int REQUEST_CODE_CALL_RECORD_PERMISSION = 1000;
+
     public interface Buttons {
         public static final int BUTTON_AUDIO = 0;
         public static final int BUTTON_MUTE = 1;
@@ -72,7 +76,8 @@ public class CallButtonFragment
         public static final int BUTTON_MERGE = 8;
         public static final int BUTTON_PAUSE_VIDEO = 9;
         public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 10;
-        public static final int BUTTON_COUNT = 11;
+        public static final int BUTTON_RECORD_CALL = 11;
+        public static final int BUTTON_COUNT = 12;
     }
 
     private SparseIntArray mButtonVisibilityMap = new SparseIntArray(BUTTON_COUNT);
@@ -87,6 +92,7 @@ public class CallButtonFragment
     private ImageButton mAddCallButton;
     private ImageButton mMergeButton;
     private CompoundButton mPauseVideoButton;
+    private CompoundButton mCallRecordButton;
     private ImageButton mOverflowButton;
     private ImageButton mManageVideoCallConferenceButton;
     private ImageButton mAddParticipantButton;
@@ -151,6 +157,8 @@ public class CallButtonFragment
         mMergeButton.setOnClickListener(this);
         mPauseVideoButton = (CompoundButton) parent.findViewById(R.id.pauseVideoButton);
         mPauseVideoButton.setOnClickListener(this);
+        mCallRecordButton = (CompoundButton) parent.findViewById(R.id.callRecordButton);
+        mCallRecordButton.setOnClickListener(this);
         mAddParticipantButton = (ImageButton) parent.findViewById(R.id.addParticipant);
         mAddParticipantButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
@@ -223,6 +231,9 @@ public class CallButtonFragment
                 getPresenter().pauseVideoClicked(
                         !mPauseVideoButton.isSelected() /* pause */);
                 break;
+            case R.id.callRecordButton:
+                getPresenter().callRecordClicked(!mCallRecordButton.isSelected());
+                break;
             case R.id.overflowButton:
                 if (mOverflowPopup != null) {
                     mOverflowPopup.show();
@@ -254,7 +265,8 @@ public class CallButtonFragment
                 mShowDialpadButton,
                 mHoldButton,
                 mSwitchCameraButton,
-                mPauseVideoButton
+                mPauseVideoButton,
+                mCallRecordButton
         };
 
         for (View button : compoundButtons) {
@@ -359,6 +371,7 @@ public class CallButtonFragment
         mAddCallButton.setEnabled(isEnabled);
         mMergeButton.setEnabled(isEnabled);
         mPauseVideoButton.setEnabled(isEnabled);
+        mCallRecordButton.setEnabled(isEnabled);
         mOverflowButton.setEnabled(isEnabled);
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
@@ -401,6 +414,8 @@ public class CallButtonFragment
                 return mPauseVideoButton;
             case BUTTON_MANAGE_VIDEO_CONFERENCE:
                 return mManageVideoCallConferenceButton;
+            case BUTTON_RECORD_CALL:
+                return mCallRecordButton;
             default:
                 Log.w(this, "Invalid button id");
                 return null;
@@ -436,6 +451,14 @@ public class CallButtonFragment
         if (mMuteButton.isSelected() != value) {
             mMuteButton.setSelected(value);
         }
+    }
+
+    @Override
+    public void setCallRecordingState(boolean isRecording) {
+        mCallRecordButton.setSelected(isRecording);
+        mCallRecordButton.setContentDescription(getContext().getString(isRecording
+                ? R.string.onscreenStopCallRecordText
+                : R.string.onscreenCallRecordText));
     }
 
     private void addToOverflowMenu(int id, View button, PopupMenu menu) {
@@ -804,6 +827,27 @@ public class CallButtonFragment
             return ((InCallActivity) getActivity()).isDialpadVisible();
         }
         return false;
+    }
+
+    @Override
+    public void requestCallRecordingPermission(String[] permissions) {
+        requestPermissions(permissions, REQUEST_CODE_CALL_RECORD_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_CALL_RECORD_PERMISSION) {
+            boolean allGranted = grantResults.length > 0;
+            for (int i = 0; i < grantResults.length; i++) {
+                allGranted &= grantResults[i] == PackageManager.PERMISSION_GRANTED;
+            }
+            if (allGranted) {
+                getPresenter().startCallRecording();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override

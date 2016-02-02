@@ -28,7 +28,7 @@
   <string name="call_recording_failed_message">通話録音を開始できませんでした</string>
   <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>に録音通話を保存しました</string>
   <string name="blacklist_dialog_title">着信拒否リストに追加</string>
-  <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>からの今後の着信はブロックされます</string>
+  <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>からの今後の着信は拒否されます</string>
   <string name="card_title_video_call_paused">ビデオ通話（一時停止中）</string>
   <string name="onscreenAddParticipant">参加者を追加</string>
   <string name="modify_call_option_title">通話の種類を選択</string>

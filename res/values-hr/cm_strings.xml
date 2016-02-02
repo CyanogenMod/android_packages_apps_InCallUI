@@ -17,20 +17,45 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="callFailed_incoming_cb_enabled">Stranka je zabranila sve dolazne pozive.</string>
+  <string name="callUnanswered_forwarded">Nazovi neodgovorene i proslijeđene pozive</string>
   <string name="incall_call_type_label_forwarded">Preusmjereni poziv</string>
   <string name="card_title_dialing_waiting">Biranje broja (pričekajte\u2026)</string>
+  <string name="calling_via_waiting_template">Pozivanje preko <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
   <string name="card_title_waiting_call">Poziv na čekanju</string>
   <string name="card_title_waiting_via_template">Poziv na čekanju (preko <xliff:g id="provider_name">%s </xliff:g>)</string>
   <string name="onscreenBlacklistText">Popis blokiranih pozivatelja</string>
   <string name="call_recording_failed_message">Pogreška prilikom pokretanja snimanja poziva</string>
+  <string name="call_recording_file_location">Snimak poziva spremljen u <xliff:g id="filename">%s</xliff:g></string>
   <string name="blacklist_dialog_title">Dodaj na popis blokiranih pozivatelja</string>
   <string name="blacklist_dialog_message">Pozivi sa broja <xliff:g id="number">%s</xliff:g> biti će blokirani</string>
+  <string name="card_title_video_call_paused">Videopoziv (pauziran)</string>
+  <string name="onscreenAddParticipant">Dodaj sudionika</string>
+  <string name="modify_call_option_title">Odaberite vrstu poziva</string>
   <string name="modify_call_option_vt">Video poziv</string>
+  <string name="modify_call_option_vt_tx">Video prijenos</string>
+  <string name="modify_call_option_vt_rx">Primanje videa</string>
   <string name="modify_call_option_voice">Samo glas</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Molim onemogućite TTY način za video poziv</string>
+  <string name="player_started">Reproduciranje započelo</string>
+  <string name="player_stopped">Reproduciranje zaustavljeno</string>
+  <string name="camera_not_ready">Kamera nije spremna</string>
+  <string name="camera_ready">Kamera je spremna</string>
+  <string name="unknown_call_session_event">Nepoznata sesija poziva</string>
+  <string name="onscreenCallRecordText">Pokretanje i zaustavljanje snimanja poziva</string>
+  <string name="onscreenAddToBlacklistText">Dodaj pozivatelja na popis blokiranih pozivatelja</string>
+  <string name="menu_start_record">Snimanje poziva</string>
   <string name="menu_stop_record">Zaustavi snimanje</string>
+  <string name="recording_time_text">Snimanje</string>
   <string name="recording_warning_title">Omogućivanje snimanja poziva?</string>
+  <string name="recording_warning_text">Obavijest: Vi ste odgovorni za usklađenost sa zakonima, propisima i pravilima koji se odnose na korištenje funkcionalnosti snimanja poziva i korištenje ili distribuciju tih snimaka.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
+  <string name="call_substate_call_resumed">Nastavak poziva</string>
+  <string name="call_substate_connected_suspended_audio">Poziv je spojen, ali zvuk je suspendiran</string>
+  <string name="call_substate_connected_suspended_video">Poziv je spojen, ali video je suspendiran</string>
+  <string name="call_substate_avp_retry">Otkrivanje kvalitete videa\u2026</string>
+  <string name="video_quality_changed">Kvaliteta slike promijenjena u <xliff:g id="quality" example="high">%1$s </xliff:g></string>
   <string name="video_quality_high">visoko</string>
   <string name="video_quality_medium">srednje</string>
   <string name="video_quality_low">niska</string>

@@ -55,6 +55,11 @@ import android.widget.TextView;
 
 import com.android.incallui.incallapi.InCallPluginInfo;
 
+import com.cyanogen.ambient.common.api.ResultCallback;
+import com.cyanogen.ambient.deeplink.DeepLink;
+import com.cyanogen.ambient.deeplink.DeepLink.DeepLinkResultList;
+import com.cyanogen.ambient.deeplink.applicationtype.DeepLinkApplicationType;
+
 import java.lang.Override;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +101,8 @@ public class CallButtonFragment
         public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 10;
         public static final int BUTTON_RECORD_CALL = 11;
         public static final int BUTTON_TRANSFER_CALL = 12;
-        public static final int BUTTON_COUNT = 13;
+        public static final int BUTTON_TAKE_NOTE = 13;
+        public static final int BUTTON_COUNT = 14;
     }
 
     private SparseIntArray mButtonVisibilityMap = new SparseIntArray(BUTTON_COUNT);
@@ -116,6 +122,7 @@ public class CallButtonFragment
     private ImageButton mManageVideoCallConferenceButton;
     private ImageButton mAddParticipantButton;
     private ImageButton mTransferCallButton;
+    private ImageButton mTakeNoteButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -130,6 +137,26 @@ public class CallButtonFragment
     private boolean mIsEnabled;
     private MaterialPalette mCurrentThemeColors;
 
+    private DeepLink mDeepLink;
+    private ResultCallback<DeepLinkResultList> mDeepLinkCallback = new
+            ResultCallback<DeepLinkResultList>() {
+        @Override
+        public void onResult(DeepLinkResultList deepLinkResult) {
+            List<DeepLink> links = deepLinkResult.getResults();
+            if (links != null) {
+                for (DeepLink result : links) {
+                    if (result.getApplicationType() == DeepLinkApplicationType.NOTE) {
+                        mDeepLink = result;
+                        mTakeNoteButton.setImageBitmap(result.getBitmapIcon(getContext()));
+                        mTakeNoteButton.setOnClickListener(CallButtonFragment.this);
+                        break;
+                    }
+                }
+            } else if (mDeepLink == null) {
+                mTakeNoteButton.setVisibility(View.GONE);
+            }
+        }
+    };
     @Override
     public CallButtonPresenter createPresenter() {
         // TODO: find a cleaner way to include audio mode provider than having a singleton instance.
@@ -186,8 +213,10 @@ public class CallButtonFragment
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
-            R.id.manageVideoCallConferenceButton);
+                R.id.manageVideoCallConferenceButton);
         mManageVideoCallConferenceButton.setOnClickListener(this);
+        mTakeNoteButton = (ImageButton) parent.findViewById(R.id.takeNoteButton);
+        getPresenter().getPreferredLinks(mDeepLinkCallback);
         return parent;
     }
 
@@ -266,6 +295,10 @@ public class CallButtonFragment
                 break;
             case R.id.transferCall:
                 getPresenter().transferCallClicked();
+                break;
+            case R.id.takeNoteButton:
+                getPresenter().takeNote(mDeepLink);
+                break;
             default:
                 Log.wtf(this, "onClick: unexpected");
                 return;
@@ -401,6 +434,7 @@ public class CallButtonFragment
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
         mTransferCallButton.setEnabled(isEnabled);
+        mTakeNoteButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -444,6 +478,8 @@ public class CallButtonFragment
                 return mCallRecordButton;
             case BUTTON_TRANSFER_CALL:
                 return mTransferCallButton;
+            case BUTTON_TAKE_NOTE:
+                return mTakeNoteButton;
             default:
                 Log.w(this, "Invalid button id");
                 return null;

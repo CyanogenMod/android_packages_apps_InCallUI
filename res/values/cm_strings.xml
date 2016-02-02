@@ -33,6 +33,9 @@
          provider (e.g. MSIM) -->
 	<string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (via <xliff:g id="provider_name">%2$s</xliff:g>)</string>
 
+    <!-- In Call Screen: take a note from an active call -->
+    <string name="onscreenNoteText">Take Note</string>
+
     <!-- In-call screen: status label for a call that is held remotely  -->
     <string name="card_title_waiting_call">Call on hold</string>
 

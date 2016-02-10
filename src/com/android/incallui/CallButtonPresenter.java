@@ -60,6 +60,7 @@ import com.cyanogen.ambient.common.api.AmbientApiClient;
 import com.cyanogen.ambient.common.api.ResultCallback;
 import com.cyanogen.ambient.deeplink.DeepLink;
 import com.cyanogen.ambient.deeplink.DeepLink.DeepLinkResultList;
+import com.cyanogen.ambient.deeplink.applicationtype.DeepLinkApplicationType;
 import com.cyanogen.ambient.deeplink.linkcontent.CallDeepLinkContent;
 import com.cyanogen.ambient.deeplink.linkcontent.DeepLinkContentType;
 import com.cyanogen.ambient.incall.InCallServices;
@@ -89,6 +90,33 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     private boolean mPreviousMuteState = false;
 
     private StartInCallCallReceiver mCallback;
+
+    private DeepLink mDeepLink;
+    /**
+     * Callback for getPreferredLinks(ResultCallback<DeepLinkResultList> deepLinkCallback).
+     *
+     * Updates the UI with the deeplink it should be using as an Icon.
+     */
+    private ResultCallback<DeepLinkResultList> mDeepLinkCallback = new
+            ResultCallback<DeepLinkResultList>() {
+        @Override
+        public void onResult(DeepLinkResultList deepLinkResult) {
+            List<DeepLink> links = deepLinkResult.getResults();
+            mDeepLink = null;
+            if (links != null) {
+                for (DeepLink result : links) {
+                    if (result.getApplicationType() == DeepLinkApplicationType.NOTE) {
+                        mDeepLink = result;
+                        getUi().setDeepLink(mDeepLink);
+                        if(mCall != null) {
+                            updateButtonsState(mCall);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    };
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
@@ -152,7 +180,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             mCall = callList.getOutgoingCall();
         } else if (newState == InCallState.INCALL) {
             mCall = callList.getActiveOrBackgroundCall();
-
+            getPreferredLinks(mDeepLinkCallback);
             // When connected to voice mail, automatically shows the dialpad.
             // (On previous releases we showed it when in-call shows up, before waiting for
             // OUTGOING.  We may want to do that once we start showing "Voice mail" label on
@@ -171,6 +199,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             mCall = callList.getIncomingCall();
         } else {
             mCall = null;
+            mDeepLink = null;
         }
         updateUi(newState, mCall);
     }
@@ -616,7 +645,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                         (contactInCallPlugins != null && !contactInCallPlugins.isEmpty())) &&
                 (callState == Call.State.ACTIVE || callState == Call.State.ONHOLD);
 
-        final boolean showNote = callState == Call.State.ACTIVE || callState == Call.State.ONHOLD;
+        final boolean showNote = getVisibilityOfNoteButton();
         final boolean showMute = call.can(android.telecom.Call.Details.CAPABILITY_MUTE);
         final boolean showAddParticipant = call.can(
                 android.telecom.Call.Details.CAPABILITY_ADD_PARTICIPANT);
@@ -719,6 +748,7 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void modifyChangeToVideoButton();
         void displayVideoCallOptions();
         void showInviteSnackbar(PendingIntent inviteIntent, String inviteText);
+        void setDeepLink(DeepLink deepLink);
 
         /**
          * Once showButton() has been called on each of the individual buttons in the UI, call
@@ -743,9 +773,12 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         onStateChange(null, state, CallList.getInstance());
     }
 
-    public void takeNote(DeepLink deepLink) {
-        if(mCall != null && deepLink != null) {
-            CallDeepLinkContent content = new CallDeepLinkContent(deepLink);
+    /**
+     * Take a note triggered by the CallButtonFragment note button.
+     */
+    public void takeNote() {
+        if(mCall != null && mDeepLink != null) {
+            CallDeepLinkContent content = new CallDeepLinkContent(mDeepLink);
             content.setName(
                     mCall.getCnapName() == null ? CALL_DISPLAY_NAME_UNKNOWN : mCall.getCnapName());
             content.setNumber(mCall.getNumber());
@@ -754,6 +787,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
             getUi().getContext().startActivity(content.build());
         }
     }
+
+    /**
+     * Get preferred deeplinks for the current call.
+     * @param deepLinkCallback - callback to pass results to.
+     */
     public void getPreferredLinks(ResultCallback<DeepLinkResultList> deepLinkCallback) {
         Call localCall = mCall;
         if(localCall == null) {
@@ -767,4 +805,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         }
     }
 
+    /**
+     * Returns the visibility status for the take note icon
+     * @return whether the note button should be shown.
+     */
+    private boolean getVisibilityOfNoteButton() {
+        return mDeepLink != null && mCall != null && mCall.getState() == Call.State.ACTIVE;
+    }
 }

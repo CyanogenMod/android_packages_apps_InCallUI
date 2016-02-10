@@ -55,10 +55,7 @@ import android.widget.TextView;
 
 import com.android.incallui.incallapi.InCallPluginInfo;
 
-import com.cyanogen.ambient.common.api.ResultCallback;
 import com.cyanogen.ambient.deeplink.DeepLink;
-import com.cyanogen.ambient.deeplink.DeepLink.DeepLinkResultList;
-import com.cyanogen.ambient.deeplink.applicationtype.DeepLinkApplicationType;
 
 import java.lang.Override;
 import java.util.ArrayList;
@@ -137,26 +134,7 @@ public class CallButtonFragment
     private boolean mIsEnabled;
     private MaterialPalette mCurrentThemeColors;
 
-    private DeepLink mDeepLink;
-    private ResultCallback<DeepLinkResultList> mDeepLinkCallback = new
-            ResultCallback<DeepLinkResultList>() {
-        @Override
-        public void onResult(DeepLinkResultList deepLinkResult) {
-            List<DeepLink> links = deepLinkResult.getResults();
-            if (links != null) {
-                for (DeepLink result : links) {
-                    if (result.getApplicationType() == DeepLinkApplicationType.NOTE) {
-                        mDeepLink = result;
-                        mTakeNoteButton.setImageBitmap(result.getBitmapIcon(getContext()));
-                        mTakeNoteButton.setOnClickListener(CallButtonFragment.this);
-                        break;
-                    }
-                }
-            } else if (mDeepLink == null) {
-                mTakeNoteButton.setVisibility(View.GONE);
-            }
-        }
-    };
+
     @Override
     public CallButtonPresenter createPresenter() {
         // TODO: find a cleaner way to include audio mode provider than having a singleton instance.
@@ -216,7 +194,7 @@ public class CallButtonFragment
                 R.id.manageVideoCallConferenceButton);
         mManageVideoCallConferenceButton.setOnClickListener(this);
         mTakeNoteButton = (ImageButton) parent.findViewById(R.id.takeNoteButton);
-        getPresenter().getPreferredLinks(mDeepLinkCallback);
+        mTakeNoteButton.setOnClickListener(CallButtonFragment.this);
         return parent;
     }
 
@@ -236,6 +214,11 @@ public class CallButtonFragment
         super.onResume();
 
         updateColors();
+    }
+
+    @Override
+    public void setDeepLink(DeepLink deepLink) {
+        mTakeNoteButton.setImageBitmap(deepLink.getBitmapIcon(getContext()));
     }
 
     @Override
@@ -297,7 +280,7 @@ public class CallButtonFragment
                 getPresenter().transferCallClicked();
                 break;
             case R.id.takeNoteButton:
-                getPresenter().takeNote(mDeepLink);
+                getPresenter().takeNote();
                 break;
             default:
                 Log.wtf(this, "onClick: unexpected");

@@ -17,7 +17,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="callFailed_incoming_cb_enabled">パーティーがすべての着信を禁止しています。</string>
+  <string name="callFailed_incoming_cb_enabled">パーティがすべての着信を禁止しています。</string>
   <string name="callUnanswered_forwarded">通話は応答されずに転送されました</string>
   <string name="incall_call_type_label_forwarded">転送された通話</string>
   <string name="card_title_dialing_waiting">ダイヤル中（待機中\u2026）</string>

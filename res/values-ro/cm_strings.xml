@@ -41,6 +41,7 @@
   <string name="camera_not_ready">Camera foto nu este pregătită</string>
   <string name="camera_ready">Camera foto este gata</string>
   <string name="unknown_call_session_event">Eveniment necunoscut al sesiunii de apel</string>
+  <string name="onscreenCallRecordText">Începe și termină înregistrarea convorbirii</string>
   <string name="onscreenAddToBlacklistText">Adăugare apelant la lista apelanților blocați</string>
   <string name="menu_start_record">Înregistrare apel</string>
   <string name="menu_stop_record">Oprește înregistrarea</string>

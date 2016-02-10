@@ -89,16 +89,16 @@ public class CallButtonFragment
         public static final int BUTTON_MUTE = 1;
         public static final int BUTTON_DIALPAD = 2;
         public static final int BUTTON_UPGRADE_TO_VIDEO = 3;
-        public static final int BUTTON_HOLD = 4;
-        public static final int BUTTON_SWAP = 5;
-        public static final int BUTTON_SWITCH_CAMERA = 6;
-        public static final int BUTTON_ADD_CALL = 7;
-        public static final int BUTTON_MERGE = 8;
-        public static final int BUTTON_PAUSE_VIDEO = 9;
-        public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 10;
-        public static final int BUTTON_RECORD_CALL = 11;
-        public static final int BUTTON_TRANSFER_CALL = 12;
-        public static final int BUTTON_TAKE_NOTE = 13;
+        public static final int BUTTON_TAKE_NOTE = 4;
+        public static final int BUTTON_HOLD = 5;
+        public static final int BUTTON_SWAP = 6;
+        public static final int BUTTON_SWITCH_CAMERA = 7;
+        public static final int BUTTON_ADD_CALL = 8;
+        public static final int BUTTON_MERGE = 9;
+        public static final int BUTTON_PAUSE_VIDEO = 10;
+        public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 11;
+        public static final int BUTTON_RECORD_CALL = 12;
+        public static final int BUTTON_TRANSFER_CALL = 13;
         public static final int BUTTON_COUNT = 14;
     }
 

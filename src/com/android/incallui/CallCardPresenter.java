@@ -17,8 +17,6 @@
 package com.android.incallui;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -47,9 +45,10 @@ import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incalluibind.ObjectFactory;
 
+import com.cyanogen.lookup.phonenumber.response.StatusCode;
+import com.google.common.base.Preconditions;
 import java.lang.ref.WeakReference;
 
-import com.google.common.base.Preconditions;
 
 /**
  * Presenter for the Call Card Fragment.
@@ -639,7 +638,8 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
 
         if (mPrimary == null) {
             // Clear the primary display info.
-            ui.setPrimary(null, null, false, null, null, false, false, false);
+            ui.setPrimary(null, null, false, null, null, false, false, false, null, null, false,
+                    StatusCode.NULL, false, 0);
             return;
         }
 
@@ -659,7 +659,14 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     getConferencePhoto(mPrimary),
                     false /* isSipCall */,
                     false /* isForwarded */,
-                    showContactPhoto);
+                    showContactPhoto,
+                    null,
+                    null,
+                    false,
+                    StatusCode.NULL,
+                    false,
+                    0);
+
         } else if (mPrimaryContactInfo != null) {
             Log.d(TAG, "Update primary display info for " + mPrimaryContactInfo);
 
@@ -700,10 +707,17 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimaryContactInfo.photo,
                     mPrimaryContactInfo.isSipCall,
                     isForwarded,
-                    showContactPhoto);
+                    showContactPhoto,
+                    mPrimaryContactInfo.lookupProviderName,
+                    mPrimaryContactInfo.lookupProviderBadge,
+                    mPrimaryContactInfo.isLookupInProgress,
+                    mPrimaryContactInfo.lookupStatus,
+                    mPrimaryContactInfo.isSpam,
+                    mPrimaryContactInfo.spamCount);
         } else {
             // Clear the primary display info.
-            ui.setPrimary(null, null, false, null, null, false, false, false);
+            ui.setPrimary(null, null, false, null, null, false, false, false, null, null, false,
+                    StatusCode.NULL, false, 0);
         }
 
         if (mEmergencyCallListener != null) {
@@ -1004,7 +1018,9 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void setVisible(boolean on);
         void setCallCardVisible(boolean visible);
         void setPrimary(String number, String name, boolean nameIsNumber, String label,
-                Drawable photo, boolean isSipCall, boolean isForwarded, boolean isContactPhotoShown);
+                Drawable photo, boolean isSipCall, boolean isForwarded, boolean isContactPhotoShown,
+                String providerName, Drawable providerLogo, boolean isLookupInProgress,
+                StatusCode lookupStatus, boolean showSpamInfo, int spamCount);
         void setSecondary(boolean show, String name, boolean nameIsNumber, String label,
                 String providerLabel, boolean isConference, boolean isVideoCall,
                 boolean isFullscreen);

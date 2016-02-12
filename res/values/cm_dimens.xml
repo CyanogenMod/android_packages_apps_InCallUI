@@ -24,4 +24,14 @@
     <dimen name="videocall_handoff_item_icon_end_margin">17dp</dimen>
     <dimen name="videocall_handoff_item_end_margin">23dp</dimen>
     <dimen name="videocall_handoff_item_text_size">18sp</dimen>
+
+    <dimen name="contact_info_attribution_text_size">10sp</dimen>
+    <dimen name="contact_info_attribution_logo_size">18dp</dimen>
+    <dimen name="contact_info_attribution_logo_padding">8dp</dimen>
+    <dimen name="contact_info_spam_info_text_size">14sp</dimen>
+    <dimen name="contact_info_provider_status_msg_text_size">18sp</dimen>
+
+    <dimen name="lookup_extra_info_container_elevation">3dp</dimen>
+    <dimen name="lookup_extra_info_container_margin_start">24dp</dimen>
+    <dimen name="lookup_extra_info_container_margin_top">25dp</dimen>
 </resources>

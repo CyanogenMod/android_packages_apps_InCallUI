@@ -194,4 +194,12 @@
         android:ellipsize="end"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/lookupStatusMessage"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/contact_info_provider_status_msg_text_size"
+        android:textColor="@color/incall_call_banner_text_color"
+        android:visibility="gone" />
+
 </LinearLayout>  <!-- End of call_banner -->

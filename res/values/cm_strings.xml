@@ -54,4 +54,9 @@
     <string name="snackbar_incall_plugin_no_invite_found">This contact is not a <xliff:g id="incall_plugin">%s</xliff:g> contact. You must add this person first to make video calls.</string>
     <string name="snackbar_incall_plugin_contact_invite">This contact is not a <xliff:g id="incall_plugin">%s</xliff:g> contact. Invite this contact?</string>
     <string name="snackbar_invite_action_text">INVITE</string>
+
+    <string name="caller_info_loading">Searching <xliff:g id="provider">%s</xliff:g>\u2026</string>
+    <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> could not be reached</string>
+    <string name="caller_info_no_result">No <xliff:g id="provider">%s</xliff:g> match found</string>
+    <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> setup incomplete</string>
 </resources>

@@ -87,7 +87,7 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
         List<InCallPluginInfo.Builder> inCallPluginInfoBuilderList =
                 new ArrayList<InCallPluginInfo.Builder>();
         Map<String, Integer> pluginIndex = new HashMap<String, Integer>();
-        HashMap<ComponentName, CallMethodInfo> plugins = CallMethodHelper.getAllCallMethods();
+        HashMap<ComponentName, CallMethodInfo> plugins = CallMethodHelper.getAllEnabledCallMethods();
         String mimeTypes = CallMethodHelper.getAllEnabledVideoCallableMimeTypes();
 
         if (mContactInfo == null) {
@@ -150,12 +150,6 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
         if (plugins != null && !plugins.isEmpty()) {
             InCallApi inCallServices = InCallServices.getInstance();
             for (CallMethodInfo callMethod : plugins.values()) {
-                if (callMethod.mStatus != PluginStatus.ENABLED) {
-                    if (DEBUG) {
-                        Log.e(TAG, "Plugin not enabled." + callMethod.mComponent.flattenToString());
-                    }
-                    continue;
-                }
                 if (!pluginIndex.containsKey(callMethod.mVideoCallableMimeType)) {
                     if (DEBUG) {
                         Log.d(TAG, "Contact does not have account with this plugin, looking up" +

@@ -107,9 +107,11 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
                 for (DeepLink result : links) {
                     if (result.getApplicationType() == DeepLinkApplicationType.NOTE) {
                         mDeepLink = result;
-                        getUi().setDeepLink(mDeepLink);
-                        if(mCall != null) {
-                            updateButtonsState(mCall);
+                        if(getUi() != null) {
+                            getUi().setDeepLink(mDeepLink);
+                            if(mCall != null) {
+                                updateButtonsState(mCall);
+                            }
                         }
                         break;
                     }

@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -218,7 +217,14 @@ public class CallButtonFragment
 
     @Override
     public void setDeepLink(DeepLink deepLink) {
-        mTakeNoteButton.setImageBitmap(deepLink.getBitmapIcon(getContext()));
+        mTakeNoteButton.setImageDrawable(
+                configureDeepLinkDrawable(deepLink.getDrawableIcon(getContext())));
+    }
+
+    public Drawable configureDeepLinkDrawable(Drawable drawable) {
+        drawable.setTintList(getResources().getColorStateList(R.color.selectable_icon_tint));
+        drawable.setAutoMirrored(false);
+        return drawable;
     }
 
     @Override

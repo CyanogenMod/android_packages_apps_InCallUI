@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Dzwonienie przez <xliff:g id="provider_name">%s</xliff:g> (Czekaj\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (przez <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Połączenie wstrzymane</string>
+  <string name="call_recording_failed_message">Nie udało się rozpocząć nagrywania</string>
+  <string name="call_recording_file_location">Zapisano nagranie rozmowy do <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Nagraj rozmowę</string>
+  <string name="onscreenStopCallRecordText">Zatrzymaj nagrywanie</string>
+  <string name="recording_time_text">Nagrywanie</string>
+  <string name="recording_warning_title">Włączyć nagrywanie połączeń?</string>
+  <string name="recording_warning_text">Uwaga; Ponosisz odpowiedzialność za wszelkie komplikacje z prawem związane z nagrywaniem rozmów i ich udostępnianiem bądź rozpowszechnianiem tych nagrań.</string>
 </resources>

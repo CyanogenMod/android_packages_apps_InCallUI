@@ -21,4 +21,7 @@
   <string name="callUnanswered_forwarded">Neatbildēts zvans ir pārsūtīts</string>
   <string name="incall_call_type_label_forwarded">Pārsūtīts zvans</string>
   <string name="card_title_dialing_waiting">Izsauc numuru (gaida\u2026)</string>
+  <string name="onscreenCallRecordText">Ierakstīt zvanu</string>
+  <string name="onscreenStopCallRecordText">Apturēt ierakstīšanu</string>
+  <string name="recording_time_text">Ieraksta</string>
 </resources>

@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
   <string name="calling_via_waiting_template">Apelare via <xliff:g id="provider_name">%s</xliff:g> (În așteptare\u2026)</string>
   <string name="card_title_waiting_call">Apel în așteptare</string>
+  <string name="call_recording_failed_message">Înregistrarea apelului a eșuat</string>
+  <string name="call_recording_file_location">S-a salvat înregistrarea apelului către <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Înregistrare apel</string>
+  <string name="onscreenStopCallRecordText">Oprește înregistrarea</string>
+  <string name="recording_time_text">Înregistrare</string>
+  <string name="recording_warning_title">Activați înregistrarea apelurilor?</string>
+  <string name="recording_warning_text">Anunț: Sunteți responsabil pentru respectarea oricărei legi, regulament și normă care se aplică la utilizarea funcției de înregistrare și folosirea sau distribuirea acestor înregistrări.</string>
 </resources>

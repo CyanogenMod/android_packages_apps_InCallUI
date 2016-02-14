@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Выклік праз <xliff:g id="provider_name">%s</xliff:g> (Чаканне\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g>(праз<xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Выклік на ўтрыманні</string>
+  <string name="call_recording_failed_message">Не атрымалася пачаць запіс гутаркі</string>
+  <string name="call_recording_file_location">Запіс гутаркі захаваны ў <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Запісаць выклік</string>
+  <string name="onscreenStopCallRecordText">Спыніць запіс</string>
+  <string name="recording_time_text">Ідзе запіс</string>
+  <string name="recording_warning_title">Уключыць запіс тэлефонных гутарак?</string>
+  <string name="recording_warning_text">Увага: выкарыстанне гэтай функцыі ў некаторых краінах з\'яўляецца незаконным. Вы несяце асабістую адказнасць за выкананне законаў і правіл, гэта тычыцца функцыі запісу гутарак і наступнага шырання гэтых запісаў.</string>
 </resources>

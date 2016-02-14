@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">Ringer op (venter\u2026)</string>
   <string name="calling_via_waiting_template">Opkald via <xliff:g id="provider_name">%s</xliff:g> (Venter\u2026)</string>
   <string name="card_title_waiting_call">Opkald i venteposition</string>
+  <string name="call_recording_failed_message">Kunne ikke starte optagelse af opkald</string>
+  <string name="call_recording_file_location">Opkaldsoptagelse gemt til <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Optage opkald</string>
+  <string name="onscreenStopCallRecordText">Stop optagelse</string>
+  <string name="recording_time_text">Optager</string>
+  <string name="recording_warning_title">Aktivér optagelse af opkald?</string>
+  <string name="recording_warning_text">Bemærk: Du er ansvarlig for at overholde alle love og regler, der gælder for brugen af optagelse af opkald og for anvendelse eller distribution af disse optagelser.</string>
 </resources>

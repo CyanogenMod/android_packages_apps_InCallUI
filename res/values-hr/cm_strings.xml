@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Pozivanje preko <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Poziv na čekanju">%1$s</xliff:g> (preko <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Poziv na čekanju</string>
+  <string name="call_recording_failed_message">Pogreška prilikom pokretanja snimanja poziva</string>
+  <string name="call_recording_file_location">Snimak poziva spremljen u <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Snimanje poziva</string>
+  <string name="onscreenStopCallRecordText">Zaustavi snimanje</string>
+  <string name="recording_time_text">Snimanje</string>
+  <string name="recording_warning_title">Omogućivanje snimanja poziva?</string>
+  <string name="recording_warning_text">Obavijest: Vi ste odgovorni za usklađenost sa zakonima, propisima i pravilima koji se odnose na korištenje funkcionalnosti snimanja poziva i korištenje ili distribuciju tih snimaka.</string>
 </resources>

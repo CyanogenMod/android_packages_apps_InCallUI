@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Κλήση μέσω <xliff:g id="provider_name">%s</xliff:g> (Αναμονή\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (μέσω <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Κλήση σε αναμονή</string>
+  <string name="call_recording_failed_message">Αποτυχία έναρξης της ηχογράφησης κλήσης</string>
+  <string name="call_recording_file_location">Η ηχογράφηση κλήσης αποθηκεύτηκε ως <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Ηχογράφηση κλήσης</string>
+  <string name="onscreenStopCallRecordText">Διακοπή ηχογράφησης</string>
+  <string name="recording_time_text">Γίνεται εγγραφή</string>
+  <string name="recording_warning_title">Ενεργοποίηση καταγραφής κλήσεων;</string>
+  <string name="recording_warning_text">Προσοχή: Είστε υπεύθυνοι για τη συμμόρφωση με οποιουσδήποτε νόμους, κανονισμούς και κανόνες που ισχύουν για τη χρήση της λειτουργίας καταγραφής κλήσεων και τη χρήση ή διανομή των καταγραφών αυτών.</string>
 </resources>

@@ -53,6 +53,7 @@
   <string name="modify_call_failed_due_to_low_battery">Kan ikke endre samtalen på grunn av lavt batterinivå.</string>
   <string name="video_call_not_allowed_if_tty_enabled">Deaktiver TTY-modus for å tillate videosamtaler</string>
   <string name="onscreenAddParticipant">Legg til deltaker</string>
+  <string name="qti_description_target_deflect">Avled</string>
   <string name="cs_redial_option">Ring på nytt</string>
   <string name="select_account_dialog_title">Velg SIM-kort</string>
   <string name="sub_1">SIM 1</string>

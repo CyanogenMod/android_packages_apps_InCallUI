@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">Vytáčanie (čakanie\u2026)</string>
   <string name="calling_via_waiting_template">Volanie cez <xliff:g id="provider_name">%s</xliff:g> (Čaká sa\u2026)</string>
   <string name="card_title_waiting_call">Podržaný hovor</string>
+  <string name="call_recording_failed_message">Spustenie nahrávania hovoru zlyhalo</string>
+  <string name="call_recording_file_location">Nahrávka hovoru bola uložená do <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Nahrať hovor</string>
+  <string name="onscreenStopCallRecordText">Zastaviť nahrávanie</string>
+  <string name="recording_time_text">Nahrávanie</string>
+  <string name="recording_warning_title">Povoliť nahrávanie hovorov?</string>
+  <string name="recording_warning_text">Upozornenie: Ste zodpovedný za dodržiavanie všetkých zákonov, predpisov a pravidiel, ktoré sa vzťahujú na nahrávanie hovorov a použitie alebo distribúciu týchto nahrávok.</string>
 </resources>

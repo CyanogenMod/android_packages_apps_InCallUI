@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">ಡಯಲ್ ಮಾಡುತ್ತಿದೆ (ನಿರೀಕ್ಷಿಸುತ್ತಿದೆ\u2026)</string>
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ಮೂಲಕ ಕರೆಮಾಡಲಾಗುತ್ತಿದೆ (ನಿರೀಕ್ಷಿಸುತ್ತಿದೆ\u2026)</string>
   <string name="card_title_waiting_call">ಕರೆ ಹಿಡಿದಿಡಲಾಗಿದೆ</string>
+  <string name="call_recording_failed_message">ಕರೆ ರಿಕಾರ್ಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>
+  <string name="call_recording_file_location">ಕರೆ ರಿಕಾರ್ಡಿಂಗನ್ನು ಇಲ್ಲಿ <xliff:g id="filename">%s</xliff:g> ಉಳಿಸಲಾಗಿದೆ</string>
+  <string name="onscreenCallRecordText">ಕರೆ ರಿಕಾರ್ಡ್ ಮಾಡು</string>
+  <string name="onscreenStopCallRecordText">ರಿಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲಿಸು</string>
+  <string name="recording_time_text">ರಿಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ</string>
+  <string name="recording_warning_title">ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸು?</string>
+  <string name="recording_warning_text">ಗಮನಿಸಿ: ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ವೈಶಿಷ್ಟ್ಯವನ್ನು ಬಳಸುವುದು ಮತ್ತು ಉಪಯೋಗಿಸುವ ಅಥವ ಆ ರಿಕಾರ್ಡಿಂಗ್‍ಗಳನ್ನು ವಿತರಿಸುವಂತಹ ಯಾವುದೇ ಕಾನೂನು, ನಿಬಂಧನೆಗಳ ಮತ್ತು ನಿಯಮಗಳ ಅನುಸರಣೆಯ ಜವಾಬ್ದಾರಿ ನಿಮ್ಮದಾಗಿರುತ್ತದೆ.</string>
 </resources>

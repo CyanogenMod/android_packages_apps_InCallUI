@@ -73,6 +73,6 @@
   <string name="session_modify_cause_downgrade_lipsync">Обажданията са даунгрейднати поради неуспешна синхронизация</string>
   <string name="session_modify_cause_downgrade_generic_error">Обажданията са даунгрейднати поради генерирана грешка</string>
   <string name="select_account_dialog_title">Изберете СИМ карта</string>
-  <string name="sub_1">SIM 1</string>
-  <string name="sub_2">SIM 2</string>
+  <string name="sub_1">СИМ 1</string>
+  <string name="sub_2">СИМ 2</string>
 </resources>

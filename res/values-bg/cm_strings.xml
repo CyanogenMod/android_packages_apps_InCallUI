@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Повикване чрез <xliff:g id="provider_name">%s </xliff:g> (Waiting\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="задържан разговор">%1$s</xliff:g> (чрез <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Задържано повикване</string>
+  <string name="call_recording_failed_message">Неуспешен опит за записване на разговора</string>
+  <string name="call_recording_file_location">Записания разговор е запазен в <xliff:g id="filename">%s </xliff:g></string>
+  <string name="onscreenCallRecordText">Запис на разговор</string>
+  <string name="onscreenStopCallRecordText">Спри записването</string>
+  <string name="recording_time_text">Записване</string>
+  <string name="recording_warning_title">Разреши записването на разговори?</string>
+  <string name="recording_warning_text">Забележка: Вие сте отговорни за спазването на всички закони, наредби и правила, които важат за използването на записани разговори или разпространение на тези записи.</string>
 </resources>

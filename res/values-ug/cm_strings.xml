@@ -21,4 +21,8 @@
   <string name="callUnanswered_forwarded">چاقىرىشتا ئىنكاس يوق ھەمدە ئۇلاپ يەتكۈزۈلدى</string>
   <string name="incall_call_type_label_forwarded">ئۇلاپ يەتكۈزۈلگەن چاقىرىش</string>
   <string name="card_title_dialing_waiting">چاقىرىۋاتىدۇ (كۈتۈۋاتىدۇ\u2026)</string>
+  <string name="call_recording_failed_message">چاقىرىشنى خاتىرىلەشنى باشلىيالمىدى</string>
+  <string name="onscreenCallRecordText">چاقىرىشنى خاتىرىلە</string>
+  <string name="onscreenStopCallRecordText">خاتىرىلەشنى توختات</string>
+  <string name="recording_time_text">خاتىرىلەۋاتىدۇ</string>
 </resources>

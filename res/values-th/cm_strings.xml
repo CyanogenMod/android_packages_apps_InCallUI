@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">กำลังโทรผ่าน <xliff:g id="provider_name">%s</xliff:g> (รอ\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (ผ่าน <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">รอสาย</string>
+  <string name="call_recording_failed_message">ไม่สามารถเริ่มบันทึกการสนทนาได้</string>
+  <string name="call_recording_file_location">บันทึกการสนทนาไปยัง  <xliff:g id="filename">%s</xliff:g> แล้ว</string>
+  <string name="onscreenCallRecordText">บันทึกการสนทนา</string>
+  <string name="onscreenStopCallRecordText">หยุดบันทึก</string>
+  <string name="recording_time_text">เวลาบันทึก</string>
+  <string name="recording_warning_title">เปิดบันทึกการโทรหรือไม่</string>
+  <string name="recording_warning_text">ข้อสังเกต: คุณมีภาระรับผิดชอบในการปฏิบัติตามกฎหมาย ระเบียบข้อบังคับ และกฎที่ใช้กับการใช้ฟังก์ชันบันทึกการสนทนาและการใช้หรือการเผยแพร่ของบันทึกเหล่านั้น</string>
 </resources>

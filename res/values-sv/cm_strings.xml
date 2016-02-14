@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Ringer via <xliff:g id="provider_name">%s </xliff:g> (Waiting\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (via <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Samtal väntar</string>
+  <string name="call_recording_failed_message">Det gick inte att starta samtalsinspelning</string>
+  <string name="call_recording_file_location">Sparade samtalsinspelning till <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Spela in samtal</string>
+  <string name="onscreenStopCallRecordText">Stoppa inspelning</string>
+  <string name="recording_time_text">Spelar in</string>
+  <string name="recording_warning_title">Aktivera samtalsinspelning?</string>
+  <string name="recording_warning_text">Observera: Du är ansvarig för att följa alla lagar och regler som gäller för användning av samtalsinspelning samt användning eller distribution av resulterande inspelningar.</string>
 </resources>

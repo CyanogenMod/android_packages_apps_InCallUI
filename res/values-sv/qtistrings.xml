@@ -36,7 +36,7 @@
   <string name="call_substate_connected_suspended_audio">Samtalet är anslutet, men ljud är inaktiverat</string>
   <string name="call_substate_connected_suspended_video">Samtalet är anslutet, men video är inaktiverat</string>
   <string name="call_substate_avp_retry">Detekterar videokvalitet\u2026</string>
-  <string name="video_quality_changed">Videokvaliteten ändrades till <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Videokvaliteten ändrades till <xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <string name="video_quality_high">hög</string>
   <string name="video_quality_medium">medel</string>
   <string name="video_quality_low">låg</string>
@@ -52,9 +52,19 @@
   <string name="modify_call_option_vt_tx">Videosändning</string>
   <string name="modify_call_option_vt_rx">Videomottagning</string>
   <string name="modify_call_option_voice">Endast röst</string>
+  <string name="modify_call_failed_due_to_low_battery">Det gick inte att ändra samtalet på grund av låg batterinivå.</string>
   <string name="video_call_not_allowed_if_tty_enabled">Inaktivera TTY-läge för att tillåta videosamtal</string>
   <string name="onscreenAddParticipant">Lägg till deltagare</string>
+  <string name="qti_description_target_deflect">Avled</string>
+  <string name="qti_description_deflect_error">Nummer har inte ställts in. Ange nummer via IMS inställningar och försök igen.</string>
+  <string name="qti_description_deflect_service_error">Tjänsten samtalsavledning stöds inte.</string>
+  <string name="call_failed_ho_not_feasible">Samtalet avslutades eftersom det inte var möjligt att lämna över från LTE till 3G/2G.</string>
   <string name="cs_redial_option">Återuppringning</string>
+  <string name="cs_redial_msg">Det går inte att ringa ett IMS videosamtal, ring upp igen som ett icke-IMS röstsamtal?</string>
+  <string name="session_modify_cause_upgrade_local_request">Samtalet uppgraderades på användarens begäran</string>
+  <string name="session_modify_cause_upgrade_remote_request">Samtalet uppgraderades på fjärranvändarens begäran</string>
+  <string name="session_modify_cause_downgrade_local_request">Samtalet nergraderades på användarens begäran</string>
+  <string name="session_modify_cause_downgrade_remote_request">Samtalet nergraderades på fjärranvändarens begäran</string>
   <string name="session_modify_cause_downgrade_rtp_timeout">Samtalet nergraderades på grund av överskiden RTP tidsgräns</string>
   <string name="session_modify_cause_downgrade_qos">Samtalet nergraderades på grund av servicekvaliteten</string>
   <string name="session_modify_cause_downgrade_packet_loss">Samtalet nergraderades på grund av förlorade paket</string>

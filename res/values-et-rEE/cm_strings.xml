@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
   <string name="calling_via_waiting_template">Helistan <xliff:g id="provider_name">%s</xliff:g> abil (Ootel\u2026)</string>
   <string name="card_title_waiting_call">Kõne ootel</string>
+  <string name="call_recording_failed_message">Kõne salvestuse alustamine nurjus</string>
+  <string name="call_recording_file_location">Kõne salvestatud kohta <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Salvesta kõne</string>
+  <string name="onscreenStopCallRecordText">Lõpeta salvestus</string>
+  <string name="recording_time_text">Salvestamine</string>
+  <string name="recording_warning_title">Lubada kõne salvestamine?</string>
+  <string name="recording_warning_text">Teade: Teie olete kohustatud järgima seaduseid, määruseid ja reegleid, mis käivad kõnede salvestamise funktsiooni ja nende salvestiste jagamise kohta.</string>
 </resources>

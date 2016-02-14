@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">नंबर मिला रहे हैं (प्रतीक्षा कर रहे हैं\u2026)</string>
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> के ज़रिए कॉल कर रहे हैं (प्रतीक्षारत\u2026)</string>
   <string name="card_title_waiting_call">कॉल होल्ड पर है</string>
+  <string name="call_recording_failed_message">कॉल रिकॉर्डिंग शुरू नहीं कर सके</string>
+  <string name="call_recording_file_location">कॉल रिकॉर्डिंग को <xliff:g id="filename">%s</xliff:g> में सहेज दिया है</string>
+  <string name="onscreenCallRecordText">कॉल को रिकॉर्ड करें</string>
+  <string name="onscreenStopCallRecordText">रिकॉर्डिंग बंद करें</string>
+  <string name="recording_time_text">रिकॉर्ड कर रहे हैं</string>
+  <string name="recording_warning_title">कॉल रिकॉर्डिंग को सक्षम करें?</string>
+  <string name="recording_warning_text">सूचना: कॉल रिकॉर्डिंग सुविधा और रिकॉर्डिंगों के उपयोग या वितरण से संबंधित लागू होने वाले क़ानूनों, विनियमों और नियमों का पालन करने की ज़िम्मेदारी आपकी है।</string>
 </resources>

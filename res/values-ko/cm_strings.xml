@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g>을(를) 통하여 전화 중 (기다리는 중\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (제공자: <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">대기 중인 전화</string>
+  <string name="call_recording_failed_message">통화 녹음을 시작하지 못했습니다</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g>에 통화 녹음이 저장됨</string>
+  <string name="onscreenCallRecordText">통화 녹음</string>
+  <string name="onscreenStopCallRecordText">녹음 중단</string>
+  <string name="recording_time_text">녹음 중</string>
+  <string name="recording_warning_title">통화 녹음을 활성화 할까요?</string>
+  <string name="recording_warning_text">주의 사항: 통화 녹음 기능의 사용과 녹음된 파일의 사용 및 배포에 적용되는 모든 법, 규정 및 규칙을 준수해야 합니다.</string>
 </resources>

@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Hívás ezen: <xliff:g id="provider_name">%s</xliff:g> (Várakozás\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (ezen: <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Hívás tartva</string>
+  <string name="call_recording_failed_message">Nem sikerült a felvételt elindítani</string>
+  <string name="call_recording_file_location">Hívások mentése ide: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Hívás rögzítése</string>
+  <string name="onscreenStopCallRecordText">Felvétel leállítása</string>
+  <string name="recording_time_text">Felvétel</string>
+  <string name="recording_warning_title">Hívás rögzítésének engedélyezése?</string>
+  <string name="recording_warning_text">Figyelmeztetés: A hívás rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
 </resources>

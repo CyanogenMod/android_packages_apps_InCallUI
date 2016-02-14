@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ile aranıyor (Bekleniyor\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (<xliff:g id="provider_name">%2$s</xliff:g> aracılığıyla)</string>
   <string name="card_title_waiting_call">Arama bekletiliyor</string>
+  <string name="call_recording_failed_message">Arama ses kaydı başlatılamadı</string>
+  <string name="call_recording_file_location">Arama kaydı <xliff:g id="filename">%s</xliff:g> konumuna kaydedildi</string>
+  <string name="onscreenCallRecordText">Aramayı kaydet</string>
+  <string name="onscreenStopCallRecordText">Kaydı durdur</string>
+  <string name="recording_time_text">Kayıt ediliyor</string>
+  <string name="recording_warning_title">Arama kaydı etkinleştirilsin mi?</string>
+  <string name="recording_warning_text">Dikkat: Arama kaydı işlevini kullanırken veya bu kayıtları dağıtırken ilgili yasa, düzenleme ve kurallara karşı sorumlusunuz.</string>
 </resources>

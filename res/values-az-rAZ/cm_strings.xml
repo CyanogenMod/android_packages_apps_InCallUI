@@ -23,4 +23,11 @@
   <string name="card_title_dialing_waiting">Yığılır (gözləyir\u2026)</string>
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ilə zəng edilir (Gözləyin\u2026)</string>
   <string name="card_title_waiting_call">Zəng gözlədilir</string>
+  <string name="call_recording_failed_message">Zəng səsyazması başladılmadı</string>
+  <string name="call_recording_file_location">Zəng səsyazmasının saxlanıldığı yer: <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Zəngin səsini yaz</string>
+  <string name="onscreenStopCallRecordText">Səsyazmanı dayandır</string>
+  <string name="recording_time_text">Səs yazılır</string>
+  <string name="recording_warning_title">Zəng səsyazma fəallaşdırılsın?</string>
+  <string name="recording_warning_text">Diqqət: Zəng səsyazma funksiyasını istifadə edərkən və bu səsyazmaları paylaşarkən əlaqəli qanun,  nizamnamə və qaydalara uyğun olaraq məsuliyyət daşıyırsınız.</string>
 </resources>

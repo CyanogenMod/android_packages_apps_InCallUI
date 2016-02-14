@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Виклик за допомогою <xliff:g id="provider_name">%s </xliff:g> (Очікування\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (користуючись <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Дзвінок утримується</string>
+  <string name="call_recording_failed_message">Не вдалося почати запис виклика</string>
+  <string name="call_recording_file_location">Запис виклику збережено до <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Записати виклик</string>
+  <string name="onscreenStopCallRecordText">Припинити запис</string>
+  <string name="recording_time_text">Йде запис</string>
+  <string name="recording_warning_title">Увімкнути запис дзвінків?</string>
+  <string name="recording_warning_text">Повідомлення: Ви відповідальні за дотримання будь-яки законів, правил та обмежень, що стосуються використання функції запису дзвінків і використання або розповсюдження цих записів.</string>
 </resources>

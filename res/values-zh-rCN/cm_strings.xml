@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">正在经由 <xliff:g id="provider_name">%s</xliff:g> 进行呼叫 (等待中\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> （通过： <xliff:g id="provider_name">%2$s</xliff:g>）</string>
   <string name="card_title_waiting_call">呼叫保持</string>
+  <string name="call_recording_failed_message">启动通话录音失败</string>
+  <string name="call_recording_file_location">已保存通话录音至  <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">通话录音</string>
+  <string name="onscreenStopCallRecordText">停止录音</string>
+  <string name="recording_time_text">正在录音</string>
+  <string name="recording_warning_title">启用通话录音吗？</string>
+  <string name="recording_warning_text">注意：您有责任遵守任何有关通话录音，以及对于录音使用、分发相关的法律、法规和规定。</string>
 </resources>

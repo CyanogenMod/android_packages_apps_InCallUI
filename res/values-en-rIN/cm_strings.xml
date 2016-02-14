@@ -24,4 +24,11 @@
   <string name="calling_via_waiting_template">Calling via <xliff:g id="provider_name">%s</xliff:g> (Waiting\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (via <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Call on hold</string>
+  <string name="call_recording_failed_message">Failed to start call recording</string>
+  <string name="call_recording_file_location">Saved call recording to <xliff:g id="filename">%s</xliff:g></string>
+  <string name="onscreenCallRecordText">Record call</string>
+  <string name="onscreenStopCallRecordText">Stop recording</string>
+  <string name="recording_time_text">Recording</string>
+  <string name="recording_warning_title">Enable call recording?</string>
+  <string name="recording_warning_text">Notice: You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
 </resources>

@@ -209,6 +209,7 @@ public class CallButtonFragment
     public void onResume() {
         if (getPresenter() != null) {
             getPresenter().refreshMuteState();
+            getPresenter().refreshDeepLinkState();
         }
         super.onResume();
 
@@ -222,6 +223,7 @@ public class CallButtonFragment
     }
 
     public Drawable configureDeepLinkDrawable(Drawable drawable) {
+        drawable.mutate();
         drawable.setTintList(getResources().getColorStateList(R.color.selectable_icon_tint));
         drawable.setAutoMirrored(false);
         return drawable;
@@ -286,7 +288,7 @@ public class CallButtonFragment
                 getPresenter().transferCallClicked();
                 break;
             case R.id.takeNoteButton:
-                getPresenter().takeNote();
+                getPresenter().handleNoteClick();
                 break;
             default:
                 Log.wtf(this, "onClick: unexpected");

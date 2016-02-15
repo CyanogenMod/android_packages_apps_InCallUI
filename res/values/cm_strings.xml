@@ -59,4 +59,6 @@
     <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> could not be reached</string>
     <string name="caller_info_no_result">No <xliff:g id="provider">%s</xliff:g> match found</string>
     <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> setup incomplete</string>
+
+    <string name="call_button_contact_unknown">Unknown</string>
 </resources>

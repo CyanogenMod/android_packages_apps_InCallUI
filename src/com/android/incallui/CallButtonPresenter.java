@@ -84,7 +84,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     private static final String KEY_PREVIOUS_MUTE_STATE = "incall_key_previous_mute_state";
     private static final String RECORDING_WARNING_PRESENTED = "recording_warning_presented";
     private static final boolean DEBUG = false;
-    private static final String CALL_DISPLAY_NAME_UNKNOWN = "Unkown";
     private Call mCall;
     private boolean mAutomaticallyMuted = false;
     private boolean mPreviousMuteState = false;
@@ -692,6 +691,10 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         mAutomaticallyMuted = false;
     }
 
+    protected void refreshDeepLinkState() {
+        getPreferredLinks(mDeepLinkCallback);
+    }
+
     private void contactUpdated() {
         if (DEBUG) Log.i(this, "contactUpdated");
         if (getUi() != null && mCall != null) {
@@ -778,16 +781,37 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
     /**
      * Take a note triggered by the CallButtonFragment note button.
      */
-    public void takeNote() {
-        if(mCall != null && mDeepLink != null) {
-            CallDeepLinkContent content = new CallDeepLinkContent(mDeepLink);
-            content.setName(
-                    mCall.getCnapName() == null ? CALL_DISPLAY_NAME_UNKNOWN : mCall.getCnapName());
-            content.setNumber(mCall.getNumber());
-            content.setUri(DeepLinkIntegrationManager.generateCallUri(mCall.getNumber(),
-                    mCall.getTelecommCall().getDetails().getCreateTimeMillis()));
-            getUi().getContext().startActivity(content.build());
+    public void handleNoteClick() {
+        if(mCall != null) {
+            if(mDeepLink.getAlreadyHasContent()) {
+                getUi().getContext().startActivity(mDeepLink.createViewIntent());
+            } else {
+                CallDeepLinkContent content = new CallDeepLinkContent(mDeepLink);
+                content.setName(getNameForCall());
+                content.setNumber(mCall.getNumber());
+                content.setUri(DeepLinkIntegrationManager.generateCallUri(mCall.getNumber(),
+                        mCall.getTelecommCall().getDetails().getCreateTimeMillis()));
+                getUi().getContext().startActivity(content.build());
+            }
         }
+    }
+
+    /**
+     * Gets the name to display for the call.
+     */
+    private String getNameForCall() {
+        String toRet = getUi().getContext().getResources().getString(R.string
+                .call_button_contact_unknown);
+        final ContactInfoCache cache = ContactInfoCache.getInstance(getUi().getContext());
+        if (cache != null && mCall != null) {
+            ContactCacheEntry contactInfo = cache.getInfo(mCall.getId());
+            if(contactInfo != null) {
+                if (!TextUtils.isEmpty(contactInfo.name)) {
+                    toRet = contactInfo.name;
+                }
+            }
+        }
+        return toRet;
     }
 
     /**

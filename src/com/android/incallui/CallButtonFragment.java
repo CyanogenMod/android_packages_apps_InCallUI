@@ -456,9 +456,16 @@ public class CallButtonFragment
     @Override
     public void setCallRecordingState(boolean isRecording) {
         mCallRecordButton.setSelected(isRecording);
-        mCallRecordButton.setContentDescription(getContext().getString(isRecording
+        String description = getContext().getString(isRecording
                 ? R.string.onscreenStopCallRecordText
-                : R.string.onscreenCallRecordText));
+                : R.string.onscreenCallRecordText);
+        mCallRecordButton.setContentDescription(description);
+        if (mOverflowPopup != null) {
+            MenuItem item = mOverflowPopup.getMenu().findItem(BUTTON_RECORD_CALL);
+            if (item != null) {
+                item.setTitle(description);
+            }
+        }
     }
 
     private void addToOverflowMenu(int id, View button, PopupMenu menu) {

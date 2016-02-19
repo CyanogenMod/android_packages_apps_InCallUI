@@ -21,7 +21,7 @@
   <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
   <string name="incall_call_type_label_forwarded">Переадресованный вызов</string>
   <string name="card_title_dialing_waiting">Вызов (ожидание\u2026)</string>
-  <string name="calling_via_waiting_template">Вызов через <xliff:g id="provider_name">%s</xliff:g> (Ожидание\u2026)</string>
+  <string name="calling_via_waiting_template">Вызов через <xliff:g id="provider_name">%s</xliff:g> (ожидание\u2026)</string>
   <string name="card_title_waiting_call">Вызов на удержании</string>
   <string name="card_title_waiting_via_template">Вызов на удержании (через <xliff:g id="provider_name">%s</xliff:g>)</string>
   <string name="onscreenBlacklistText">Чёрный список</string>
@@ -31,27 +31,27 @@
   <string name="blacklist_dialog_message">Вызовы с <xliff:g id="number">%s</xliff:g> будут автоматически отклоняться</string>
   <string name="card_title_video_call_paused">Видеовызов (приостановлен)</string>
   <string name="onscreenAddParticipant">Добавить участника</string>
-  <string name="modify_call_option_title">Выбрать тип звонка</string>
+  <string name="modify_call_option_title">Выбрать тип вызова</string>
   <string name="modify_call_option_vt">Видеовызов</string>
   <string name="modify_call_option_vt_tx">Передача видео</string>
   <string name="modify_call_option_vt_rx">Приём видео</string>
   <string name="modify_call_option_voice">Только передача голоса</string>
-  <string name="video_call_not_allowed_if_tty_enabled">Отключите режим TTY для выполнения видеозвонков.</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Отключите режим TTY для выполнения видеозвонков</string>
   <string name="player_started">Воспроизведение начато</string>
   <string name="player_stopped">Воспроизведение остановлено</string>
   <string name="camera_not_ready">Камера не готова</string>
   <string name="camera_ready">Камера готова</string>
-  <string name="unknown_call_session_event">Неизвестное событие сеанса звонка</string>
+  <string name="unknown_call_session_event">Неизвестное событие сессии вызова</string>
   <string name="onscreenCallRecordText">Начать или остановить запись</string>
   <string name="onscreenAddToBlacklistText">Добавить абонента в чёрный список</string>
   <string name="menu_start_record">Записать вызов</string>
   <string name="menu_stop_record">Остановить запись</string>
   <string name="recording_time_text">Идет запись</string>
   <string name="recording_warning_title">Включить запись телефонных разговоров?</string>
-  <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и последующего распространения этих записей.</string>
+  <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и их последующего распространения.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
-  <string name="call_substate_call_resumed">Звонок возобновлен</string>
+  <string name="call_substate_call_resumed">Вызов возобновлен</string>
   <string name="call_substate_connected_suspended_audio">Вызов подключен, но аудио остановлено</string>
   <string name="call_substate_connected_suspended_video">Вызов подключен, но видео приостановлено</string>
   <string name="call_substate_avp_retry">Определение качества видео\u2026</string>

@@ -24,10 +24,10 @@
   <string name="calling_via_waiting_template">Повикване чрез <xliff:g id="provider_name">%s </xliff:g> (Waiting\u2026)</string>
   <string name="card_title_waiting_call">Задържано повикване</string>
   <string name="card_title_waiting_via_template">Обаждане на изчакване (от <xliff:g id="provider_name">%s</xliff:g>)</string>
-  <string name="onscreenBlacklistText">Списък на блокираните абонати</string>
+  <string name="onscreenBlacklistText">Списък на блокираните контакти</string>
   <string name="call_recording_failed_message">Неуспешен опит за записване на разговора</string>
   <string name="call_recording_file_location">Записания разговор е запазен в <xliff:g id="filename">%s </xliff:g></string>
-  <string name="blacklist_dialog_title">Добавяне към блокираните</string>
+  <string name="blacklist_dialog_title">Добавяне към списъка с блокираните контакти</string>
   <string name="blacklist_dialog_message">Бъдещите обаждания от <xliff:g id="number">%s</xliff:g> ще бъдат блокирани</string>
   <string name="card_title_video_call_paused">Видео повикване (пауза)</string>
   <string name="onscreenAddParticipant">Добавяне на участник</string>
@@ -43,14 +43,14 @@
   <string name="camera_ready">Камерата е готова</string>
   <string name="unknown_call_session_event">Събитие за неизвестно повикване</string>
   <string name="onscreenCallRecordText">Стартиране и спиране запис на обаждане</string>
-  <string name="onscreenAddToBlacklistText">Добавяне към списъка на блокираните абонати</string>
+  <string name="onscreenAddToBlacklistText">Добавяне към списъка на блокираните контакти</string>
   <string name="menu_start_record">Запис на разговор</string>
   <string name="menu_stop_record">Спри записването</string>
   <string name="recording_time_text">Записване</string>
   <string name="recording_warning_title">Разреши записването на разговори?</string>
   <string name="recording_warning_text">Забележка: Вие сте отговорни за спазването на всички закони, наредби и правила, които важат за използването на записани разговори или разпространение на тези записи.</string>
   <string name="sub_1">SIM 1</string>
-  <string name="sub_2">СИМ 2</string>
+  <string name="sub_2">СИМ карта 2</string>
   <string name="call_substate_call_resumed">Разговорът е възобновен</string>
   <string name="call_substate_connected_suspended_audio">Повикването е свързано, но аудио е спряно</string>
   <string name="call_substate_connected_suspended_video">Повикването е свързано, но видеото е спряно</string>

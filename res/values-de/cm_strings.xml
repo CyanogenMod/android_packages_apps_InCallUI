@@ -24,11 +24,11 @@
   <string name="calling_via_waiting_template">Anruf über <xliff:g id="provider_name">%s</xliff:g> (Anklopfen\u2026)</string>
   <string name="card_title_waiting_call">Anruf wird gehalten</string>
   <string name="card_title_waiting_via_template">Anruf wird gehalten (via <xliff:g id="provider_name">%s</xliff:g>)</string>
-  <string name="onscreenBlacklistText">Liste der gesperrten Anrufer</string>
+  <string name="onscreenBlacklistText">Anrufer-Sperrliste</string>
   <string name="call_recording_failed_message">Starten der Anrufaufzeichnung fehlgeschlagen</string>
-  <string name="call_recording_file_location">Anrufaufnahme auf <xliff:g id="filename">%s</xliff:g>  gespeichert</string>
-  <string name="blacklist_dialog_title">Zur Sperrliste hinzufügen</string>
-  <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden abgewiesen.</string>
+  <string name="call_recording_file_location">Anrufaufzeichnung in <xliff:g id="filename">%s</xliff:g> gespeichert</string>
+  <string name="blacklist_dialog_title">Zur Anrufer-Sperrliste hinzufügen</string>
+  <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden blockiert.</string>
   <string name="card_title_video_call_paused">Videoanruf (pausiert)</string>
   <string name="onscreenAddParticipant">Teilnehmer hinzufügen</string>
   <string name="modify_call_option_title">Anrufart auswählen</string>
@@ -36,7 +36,7 @@
   <string name="modify_call_option_vt_tx">Video übertragen</string>
   <string name="modify_call_option_vt_rx">Video empfangen</string>
   <string name="modify_call_option_voice">Nur Sprache</string>
-  <string name="video_call_not_allowed_if_tty_enabled">Deaktivieren Sie den TTY-Modus, um Videoanrufe zu erlauben</string>
+  <string name="video_call_not_allowed_if_tty_enabled">Deaktivieren Sie den TTY-Modus, um Videoanrufe zu erlauben.</string>
   <string name="player_started">Videospieler gestartet</string>
   <string name="player_stopped">Videospieler angehalten</string>
   <string name="camera_not_ready">Kamera ist nicht bereit</string>
@@ -44,18 +44,18 @@
   <string name="unknown_call_session_event">Unbekanntes Anrufereignis</string>
   <string name="onscreenCallRecordText">Anrufaufzeichnung starten und stoppen</string>
   <string name="onscreenAddToBlacklistText">Anrufer zur Sperrliste hinzufügen</string>
-  <string name="menu_start_record">Anruf aufnehmen</string>
+  <string name="menu_start_record">Anruf aufzeichnen</string>
   <string name="menu_stop_record">Aufnahme beenden</string>
-  <string name="recording_time_text">Aufnahme</string>
+  <string name="recording_time_text">Aufzeichnung</string>
   <string name="recording_warning_title">Anrufaufzeichnung aktivieren?</string>
   <string name="recording_warning_text">Hinweis: Sie sind dafür verantwortlich, dass alle Gesetze, Verordnungen und Vorschriften für die Verwendung der Anrufaufzeichnung und die Verwendung oder Verteilung dieser Aufnahmen eingehalten werden.</string>
   <string name="sub_1">SIM 1</string>
   <string name="sub_2">SIM 2</string>
   <string name="call_substate_call_resumed">Anruf fortgesetzt</string>
-  <string name="call_substate_connected_suspended_audio">Gesprächspartner ist verbunden, aber der Ton wurde unterbrochen</string>
+  <string name="call_substate_connected_suspended_audio">Gesprächspartner ist verbunden, aber die Tonübertragung wurde unterbrochen</string>
   <string name="call_substate_connected_suspended_video">Gesprächspartner ist verbunden, aber die Bildübertragung wurde unterbrochen</string>
   <string name="call_substate_avp_retry">Videoqualität wird ermittelt\u2026</string>
-  <string name="video_quality_changed">Videoqualität zu <xliff:g id="quality" example="high">%1$s</xliff:g> geändert</string>
+  <string name="video_quality_changed">Videoqualität in <xliff:g id="quality" example="high">%1$s</xliff:g> geändert</string>
   <string name="video_quality_high">hoch</string>
   <string name="video_quality_medium">mittel</string>
   <string name="video_quality_low">niedrig</string>

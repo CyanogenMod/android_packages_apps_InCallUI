@@ -1356,12 +1356,21 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         updateFabPosition();
     }
 
-    private void updateFabPosition() {
+    public void updateFabPosition() {
+        updateFabPosition(0);
+    }
+
+    public void updateFabPosition(int yOffset) {
         int offsetY = 0;
         if (!mIsDialpadShowing) {
             offsetY = mFloatingActionButtonVerticalOffset;
             if (mSecondaryCallInfo.isShown()) {
                 offsetY -= mSecondaryCallInfo.getHeight();
+            } else if (yOffset != 0) {
+                // This needs to not happen if/when we move to
+                // android.support.design.widget.FloatingActionButton instead of rolling our
+                // own implementation
+                offsetY -= yOffset;
             }
         }
 

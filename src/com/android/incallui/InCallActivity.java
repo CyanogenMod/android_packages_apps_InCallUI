@@ -1048,6 +1048,27 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
                                         " intent", e);
                             }
                         }
+                    })
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            if (DEBUG) {
+                                Log.d(TAG, "Snackbar.Callback.onDismissed");
+                            }
+                            if (mCallCardFragment != null) {
+                                mCallCardFragment.updateFabPosition();
+                            }
+                        }
+
+                        @Override
+                        public void onShown(Snackbar snackbar) {
+                            if (DEBUG) {
+                                Log.d(TAG, "Snackbar.Callback.onShown");
+                            }
+                            if (mCallCardFragment != null) {
+                                mCallCardFragment.updateFabPosition(snackbar.getView().getHeight());
+                            }
+                        }
                     });
         }
         mInviteSnackbar.show();

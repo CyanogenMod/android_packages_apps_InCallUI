@@ -32,6 +32,7 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="call_substate_call_resumed">Reluat</string>
+  <string name="call_substate_connected_suspended_audio">Apelul este conectat, dar redarea audio este suspendată</string>
   <string name="call_substate_avp_retry">Detectarea calității semnalului video\u2026</string>
   <string name="video_quality_high">ridicată</string>
   <string name="video_quality_medium">medie</string>
@@ -45,8 +46,10 @@
   <string name="modify_call_option_voice">Doar voce</string>
   <string name="modify_call_failed_due_to_low_battery">Nu s-a reușit modificarea apelului din cauza bateriei descărcate.</string>
   <string name="onscreenAddParticipant">Adaugă participant</string>
+  <string name="qti_description_deflect_error">Număr nesetat. Oferă numărul prin setări IMS și reîncercă.</string>
   <string name="call_failed_ho_not_feasible">Apelul a fost încheiat deoarece comutarea din 4G la 3G/2G nu a fost posibilă.</string>
   <string name="cs_redial_option">Reapelare</string>
+  <string name="cs_redial_msg">Imposibil de realizat apel video IMS, reapelează ca apel de voce non-IMS?</string>
   <string name="session_modify_cause_upgrade_local_request">Apel îmbunătățit la cererea utilizatorului</string>
   <string name="session_modify_cause_upgrade_remote_request">Apel îmbunătățit la cererea utilizatorului la distanță</string>
   <string name="session_modify_cause_downgrade_local_request">Apel retrogradat la cererea utilizatorului</string>
@@ -56,6 +59,7 @@
   <string name="session_modify_cause_downgrade_packet_loss">Apel retrogradat din cauza pierderi de pachete</string>
   <string name="session_modify_cause_downgrade_low_thrput">Apel retrogradat din cauza traficului redus</string>
   <string name="session_modify_cause_downgrade_thermal_mitigation">Apel retrogradat din cauza protecției la temperatură</string>
+  <string name="session_modify_cause_downgrade_lipsync">Apel retrogradat din cauza desincronizării</string>
   <string name="session_modify_cause_downgrade_generic_error">Apel retrogradat din cauza unei erori generice</string>
   <string name="select_account_dialog_title">Selectați cartela SIM</string>
   <string name="sub_1">SIM 1</string>

@@ -25,10 +25,10 @@
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (über <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Anruf wird gehalten</string>
   <string name="call_recording_failed_message">Starten der Anrufaufzeichnung fehlgeschlagen</string>
-  <string name="call_recording_file_location">Anrufaufnahme auf <xliff:g id="filename">%s</xliff:g>  gespeichert</string>
-  <string name="onscreenCallRecordText">Anruf aufnehmen</string>
+  <string name="call_recording_file_location">Anrufaufzeichnung in <xliff:g id="filename">%s</xliff:g> gespeichert</string>
+  <string name="onscreenCallRecordText">Anruf aufzeichnen</string>
   <string name="onscreenStopCallRecordText">Aufnahme beenden</string>
-  <string name="recording_time_text">Aufnahme</string>
+  <string name="recording_time_text">Aufzeichnung</string>
   <string name="recording_warning_title">Anrufaufzeichnung aktivieren?</string>
   <string name="recording_warning_text">Hinweis: Sie sind dafür verantwortlich, dass alle Gesetze, Verordnungen und Vorschriften für die Verwendung der Anrufaufzeichnung und die Verwendung oder Verteilung dieser Aufnahmen eingehalten werden.</string>
 </resources>

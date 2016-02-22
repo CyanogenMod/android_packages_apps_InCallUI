@@ -36,6 +36,7 @@
   <string name="call_substate_connected_suspended_audio">Gesprek is verbonden, maar audio is onderbroken</string>
   <string name="call_substate_connected_suspended_video">Gesprek is verbonden, maar video is onderbroken</string>
   <string name="call_substate_avp_retry">Videokwaliteit detecteren\u2026</string>
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Videokwaliteit gewijzigd naar <xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <string name="video_quality_high">hoog</string>
   <string name="video_quality_medium">gemiddeld</string>
   <string name="video_quality_low">laag</string>

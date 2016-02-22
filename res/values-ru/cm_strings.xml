@@ -21,7 +21,7 @@
   <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
   <string name="incall_call_type_label_forwarded">Переадресованный вызов</string>
   <string name="card_title_dialing_waiting">Вызов (ожидание\u2026)</string>
-  <string name="calling_via_waiting_template">Вызов через <xliff:g id="provider_name">%s</xliff:g> (Ожидание\u2026)</string>
+  <string name="calling_via_waiting_template">Вызов через <xliff:g id="provider_name">%s</xliff:g> (ожидание\u2026)</string>
   <string name="card_title_active_via_template"><xliff:g id="status" example="Удержание вызова">%1$s</xliff:g> (через <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <string name="card_title_waiting_call">Вызов на удержании</string>
   <string name="call_recording_failed_message">Не удалось начать запись разговора</string>
@@ -30,5 +30,5 @@
   <string name="onscreenStopCallRecordText">Остановить запись</string>
   <string name="recording_time_text">Идет запись</string>
   <string name="recording_warning_title">Включить запись телефонных разговоров?</string>
-  <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и последующего распространения этих записей.</string>
+  <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и их последующего распространения.</string>
 </resources>

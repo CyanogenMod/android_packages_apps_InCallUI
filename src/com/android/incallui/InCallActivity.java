@@ -38,7 +38,6 @@ import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Trace;
-import android.support.design.widget.Snackbar;
 import android.telecom.DisconnectCause;
 import android.telecom.PhoneAccountHandle;
 import android.text.TextUtils;
@@ -62,6 +61,8 @@ import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.widget.SelectPhoneAccountDialogFragment;
 import com.android.contacts.common.widget.SelectPhoneAccountDialogFragment.SelectPhoneAccountListener;
 import com.android.incallui.Call.State;
+
+import com.cyngn.uicommon.view.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;

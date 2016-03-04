@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: 通話サブ状態:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">再開しました</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">接続されましたが、音声は切断されています</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">接続されましたが、ビデオは切断されています</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">ビデオの画質を検出中\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: ビデオの画質を<xliff:g id="quality" example="high">%2$s</xliff:g>に変更しました</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">高画質</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">中画質</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">低画質</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">不明</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">プレイヤーが開始しました</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">プレイヤーが停止しました</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">カメラが準備できていません</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">カメラが準備できています</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">不明な通話セッションイベント</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">データ使用量: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">通話の種類を選択</string>
   <string name="modify_call_option_vt">ビデオ通話</string>
   <string name="modify_call_option_vt_tx">ビデオの送信</string>
   <string name="modify_call_option_vt_rx">ビデオの受信</string>
   <string name="modify_call_option_voice">音声のみ</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">電池の残量が少なくなっているため、通話を変更できませんでした。</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">ビデオ通話を許可するにはTTYモードを無効にしてください。</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">参加者を追加</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">転送</string>
   <string name="qti_description_deflect_error">番号が設定されていません。IMSの設定から番号を入力してから再試行してください。</string>
   <string name="qti_description_deflect_service_error">着信転送サービスはサポートされていません。</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">LTEから3G/2Gへのハンドオーバーが行えなかったため、通話を終了しました。</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">リダイヤル</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">IMSビデオ通話を発信できませんでした。非IMS音声通話としてリダイヤルしますか？</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">ユーザーのリクエストで通話はアップグレードされました</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">リモートのユーザーのリクエストで通話はアップグレードされました</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">ユーザーのリクエストで通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">リモートのユーザーのリクエストで通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">RTPのタイムアウトによって通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">サービス品質のために通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">パケットロスによって通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">処理能力が低いために通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">温度を低下させるために通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">音声同期のために通話はダウングレードされました</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">一般的なエラーが原因で通話はダウングレードされました</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">SIMカードを選択</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

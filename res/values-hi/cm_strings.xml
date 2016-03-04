@@ -17,11 +17,20 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">इस पक्ष ने सभी आवक कॉलों को अवरुद्ध किया है।</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">कॉल अनुत्तरित और अग्रेषित</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">अग्रेषित कॉल</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">नंबर मिला रहे हैं (प्रतीक्षा कर रहे हैं\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> के ज़रिए कॉल कर रहे हैं (प्रतीक्षारत\u2026)</string>
+  <!-- In-call screen: status label template for an active call that's routed via a specific
+         provider (e.g. MSIM) -->
+  <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">कॉल होल्ड पर है</string>
   <string name="call_recording_failed_message">कॉल रिकॉर्डिंग शुरू नहीं कर सके</string>
   <string name="call_recording_file_location">कॉल रिकॉर्डिंग को <xliff:g id="filename">%s</xliff:g> में सहेज दिया है</string>

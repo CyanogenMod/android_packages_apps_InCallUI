@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Стан выкліку:\u000a<xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Выклік адноўлены</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Падлучана, але гук спынены</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Падлучана, але відэа спынена</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Вызначэнне якасці відэа\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>Якасць відэа зменена на <xliff:g id="quality" example="high">%2$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">высокае</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">сярэдняе</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">нізкае</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">невядомае</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Прайграванне пачата</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Прайграванне спынена</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Камера не гатова</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Камера гатова</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Невядомая падзея сеанса званка</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">Выкарыстанне дадзеных: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Тып выкліку</string>
   <string name="modify_call_option_vt">Відэавыклік</string>
   <string name="modify_call_option_vt_tx">Перадача відэа</string>
   <string name="modify_call_option_vt_rx">Прыём відэа</string>
   <string name="modify_call_option_voice">Толькі перадача голасу</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">Не атрымалася змяніць выклік праз нізкі ўзровень зараду батарэі.</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Калі ласка, адлучыце рэжым TTY, каб дазволіць відэавыклікі.</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Дадаць удзельніка</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">Адхіліць</string>
   <string name="qti_description_deflect_error">Нумар не зададзены. Азначце нумар у наладах IMS і паўтарыце спробу.</string>
   <string name="qti_description_deflect_service_error">Адхіленне выкліку службай не падтрымваецца.</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">Выклік завершаны па прычыне немагчымасці пераходу ад LTE да 2G/3G.</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">Паўтарыць выклік</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">Не атрымоўваецца выканаць IMS-відэавыклік, зрабіць выклік без відэасувязі?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">Выклік абноўлены на запыт карыстальніка</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">Выклік абноўлены паводле запыту аддаленага карыстальніка</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">Выклік зніжаны паводле запыту карыстальніка</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">Выклік зніжаны паводле запыту аддаленага карыстальніка</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">Выклік зніжаны з-за таймаўту RTP</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">Выклік зніжаны з-за якасці абслугоўвання</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">Выклік зніжаны з-за страты пакетаў</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">Выклік зніжаны з-за нізкай прапускной здольнасці</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">Выклік зніжаны з-за перагрэву прылады</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">Выклік зніжаны з-за рассінхранізацыі</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">Выклік зніжаны з-за агульнай памылкі</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Абяры SIM-картку</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

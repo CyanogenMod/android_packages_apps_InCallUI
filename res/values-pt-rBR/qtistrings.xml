@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Sub-estado da chamada:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Chamada retomada</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Chamada está conectada, mas o áudio está suspenso</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Chamada está conectada, mas o vídeo está suspenso</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Detectando a qualidade de vídeo\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Qualidade de vídeo alterada para <xliff:g id="quality" example="high">%2$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">alta</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">média</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">baixa</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">desconhecida</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Reprodutor iniciado</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Reprodutor parado</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">A câmera não está pronta</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">A câmera está pronta</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Evento de sessão de chamada desconhecido</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">Utilização de dados: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Selecione o tipo de chamada</string>
   <string name="modify_call_option_vt">Vídeo chamada</string>
   <string name="modify_call_option_vt_tx">Transmissão de vídeo</string>
   <string name="modify_call_option_vt_rx">Recepção de vídeo</string>
   <string name="modify_call_option_voice">Somente voz</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">Falha ao modificar chamada devido a bateria fraca.</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Por favor, desative o modo TTY para permitir chamadas de vídeo</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Adicionar participante</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">Desviar</string>
   <string name="qti_description_deflect_error">Número não definido. Forneça o número através das configurações de IMS e tente novamente.</string>
   <string name="qti_description_deflect_service_error">Serviço de desvio de chamada não é suportado.</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">A chamada foi encerrada porque a mudança de LTE para 3G/2G não foi possível.</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">Rediscar</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">Incapaz de fazer uma chamada de vídeo IMS, rediscar como uma chamada de voz não-IMS?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">Chamada atualizada a pedido do usuário</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">Atualizado a pedido do usuário remoto de chamada</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">Chamada rebaixada a pedido do usuário</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">Chamada rebaixada a pedido do usuário remoto</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">Chamada rebaixada devido ao tempo limite da RTP</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">Chamada rebaixada devido a qualidade do serviço</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">Chamada rebaixada devido a perda de pacotes</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">Chamada rebaixada devido à baixa taxa de transferência</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">Chamada rebaixada devido à atenuação térmica</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">Chamada rebaixada devido para acompanhar a sincronização labial</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">Chamada rebaixada devido a um erro genérico</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Selecione o cartão SIM</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

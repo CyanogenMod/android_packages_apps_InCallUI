@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <string name="call_substate_label"><xliff:g id="id">%1$s </xliff:g>: Состояние вызова: \u000a <xliff:g id="state" example="Resumed">%2$s </xliff:g></string>
-  <string name="call_substate_call_resumed">Звонок возобновлен</string>
-  <string name="call_substate_connected_suspended_audio">Подключено, но аудио приостановлено</string>
+  <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Состояние вызова: \u000a <xliff:g id="state" example="Resumed">%2$s </xliff:g></string>
+  <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">Возобновлен</string>
+  <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">Вызов подключен, но аудио остановлено</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Подключено, но видео приостановлено</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Определение качества видео\u2026</string>
-  <string name="video_quality_changed">Качество видео изменено на «<xliff:g id="quality" example="high">%1$s</xliff:g>»</string>
+  <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Качество видео изменено на «<xliff:g id="quality" example="high">%2$s</xliff:g>»</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">высокое</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">среднее</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">низкое</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">неизвестное</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Воспроизведение начато</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Воспроизведение остановлено</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Камера не готова</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Камера готова</string>
-  <string name="unknown_call_session_event">Неизвестное событие сеанса звонка</string>
+  <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">Неизвестное событие сеанса вызова</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">Использование данных: <xliff:g id="usage">%1$s</xliff:g></string>
-  <string name="modify_call_option_title">Выбор типа звонка</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">Выбор типа вызова</string>
   <string name="modify_call_option_vt">Видеовызов</string>
   <string name="modify_call_option_vt_tx">Передача видео</string>
   <string name="modify_call_option_vt_rx">Приём видео</string>
   <string name="modify_call_option_voice">Только передача голоса</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">Не удалось изменить вызов из-за низкого заряда батареи.</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Отключите режим TTY для выполнения видеозвонков.</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Добавить участника</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">Отклонить</string>
-  <string name="qti_description_deflect_error">Номер не задан. Укажите номер в настройках IMS и повторите попытку.</string>
-  <string name="qti_description_deflect_service_error">Отклонение вызова службой не поддерживается.</string>
-  <string name="call_failed_ho_not_feasible">Вызов завершён по причине невозможности перехода от LTE к 2G/3G.</string>
-  <string name="cs_redial_option">Перезвонить</string>
-  <string name="cs_redial_msg">Не удаётся выполнить IMS-видеовызов, перезвонить без видеосвязи?</string>
+  <string name="qti_description_deflect_error">Номер не задан. Укажите номер через IMS параметры и повторите попытку.</string>
+  <string name="qti_description_deflect_service_error">Служба не поддерживает отклонение вызовов.</string>
+  <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">Вызов завершён, так как не удалось перейти от LTE к 2G/3G.</string>
+  <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">Повтор</string>
+  <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">Не удаётся выполнить IMS-видеовызов. Перезвонить без видеосвязи?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">Вызов обновлён по запросу пользователя</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">Вызов обновлён по запросу удалённого пользователя</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">Вызов понижен по запросу пользователя</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">Вызов понижен по запросу удалённого пользователя</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">Вызов понижен из-за таймаута RTP</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">Вызов понижен из-за качества обслуживания</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">Вызов понижен из-за потери пакетов</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">Вызов понижен из-за низкой пропускной способности</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">Вызов понижен из-за перегрева устройства</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">Вызов понижен из-за рассинхронизации</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">Вызов понижен из-за общей ошибки</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Выберите SIM-карту</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

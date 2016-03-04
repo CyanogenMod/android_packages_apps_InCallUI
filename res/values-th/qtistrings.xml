@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: สถานะย่อยของการโทร: \u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">ดำเนินการต่อ</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">เชื่อมต่อแล้ว แต่เสียงถูกระงับ</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">เชื่อมต่อแล้ว แต่วิดีโอถูกระงับ</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">กำลังหาคุณภาพวิดีโอ\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: คุณภาพวิดีโอเปลี่ยนเป็น <xliff:g id="quality" example="high">%2$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">สูง</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">กลาง</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">ต่ำ</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">ไม่รู้จัก</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">เริ่มเล่น</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">หยุดเล่น</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">กล้องไม่พร้อม</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">กล้องพร้อมแล้ว</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">เซสชันการโทรที่ไม่รู้จัก</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">การใช้งานข้อมูล: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">เลือกประเภทการสนทนา</string>
   <string name="modify_call_option_vt">วิดีโอแบบสองทิศทาง</string>
   <string name="modify_call_option_vt_tx">ตัวส่งวิดีโอ</string>
   <string name="modify_call_option_vt_rx">ตัวรับวิดีโอ</string>
   <string name="modify_call_option_voice">เสียงเท่านั้น</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">ล้มเหลวในการปรับแต่งการโทรเนื่องจากแบตเตอรี่ต่ำ</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">กรุณาปิดรูปแบบ TTY เพื่ออัปเกรดไปที่การโทรแบบวิดีโอ</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">เพิ่มผู้เข้าร่วม</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">เปลี่ยนทิศ</string>
   <string name="qti_description_deflect_error">หมายเลขไม่ได้ตั้งไว้ ให้ใส่เลขผ่านค่า IMS และลองอีกครั้ง</string>
   <string name="qti_description_deflect_service_error">ไม่สนับสนุนบริการเปลี่ยนทิศทางการโทร</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">โทรสิ้นสุดเป็น LTE ไปถึงการส่งมอบ 3G/2G ไม่เป็นไปได้</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">โทรอีกครั้ง</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">ไม่สามารถโทรด้วยวิดิโอ IMS ได้ โทรอีกครั้งด้วยเสียง โดยไม่ใช้ IMS?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">การโทรถูกอัปเกรดตามคำขอของผู้ใช้</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">การโทรถูกอัปเกรดจากคำขอระยะไกล</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">การโทรถูกดาวน์เกรดโดยคำขอของผู้ใช้</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">การโทรถูกดาวน์เกรดโดยคำขอระยะไกล</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">การโทรถูกดาวน์เกรดเนื่องจากหมดเวลา RTP</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">การโทรถูกดาวน์เกรดเนื่องจากคุณภาพของบริการ</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">การโทรถูกดาวน์เกรดเนื่องจากแพคเกจสูญหาย</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">การโทรถูกดาวน์เกรดเนื่องจากส่งข้อมูลได้น้อย</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">การโทรถูกดาวน์เกรดเนื่องจากปัญหาความร้อน</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">การโทรถูกดาวน์เกรดเนื่องจากเสียงไม่ตรงกัน</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">การโทรถูกดาวน์เกรดเนื่องจากข้อผิดพลาดทั่วไป</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">เลือกซิม</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">ซิม 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">ซิม 2</string>
 </resources>

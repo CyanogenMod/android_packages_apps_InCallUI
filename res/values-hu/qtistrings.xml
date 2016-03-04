@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Hívás állapota:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Hívás folytatva</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Hívás csatlakoztatva, de az audio szüneteltetve</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Hívás csatlakoztatva, de a videó szüneteltetve</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Videó minőség észlelése\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Videó minősége változtatva erre: <xliff:g id="quality" example="high">%2$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">magas</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">közepes</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">alacsony</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">ismeretlen</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Lejátszó elindítva</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Lejátszó megállítva</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kamera nem áll készen</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera készen áll</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Ismeretlen hívásfolyamati esemény</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">Adathasználat: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Válassza ki a hívás típusát</string>
   <string name="modify_call_option_vt">Kétirányú videóhívás</string>
   <string name="modify_call_option_vt_tx">Videótovábbítás</string>
   <string name="modify_call_option_vt_rx">Videófogadás</string>
   <string name="modify_call_option_voice">Csak hang</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">A hívás módosítása sikertelen az alacsony akkumulátorszint miatt.</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Kérjük, tiltsa le a TTY módot a videohívások engedélyezéséhez</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Résztvevő hozzáadása</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">Átirányítás</string>
   <string name="qti_description_deflect_error">A szám nincs megadva. Az IMS beállításokon keresztül állítsa be a számot, majd próbálja újra.</string>
   <string name="qti_description_deflect_service_error">A hívásátirányítás szolgáltatás nem támogatott.</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">Hívás véget ért, mert az LTE-ről 3G/2G-re áttérés nem volt megvalósítható.</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">Újratárcsázás</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">IMS videohívás nem lehetséges, újratárcsázza, mint nem-IMS hanghívás?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">Hívás frissítve felhasználói kérésre</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">Hívás frissítve távoli felhasználó kérésére</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">Hívás visszaminősítve felhasználói kérésre</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">Hívás visszaminősítve távoli felhasználó kérésére</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">Hívás visszaminősítve RTP időtúllépés miatt</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">Hívás visszaminősítve a szolgáltatás minősége miatt</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">Hívás visszaminősítve csomagvesztés miatt</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">Hívás visszaminősítve az alacsony átviteli sebesség miatt</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">Hívás visszaminősítve a termikus mérséklés miatt</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">Hívás visszaminősítve a lipsync miatt</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">Hívás visszaminősítve általános hiba miatt</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">SIM-kártya kiválasztása</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

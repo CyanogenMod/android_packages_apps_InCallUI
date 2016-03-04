@@ -16,87 +16,314 @@
   ~ limitations under the License
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Official label of the phone app, as seen in "Manage Applications"
+         and other settings UIs. -->
   <string name="phoneAppLabel" product="default">مۆبایل</string>
+  <!-- Official label for the in-call UI. DO NOT TRANSLATE. -->
   <string name="inCallLabel" translate="false">InCallUI</string>
+  <!-- Call status -->
+  <!-- In-call screen: status label for a call that's on hold -->
   <string name="onHold">له‌سه‌ر خه‌ت به‌</string>
+  <!-- Incoming call screen, name of "unknown" caller -->
   <string name="unknown">نەزانراو</string>
+  <!-- Incoming call screen, string when number hidden -->
   <string name="private_num">ژمارەی تایبەتی</string>
+  <!-- Incoming call screen, string when called from a pay phone -->
+  <!-- In-call screen: status label for a conference call -->
   <string name="confCall">په‌یوه‌ندی کۆنگره‌</string>
+  <!-- In-call screen: call lost dialog text -->
+  <!-- MMI dialog strings -->
+  <!-- Dialog label when an MMI code starts running -->
+  <!-- "Audio mode" popup menu: Item label to select the speakerphone [CHAR LIMIT=25] -->
   <string name="audio_mode_speaker">بڵندگۆ</string>
+  <!-- "Audio mode" popup menu: Item label to select the handset earpiece [CHAR LIMIT=25] -->
   <string name="audio_mode_earpiece">ده‌سکی په‌یوه‌ندی گوێ</string>
+  <!-- "Audio mode" popup menu: Item label to select the wired headset [CHAR LIMIT=25] -->
   <string name="audio_mode_wired_headset">بیستۆک وایه‌ردار</string>
+  <!-- "Audio mode" popup menu: Item label to select the bluetooth headset [CHAR LIMIT=25] -->
   <string name="audio_mode_bluetooth">بلوتوس</string>
+  <!-- post dial -->
+  <!-- In-call screen: body text of the dialog that appears when we encounter
+         the "wait" character in a phone number to be dialed; this dialog asks the
+         user if it's OK to send the numbers following the "wait". -->
   <string name="wait_prompt_str">ئه‌م ئاوازانه‌ ده‌نێریت؟\n</string>
+  <!-- In-call screen: body text of the dialog that appears when we encounter
+         the "PAUSE" character in a phone number to be dialed; this dialog gives
+         informative message to the user to show the sending numbers following the "Pause". -->
   <string name="pause_prompt_str">ناردنی ئاوازه‌کانی\n</string>
+  <!-- In-call screen: button label on the "wait" prompt dialog -->
   <string name="send_button">ناردن</string>
+  <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
   <string name="pause_prompt_yes">بەڵێ</string>
+  <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
   <string name="pause_prompt_no">نا</string>
+  <!-- In-call screen: on the "wild" character dialog, this is the label
+         for a text widget that lets the user enter the digits that should
+         replace the "wild" character. -->
   <string name="wild_prompt_str">جێگرتنه‌وه‌ی کاره‌کته‌ری ده‌ری وه‌ک</string>
+  <!-- In-call screen: status label for a conference call -->
   <string name="caller_manage_header">په‌یوه‌ندی کۆنگره‌ <xliff:g id="conf_call_time">%s</xliff:g></string>
+  <!-- Used in FakePhoneActivity test code.  DO NOT TRANSLATE. -->
+  <!-- Used in FakePhoneActivity test code.  DO NOT TRANSLATE. -->
+  <!-- Used in FakePhoneActivity test code.  DO NOT TRANSLATE. -->
+  <!-- Call settings screen, Set voicemail dialog title -->
   <string name="voicemail_settings_number_label">ژماره‌ی ده‌نگه‌نامه‌</string>
+  <!-- Card titles -->
+  <!-- In-call screen: status label for a call in the "dialing" state [CHAR LIMIT=25] -->
   <string name="card_title_dialing">ژماره‌لێدان</string>
+  <!-- In-call screen: status label for a re-dialing call [CHAR LIMIT=25] -->
+  <!-- In-call screen: status label for a conference call [CHAR LIMIT=25] -->
   <string name="card_title_conf_call">په‌یوه‌ندنی کۆنگره‌</string>
+  <!-- In-call screen: status label for an incoming call [CHAR LIMIT=25] -->
   <string name="card_title_incoming_call">په‌یوه‌ندی هاتوو</string>
+  <!-- In-call screen: status label displayed briefly after a call ends [CHAR LIMIT=25] -->
   <string name="card_title_call_ended">په‌یوه‌ندی کۆتاییهات</string>
+  <!-- In-call screen: status label for call that's on hold [CHAR LIMIT=25] -->
   <string name="card_title_on_hold">له‌سه‌ر خه‌ت به‌</string>
+  <!-- In-call screen: status label for a call that's in the process of hanging up [CHAR LIMIT=25] -->
   <string name="card_title_hanging_up">هه‌ڵگرتن</string>
+  <!-- In-call screen: status label for a call that's in CDMA flash mode [CHAR LIMIT=25] -->
   <string name="card_title_in_call">له‌ په‌یوه‌ندیدا</string>
+  <!-- In-call screen: special status label that shows your own phone
+         number during emergency callback mode (ECM) [CHAR LIMIT=30] -->
   <string name="card_title_my_phone_number">ژماره‌که‌م بریتییه‌ له‌ <xliff:g id="my_phone_number">%s</xliff:g></string>
+  <!-- In-call screen: status label when connecting video. -->
+  <!-- In-call screen: status label when in a video call. -->
+  <!-- In-call screen: status label when requesting video. -->
+  <!-- In-call screen: status label when there is a problem connecting a video call. -->
+  <!-- In-call screen: status label when the remote party rejects a video call request. -->
+  <!-- In-call screen: string shown to the user when their outgoing number is different than the
+         number reported by TelephonyManager#getLine1Number() -->
+  <!-- In-call screen: string shown to the user when their outgoing number is different than the
+         number reported by TelephonyManager#getLine1Number() and they're calling emergency
+         services. -->
+  <!-- Notification strings -->
+  <!-- The "label" of the in-call Notification for a dialing call, used
+         as the format string for a Chronometer widget. [CHAR LIMIT=60] -->
   <string name="notification_dialing">ژماره‌لێدان</string>
+  <!-- Missed call notification label, used when there's exactly one missed call -->
   <string name="notification_missedCallTitle">په‌یوه‌ندی وه‌ڵام نه‌دراوه‌</string>
+  <!-- Missed call notification label, used when there are two or more missed calls -->
   <string name="notification_missedCallsTitle">په‌یوه‌ندی وه‌ڵام نه‌دراوه‌</string>
+  <!-- Missed call notification message used when there are multiple missed calls -->
   <string name="notification_missedCallsMsg"><xliff:g id="num_missed_calls">%s</xliff:g> په‌یوه‌ندی وه‌ڵام نه‌دراوه‌</string>
+  <!-- Missed call notification message used for a single missed call, including
+         the caller-id info from the missed call -->
   <string name="notification_missedCallTicker">په‌یوه‌ندی وه‌ڵام نه‌دراوه‌ له‌ <xliff:g id="missed_call_from">%s</xliff:g></string>
+  <!-- The "label" of the in-call Notification for an ongoing call. [CHAR LIMIT=60] -->
   <string name="notification_ongoing_call">په‌یوه‌ندی ڕۆشتن</string>
+  <!-- The "label" of the in-call Notification for an ongoing call, which is being made over
+         Wi-Fi. [CHAR LIMIT=60] -->
+  <!-- The "label" of the in-call Notification for a call that's on hold -->
   <string name="notification_on_hold">ڕاگیراوە</string>
+  <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">په‌یوه‌ندی هاتوو</string>
+  <!-- The "label" of the in-call Notification for an incoming ringing call,
+         which is being made over Wi-Fi. [CHAR LIMIT=60] -->
+  <!-- The "label" of the in-call Notification for an incoming ringing video call. -->
+  <!-- The "label" of the in-call Notification for upgrading an existing call to a video call. -->
+  <!-- Label for the "Voicemail" notification item, when expanded. -->
   <string name="notification_voicemail_title">ده‌نگه‌نامه‌ی نوێ</string>
+  <!-- Label for the expanded "Voicemail" notification item,
+         including a count of messages. -->
   <string name="notification_voicemail_title_count">ده‌نگه‌نامه‌ی نوێ (<xliff:g id="count">%d</xliff:g>)</string>
+  <!-- Message displayed in the "Voicemail" notification item, allowing the user
+         to dial the indicated number. -->
   <string name="notification_voicemail_text_format">لێدانی <xliff:g id="voicemail_number">%s</xliff:g></string>
+  <!-- Message displayed in the "Voicemail" notification item,
+         indicating that there's no voicemail number available -->
   <string name="notification_voicemail_no_vm_number">ژماره‌ی ده‌نگه‌نامه‌ نه‌زانراوه‌</string>
+  <!-- Label for the "No service" notification item, when expanded. -->
   <string name="notification_network_selection_title">خزمەتگوزاری نیە</string>
+  <!-- Label for the expanded "No service" notification item, including the
+         operator name set by user -->
   <string name="notification_network_selection_text">تۆڕی هه‌ڵبژێردراو (<xliff:g id="operator_name">%s</xliff:g>) ئاماده‌نییه‌</string>
+  <!-- Label for the "Answer call" action. This is the displayed label for the action that answers
+         an incoming call. [CHAR LIMIT=12] -->
+  <!-- Label for "end call" Action.
+         It is displayed in the "Ongoing call" notification, which is shown
+         when the user is outside the in-call screen while the phone call is still
+         active. [CHAR LIMIT=12] -->
   <string name="notification_action_end_call">هه‌ڵگرتن</string>
+  <!-- Label for "Video Call" notification action. This is a displayed on the notification for an
+         incoming video call, and answers the call as a video call. [CHAR LIMIT=12] -->
+  <!-- Label for "Voice" notification action. This is a displayed on the notification for an
+         incoming video call, and answers the call as an audio call. [CHAR LIMIT=12] -->
+  <!-- Label for "Accept" notification action. This is somewhat generic, and may refer to
+         scenarios such as accepting an incoming call or accepting a video call request.
+         [CHAR LIMIT=12] -->
+  <!-- Label for "Dismiss" notification action. This is somewhat generic, and may refer to
+         scenarios such as declining an incoming call or declining a video call request.
+         [CHAR LIMIT=12] -->
+  <!-- Message for "call back" Action, which is displayed in the missed call notification.
+         The user will be able to call back to the person or the phone number.
+         [CHAR LIMIT=12] -->
   <string name="notification_missedCall_call_back">گرتنەوەی پەیوەندی</string>
+  <!-- Message for "reply via sms" action, which is displayed in the missed call notification.
+         The user will be able to send text messages using the phone number.
+         [CHAR LIMIT=12] -->
   <string name="notification_missedCall_message">نامه‌</string>
+  <!-- In-call screen: call failure message displayed in an error dialog -->
   <string name="incall_error_power_off">بۆ په‌یوه‌ندی. سه‌ره‌تا باری ناو فڕۆکه‌ بکوژێنه‌وه‌.</string>
+  <!-- In-call screen: call failure message displayed in an error dialog.
+         This string is currently unused (see comments in InCallActivity.java.) -->
   <string name="incall_error_emergency_only">تۆمارنه‌کراویت له‌سه‌ر تۆڕه‌که‌.</string>
+  <!-- In-call screen: call failure message displayed in an error dialog -->
+  <!-- In-call screen: call failure message displayed in an error dialog -->
+  <!-- In-call screen: call failure message displayed in an error dialog -->
+  <!-- In-call screen: status message displayed in a dialog when starting an MMI -->
   <string name="incall_status_dialed_mmi">ده‌ستپێکردنی چوارگۆشه‌ی MMI \u2026</string>
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: message displayed in an error dialog -->
+  <!-- In-call screen: "call type" indication for a SIP call [CHAR LIMIT=30]  -->
+  <!-- Dialog title for the "radio enable" UI for emergency calls -->
   <string name="emergency_enable_radio_dialog_title">پەیوەندیی فریاگوزاری</string>
+  <!-- Status message for the "radio enable" UI for emergency calls -->
   <string name="emergency_enable_radio_dialog_message">کارپێکردنی ڕادیۆ\u2026</string>
+  <!-- Status message for the "radio enable" UI for emergency calls -->
+  <!-- Dialer text on Emergency Dialer -->
+  <!-- Emergency dialer: message displayed in an error dialog -->
+  <!-- Emergency dialer: message displayed in an error dialog -->
+  <!-- Displayed in the text entry box in the dialer when in landscape mode to guide the user
+         to dial using the physical keyboard -->
   <string name="dialerKeyboardHintText">ته‌خته‌کلیل به‌کاربهێنه‌ بۆ لێدانی ژماره‌</string>
+  <!-- Text for the onscreen "Hold" button when it is not selected. Pressing it will put
+         the call on hold. -->
+  <!-- Text for the onscreen "Hold" button when it is selected. Pressing it will resume
+         the call from a previously held state. -->
+  <!-- Text for the onscreen "End call" button -->
+  <!-- Text for the onscreen "Show Dialpad" button -->
   <string name="onscreenShowDialpadText">لێده‌ره‌ژماره‌</string>
+  <!-- Text for the onscreen "Mute" button -->
   <string name="onscreenMuteText">کپکردن</string>
+  <!-- Text for the onscreen "Add call" button -->
   <string name="onscreenAddCallText">زیادکردنی په‌یوه‌ندی</string>
+  <!-- Text for the onscreen "Merge calls" button -->
   <string name="onscreenMergeCallsText">تێکه‌ڵکردنی په‌یوه‌ندی</string>
+  <!-- Text for the onscreen "Swap calls" button -->
   <string name="onscreenSwapCallsText">ئاڵوگۆڕ</string>
+  <!-- Text for the onscreen "Manage calls" button -->
   <string name="onscreenManageCallsText">به‌ڕێوه‌بردنی په‌یوه‌ندییه‌کان</string>
+  <!-- Text for the onscreen "Manage conference" button [CHAR LIMIT=30] -->
+  <!-- Text for the onscreen "Audio" button that lets you switch
+         between speaker / bluetooth / earpiece [CHAR LIMIT=10] -->
   <string name="onscreenAudioText">ده‌نگ</string>
+  <!-- Text for the onscreen "Video call" button used to change a voice call
+         to a video call. [CHAR LIMIT=10] -->
   <string name="onscreenVideoCallText">په‌یوه‌ندی وێنه‌یی</string>
+  <!-- Text for the onscreen "Change to voice" button. When clicked, this downgrades a video call
+         to a voice call. -->
+  <!-- Text for the onscreen "Switch camera" button. When clicked, this switches the user's camera
+         for video calling between the front-facing camera and the back-facing camera. -->
+  <!-- Text for the onscreen "Pause video" button. -->
+  <!-- Text for the onscreen overflow button, to see additional actions which can be done. -->
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
+  <!-- Message indicating that camera is ready/available -->
+  <!-- Message indicating unknown call session event -->
+  <!-- For incoming calls, this is a string we can get from a CDMA network instead of
+         the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
+  <!-- Preference for Voicemail service provider under "Voicemail" settings.
+         [CHAR LIMIT=40] -->
   <string name="voicemail_provider">خزمه‌تگوزاری</string>
+  <!-- Preference for Voicemail setting of each provider.
+         [CHAR LIMIT=40] -->
   <string name="voicemail_settings">دامه‌زراندن</string>
+  <!-- String to display in voicemail number summary when no voicemail num is set -->
   <string name="voicemail_number_not_set">وlt;دانه‌نراوه‌وgt;</string>
+  <!-- Title displayed above settings coming after voicemail in the call features screen -->
   <string name="other_settings">ڕێکخستنی په‌یوه‌ندییه‌کانی تر</string>
+  <!-- Title displayed in the overlay for outgoing calls which include the name of the provider.
+         [CHAR LIMIT=40] -->
   <string name="calling_via_template">په‌یوه‌ندی کردن له‌ ڕێگه‌ی <xliff:g id="provider_name">%s</xliff:g></string>
+  <!-- Title displayed in the overlay for incoming calls which include the name of the provider.
+         [CHAR LIMIT=40] -->
+  <!-- Use this as a default to describe the contact photo; currently for screen readers through accessibility. -->
   <string name="contactPhoto">وێنەی ناوەکە</string>
+  <!-- Use this to describe the separate conference call button; currently for screen readers through accessibility. -->
   <string name="goPrivate">بۆ نهێنی</string>
+  <!--  Use this to describe the select contact button in EditPhoneNumberPreference; currently for screen readers through accessibility. -->
   <string name="selectContact">دیاریکردنی ژماره‌</string>
+  <!-- "Respond via SMS" option that lets you compose a custom response. [CHAR LIMIT=30] -->
   <string name="respond_via_sms_custom_message">خۆت شتێک بنووسه‌...</string>
+  <!-- "Custom Message" Cancel alert dialog button -->
   <string name="custom_message_cancel">هەڵوەشاندنەوە</string>
+  <!-- "Custom Message" Send alert dialog button -->
   <string name="custom_message_send">ناردن</string>
+  <!-- Description of the answer target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
   <string name="description_target_answer">وه‌ڵام</string>
+  <!-- Description of the send_sms target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
   <string name="description_target_send_sms">ناردنی SMS</string>
+  <!-- Description of the decline target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="description_target_decline">نەویستن</string>
+  <!-- Description of the target to answer a call as a video call in the Slide unlock screen.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to answer a call as an audio call in the Slide unlock screen.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to accept a request to upgrade from an audio call to a video call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to decline a request to upgrade from an audio call to a video call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to accept a request to upgrade from any call to a video transmit call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to decline a request to upgrade from any call to a video transmit call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to accept a request to upgrade from any call to a video receive call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the target to decline a request to upgrade from any call to a video receive call.
+         [CHAR LIMIT=NONE] -->
+  <!-- Description of the up direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
   <string name="description_direction_up">بیخزێنە سەرەوە بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+  <!-- Description of the left direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
   <string name="description_direction_left">\"بیخزێنە لای چەپ بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+  <!-- Description of the right direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
   <string name="description_direction_right">بیخزێنە لای ڕاست بۆ <xliff:g id="target_description" example="Unlock">%s</xliff:g>.</string>
+  <!-- Description of the down direction in which one can to slide the handle in the phone answer screen. [CHAR LIMIT=NONE] -->
+  <!-- Dialog title for the vibration settings for voicemail notifications [CHAR LIMIT=40] -->
   <string name="voicemail_notification_vibrate_when_title" msgid="8731372580674292759">لەرزین</string>
+  <!-- Dialog title for the vibration settings for voice mail notifications [CHAR LIMIT=40]-->
   <string name="voicemail_notification_vibarte_when_dialog_title" msgid="8995274609647451109">لەرزین</string>
+  <!-- Voicemail ringtone title. The user clicks on this preference to select
+         which sound to play when a voicemail notification is received.
+         [CHAR LIMIT=30] -->
   <string name="voicemail_notification_ringtone_title">دەنگ</string>
+  <!--  The string used to describe a notification if it is the default one in the system. For
+          example, if the user selects the default notification, it will appear as something like
+          Default sound(Capella) in the notification summary.
+          [CHAR LIMIT=40] -->
   <string name="default_notification_description">ئاوازی بنێڕه‌ت  (<xliff:g id="default_sound_title">%1$s</xliff:g>)</string>
+  <!-- The default value value for voicemail notification. -->
+  <!-- Actual values used in our code for voicemail notifications. DO NOT TRANSLATE -->
+  <!-- Setting option name to pick ringtone (a list dialog comes up). [CHAR LIMIT=30] -->
   <string name="ringtone_title" msgid="5379026328015343686">زەنگی مۆبایل</string>
+  <!-- Setting option name to enable or disable vibration when ringing
+         the phone.
+         [CHAR LIMIT=30] -->
   <string name="vibrate_on_ring_title">له‌رینه‌وه‌ کاتێک زه‌نگ لێده‌دات</string>
+  <!-- Title for the category "ringtone", which is shown above ringtone and vibration
+         related settings.
+         [CHAR LIMIT=30] -->
   <string name="preference_category_ringtone">زه‌نگ  وamp; له‌رینه‌وه‌</string>
+  <!-- Label for "Manage conference call" panel [CHAR LIMIT=40] -->
   <string name="manageConferenceLabel">به‌ڕێوه‌بردنی په‌یوه‌ندییه‌ کۆنگره‌ییه‌کان</string>
+  <!-- This can be used in any application wanting to disable the text "Emergency number" -->
   <string name="emergency_call_dialog_number_for_display">ژمارەی فریاگوزاری</string>
+  <!-- Phrase describing a time duration using seconds [CHAR LIMIT=16] -->
+  <!-- Phrase describing a time duration using minutes [CHAR LIMIT=16] -->
+  <!-- Phrase describing a time duration using hours [CHAR LIMIT=16] -->
+  <!-- Description of the profile photo shown when the device's camera is disabled udring a video
+        call. [CHAR LIMIT=NONE] -->
+  <!-- Description of the "camera off" icon displayed when the device's camera is disabled during
+         a video call. [CHAR LIMIT=NONE] -->
+  <!-- Used to inform the user that a call was received via a number other than the primary
+        phone number associated with their device. [CHAR LIMIT=16] -->
+  <!-- Used to inform the user that the note associated with an outgoing call has been sent.
+         [CHAR LIMIT=32] -->
 </resources>

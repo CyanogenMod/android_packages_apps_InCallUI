@@ -17,10 +17,19 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">來電未接聽並已轉駁</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">正在撥號 (等待中\ u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">經由 <xliff:g id="provider_name">%s</xliff:g> 來電（等待中\u2026）</string>
+  <!-- In-call screen: status label template for an active call that's routed via a specific
+         provider (e.g. MSIM) -->
+  <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">來電等待接聽</string>
   <string name="call_recording_failed_message">未能啟動通話錄音</string>
   <string name="call_recording_file_location">已將通話錄音儲存至 <xliff:g id="filename">%s</xliff:g></string>

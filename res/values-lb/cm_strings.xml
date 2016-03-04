@@ -17,11 +17,20 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">De Kontakt huet all erakommend Uriff gespaart.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Uruff net beäntwert a weidergeleet</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Weidergeleeten Uruff</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Gëtt gewielt (waart\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Uruff iwwer <xliff:g id="provider_name">%s</xliff:g> (Waart\u2026)</string>
+  <!-- In-call screen: status label template for an active call that's routed via a specific
+         provider (e.g. MSIM) -->
+  <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Uruff gëtt gehalen</string>
   <string name="call_recording_failed_message">D\'Opnam vum Uruff konnt net gestart ginn</string>
   <string name="call_recording_file_location">Uruffopnam gespäichert als <xliff:g id="filename">%s</xliff:g></string>

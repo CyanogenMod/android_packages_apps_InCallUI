@@ -31,48 +31,88 @@
   -->
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Call substate label -->
   <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: 통화 하위 상태:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">통화 재개</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">통화 연결됨, 오디오 중지됨</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">통화 연결됨, 비디오 중지됨</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">영상 화질 확인 중\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">영상 화질이 <xliff:g id="quality" example="high">%1$s</xliff:g>으로 변경됨</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">높음</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">중간</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">낮음</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">알 수 없음</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">플레이어 시작</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">플레이어 중지</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">카메라가 준비되지 않음</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">카메라 준비됨</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">알 수 없는 통화 세션 이벤트</string>
+  <!-- Message indicating data usage -->
   <string name="data_usage_label">데이터 사용량: <xliff:g id="usage">%1$s</xliff:g></string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">통화 유형 선택</string>
   <string name="modify_call_option_vt">영상통화</string>
   <string name="modify_call_option_vt_tx">비디오 전송</string>
   <string name="modify_call_option_vt_rx">비디오 수신</string>
   <string name="modify_call_option_voice">음성만</string>
+  <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">배터리 부족으로 인해 통화를 수정할 수 없습니다.</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">영상통화를 사용하려면 TTY 모드를 꺼주십시오</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">참가자 추가</string>
+  <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">편향</string>
   <string name="qti_description_deflect_error">번호가 설정되지 않음. IMS 설정으로 번호를 입력하고 다시 시도하세요.</string>
   <string name="qti_description_deflect_service_error">호 편향 서비스가 지원되지 않음.</string>
+  <!-- Message indicating call failed due to handover not feasible -->
   <string name="call_failed_ho_not_feasible">LTE에서 3G/2G 핸드오버가 불가능하기 때문에 통화가 종료되었습니다.</string>
+  <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">다시 걸기</string>
+  <!-- Message text of the IMS to CS redial dialog -->
   <string name="cs_redial_msg">IMS 영상 통화가 실패했습니다. 비 IMS 음성 통화로 다시 거시겠습니까?</string>
+  <!-- Session modify cause unspecified -->
+  <!-- Session modify cause code upgrade local request -->
   <string name="session_modify_cause_upgrade_local_request">사용자 요청에 의해 통화 업그레이드됨</string>
+  <!-- Session modify cause code upgrade remote request -->
   <string name="session_modify_cause_upgrade_remote_request">상대 사용자 요청에 의해 통화 업그레이드됨</string>
+  <!-- Session modify cause code downgrade local request -->
   <string name="session_modify_cause_downgrade_local_request">사용자 요청에 의해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade remote request -->
   <string name="session_modify_cause_downgrade_remote_request">상대 사용자 요청에 의해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">RTP 타임아웃으로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade qos -->
   <string name="session_modify_cause_downgrade_qos">서비스 품질로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade packet loss -->
   <string name="session_modify_cause_downgrade_packet_loss">패킷 손실로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">낮은 처리량으로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade thermal mitigation -->
   <string name="session_modify_cause_downgrade_thermal_mitigation">과열로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade lipsync -->
   <string name="session_modify_cause_downgrade_lipsync">립싱크로 인해 통화 다운그레이드됨</string>
+  <!-- Session modify cause code downgrade generic error -->
   <string name="session_modify_cause_downgrade_generic_error">일반 오류로 인해 통화 다운그레이드됨</string>
+  <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">SIM 카드 선택</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
 </resources>

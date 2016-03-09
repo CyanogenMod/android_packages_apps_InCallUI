@@ -61,4 +61,8 @@
     <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> setup incomplete</string>
 
     <string name="call_button_contact_unknown">Unknown</string>
+
+    <!-- Description of the target to block a call -->
+    <string name="description_target_block">Block caller</string>
+
 </resources>

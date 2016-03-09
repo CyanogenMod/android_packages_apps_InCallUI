@@ -20,23 +20,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.provider.Settings;
 
+import com.android.contacts.common.util.BlockContactHelper;
 import com.android.dialer.util.TelecomUtil;
 import com.android.incallui.InCallPresenter.InCallState;
-
-import android.telecom.VideoProfile;
-
-import java.util.List;
-
+import com.cyanogen.lookup.phonenumber.provider.LookupProviderImpl;
 import org.codeaurora.ims.qtiims.IQtiImsInterface;
 import org.codeaurora.ims.qtiims.IQtiImsInterfaceListener;
 import org.codeaurora.ims.qtiims.QtiImsInterfaceUtils;
 import org.codeaurora.ims.qtiims.QtiViceInfo;
 import org.codeaurora.QtiVideoCallConstants;
+
+import java.util.List;
 
 /**
  * Presenter for the Incoming call widget. The {@link AnswerPresenter} handles the logic during
@@ -58,6 +56,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     private Call mCall[] = new Call[InCallServiceImpl.sPhoneCount];
     private final CallList mCalls = CallList.getInstance();
     private boolean mHasTextMessages = false;
+    private BlockContactHelper mBlockContactHelper;
 
     /**
      * Details required to support call deflection feature.
@@ -477,6 +476,28 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
+    public void onBlock(boolean notifyLookupProvider) {
+        if (mBlockContactHelper != null) {
+            mBlockContactHelper.blockContactAsync(notifyLookupProvider);
+            // end the call
+            onDecline(getUi().getContext());
+        }
+    }
+
+    public void onBlockDialogInitialize() {
+        int phoneId = getActivePhoneId();
+        Log.d(this, "onBlock mCallId:" + mCallId + "phoneId:" + phoneId);
+        Call call = mCall[phoneId];
+        final String number = call.getNumber();
+        final Context context = getUi().getContext();
+        mBlockContactHelper = new BlockContactHelper(context, new LookupProviderImpl(context));
+        mBlockContactHelper.setContactInfo(number);
+    }
+
+    public String getLookupProviderName() {
+        return mBlockContactHelper.getLookupProviderName();
+    }
+
     /**
      * Deflect the incoming call.
      */
@@ -555,6 +576,14 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             } else {
                 getUi().showTargets(AnswerFragment.TARGET_SET_FOR_AUDIO_WITHOUT_SMS);
             }
+        }
+    }
+
+    @Override
+    public void onUiUnready(AnswerUi ui) {
+        super.onUiUnready(ui);
+        if (mBlockContactHelper != null) {
+            mBlockContactHelper.destroy();
         }
     }
 

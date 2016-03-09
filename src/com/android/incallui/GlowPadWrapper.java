@@ -124,6 +124,10 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
                 mAnswerListener.onText();
                 mTargetTriggered = true;
                 break;
+            case R.drawable.ic_lockscreen_block:
+                mAnswerListener.onBlock(getContext());
+                mTargetTriggered = true;
+                break;
             case R.drawable.ic_videocam:
             case R.drawable.ic_lockscreen_answer_video:
                 mAnswerListener.onAnswer(mVideoState, getContext());
@@ -180,5 +184,6 @@ public class GlowPadWrapper extends GlowPadView implements GlowPadView.OnTrigger
         void onDeclineUpgradeRequest(Context context);
         void onText();
         void onDeflect(Context context);
+        void onBlock(Context context);
     }
 }

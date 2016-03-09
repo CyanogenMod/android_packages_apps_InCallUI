@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.android.contacts.common.activity.fragment.BlockContactDialogFragment;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
@@ -44,7 +45,8 @@ import java.util.List;
  *
  */
 public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresenter.AnswerUi>
-        implements GlowPadWrapper.AnswerListener, AnswerPresenter.AnswerUi {
+        implements GlowPadWrapper.AnswerListener, AnswerPresenter.AnswerUi,
+        BlockContactDialogFragment.Callbacks {
 
     public static final int TARGET_SET_FOR_AUDIO_WITHOUT_SMS = 0;
     public static final int TARGET_SET_FOR_AUDIO_WITH_SMS = 1;
@@ -452,6 +454,26 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
     @Override
     public void onDeflect(Context context) {
         getPresenter().onDeflect(context);
+    }
+
+    @Override
+    public void onBlock(Context context) {
+        getPresenter().onBlockDialogInitialize();
+        BlockContactDialogFragment bcdf = BlockContactDialogFragment.create(
+                BlockContactDialogFragment.BLOCK_MODE,
+                getPresenter().getLookupProviderName(),
+                this);
+        bcdf.show(getFragmentManager(), "block_contact_dialog");
+    }
+
+    @Override
+    public void onBlockSelected(boolean notifyLookupProvider) {
+        getPresenter().onBlock(notifyLookupProvider);
+    }
+
+    @Override
+    public void onUnblockSelected(boolean notifyLookupProvider) {
+        /* Not used in this context */
     }
 
     /**

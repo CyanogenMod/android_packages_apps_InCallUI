@@ -435,6 +435,10 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         @Override
         public void onNewInfo(LookupRequest lookupRequest, final LookupResponse response) {
             final ContactCacheEntry oldEntry = mInfoMap.get(mCallId);
+            if (oldEntry == null) {
+                // not interested in updates for this call anymore
+                return;
+            }
             oldEntry.isLookupInProgress = false;
             oldEntry.lookupStatus = response.mStatusCode;
 

@@ -126,4 +126,8 @@
 
     <dimen name="conference_call_manager_padding_top">64dp</dimen>
     <dimen name="conference_call_manager_button_dimension">46dp</dimen>
+
+    <!-- Padding at the top of VoLTE label" -->
+    <dimen name="incall_volte_label_top_padding">5dp</dimen>
+
 </resources>

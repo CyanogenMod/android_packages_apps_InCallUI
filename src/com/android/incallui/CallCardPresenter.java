@@ -44,6 +44,7 @@ import com.android.incallui.InCallPresenter.InCallState;
 import com.android.incallui.InCallPresenter.InCallStateListener;
 import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incalluibind.ObjectFactory;
+import com.android.phone.common.util.VolteUtils;
 
 import com.cyanogen.lookup.phonenumber.response.StatusCode;
 import com.google.common.base.Preconditions;
@@ -302,6 +303,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     false /* isConference */,
                     false /* isWaitingForRemoteSide */);
             getUi().showHdAudioIndicator(false);
+            getUi().setVolteCallLabel(false);
         }
 
         maybeShowManageConferenceCallButton();
@@ -405,6 +407,7 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                     mPrimary.isWaitingForRemoteSide());
 
             maybeShowHdAudioIcon();
+            maybeShowVolteLabel();
             setCallbackNumber();
         }
     }
@@ -418,6 +421,16 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
                 isPrimaryCallActive() && mPrimary.hasProperty(Details.PROPERTY_HIGH_DEF_AUDIO) &&
                 TextUtils.isEmpty(mPrimary.getLastForwardedNumber());
         getUi().showHdAudioIndicator(showHdAudioIndicator);
+    }
+
+    /**
+     * Show VoLTE label if call is active and made over VoLTE
+     */
+    private void maybeShowVolteLabel() {
+        int subId = getSubscriptionId();
+        boolean showVolte = isPrimaryCallActive() && (subId  > 0) &&
+                            VolteUtils.isVolteInUse(mContext, subId);
+        getUi().setVolteCallLabel(showVolte);
     }
 
     /**
@@ -625,6 +638,20 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         retval = callList.getSecondBackgroundCall();
 
         return retval;
+    }
+
+    private int getSubscriptionId() {
+        PhoneAccountHandle accountHandle = mPrimary.getAccountHandle();
+        if (accountHandle != null) {
+            try{
+                return Integer.parseInt(accountHandle.getId());
+            } catch (NumberFormatException ex) {
+                // handle id is not an int, device might not have sim in it
+                Log.w(TAG, "Unable to parse phone account handle " + accountHandle.getId() + " as" +
+                        " an int");
+            }
+        }
+        return 0;
     }
 
     private void updatePrimaryDisplayInfo() {
@@ -1046,5 +1073,6 @@ public class CallCardPresenter extends Presenter<CallCardPresenter.CallCardUi>
         void animateForNewOutgoingCall();
         void sendAccessibilityAnnouncement();
         void showNoteSentToast();
+        void setVolteCallLabel(boolean show);
     }
 }

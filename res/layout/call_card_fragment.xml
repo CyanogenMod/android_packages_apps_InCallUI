@@ -43,6 +43,28 @@
         android:clipChildren="false"
         android:clipToPadding="false">
 
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clipChildren="false"
+            android:gravity="right"
+            android:paddingEnd="@dimen/call_banner_side_padding"
+            android:paddingTop="@dimen/incall_volte_label_top_padding"
+            android:clipToPadding="false">
+
+            <!-- VoLTE annunciator. Visible or gone depending on whether
+             VoLTE is in use. Carriers may customize this annunciator
+             by overlaying the ic_volte.xml drawable. -->
+            <ImageView android:id="@+id/volte_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:tint="@color/incall_accent_color"
+                android:src="@drawable/ic_volte"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
         <include layout="@layout/primary_call_info" />
 
         <fragment android:name="com.android.incallui.CallButtonFragment"

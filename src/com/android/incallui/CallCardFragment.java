@@ -125,6 +125,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private TextView mElapsedTime;
     private Drawable mPrimaryPhotoDrawable;
     private TextView mCallSubject;
+    private ImageView mVolteCallLabel;
 
     // Container view that houses the entire primary call card, including the call buttons
     private View mPrimaryCallCardContainer;
@@ -334,6 +335,8 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mSpamInfoView = (TextView) view.findViewById(R.id.spamInfo);
         mPhotoContainer = view.findViewById(R.id.call_card_content);
 
+        mVolteCallLabel = (ImageView) view.findViewById(R.id.volte_label);
+
         mRecordingTimeLabel = (TextView) view.findViewById(R.id.recordingTime);
         mRecordingIcon = (TextView) view.findViewById(R.id.recordingIcon);
 
@@ -405,6 +408,15 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 return true;
             }
         });
+    }
+
+    @Override
+    public void setVolteCallLabel(boolean show) {
+        if (show) {
+            mVolteCallLabel.setVisibility(View.VISIBLE);
+        } else {
+            mVolteCallLabel.setVisibility(View.GONE);
+        }
     }
 
     private void doActionOnPredraw(final boolean visible, final boolean isLayoutRtl,

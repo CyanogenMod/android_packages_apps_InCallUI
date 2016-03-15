@@ -34,4 +34,6 @@
     <dimen name="lookup_extra_info_container_elevation">3dp</dimen>
     <dimen name="lookup_extra_info_container_margin_start">24dp</dimen>
     <dimen name="lookup_extra_info_container_margin_top">25dp</dimen>
+
+    <dimen name="notification_three_action_padding">12dp</dimen>
 </resources>

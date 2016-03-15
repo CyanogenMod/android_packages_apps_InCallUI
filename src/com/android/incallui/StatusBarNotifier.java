@@ -23,9 +23,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.telecom.Call.Details;
 import android.telecom.PhoneAccount;
@@ -38,6 +41,7 @@ import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import android.widget.RemoteViews;
 import com.android.contacts.common.util.BitmapUtil;
 import com.android.incallui.ContactInfoCache.ContactCacheEntry;
 import com.android.incallui.ContactInfoCache.ContactInfoCacheCallback;
@@ -62,6 +66,9 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
     private static final int NOTIFICATION_INCOMING_CALL = 2;
     //If voice privacy is on this property will be added to the call associated with the connection.
     private static final int CAPABILITY_VOICE_PRIVACY = 0x00400000;
+
+    private static final String ANDROID_PACKAGE_NAME = "android";
+    private static final String RESOURCE_ID = "id";
 
     private final Context mContext;
     private final ContactInfoCache mContactInfoCache;
@@ -266,12 +273,22 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         builder.setLargeIcon(largeIcon);
         builder.setColor(mContext.getResources().getColor(R.color.dialer_theme_color));
 
+        CharSequence subTextContent = null;
         if (TelephonyManager.getDefault().isMultiSimEnabled()) {
             SubscriptionManager mgr = SubscriptionManager.from(mContext);
             SubscriptionInfo subInfoRecord = mgr.getActiveSubscriptionInfo(call.getSubId());
             if (subInfoRecord != null) {
-                builder.setSubText(subInfoRecord.getDisplayName());
+                subTextContent = subInfoRecord.getDisplayName();
             }
+        }
+
+        if (contactInfo.isSpam) {
+            subTextContent = mContext.getResources().getQuantityString(R.plurals.spam_count_text,
+                    contactInfo.spamCount);
+        }
+
+        if (!TextUtils.isEmpty(subTextContent)) {
+            builder.setSubText(subTextContent);
         }
 
         if (isVideoUpgradeRequest) {
@@ -291,6 +308,50 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
          * Fire off the notification
          */
         Notification notification = builder.build();
+
+        RemoteViews[] viewsToUpdate = new RemoteViews[] {
+                notification.contentView,
+                notification.bigContentView,
+                notification.headsUpContentView};
+        // add LookupProvider badge to Notification
+        Drawable logo = contactInfo.lookupProviderBadge;
+        if (largeIcon != null && logo != null) {
+            Bitmap bitmap = null;
+            if (logo instanceof BitmapDrawable) {
+                bitmap = ((BitmapDrawable) logo).getBitmap();
+            } else {
+                bitmap = Bitmap.createBitmap(logo.getIntrinsicWidth(), logo.getIntrinsicHeight(),
+                        Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                logo.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                logo.draw(canvas);
+            }
+            int spamColor = mContext.getResources().getColor(R.color.spam_contact_color);
+            for (RemoteViews view : viewsToUpdate) {
+                int rightIconId = getNotificationRightIconId(mContext);
+                view.setImageViewBitmap(rightIconId, bitmap);
+                view.setViewPadding(rightIconId, 0, 0, 0, 0);
+                if (contactInfo.isSpam) {
+                    view.setTextColor(getNotificationTextId(mContext), spamColor);
+                    view.setTextColor(getNotificationTitleId(mContext), spamColor);
+                }
+            }
+        }
+
+        // extend actions to the entire width of the notification
+        if (notification.actions.length > 2) {
+            int padding = mContext.getResources().getDimensionPixelSize(
+                    R.dimen.notification_three_action_padding);
+            int screenLayout = mContext.getResources().getConfiguration().screenLayout;
+            boolean isRtl = (screenLayout & Configuration.SCREENLAYOUT_LAYOUTDIR_RTL) != 0;
+            int rightPadding = isRtl ? padding : 0;
+            int leftPadding = isRtl ? 0 : padding;
+            for (RemoteViews view : viewsToUpdate) {
+                view.setViewPadding(getNotificationActionsId(mContext), leftPadding, 0,
+                        rightPadding, 0);
+            }
+        }
+
         if (mCurrentNotification != notificationType) {
             Log.i(this, "Previous notification already showing - cancelling "
                     + mCurrentNotification);
@@ -322,6 +383,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
                 Call.State.isDialing(state)) {
             addHangupAction(builder);
         } else if (state == Call.State.INCOMING || state == Call.State.CALL_WAITING) {
+            addBlockAction(builder);
             addDismissAction(builder);
             if (call.isVideoCall(mContext)) {
                 addVoiceAction(builder);
@@ -418,6 +480,9 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
         if (call.isConferenceCall() && !call.hasProperty(Details.PROPERTY_GENERIC_CONFERENCE)) {
             largeIcon = BitmapFactory.decodeResource(mContext.getResources(),
                     R.drawable.img_conference);
+        } else if (contactInfo.isSpam) {
+            largeIcon = BitmapFactory.decodeResource(mContext.getResources(),
+                    R.drawable.ic_spam_avatar);
         }
         if (contactInfo.photo != null && (contactInfo.photo instanceof BitmapDrawable)) {
             largeIcon = ((BitmapDrawable) contactInfo.photo).getBitmap();
@@ -607,6 +672,15 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
                 declineVideoPendingIntent);
     }
 
+    private void addBlockAction(Notification.Builder builder) {
+        Log.i(this, "Will show \"block\" action in the incoming call Notification");
+
+        PendingIntent blockPendingIntent = createNotificationPendingIntent(
+                mContext, ACTION_BLOCK_INCOMING_CALL);
+        builder.addAction(R.drawable.ic_block_24dp,
+                mContext.getText(R.string.notification_action_block), blockPendingIntent);
+    }
+
     /**
      * Adds fullscreen intent to the builder.
      */
@@ -728,5 +802,30 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
     @Override
     public void onChildNumberChange() {
         // no-op
+    }
+
+    private static int getNotificationRightIconId(Context context) {
+        // check if resource ID exists, should cause build error if this resource does not exist
+        int checkResourceExists = com.android.internal.R.id.right_icon;
+        return context.getResources().getIdentifier("right_icon", RESOURCE_ID,
+                ANDROID_PACKAGE_NAME);
+    }
+
+    private static int getNotificationTextId(Context context) {
+        // check if resource ID exists, should cause build error if this resource does not exist
+        int checkResourceExists = com.android.internal.R.id.text;
+        return context.getResources().getIdentifier("text", RESOURCE_ID, ANDROID_PACKAGE_NAME);
+    }
+
+    private static int getNotificationTitleId(Context context) {
+        // check if resource ID exists, should cause build error if this resource does not exist
+        int checkResourceExists = com.android.internal.R.id.title;
+        return context.getResources().getIdentifier("title", RESOURCE_ID, ANDROID_PACKAGE_NAME);
+    }
+
+    private static int getNotificationActionsId(Context context) {
+        // check if resource ID exists, should cause build error if this resource does not exist
+        int checkResourceExists = com.android.internal.R.id.actions;
+        return context.getResources().getIdentifier("actions", RESOURCE_ID, ANDROID_PACKAGE_NAME);
     }
 }

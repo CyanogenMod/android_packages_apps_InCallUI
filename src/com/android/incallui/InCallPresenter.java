@@ -39,6 +39,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.android.contacts.common.activity.BlockContactActivity;
 import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
@@ -780,6 +781,28 @@ public class InCallPresenter implements CallList.Listener,
             TelecomAdapter.getInstance().answerCall(call.getId(), videoState);
             showInCall(false, false/* newOutgoingCall */);
         }
+    }
+
+    public void blockIncomingCall(Context context) {
+        // By the time we receive this intent, we could be shut down and call list
+        // could be null.  Bail in those cases.
+        if (mCallList == null) {
+            StatusBarNotifier.clearAllCallNotifications(context);
+            return;
+        }
+
+        Call call = mCallList.getIncomingCall();
+        if (call == null) {
+            return;
+        }
+
+        String number = call.getNumber();
+        declineIncomingCall(context);
+
+        Intent i = new Intent(mContext, BlockContactActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.putExtra(BlockContactActivity.EXTRA_PHONE_NUMBER, number);
+        mContext.startActivity(i);
     }
 
     /**

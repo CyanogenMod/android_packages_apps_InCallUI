@@ -49,6 +49,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             "com.android.incallui.ACTION_ANSWER_MORE_INCOMING_CALL";
     public static final String ADD_CALL_MODE_KEY = "add_call_mode";
     public static final String ADD_PARTICIPANT_KEY = "add_participant";
+    public static final String ACTION_BLOCK_INCOMING_CALL =
+            "com.android.incallui.ACTION_BLOCK_INCOMING_CALL";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -74,6 +76,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             InCallPresenter.getInstance().declineUpgradeRequest(context);
         } else if (action.equals(ACTION_ANSWER_MORE_INCOMING_CALL)) {
             InCallPresenter.getInstance().bringToForeground(false);
+        } else if (action.equals(ACTION_BLOCK_INCOMING_CALL)) {
+            InCallPresenter.getInstance().blockIncomingCall(context);
         }
     }
 

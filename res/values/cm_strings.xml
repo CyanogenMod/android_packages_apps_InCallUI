@@ -65,4 +65,7 @@
     <!-- Description of the target to block a call -->
     <string name="description_target_block">Block caller</string>
 
+    <!-- [CHAR LIMIT=12] -->
+    <string name="notification_action_block">Block</string>
+
 </resources>

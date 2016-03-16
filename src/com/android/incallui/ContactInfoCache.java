@@ -48,6 +48,7 @@ import com.cyanogen.ambient.incall.util.InCallHelper;
 import com.cyanogen.lookup.phonenumber.contract.LookupProvider;
 import com.cyanogen.lookup.phonenumber.provider.LookupProviderImpl;
 import com.cyanogen.lookup.phonenumber.request.LookupRequest;
+import com.cyanogen.lookup.phonenumber.request.LookupRequest.RequestOrigin;
 import com.cyanogen.lookup.phonenumber.response.LookupResponse;
 import com.cyanogen.lookup.phonenumber.response.StatusCode;
 
@@ -267,7 +268,11 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                         Context.TELEPHONY_SERVICE)).getSimCountryIso().toUpperCase();
                 String numberE164 =
                         PhoneNumberUtils.formatNumberToE164(cacheEntry.number, countryIso);
-                LookupRequest request = new LookupRequest(numberE164, new LookupResultCallback(callId));
+                RequestOrigin origin = isIncoming ? RequestOrigin.INCOMING_CALL :
+                        RequestOrigin.OUTGOING_CALL;
+                LookupRequest request = new LookupRequest(numberE164,
+                        new LookupResultCallback(callId),
+                        origin);
                 mLookupProvider.fetchInfo(request);
                 sendInfoNotifications(callId, cacheEntry);
                 clearCallbacks = false;

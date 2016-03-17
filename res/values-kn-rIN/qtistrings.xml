@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: ಕರೆ ಸಬ್‌ ಸ್ಟೇಟ್‌:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">ಪುನಾರಂಭವಾಗಿದೆ</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ ಆಡಿಯೋ ರದ್ದಾಗಿದೆ</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ ವಿಡಿಯೋ ರದ್ದಾಗಿದೆ</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">ವಿಡಿಯೋ ಗುಣಮಟ್ಟ ಗುರುತಿಸಲಾಗುತ್ತಿದೆ\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: ವೀಡಿಯೋ ಗುಣಮಟ್ಟ <xliff:g id="quality" example="high">%2$s</xliff:g>ಗೆ ಬದಲಾಗಿದೆ</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">ಅಧಿಕ</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">ಮಧ್ಯಮ</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">ಕೆಳ</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">ಅಜ್ಞಾತ</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">ಪ್ಲೇಯರ್ ಆರಂಭಿಸಲಾಗಿದೆ</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">ಪ್ಲೇಯರ್‌ ನಿಲ್ಲಿಸಲಾಗಿದೆ</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">ಕ್ಯಾಮರಾ ತಯಾರಾಗಿಲ್ಲ</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">ಕ್ಯಾಮರಾ ತಯಾರಿದೆ</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">ಅನಾಮಿಕ ಕರೆ ಅವಧಿ ಈವೆಂಟ್</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">ಡೇಟಾ ಬಳಕೆ: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">ಕರೆ ವಿಧವನ್ನು ಆಯ್ದುಕೊಳ್ಳಿ</string>
+  <string name="modify_call_option_vt">ವಿಡಿಯೋ ದ್ವಿ ಮಾರ್ಗ</string>
+  <string name="modify_call_option_vt_tx">ವಿಡಿಯೋ ಟ್ರಾನ್ಸ್‌ಮಿಟ್‌</string>
+  <string name="modify_call_option_vt_rx">ವಿಡಿಯೋ ಸ್ವೀಕಾರ</string>
+  <string name="modify_call_option_voice">ಧ್ವನಿ ಮಾತ್ರ</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">ಬ್ಯಾಟರಿ ಕಡಿಮೆ ಇರುವುದರಿಂದ ಕರೆಯನ್ನು ತಿದ್ದುಪಡಿ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">ವಿಡಿಯೋ ಕರೆಗಳನ್ನು ಮಾಡಲು TTY ಮೋಡ್‌ಅನ್ನು ದಯವಿಟ್ಟು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ.</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">ಭಾಗಿಯನ್ನು ಸೇರಿಸಿ</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">ಡಿಫ್ಲೆಕ್ಟ್‌</string>
+  <string name="qti_description_deflect_error">ಸಂಖ್ಯೆ ಹೊಂದಿಸಿಲ್ಲ. IMS ಸೆಟ್ಟಿಂಗ್ಸ್‌ ಮೂಲಕ ಸಂಖ್ಯೆಯನ್ನು ನೀಡಿ ಮತ್ತು ಪ್ರಯತ್ನಿಸಿ.</string>
+  <string name="qti_description_deflect_service_error">ಕರೆ ಡಿಫ್ಲೆಕ್ಷನ್‌ ಸೇವೆ ಬೆಂಬಲಿಸಿಲ್ಲ.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">LTE ಯಿಂದ 3G/2G ವರ್ಗಾವಣೆ ಕೈಗೆಟುಕದ್ದರಿಂದ ಕರೆ ಕೊನೆಗೊಂಡಿದೆ.</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">ಮರುಡಯಲ್</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">ಒಂದು IMS ವಿಡಿಯೋ ಕರೆ ಮಾಡಲು ಅಸಾಧ್ಯ, IMS ಅಲ್ಲದ ವಾಯ್ಸ್‌ ಕರೆ ಎಂಬುದಾಗಿ ರಿಡಯಲ್‌ ಮಾಡುವುದೇ?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">ಬಳಕೆದಾರರ ಮನವಿಯ ಮೇರೆಗೆ ಕರೆ ಅಪ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">ರಿಮೋಟ್‌ ಬಳಕೆದಾರರ ಮನವಿಯ ಮೇರೆಗೆ ಕರೆ ಅಪ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">ಬಳಕೆದಾರರ ಮನವಿಯ ಮೇರೆಗೆ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">ರಿಮೋಟ್‌ ಬಳಕೆದಾರರ ಮನವಿಯ ಮೇರೆಗೆ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP ಸಮಯ ಮುಗಿದಿದ್ದರಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">ಸೇವೆ ಗುಣಮಟ್ಟದಿಂದಾಗಿ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">ಪ್ಯಾಕೆಟ್‌ ನಷ್ಟದಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">ಕನಿಷ್ಠ ಥ್ರೋಪುಟ್‌ನಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">ಥರ್ಮಲ್‌ ಮಿಟಿಗೇಶನ್‌ನಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">ಲಿಪ್‌ಸಿಂಕ್‌ನಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">ಸಾಮಾನ್ಯ ದೋಷದಿಂದ ಕರೆ ಡೌನ್‌ಗ್ರೇಡ್‌ ಮಾಡಲ್ಪಟ್ಟಿದೆ</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">ಸಿಮ್‌ ಕಾರ್ಡ್ ಆಯ್ಕೆಮಾಡಿ</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">ಸಿಮ್ 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">ಸಿಮ್ 2</string>
 </resources>

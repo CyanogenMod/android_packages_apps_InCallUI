@@ -30,6 +30,7 @@
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ಮೂಲಕ ಕರೆಮಾಡಲಾಗುತ್ತಿದೆ (ನಿರೀಕ್ಷಿಸುತ್ತಿದೆ\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (ಮೂಲಕ <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">ಕರೆ ಹಿಡಿದಿಡಲಾಗಿದೆ</string>
   <string name="call_recording_failed_message">ಕರೆ ರಿಕಾರ್ಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>

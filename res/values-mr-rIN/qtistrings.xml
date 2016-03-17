@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: कॉल सबस्टेट झाला:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">पुन्हा सुरू केला</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">कनेक्ट केले, परंतु ऑडिओ निलंबित झाला</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">कनेक्ट केले, परंतु व्हिडिओ निलंबित झाला</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">व्हिडिओ गुणवत्ता शोधत आहे\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: व्हिडिओ गुणवत्ता <xliff:g id="quality" example="high">%2$s</xliff:g> ला बदलली</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">उच्च</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">मध्यम</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">कमी</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">अज्ञात</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">प्लेअर सुरू झाला</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">प्लेअर थांबला</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">कॅमेरा तयार नाही</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">कॅमेरा तयार आहे</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">अज्ञात कॉल सत्र इव्हेंट</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">डेटा वापर: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">कॉल प्रकार निवडा</string>
+  <string name="modify_call_option_vt">व्हिडिओ बायडायरेक्शनल (द्वि-दिशा)</string>
+  <string name="modify_call_option_vt_tx">व्हिडिओ प्रसारित करा</string>
+  <string name="modify_call_option_vt_rx">व्हिडिओ प्राप्त करा</string>
+  <string name="modify_call_option_voice">केवळ व्हॉइस</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">कमी बॅटरीमुळे कॉल सुधारित करण्यात अपयशी.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">व्हिडिओ कॉल्स उन्नतीकरण करण्यासाठी कृपया TTY मोड अक्षम करा.</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">सहभागी जोडा</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">डिफ्लेक्ट करा</string>
+  <string name="qti_description_deflect_error">नंबर सेट नाही. IMS सेटिंग्जद्वारे नंबर प्रदान करा आणि पुन्हा प्रयत्न करा.</string>
+  <string name="qti_description_deflect_service_error">कॉल डिफ्लेक्शन सेवा समर्थित नाही.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">कॉल LTE म्हणून समाप्त झाला 3G/2G हँडओव्हर व्यवहार्य नव्हते.</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">रिडायल करा</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">IMS व्हिडिओ कॉल करण्यात अक्षम, नॉन-IMS व्हॉइस कॉल म्हणून रिडायल करायचे?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">वापरकर्त्याच्या विनंतीवर कॉल उन्नतीकरण केला</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">दूरस्थ वापरकर्त्याच्या विनंतीवर कॉल उन्नतीकरण केला</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">वापरकर्त्याच्या विनंतीवर कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">दूरस्थ वापरकर्त्याच्या विनंतीवर कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP वेळ संपल्याने कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">सेवेच्या गुणवत्तेमुळे कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">पॅकेट गमावल्यामुळे कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">कमी प्रक्रियेमुळे कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">थर्मल मिटिगेशनमुळे कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">लिपसिंकमुळे कॉल डाउनग्रेड केला</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">जेनेरिक त्रुटीमुळे कॉल डाउनग्रेड केला</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">सिम कार्ड निवडा</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">सिम 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">सिम 2</string>
 </resources>

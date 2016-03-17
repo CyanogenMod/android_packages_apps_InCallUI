@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: কল চাবষ্টেট:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">ৰিজিউম হৈছে</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">সংযোগ হৈছে, কিন্তু অডিঅ\' নিলম্বিত হৈছে</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">সংযোগ হৈছে, কিন্তু ভিডিঅ\' নিলম্বিত হৈছে</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">ভিডিঅ\'ৰ গুণমান চিনাক্ত কৰি আছে\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: ভিডিঅ\'ৰ গুণমান <xliff:g id="quality" example="high">%2$s</xliff:g>লৈ পৰিৱৰ্তন কৰা হ\'ল</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">উচ্চ</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">মধ্যমীয়া</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">নিম্ন</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">অজ্ঞাত</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">প্লেয়াৰ আৰম্ভ হ\'ল</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">প্লেয়াৰ বন্ধ হ\'ল</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">কেমেৰা সাজু হোৱা নাই</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">কেমেৰা সাজু আছে</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">অজানা কল অধিৱেশন ঘটনা</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">ডাটা ব্যৱহাৰ: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">কলৰ প্ৰকাৰ চয়ন কৰক</string>
+  <string name="modify_call_option_vt">ভিডিঅ\' বাইডাইৰেক্টচনেল</string>
+  <string name="modify_call_option_vt_tx">ভিডিঅ\' সম্প্ৰচাৰ</string>
+  <string name="modify_call_option_vt_rx">ভিঢিঅ\' গ্ৰহণ</string>
+  <string name="modify_call_option_voice">কেৱল ভইচ</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">বেটাৰী নিম্ন হোৱা বাবে কল সংশোধন কৰিবলৈ ব্যৰ্থ হৈছে</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">ভিডিঅ\' কললৈ আপগ্ৰেড কৰিবলৈ অনুগ্ৰহ কৰি TTY মোড অক্ষম কৰক।</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">অংশগ্ৰহণকাৰী যোগ কৰক</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">বিচ্যুত</string>
+  <string name="qti_description_deflect_error">নম্বৰ ছেট কৰা নাই। IMS ছেটিঙৰ মাধ্যমেৰে নম্বৰ প্ৰদান কৰক আৰু পুনঃচেষ্টা কৰক।</string>
+  <string name="qti_description_deflect_service_error">কল বিচ্যুতকৰণ সেৱা সমৰ্থিত নহয়।</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">কল সমাপ্ত কৰা হৈছে কাৰণ LTE ৰ পৰা 3G/2G প্ৰত্যাৰ্পণ সহজ নহয়।</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">ৰিডায়েল</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">IMS ভিডিঅ\' কল কৰিবলৈ অক্ষম, নন-IMS ভইচ কল হিচাপে ৰিডায়েল কৰিব?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">ব্যৱহাৰকৰ্তাৰ অনুৰোধ অনুযায়ী কল আপগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">ৰিমোট ব্যৱহাৰকৰ্তাৰ অনুৰোধ অনুযায়ী কল আপগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">ব্যৱহাৰকৰ্তাৰ অনুৰোধ অনুযায়ী কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">ৰিমোট ব্যৱহাৰকৰ্তাৰ অনুৰোধ অনুযায়ী কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP টাইমআউটৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">সেৱাৰ গুণমানৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">পেকেট লোকচানৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">নিম্ন থ্ৰুপুটত বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">থাৰ্মেল মিটিগেচনৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">লিপচিংকৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">জেনেৰিক ত্ৰুটিৰ বাবে কল ডাউনগ্ৰেড কৰা হৈছে</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">SIM কাৰ্ড বাচনি কৰক</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

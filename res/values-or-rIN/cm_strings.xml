@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">ଗୋ‍ଷ୍ଠୀ ସମସ୍ତ ଆସୁଥିବା କଲ୍‍ ବେଆର୍ଡ୍‍ କରିଦେଇଛନ୍ତି।</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">କଲ୍‍ର ଉତ୍ତର ଦିଆଗଲା ନାହିଁ ଓ ଅଗ୍ରଗାମୀ କରାଗଲା</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">ଅଗ୍ରଗାମୀ ହୋଥିବା କଲ୍‍</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">ଡାଏଲ୍‍ କରାଯାଉଛି (ଅପେଷା କରାଯାଉଛି\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ମାଧ୍ୟମରେ କଲ୍‍ କରାଯାଉଛି (ଅପେଷା କରାଯାଉଛି\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> ( <xliff:g id="provider_name">%2$s</xliff:g>ମାଧ୍ୟମରେ)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">କଲ୍‍ ହୋଲ୍‍ଡ୍‍ରେ ରଖାଯାଇଛି</string>
+  <string name="call_recording_failed_message">କଲ୍‍ ରେକର୍ଡିଂ ଆର‍ମ୍ଭ କରିବାରେ ବିଫଳ ହେଲା</string>
+  <string name="call_recording_file_location">କଲ୍‍ ରେକଡିଂ <xliff:g id="filename">%s</xliff:g>ରେ ସଞ୍ଚିତ ହୋଇଛି</string>
+  <string name="onscreenCallRecordText">କଲ୍‍ ରେକର୍ଡ କରନ୍ତୁ</string>
+  <string name="onscreenStopCallRecordText">ରେକର୍ଡିଂ ସ୍ଥଗିତ କରିବା</string>
+  <string name="recording_time_text">ରେକର୍ଡିଂ</string>
+  <string name="recording_warning_title">କଲ୍‍ ରେକର୍ଡିଂ ସଷମ କରିବେ କି?</string>
+  <string name="recording_warning_text">ସୂବିଜ୍ଞପ୍ତି କଲ୍‍ ରେକର୍ଡିଂ ସଂଚାଳନ ବ୍ୟବହାର ଓ ସେହି ସମସ୍ତ ରେକର୍ଡିଂର ବଣ୍ଟନ ଉପରେ ଜାରି ହୋଇପାରୁଥିବା ସମସ୍ତ ଆଇନ୍‍, ନିର୍ଦ୍ଦେଶାବଳି ଓ ନିୟମ ସହିତ ସମ୍ବଧିତ ଅନୁପାଳନ ପାଇଁ ଆପଣ ଦାୟୀ ଅଟନ୍ତି।</string>
 </resources>

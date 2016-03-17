@@ -33,11 +33,11 @@
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (דרך <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">שיחה בהמתנה</string>
-  <string name="call_recording_failed_message">נכשל בהתחלת הקלטת השיחה</string>
-  <string name="call_recording_file_location">שמר את הקלטת השיחה ב-<xliff:g id="filename">%s</xliff:g></string>
+  <string name="call_recording_failed_message">התחלת הקלטת השיחה נכשלה</string>
+  <string name="call_recording_file_location">הקלטת השיחה ב-<xliff:g id="filename">%s</xliff:g> נשמרה</string>
   <string name="onscreenCallRecordText">הקלט שיחה</string>
   <string name="onscreenStopCallRecordText">עצור הקלטה</string>
   <string name="recording_time_text">מקליט</string>
   <string name="recording_warning_title">לאפשר הקלטת שיחה?</string>
-  <string name="recording_warning_text">שימו לב: אתם אחראיים לציות לכל חוקים, התקנות והכללים החלים על השימוש באפשרות הקלטת השיחות, ו/או ההפצה של הקלטות אלה.</string>
+  <string name="recording_warning_text">לתשומת לבך: באחריותך לציית לכל חוקים, התקנות והכללים החלים על השימוש באפשרות הקלטת השיחות, על השימוש ו/או ההפצה של הקלטות אלה.</string>
 </resources>

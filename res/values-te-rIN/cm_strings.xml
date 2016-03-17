@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">పార్టీ అన్ని ఇన్‌కమింగ్ కాల్స్ ను నిరోధించారు.</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">కాల్‌ కు సమాధానం లేదు మరియు ఫార్వర్డ్ చేయబడింది</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">ముందుకు పంపబడిన కాల్</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">డయలింగ్ (నిరీక్షణ\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ద్వారా కాల్ చేస్తున్నారు  (వేచి ఉన్నది\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (<xliff:g id="provider_name">%2$s</xliff:g>ద్వారా)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">కాల్ హోల్డులో ఉంది</string>
+  <string name="call_recording_failed_message">కాల్ రికార్డింగ్ ను ప్రారంభించడంలో విఫలమయింది</string>
+  <string name="call_recording_file_location">కాల్ రికార్డింగ్ <xliff:g id="filename">%s</xliff:g> కు సేవ్ చేయబడింది</string>
+  <string name="onscreenCallRecordText">కాల్‌ ను రికార్డ్ చేయుము</string>
+  <string name="onscreenStopCallRecordText">రికార్డింగును నిలిపివేయుము</string>
+  <string name="recording_time_text">రికార్డింగ్</string>
+  <string name="recording_warning_title">కాల్ రికార్డింగును అమలు చేయాలా?</string>
+  <string name="recording_warning_text">గమనిక: కాల్ రికార్డింగ్ కార్యాచరణ మరియు ఆ రికార్డింగుల ఉపయోగం మరియు పంపిణీకు సంబంధించి వర్తించే ఏవైనా చట్టాలు, నిబంధనలు మరియు నియమాలకు కట్టుబడి ఉండడానికి మీరే బాధ్యులు.</string>
 </resources>

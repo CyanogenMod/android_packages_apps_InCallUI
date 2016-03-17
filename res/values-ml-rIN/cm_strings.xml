@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">എല്ലാ ഇൻകമിംഗ് കോളുകളും കക്ഷി തടഞ്ഞിരിക്കുന്നു.</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">മറുപടി നല്‍കാത്തതും ഫോര്‍വേഡ് ചെയ്തതുമായ കോളുകള്‍</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">കൈമാറിയ കോൾ</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">ഡയൽ ചെയ്യുന്നു (കാത്തിരിക്കുന്നു\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> വഴി വിളിക്കുന്നു (കാത്തിരിക്കുന്നു\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g>(വഴി<xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">കോള്‍ ഹോള്‍ഡ്‌ ചെയുന്നു</string>
+  <string name="call_recording_failed_message">കോൾ റെക്കോർഡിംഗ് ആരംഭിക്കുന്നത് പരാജയപ്പെട്ടു</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g> ല്‍ സംരക്ഷിച്ച കോൾ റിക്കോര്‍ഡിംഗ്</string>
+  <string name="onscreenCallRecordText">റെക്കോർഡ് കോൾ</string>
+  <string name="onscreenStopCallRecordText">റെക്കോർഡിംഗ് നിർത്തുക</string>
+  <string name="recording_time_text">റെക്കോർഡുചെയ്യുന്നു</string>
+  <string name="recording_warning_title">കോൾ റെക്കോർഡിംഗ് പ്രാപ്തമാക്കണോ?</string>
+  <string name="recording_warning_text">അറിയിപ്പ്: കോള്‍ റിക്കൊര്‍ഡിംഗ് ഉപയോഗിക്കുന്നതിനും ആ റിക്കൊര്‍ഡിംഗുകള്‍ ഉപയോഗിക്കുന്നതിനും വിതരണം ചെയ്യുന്നതിനും ബാധകമായ നിയമങ്ങളും വ്യവസ്ഥകളും പാലിക്കേണ്ടത് നിങ്ങളുടെ ഉത്തരവാദിത്തമാണ്.</string>
 </resources>

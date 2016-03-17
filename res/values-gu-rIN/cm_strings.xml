@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">પાર્ટીએ તમામ ઇનકમિંગ કૉલ પ્રતિબંધિત રાખ્યા છે.</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">કૉલને જવાબ નહીં મળ્યો અને ફોરવર્ડ થયો</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">કૉલ ફોરવર્ડ થયો</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">ડાયલ થાય છે (પ્રતિક્ષામાં\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> મારફત કૉલ થાય છે (પ્રતિક્ષામાં\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (મારફત <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">કૉલ હોલ્ડ પર છે</string>
+  <string name="call_recording_failed_message">કૉલ રેકૉર્ડિંગ શરૂ કરવામાં નિષ્ફળતા</string>
+  <string name="call_recording_file_location"><xliff:g id="filename">%s</xliff:g> કૉલ રેકૉર્ડિંગ સેવ કર્યું</string>
+  <string name="onscreenCallRecordText">કૉલ રેકોર્ડ કરો</string>
+  <string name="onscreenStopCallRecordText">રેકોર્ડીંગ અટકાવો</string>
+  <string name="recording_time_text">રેકોર્ડિંગ</string>
+  <string name="recording_warning_title">શું કૉલ રેકૉર્ડિંગ સક્ષમ કરવું છે?</string>
+  <string name="recording_warning_text">સૂચના: કૉલ રેકોર્ડિંગ કામગીરી અને એવા રેકૉર્ડિંગના ઉપયોગ અથવા વિતરણના ઉપયોગ માટે લાગુ હોય તેવા કોઇપણ કાનૂનો, નિયમનો અને નિયમોના અનુપાલન માટે તમે જવાબદાર છો.</string>
 </resources>

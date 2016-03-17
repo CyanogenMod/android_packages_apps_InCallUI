@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">அனைத்து உள்வரும் அழைப்புகளையும் பார்ட்டி தடைசெய்துள்ளது</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">அழைப்பு பதிலளிகப்படவில்லை மற்றும் முன்னனுப்பப்பட்டது</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">அழைப்பு முன்னனுப்பப்படுகிறது</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">டயலிங் (காத்திருக்கிறது\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> வழியாக அழைக்கிறது(காத்திருக்கிறது\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (வழி<xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">அழைப்பில் ஹோல்டில் உள்ளது</string>
+  <string name="call_recording_failed_message">அழைப்பு பதிவுசெய்தலை தொடங்குதல் தோல்வியுற்றது</string>
+  <string name="call_recording_file_location">அழைப்பு பதிவுசெய்தலை <xliff:g id="filename">%s</xliff:g>க்கு சேமித்தது</string>
+  <string name="onscreenCallRecordText">அழைப்பை பதிவுசெய்</string>
+  <string name="onscreenStopCallRecordText">பதிவுசெய்தலை நிறுத்து</string>
+  <string name="recording_time_text">பதிவுசெய்கிறது</string>
+  <string name="recording_warning_title">அழைப்பு பதிவுசெய்தலை செயல்படுத்தவா?</string>
+  <string name="recording_warning_text">அறிவிப்பு: அழைப்பு பதிவுசெய்தல் இயக்கம் மற்றும் அந்த பதிவுகளை பயன்படுத்துதல் மற்றும் விநியோகித்தல்களுடன் பொருந்தும் ஏதேனும் சட்டங்கள், விதிமுறைகள் மற்றும் விதிகளுடன் இணங்குவது உங்களுடைய பொறுப்பு</string>
 </resources>

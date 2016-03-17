@@ -32,7 +32,7 @@
          provider (e.g. MSIM) -->
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (<xliff:g id="provider_name">%2$s</xliff:g> bidez)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
-  <string name="card_title_waiting_call">Deia zai</string>
+  <string name="card_title_waiting_call">Deia zain</string>
   <string name="call_recording_failed_message">Huts egin du deia grabatzen hasteak</string>
   <string name="call_recording_file_location">Deiaren grabaketa hemen gorde da: <xliff:g id="filename">%s</xliff:g></string>
   <string name="onscreenCallRecordText">Grabatu deia</string>

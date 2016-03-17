@@ -18,12 +18,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <string name="callFailed_incoming_cb_enabled">पार्टीने सर्व इनकमिंग कॉल्स प्रतिबंधित केले आहेत.</string>
   <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <string name="callUnanswered_forwarded">कॉलला उत्तर दिले गेले नाही आणि फॉरवर्ड केला गेला</string>
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
+  <string name="incall_call_type_label_forwarded">फॉरवर्ड केलेला कॉल</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <string name="card_title_dialing_waiting">डायल करत आहे (प्रतिक्षा करत आहे\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> द्वारे कॉल करत आहे (प्रतिक्षा करत आहे\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (द्वारे <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">कॉल होल्डवर</string>
+  <string name="call_recording_failed_message">कॉल रेकॉर्डिंग सुरू करण्यात अपयशी</string>
+  <string name="call_recording_file_location">कॉल रेकॉर्डिंग <xliff:g id="filename">%s</xliff:g> ला जतन केले</string>
+  <string name="onscreenCallRecordText">कॉल रेकॉर्ड करा</string>
+  <string name="onscreenStopCallRecordText">रेकॉर्डिंग थांबवा</string>
+  <string name="recording_time_text">रेकॉर्डिंग</string>
+  <string name="recording_warning_title">कॉल रेकॉर्डिंग सक्षम करा?</string>
+  <string name="recording_warning_text">सूचना: कॉल रेकॉर्डिंग कार्यक्षमतेस आणि त्या रेकॉर्डिंग्जच्या वापर किंवा वितरणास लागू होणाऱ्या कोणत्याही कायदे, नियमने आणि नियमांच्या अनुपालनासाठी तुम्ही जबाबदार आहात.</string>
 </resources>

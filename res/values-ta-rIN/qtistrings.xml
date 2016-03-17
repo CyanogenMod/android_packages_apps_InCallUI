@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: அழைப்பு துணைநிலை: \u000a %2$s</string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">மீண்டது</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">இணைக்கப்பட்டது, ஆனால் ஒலி இடைநிறுத்தபட்டது</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">இணைக்கப்பட்டது, ஆனால் வீடியோ இடைநிறுத்தபட்டது</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">வீடியோ தரத்தை கண்டறிகிறது\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: வீடியோ தரம் <xliff:g id="quality" example="high">%2$s</xliff:g>க்கு மாற்றப்பட்டது</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">உயர்ந்த</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">நடுத்தரம்</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">குறைந்த</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">அறியப்படாதது</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">ப்ளேயர் தொடங்கியது</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">ப்ளேயர் நின்றது</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">கேமரா தயாராக இல்லை</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">கேமரா தயாராக உள்ளது</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">அறியப்படாத அழைப்பு அமர்வு நிகழ்வு</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">தரவு பயன்பாடு: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">அழைப்பு வகையை தேர்வுசெய்</string>
+  <string name="modify_call_option_vt">வீடியோ இருதிசை</string>
+  <string name="modify_call_option_vt_tx">வீடியோ ஒளிபரப்பு</string>
+  <string name="modify_call_option_vt_rx">வீடியோ பெறுதல்</string>
+  <string name="modify_call_option_voice">குரல் மட்டும்</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">குறைந்த மின்கலம் மாரணமாக அழைப்பை மாற்றியமைப்பதில் தோல்வியுற்றது</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">தயவுசெய்து TTY பயன்முறையை முடக்கி வீடியோ அழைப்புகளுக்கு புதுப்பிக்கவும்.</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">பங்கேற்பாளரை சேர்</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">திசைதிருப்பு</string>
+  <string name="qti_description_deflect_error">எண் அமைக்கப்படவில்லை IMS அமைப்புகள் வழியாக எண்னை வழங்கி மறுமுயற்சிசெய்</string>
+  <string name="qti_description_deflect_service_error">அழைப்பு திசைதிருப்பல் சேவை ஆதரிக்கப்படவில்லை.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">LTEஇல் இருந்து 3G/2G கையளிப்பு கட்டுப்படியாகாததால் அழைப்பு முடிந்தது</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">மறுடயல்</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">IMS வீடியோ அழைப்பை ஏற்படுத்த முடியவில்லை, IMS அல்லாத குரல் அழைப்பாக மறுடயல் செய்யவா?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">பயனர் கோரிக்கையினால் அழைப்பு புதுப்பிக்கபப்ட்டது</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">தொலைநிலை பயனர் கோரிக்கையில் அழைப்பு புதுப்பிக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">பயனர் கோரிக்கையினால் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">தொலைநிலை பயனர் கோரிக்கையில் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP நேரம் முடிவு காரணமாக அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">சேவை தரத்தினால் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">பேக்கெட் இழப்பின் காரணமாக அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">குறைந்த துரோபுட்டினால் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">அனல் மிடிகேசனால் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">உதட்டசைவினால் அழைப்பு பழையதாக்கப்பட்டது</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">உண்மையான பிழை காரணமாக அழைப்பு பழையதாக்கபப்ட்டது</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">சிம் கார்டைத் தேர்ந்தெடுக்கவும்</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

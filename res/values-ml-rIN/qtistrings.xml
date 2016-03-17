@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: കോൾ സബ്സ്റ്റേറ്റ്: \u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">പുനരാരംഭിച്ചു</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">ബന്ധിപ്പിച്ചു, പക്ഷെ ശബ്ദം നിര്‍ത്തി</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">ബന്ധിപ്പിച്ചു, പക്ഷെ വീഡിയോ നിര്‍ത്തി</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">വീഡിയോ ഗുണമേന്മ കണ്ടെത്തുന്നു\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: വീഡിയോ ഗുണമേന്മ <xliff:g id="quality" example="high">%2$s</xliff:g> ലേക്ക് മാറ്റി</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">ഉയര്‍ന്ന</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">ഇടത്തരം</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">താഴ്ന്ന</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">അറിയപ്പെടാത്ത</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">പ്ലെയർ ആരംഭിച്ചു</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">പ്ലേയർ നിർത്തി</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">ക്യാമറ തയ്യാറായിട്ടില്ല</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">ക്യാമറ തയ്യാറാണ്</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">അജ്ഞാതമായ കോൾ സെഷൻ ഇവന്റ്</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">ഡാറ്റ ഉപയോഗം <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">കോൾ തരം തിരഞ്ഞെടുക്കുക</string>
+  <string name="modify_call_option_vt">വീഡിയോ ഉഭയദിശാത്മക</string>
+  <string name="modify_call_option_vt_tx">വീഡിയോ പ്രക്ഷേപണം</string>
+  <string name="modify_call_option_vt_rx">വീഡിയോ സ്വീകരിക്കുക</string>
+  <string name="modify_call_option_voice">ശബ്ദം മാത്രം</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">കുറഞ്ഞ ബാറ്ററി കാരണം കോൾ പരിഷ്ക്കരിക്കുവാന്‍ പരാജയപ്പെട്ടു.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">വീഡിയോ കോളുകളിലേക്ക് അപ്ഗ്രേഡ് ചെയ്യാൻ TTY മോഡ് അപ്രാപ്തമാക്കുക</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">പങ്കാളിയെ ചേർക്കുക</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">വ്യതിചലിക്കുക</string>
+  <string name="qti_description_deflect_error">നമ്പർ സജ്ജീകരിച്ചിട്ടില്ല. IMS ക്രമീകരണങ്ങൾ വഴി നമ്പര്‍ നല്‍കിയ ശേഷം വീണ്ടും ശ്രമിക്കുക.</string>
+  <string name="qti_description_deflect_service_error">കോൾ ഡിഫ്ലക്ഷന്‍ സേവനം പിന്തുണയ്ക്കുന്നില്ല.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">LTE യില്‍ നിന്ന് 3G/2G ലേക്കുള്ള മാറ്റം പ്രായോഗികമല്ലാത്തതിനാല്‍ കോൾ അവസാനിച്ചു.</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">റീഡയൽ</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">ഒരു IMS വീഡിയോ കോൾ ചെയ്യാന്‍ സാധിക്കില്ല, ഒരു നോൺ-IMS വോയ്സ് കോൾ ആയി റീഡയല്‍ ചെയ്യണോ?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">ഉപയോക്തൃ അഭ്യർത്ഥനയില്‍ കോൾ അപ്ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">വിദൂര ഉപയോക്തൃ അഭ്യർത്ഥനയില്‍ കോൾ അപ്ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">ഉപയോക്തൃ അഭ്യർത്ഥനയില്‍ കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">വിദൂര ഉപയോക്തൃ അഭ്യർത്ഥനയില്‍ കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">RTP ടൈംഔട്ട്‌ കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">സേവനത്തിന്റെ ഗുണമേന്മ കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">പാക്കറ്റ് നഷ്ടം കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">കുറഞ്ഞ ത്രോപുട്ട് കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">താപനില ലഘൂകരണം കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">ലിപ്‌സിങ്ക് കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">ജനറിക് പിശക് കാരണം കോൾ ഡൌണ്‍ഗ്രേഡ് ചെയ്തു</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">സിം കാർഡ് തിരഞ്ഞെടുക്കുക</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

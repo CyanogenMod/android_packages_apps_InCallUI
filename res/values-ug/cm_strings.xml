@@ -27,11 +27,17 @@
   <string name="card_title_dialing_waiting">چاقىرىۋاتىدۇ (كۈتۈۋاتىدۇ\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template">ھازىر <xliff:g id="provider_name">%s</xliff:g>دىن چاقىرىۋاتىدۇ(ساقلاۋاتىدۇ\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (ئارقىلىق <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">چاقىرىشىنى ساقلاش</string>
   <string name="call_recording_failed_message">چاقىرىشنى خاتىرىلەشنى باشلىيالمىدى</string>
+  <string name="call_recording_file_location">سۆزلىشىش ئۈن ھۆججىتى <xliff:g id="filename">%s</xliff:g> گە ساقلاندى</string>
   <string name="onscreenCallRecordText">چاقىرىشنى خاتىرىلە</string>
   <string name="onscreenStopCallRecordText">خاتىرىلەشنى توختات</string>
   <string name="recording_time_text">خاتىرىلەۋاتىدۇ</string>
+  <string name="recording_warning_title">سۆزلىشىشنى ئاۋازغا ئالامسىز؟</string>
+  <string name="recording_warning_text">دىققەت: سىزنىڭ سۆزلىشىشنى ئاۋازغا ئېلىشقا ئالاقىدار ئۈننى ئىشلىتىش، مۇناسىۋەتلىك قانۇن، بەلگىلىمە ۋە تۈزۈمگە رىئايە قىلىش مەسئۇليىتىڭىز بار.</string>
 </resources>

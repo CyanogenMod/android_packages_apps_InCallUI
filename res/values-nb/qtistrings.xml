@@ -62,6 +62,7 @@
   <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Ukjent økt anropshendelse</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">Databruk: <xliff:g id="usage">%1$s </xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Velg samtaletype</string>
   <string name="modify_call_option_vt">Videoanrop</string>

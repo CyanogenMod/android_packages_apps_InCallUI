@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: إستدعاء substate:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">استئناف المكالمة</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">المكالمة جارية، ولكن تم تعطيل الصوت</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">المكالمة جارية، ولكن تم تعطيل الفيديو</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">جاري الكشف عن جودة  الفيديو \u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed">جودة الفيديو تغيرت إلى <xliff:g id="quality" example="high">%1$s </xliff:g></string>
   <!-- Video quality High -->
+  <string name="video_quality_high">عالية</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">متوسطة</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">منخفضة</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">غير معروف</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">بدأ المشغل</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">توقف المشغل</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">الكاميرا غير مستعدة</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">الكاميرا مستعدة</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">حدث جلسة اتصال غير معروف</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">حجم التحديث: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">حدد نوع المكالمة</string>
+  <string name="modify_call_option_vt">إجراء مكالمة فيديو</string>
+  <string name="modify_call_option_vt_tx">إرسال الفيديو</string>
+  <string name="modify_call_option_vt_rx">تلقي الفيديو</string>
+  <string name="modify_call_option_voice">صوت فقط</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">فشل في تعديل المكالمة بسبب ضعف البطارية.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">الرجاء تعطيل وضع TTY للسماح بمكالمات الفيديو</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">إضافة مشترك</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">صرف</string>
+  <string name="qti_description_deflect_error">لم يتم تعيين رقم. أدخل الرقم عن طريق إعدادات IMS وأعد المحاولة.</string>
+  <string name="qti_description_deflect_service_error">خدمة صرف المكالمة غير معتمد.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">انتهت المكالمة لأن تسليم LTE إلى 3G/2G لم يكن ممكناً.</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">إعادة الطلب</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">لا يمكن إجراء مكالمة فيديو IMS، أعد الطلب كمكالمة صوتية غير IMS؟</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">تمت ترقية المكالمة حسب طلب المستخدم</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">تمت ترقية المكالمة حسب طلب المستخدم البعيد</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">تم تنزيل المكالمة حسب طلب المستخدم</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">تم تنزيل المكالمة حسب طلب المستخدم البعيد</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">تم تنزيل المكالمة بسبب انتهاء مهلة RTP</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">تم تنزيل المكالمة بسبب جودة الخدمة</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">تم تنزيل المكالمة بسبب فقد الحزمة</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">تم تنزيل المكالمة بسبب إنتاجية منخفضة</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">تم تنزيل المكالمة بسبب تخفيف حراري</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">تم تنزيل المكالمة بسبب مزامنة النطق</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">تم تنزيل المكالمة بسبب خطأ عام</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">تحديد بطاقة SIM</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

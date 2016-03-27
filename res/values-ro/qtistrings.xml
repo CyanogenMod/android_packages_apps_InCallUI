@@ -37,6 +37,7 @@
   <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Apelul este conectat, dar redarea audio este suspendată</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">Apelul este conectat, dar imaginea este suspendată</string>
   <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Detectarea calității semnalului video\u2026</string>
   <!-- Video quality changed message -->

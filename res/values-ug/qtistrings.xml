@@ -36,9 +36,9 @@
   <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">چاقىرىشقا قايتتى</string>
   <!-- Call substate label for call connected suspended (audio) -->
-  <string name="call_substate_connected_suspended_audio">چاقىرىش باغلاندى ئەمما ئاۋاز ۋاقىتلىق توختىدى</string>
+  <string name="call_substate_connected_suspended_audio">چاقىرىش ئۇلاندى، ئەمما ئاۋاز ۋاقىتلىق توختىدى</string>
   <!-- Call substate label for call connected suspended (video) -->
-  <string name="call_substate_connected_suspended_video">چاقىرىش باغلاندى ئەمما سىن ۋاقىتلىق توختىدى</string>
+  <string name="call_substate_connected_suspended_video">چاقىرىش ئۇلاندى، ئەمما سىن ۋاقىتلىق توختىدى</string>
   <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">سىن سۈپىتىنى تەكشۈرۈۋاتىدۇ\u2026</string>
   <!-- Video quality changed message -->

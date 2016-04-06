@@ -158,6 +158,12 @@
             android:contentDescription="@string/onscreenCallRecordText"
             android:visibility="gone" />
 
+        <ImageButton android:id="@+id/transferCall"
+                     style="@style/InCallButton"
+                     android:background="@drawable/btn_transfer_call"
+                     android:contentDescription="@string/onscreenTransferCall"
+                     android:visibility="gone" />
+
         <!-- "Overflow" -->
         <ImageButton android:id="@+id/overflowButton"
             style="@style/InCallButton"

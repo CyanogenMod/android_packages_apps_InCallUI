@@ -77,7 +77,8 @@ public class CallButtonFragment
         public static final int BUTTON_PAUSE_VIDEO = 9;
         public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 10;
         public static final int BUTTON_RECORD_CALL = 11;
-        public static final int BUTTON_COUNT = 12;
+        public static final int BUTTON_TRANSFER_CALL = 12;
+        public static final int BUTTON_COUNT = 13;
     }
 
     private SparseIntArray mButtonVisibilityMap = new SparseIntArray(BUTTON_COUNT);
@@ -96,6 +97,7 @@ public class CallButtonFragment
     private ImageButton mOverflowButton;
     private ImageButton mManageVideoCallConferenceButton;
     private ImageButton mAddParticipantButton;
+    private ImageButton mTransferCallButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -161,6 +163,8 @@ public class CallButtonFragment
         mCallRecordButton.setOnClickListener(this);
         mAddParticipantButton = (ImageButton) parent.findViewById(R.id.addParticipant);
         mAddParticipantButton.setOnClickListener(this);
+        mTransferCallButton = (ImageButton) parent.findViewById(R.id.transferCall);
+        mTransferCallButton.setOnClickListener(this);
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
@@ -242,6 +246,8 @@ public class CallButtonFragment
             case R.id.manageVideoCallConferenceButton:
                 onManageVideoCallConferenceClicked();
                 break;
+            case R.id.transferCall:
+                getPresenter().transferCallClicked();
             default:
                 Log.wtf(this, "onClick: unexpected");
                 return;
@@ -280,6 +286,7 @@ public class CallButtonFragment
             mChangeToVideoButton,
             mAddCallButton,
             mMergeButton,
+            mTransferCallButton,
             mOverflowButton
         };
 
@@ -375,6 +382,7 @@ public class CallButtonFragment
         mOverflowButton.setEnabled(isEnabled);
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
+        mTransferCallButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -416,6 +424,8 @@ public class CallButtonFragment
                 return mManageVideoCallConferenceButton;
             case BUTTON_RECORD_CALL:
                 return mCallRecordButton;
+            case BUTTON_TRANSFER_CALL:
+                return mTransferCallButton;
             default:
                 Log.w(this, "Invalid button id");
                 return null;

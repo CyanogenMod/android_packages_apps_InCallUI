@@ -95,6 +95,15 @@ final class TelecomAdapter implements InCallServiceListener {
         }
     }
 
+    void transferCall(String callId) {
+        android.telecom.Call call = getTelecommCallById(callId);
+        if (call != null) {
+            call.transferCall();
+        } else {
+            Log.e(this, "error transferCall, call not in call list " + callId);
+        }
+    }
+
     void unholdCall(String callId) {
         android.telecom.Call call = getTelecommCallById(callId);
         if (call != null) {

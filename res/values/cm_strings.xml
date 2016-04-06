@@ -43,4 +43,5 @@
     <string name="recording_time_text">Recording</string>
     <string name="recording_warning_title">Enable call recording?</string>
     <string name="recording_warning_text">Notice: You are responsible for compliance with any laws, regulations and rules that apply to the use of call recording functionality and the use or distribution of those recordings.</string>
+    <string name="onscreenTransferCall">Transfer call</string>
 </resources>

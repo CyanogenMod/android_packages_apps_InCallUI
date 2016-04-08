@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.telecom.DisconnectCause;
@@ -32,9 +31,7 @@ import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
-import android.view.Surface;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,8 +41,9 @@ import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 import com.android.incalluibind.ObjectFactory;
-import com.android.phone.common.incall.CallMethodHelper;
 import com.android.phone.common.incall.CallMethodInfo;
+import com.android.phone.common.incall.DialerDataSubscription;
+
 import com.google.common.base.Preconditions;
 
 import java.util.Collections;
@@ -68,7 +66,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class InCallPresenter implements CallList.Listener,
         CircularRevealFragment.OnCircularRevealCompleteListener,
         ContactInfoCache.ContactInfoCacheCallback,
-        CallMethodHelper.CallMethodReceiver {
+        DialerDataSubscription.PluginChanged<CallMethodInfo> {
 
     private static final boolean DEBUG = false;
     private static final String AMBIENT_SUBSCRIPTION_ID = InCallPresenter.class.getSimpleName();
@@ -255,7 +253,7 @@ public class InCallPresenter implements CallList.Listener,
         // This only gets called by the service so this is okay.
         mServiceConnected = true;
 
-        CallMethodHelper.subscribe(AMBIENT_SUBSCRIPTION_ID, this);
+        DialerDataSubscription.get(mContext).subscribe(AMBIENT_SUBSCRIPTION_ID, this);
 
         // The final thing we do in this set up is add ourselves as a listener to CallList.  This
         // will kick off an update and the whole process can start.
@@ -547,7 +545,7 @@ public class InCallPresenter implements CallList.Listener,
     }
 
     @Override
-    public void onChanged(HashMap<ComponentName, CallMethodInfo> callMethodInfo) {
+    public void onChanged(HashMap<ComponentName, CallMethodInfo> pluginInfos) {
         if (DEBUG) Log.i(this, "InCall plugins updated");
         // Update ContactInfoCache then notify listeners
         final CallList calls = CallList.getInstance();
@@ -1456,6 +1454,8 @@ public class InCallPresenter implements CallList.Listener,
             }
             mCallList = null;
 
+            DialerDataSubscription.get(mContext).unsubscribe(AMBIENT_SUBSCRIPTION_ID);
+
             mContext = null;
             mInCallActivity = null;
 
@@ -1467,7 +1467,6 @@ public class InCallPresenter implements CallList.Listener,
             mInCallEventListeners.clear();
             mInCallPluginUpdateListeners.clear();
 
-            CallMethodHelper.unsubscribe(AMBIENT_SUBSCRIPTION_ID);
 
             Log.d(this, "Finished InCallPresenter.CleanUp");
         }

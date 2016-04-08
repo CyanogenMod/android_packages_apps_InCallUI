@@ -54,8 +54,8 @@ import com.android.incallui.InCallPresenter.IncomingCallListener;
 import com.android.incallui.InCallPresenter.InCallDetailsListener;
 
 import com.android.phone.common.ambient.AmbientConnection;
-import com.android.phone.common.util.StartInCallCallReceiver;
 
+import com.android.phone.common.incall.StartInCallCallReceiver;
 import com.cyanogen.ambient.common.api.AmbientApiClient;
 import com.cyanogen.ambient.incall.InCallServices;
 import com.cyanogen.ambient.incall.extension.OriginCodes;

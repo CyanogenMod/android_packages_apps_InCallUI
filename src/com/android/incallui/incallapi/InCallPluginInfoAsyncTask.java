@@ -16,11 +16,8 @@
 
 package com.android.incallui.incallapi;
 
-import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -30,19 +27,14 @@ import android.provider.ContactsContract.Data;
 import android.text.TextUtils;
 import android.util.Log;
 import com.android.phone.common.ambient.AmbientConnection;
-import com.android.phone.common.incall.CallMethodHelper;
 import com.android.phone.common.incall.CallMethodInfo;
-import com.cyanogen.ambient.common.api.AmbientApiClient;
+import com.android.phone.common.incall.DialerDataSubscription;
+import com.android.phone.common.incall.utils.CallMethodFilters;
+import com.android.phone.common.incall.utils.MimeTypeUtils;
 import com.cyanogen.ambient.incall.InCallApi;
 import com.cyanogen.ambient.incall.InCallServices;
 import com.cyanogen.ambient.incall.extension.InCallContactInfo;
-import com.cyanogen.ambient.incall.results.MimeTypeListResult;
 import com.cyanogen.ambient.incall.results.PendingIntentResult;
-import com.cyanogen.ambient.incall.results.PluginStatusResult;
-import com.cyanogen.ambient.incall.results.InCallProviderInfoResult;
-import com.cyanogen.ambient.incall.results.MimeTypeResult;
-import com.cyanogen.ambient.plugin.PluginStatus;
-import com.google.common.base.Joiner;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -87,8 +79,10 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
         List<InCallPluginInfo.Builder> inCallPluginInfoBuilderList =
                 new ArrayList<InCallPluginInfo.Builder>();
         Map<String, Integer> pluginIndex = new HashMap<String, Integer>();
-        HashMap<ComponentName, CallMethodInfo> plugins = CallMethodHelper.getAllEnabledCallMethods();
-        String mimeTypes = CallMethodHelper.getAllEnabledVideoCallableMimeTypes();
+        HashMap<ComponentName, CallMethodInfo> plugins =
+                CallMethodFilters.getAllEnabledCallMethods(DialerDataSubscription.get(mContext));
+        String mimeTypes = MimeTypeUtils.getAllEnabledVideoCallableMimeTypes(
+                DialerDataSubscription.get(mContext));
 
         if (mContactInfo == null) {
             return inCallPluginList;

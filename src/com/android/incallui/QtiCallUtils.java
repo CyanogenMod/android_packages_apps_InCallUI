@@ -224,10 +224,14 @@ public class QtiCallUtils {
     /**
      * Returns user options for accepting an incoming video call based on Qti extension flag
      */
-    public static int getIncomingCallAnswerOptions(Context context, boolean withSms) {
+    public static int getIncomingCallAnswerOptions(Context context,
+            boolean withSms, boolean withBlock) {
         if (!useExt(context)) {
-            return withSms ? AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS :
-                    AnswerFragment.TARGET_SET_FOR_VIDEO_WITHOUT_SMS;
+            if (withSms) {
+                return AnswerFragment.TARGET_SET_FOR_VIDEO_WITH_SMS;
+            }
+            return withBlock ? AnswerFragment.TARGET_SET_FOR_VIDEO_WITHOUT_SMS_WITH_BLOCK :
+                    AnswerFragment.TARGET_SET_FOR_VIDEO_WITHOUT_SMS_AND_BLOCK;
         } else {
             return withSms ? AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_WITH_SMS :
                     AnswerFragment.TARGET_SET_FOR_QTI_VIDEO_WITHOUT_SMS;

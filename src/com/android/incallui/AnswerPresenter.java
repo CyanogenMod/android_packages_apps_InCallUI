@@ -27,6 +27,8 @@ import android.provider.Settings;
 import com.android.contacts.common.util.BlockContactHelper;
 import com.android.dialer.util.TelecomUtil;
 import com.android.incallui.InCallPresenter.InCallState;
+import com.android.internal.telephony.util.BlacklistUtils;
+
 import com.cyanogen.lookup.phonenumber.provider.LookupProviderImpl;
 import org.codeaurora.ims.qtiims.IQtiImsInterface;
 import org.codeaurora.ims.qtiims.IQtiImsInterfaceListener;
@@ -484,6 +486,10 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         }
     }
 
+    public boolean isBlockingEnabled() {
+        return BlacklistUtils.isBlacklistEnabled(getUi().getContext());
+    }
+
     public void onBlockDialogInitialize() {
         int phoneId = getActivePhoneId();
         Log.d(this, "onBlock mCallId:" + mCallId + "phoneId:" + phoneId);
@@ -546,17 +552,15 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         boolean withSms =
                 call.can(android.telecom.Call.Details.CAPABILITY_RESPOND_VIA_TEXT)
                 && mHasTextMessages;
+        boolean withBlock = isBlockingEnabled();
 
         // Only present the user with the option to answer as a video call if the incoming call is
         // a bi-directional video call.
         if (call.isVideoCall(getUi().getContext())) {
+            getUi().showTargets(QtiCallUtils.getIncomingCallAnswerOptions(
+                    getUi().getContext(), withSms, withBlock));
             if (withSms) {
-                getUi().showTargets(QtiCallUtils.getIncomingCallAnswerOptions(
-                        getUi().getContext(), withSms));
                 getUi().configureMessageDialog(textMsgs);
-            } else {
-                getUi().showTargets(QtiCallUtils.getIncomingCallAnswerOptions(
-                        getUi().getContext(), withSms));
             }
         } else if (isCallDeflectSupported()) {
             /**
@@ -571,10 +575,14 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
             }
         } else {
             if (withSms) {
-                getUi().showTargets(AnswerFragment.TARGET_SET_FOR_AUDIO_WITH_SMS);
+                getUi().showTargets(withBlock
+                        ? AnswerFragment.TARGET_SET_FOR_AUDIO_WITH_SMS_AND_BLOCK
+                        : AnswerFragment.TARGET_SET_FOR_AUDIO_WITH_SMS_WITHOUT_BLOCK);
                 getUi().configureMessageDialog(textMsgs);
             } else {
-                getUi().showTargets(AnswerFragment.TARGET_SET_FOR_AUDIO_WITHOUT_SMS);
+                getUi().showTargets(withBlock
+                        ? AnswerFragment.TARGET_SET_FOR_AUDIO_WITHOUT_SMS_WITH_BLOCK
+                        : AnswerFragment.TARGET_SET_FOR_AUDIO_WITHOUT_SMS_AND_BLOCK);
             }
         }
     }

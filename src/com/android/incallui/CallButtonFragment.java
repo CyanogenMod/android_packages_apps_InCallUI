@@ -465,61 +465,6 @@ public class CallButtonFragment
         mSwitchCameraButton.setSelected(isBackFacingCamera);
     }
 
-    public void modifyChangeToVideoButton() {
-        boolean canVideoCall = getPresenter().canVideoCall();
-        List<InCallPluginInfo> contactInCallPlugins =
-                getPresenter().getContactInCallPluginInfoList();
-        int listSize = (contactInCallPlugins != null) ? contactInCallPlugins.size() : 0;
-        if (!canVideoCall && listSize == 1) {
-            InCallPluginInfo info = contactInCallPlugins.get(0);
-            if (info != null && info.getPluginSingleColorIcon() != null) {
-                LayerDrawable layerDrawable =
-                        (LayerDrawable) getResources().getDrawable(R.drawable.btn_change_to_video)
-                                .mutate();
-
-                int buttonWidth = mChangeToVideoButton.getWidth();
-                int buttonHeight = mChangeToVideoButton.getWidth();
-                if (buttonWidth == 0 || buttonHeight == 0) {
-                    buttonWidth =
-                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
-                    buttonHeight =
-                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
-                }
-                int xInset = buttonWidth - layerDrawable.getIntrinsicWidth();
-                if (xInset > 0) {
-                    xInset = xInset / 2;
-                } else {
-                    xInset = 0;
-                }
-                int yInset = buttonHeight - layerDrawable.getIntrinsicHeight();
-                if (yInset > 0) {
-                    yInset = yInset / 2;
-                } else {
-                    yInset = 0;
-                }
-
-                if (DEBUG) {
-                    Log.i(TAG, "mChangeToVideoButton: [w h] [" + mChangeToVideoButton.getWidth() +
-                            " " + mChangeToVideoButton.getHeight() + "]");
-                    Log.i(TAG, "adjusted button: [w h] [" + buttonWidth + " " + buttonHeight + "]");
-                    Log.i(TAG, "layerDrawable: [w h] [" + layerDrawable.getIntrinsicWidth() + " " +
-                            layerDrawable.getIntrinsicHeight() + "]");
-                    Log.i(TAG, "xInset = " + xInset);
-                    Log.i(TAG, "xInset = " + yInset);
-                }
-
-                Drawable icon = info.getPluginSingleColorIcon();
-                icon.setTintList(getResources().getColorStateList(R.color.selectable_icon_tint));
-                icon.setAutoMirrored(false);
-
-                // layer 0 is background, layer 1 is the icon to use.
-                layerDrawable.setLayerInset(1, xInset, yInset, xInset, yInset);
-                layerDrawable.setDrawableByLayerId(R.id.foregroundItem, icon);
-                mChangeToVideoButton.setBackground(layerDrawable);
-            }
-        }
-    }
-
     @Override
     public void setVideoPaused(boolean isPaused) {
         mPauseVideoButton.setSelected(isPaused);

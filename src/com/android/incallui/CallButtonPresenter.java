@@ -628,9 +628,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         ui.showButton(BUTTON_MUTE, showMute);
         ui.showButton(BUTTON_ADD_CALL, showAddCall);
         ui.showButton(BUTTON_UPGRADE_TO_VIDEO, showUpgradeToVideo);
-        if (showUpgradeToVideo) {
-            ui.modifyChangeToVideoButton();
-        }
         ui.showButton(BUTTON_SWITCH_CAMERA, isVideo);
         ui.showButton(BUTTON_PAUSE_VIDEO, isVideo && !useExt);
         ui.showButton(BUTTON_DIALPAD, !isVideo || useExt);
@@ -709,7 +706,6 @@ public class CallButtonPresenter extends Presenter<CallButtonPresenter.CallButto
         void requestCallRecordingPermission(String[] permissions);
         void displayDialpad(boolean on, boolean animate);
         boolean isDialpadVisible();
-        void modifyChangeToVideoButton();
         void displayVideoCallOptions();
         void showInviteSnackbar(PendingIntent inviteIntent, String inviteText);
 

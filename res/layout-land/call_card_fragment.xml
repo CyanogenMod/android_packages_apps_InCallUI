@@ -53,6 +53,28 @@
         android:alpha="0.9"
         android:layout_margin="10dp">
 
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clipChildren="false"
+            android:gravity="right"
+            android:paddingEnd="@dimen/call_banner_side_padding"
+            android:paddingTop="@dimen/incall_volte_label_top_padding"
+            android:clipToPadding="false">
+
+            <!-- VoLTE annunciator. Visible or gone depending on whether
+             VoLTE is in use. Carriers may customize this annunciator
+             by overlaying the ic_volte.xml drawable. -->
+            <ImageView android:id="@+id/volte_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd"
+                android:tint="@color/incall_accent_color"
+                android:src="@drawable/ic_volte"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
         <include layout="@layout/primary_call_info" />
 
         <FrameLayout
@@ -140,6 +162,42 @@
             android:src="@drawable/fab_ic_end_call"
             android:scaleType="center"
             android:contentDescription="@string/onscreenEndCallText" />
+
+    </FrameLayout>
+
+    <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@id/primary_call_info_container"
+            android:elevation="@dimen/lookup_extra_info_container_elevation">
+
+        <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/lookup_extra_info_container_margin_start"
+                android:layout_marginTop="@dimen/lookup_extra_info_container_margin_top"
+                android:layout_gravity="start|top"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/contactInfoAttribution"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/contact_info_attribution_text_size"
+                    android:textColor="@color/contact_info_attribution_text_color"
+                    android:text="@string/powered_by_provider" />
+
+            <TextView
+                    android:id="@+id/spamInfo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="@dimen/contact_info_spam_info_text_size"
+                    android:textColor="@color/contact_info_spam_info_text_color"
+                    android:text="@string/caller_info_loading" />
+        </LinearLayout>
 
     </FrameLayout>
 

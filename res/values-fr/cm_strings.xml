@@ -40,4 +40,7 @@
   <string name="recording_time_text">Enregistrement</string>
   <string name="recording_warning_title">Activer l\'enregistrement des appels ?</string>
   <string name="recording_warning_text">Avertissement : vous êtes responsable aux regards des lois, des règlements et des règles qui s\'appliquent à l\'utilisation des fonctionnalités d\'enregistrement, d\'utilisation et de distribution des enregistrements d\'appels.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

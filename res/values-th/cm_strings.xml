@@ -40,4 +40,8 @@
   <string name="recording_time_text">เวลาบันทึก</string>
   <string name="recording_warning_title">เปิดบันทึกการโทรหรือไม่</string>
   <string name="recording_warning_text">ข้อสังเกต: คุณมีภาระรับผิดชอบในการปฏิบัติตามกฎหมาย ระเบียบข้อบังคับ และกฎที่ใช้กับการใช้ฟังก์ชันบันทึกการสนทนาและการใช้หรือการเผยแพร่ของบันทึกเหล่านั้น</string>
+  <string name="onscreenTransferCall">โอนสาย</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

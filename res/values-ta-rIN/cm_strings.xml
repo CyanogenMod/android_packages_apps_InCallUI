@@ -40,4 +40,7 @@
   <string name="recording_time_text">பதிவுசெய்கிறது</string>
   <string name="recording_warning_title">அழைப்பு பதிவுசெய்தலை செயல்படுத்தவா?</string>
   <string name="recording_warning_text">அறிவிப்பு: அழைப்பு பதிவுசெய்தல் இயக்கம் மற்றும் அந்த பதிவுகளை பயன்படுத்துதல் மற்றும் விநியோகித்தல்களுடன் பொருந்தும் ஏதேனும் சட்டங்கள், விதிமுறைகள் மற்றும் விதிகளுடன் இணங்குவது உங்களுடைய பொறுப்பு</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

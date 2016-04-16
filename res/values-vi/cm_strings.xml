@@ -40,4 +40,7 @@
   <string name="recording_time_text">Ghi âm</string>
   <string name="recording_warning_title">Cho phép ghi âm cuộc gọi?</string>
   <string name="recording_warning_text">Thông báo: Bạn có trách nhiệm tuân thủ bất kỳ luật pháp, quy định và quy tắc nào áp dụng cho việc sử dụng chức năng ghi âm cuộc gọi và sử dụng hay phân phối các bản ghi âm đó.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

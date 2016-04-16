@@ -40,4 +40,8 @@
   <string name="recording_time_text">Optager</string>
   <string name="recording_warning_title">Aktivér optagelse af opkald?</string>
   <string name="recording_warning_text">Bemærk: Du er ansvarlig for at overholde alle love og regler, der gælder for brugen af optagelse af opkald og for anvendelse eller distribution af disse optagelser.</string>
+  <string name="onscreenTransferCall">Overfør opkald</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

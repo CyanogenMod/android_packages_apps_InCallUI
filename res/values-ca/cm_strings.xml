@@ -40,4 +40,19 @@
   <string name="recording_time_text">S\'està gravant</string>
   <string name="recording_warning_title">Vols habilitar l\'enregistrament de trucades?</string>
   <string name="recording_warning_text">Avís: Ets el responsable de la conformitat amb qualsevol legislació, reglament i normatives que s\'apliquin a la utilització de la funcionalitat de l\'enregistrament de trucades i l\'ús o distribució d\'aquests enregistraments de trucades.</string>
+  <string name="onscreenTransferCall">Transfereix la trucada</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Selecciona el servei de vídeo</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Aquest contacte no és un contacte de <xliff:g id="incall_plugin">%s</xliff:g>. Primer has d\'afegir aquesta persona per fer vídeotrucades.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Aquest contacte no és un contacte de <xliff:g id="incall_plugin">%s</xliff:g>. Vols convidar a aquest contacte?</string>
+  <string name="snackbar_invite_action_text">CONVIDA</string>
+  <string name="caller_info_loading">S\'està cercant <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">No s\'ha pogut contactar amb <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">No s\'ha trobat cap coincidència a <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">Configuració de <xliff:g id="provider">%s</xliff:g> incompleta</string>
+  <string name="call_button_contact_unknown">Desconegut</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Bloqueja la trucada</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Bloqueja</string>
 </resources>

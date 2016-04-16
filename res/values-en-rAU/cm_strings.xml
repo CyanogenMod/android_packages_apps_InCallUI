@@ -34,4 +34,7 @@
   <string name="onscreenCallRecordText">Record call</string>
   <string name="onscreenStopCallRecordText">Stop recording</string>
   <string name="recording_time_text">Recording</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

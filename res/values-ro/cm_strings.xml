@@ -39,4 +39,7 @@
   <string name="recording_time_text">Înregistrare</string>
   <string name="recording_warning_title">Activați înregistrarea apelurilor?</string>
   <string name="recording_warning_text">Anunț: Sunteți responsabil pentru respectarea oricărei legi, regulament și normă care se aplică la utilizarea funcției de înregistrare și folosirea sau distribuirea acestor înregistrări.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

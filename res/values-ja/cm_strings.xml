@@ -40,4 +40,7 @@
   <string name="recording_time_text">録音中</string>
   <string name="recording_warning_title">通話録音を有効にしますか？</string>
   <string name="recording_warning_text">注意: あなたには通話録音機能とその録音データの配布に準用する法令・条例・規範を遵守する責任があります。</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

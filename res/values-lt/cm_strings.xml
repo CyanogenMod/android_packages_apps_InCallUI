@@ -39,4 +39,7 @@
   <string name="recording_time_text">Įrašoma</string>
   <string name="recording_warning_title">Įgalinti skambučio įrašymą?</string>
   <string name="recording_warning_text">Pastaba: jūs esate atsakingas už įstatymų, teisės aktų ir taisyklių, kurios taikomos skambučių įrašymo naudojimuisi, funkcionalumui ir įrašų platinimui.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

@@ -40,4 +40,7 @@
   <string name="recording_time_text">ରେକର୍ଡିଂ</string>
   <string name="recording_warning_title">କଲ୍‍ ରେକର୍ଡିଂ ସଷମ କରିବେ କି?</string>
   <string name="recording_warning_text">ସୂବିଜ୍ଞପ୍ତି କଲ୍‍ ରେକର୍ଡିଂ ସଂଚାଳନ ବ୍ୟବହାର ଓ ସେହି ସମସ୍ତ ରେକର୍ଡିଂର ବଣ୍ଟନ ଉପରେ ଜାରି ହୋଇପାରୁଥିବା ସମସ୍ତ ଆଇନ୍‍, ନିର୍ଦ୍ଦେଶାବଳି ଓ ନିୟମ ସହିତ ସମ୍ବଧିତ ଅନୁପାଳନ ପାଇଁ ଆପଣ ଦାୟୀ ଅଟନ୍ତି।</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

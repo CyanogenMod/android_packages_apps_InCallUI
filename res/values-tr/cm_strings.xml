@@ -40,4 +40,7 @@
   <string name="recording_time_text">Kayıt ediliyor</string>
   <string name="recording_warning_title">Arama kaydı etkinleştirilsin mi?</string>
   <string name="recording_warning_text">Dikkat: Arama kaydı işlevini kullanırken veya bu kayıtları dağıtırken ilgili yasa, düzenleme ve kurallara karşı sorumlusunuz.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

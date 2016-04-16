@@ -37,4 +37,7 @@
   <string name="onscreenStopCallRecordText">وه‌ستانی تۆمارکردن</string>
   <string name="recording_time_text">تۆمارکردن</string>
   <string name="recording_warning_title">چالاککردنی تۆمارکردنی پەیوەندی?</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

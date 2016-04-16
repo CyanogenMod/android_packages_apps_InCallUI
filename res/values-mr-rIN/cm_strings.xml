@@ -40,4 +40,7 @@
   <string name="recording_time_text">रेकॉर्डिंग</string>
   <string name="recording_warning_title">कॉल रेकॉर्डिंग सक्षम करा?</string>
   <string name="recording_warning_text">सूचना: कॉल रेकॉर्डिंग कार्यक्षमतेस आणि त्या रेकॉर्डिंग्जच्या वापर किंवा वितरणास लागू होणाऱ्या कोणत्याही कायदे, नियमने आणि नियमांच्या अनुपालनासाठी तुम्ही जबाबदार आहात.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

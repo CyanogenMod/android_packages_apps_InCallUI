@@ -40,4 +40,19 @@
   <string name="recording_time_text">Nauhoitetaan</string>
   <string name="recording_warning_title">Ota puheluiden nauhoitus käyttöön?</string>
   <string name="recording_warning_text">Huomautus: Olet vastuussa lakien, asetuksien ja sääntöjen noudattamisesta, jotka koskevat puheluiden nauhoittamista ja näiden nauhoitteiden käytöstä ja jakelusta.</string>
+  <string name="onscreenTransferCall">Siirrä puhelu</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Valitse videopalvelu</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Tämä yhteystieto ei ole <xliff:g id="incall_plugin">%s</xliff:g>-yhteystieto. Sinun tulee lisätä tämä henkilö ensin soittaaksesi videopuheluita.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Tämä yhteystieto ei ole <xliff:g id="incall_plugin">%s</xliff:g>-yhteystieto. Kutsu tämä henkilö?</string>
+  <string name="snackbar_invite_action_text">KUTSU</string>
+  <string name="caller_info_loading">Haetaan käyttäen palvelua <xliff:g id="provider">%s</xliff:g>u2026</string>
+  <string name="caller_info_failure">Palveluun <xliff:g id="provider">%s</xliff:g> ei saada yhteyttä</string>
+  <string name="caller_info_no_result">Osumia ei löytynyt palvelusta <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">Palvelun <xliff:g id="provider">%s</xliff:g> asennus kesken</string>
+  <string name="call_button_contact_unknown">Tuntematon</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Estä soittaja</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Estä</string>
 </resources>

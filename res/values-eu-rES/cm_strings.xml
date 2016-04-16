@@ -40,4 +40,19 @@
   <string name="recording_time_text">Grabazioa</string>
   <string name="recording_warning_title">Gaitu deien grabaketa?</string>
   <string name="recording_warning_text">Oharra: Zu zara deien grabaketei eta hauek erabili edo banatzeari dagokien legeak edo bestelako arauak betetzearen erantzulea.</string>
+  <string name="onscreenTransferCall">Transferitu deia</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Hautatu bideo zerbitzua</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Kontaktu hau ez da <xliff:g id="incall_plugin">%s</xliff:g> kontaktu bat. Pertsona hau gehitu behar duzu bideo deiak egiteko.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Kontaktu hau ez da <xliff:g id="incall_plugin">%s</xliff:g> kontaktu bat. Gonbidatu?</string>
+  <string name="snackbar_invite_action_text">GONBIDATU</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g> bilatzen\u2026</string>
+  <string name="caller_info_failure">Ezin izan da <xliff:g id="provider">%s</xliff:g>(r)ekin kontaktatu</string>
+  <string name="caller_info_no_result">Ez da <xliff:g id="provider">%s</xliff:g> aurkitu</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> ezarpena bukatu gabe</string>
+  <string name="call_button_contact_unknown">Ezezaguna</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokeatu deitzailea</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokeatu</string>
 </resources>

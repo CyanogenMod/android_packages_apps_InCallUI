@@ -40,4 +40,7 @@
   <string name="recording_time_text">Идет запись</string>
   <string name="recording_warning_title">Включить запись телефонных разговоров?</string>
   <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и их последующего распространения.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

@@ -40,4 +40,7 @@
   <string name="recording_time_text">Opnemen\u2026</string>
   <string name="recording_warning_title">Gespreksopname inschakelen?</string>
   <string name="recording_warning_text">Let op: u bent zelf verantwoordelijk om de wetten, verordeningen en regels na te leven die van toepassing zijn bij het opnemen van gesprekken en het gebruik of verspreiding van zulke opnamen.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

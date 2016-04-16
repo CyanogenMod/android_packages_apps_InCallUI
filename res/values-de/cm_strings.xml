@@ -40,4 +40,10 @@
   <string name="recording_time_text">Aufzeichnung</string>
   <string name="recording_warning_title">Anrufaufzeichnung aktivieren?</string>
   <string name="recording_warning_text">Hinweis: Sie sind dafür verantwortlich, dass alle Gesetze, Verordnungen und Vorschriften für die Verwendung der Anrufaufzeichnung und die Verwendung oder Verteilung dieser Aufnahmen eingehalten werden.</string>
+  <string name="onscreenTransferCall">Anruf weiterleiten</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Anrufer blockieren</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blockieren</string>
 </resources>

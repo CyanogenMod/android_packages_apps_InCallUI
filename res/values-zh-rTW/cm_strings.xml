@@ -38,4 +38,7 @@
   <string name="recording_time_text">正在錄製</string>
   <string name="recording_warning_title">啟用通話錄音？</string>
   <string name="recording_warning_text">注意：您有責任遵守任何適用於規管通話錄音功能的使用和分發這些錄音的法律、法規或規章。</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

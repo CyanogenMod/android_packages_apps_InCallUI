@@ -40,4 +40,7 @@
   <string name="recording_time_text">ৰেকৰ্ডিং</string>
   <string name="recording_warning_title">কল ৰেকৰ্ডিং সক্ষম কৰিব</string>
   <string name="recording_warning_text">জাননী: আপুনি কল ৰেকৰ্ডিং কাৰ্য আৰু সেই ৰেকৰ্ডিঙৰ ব্যৱহাৰ আৰু বিতৰণৰ বাবে প্ৰযোজ্য যিকোনো আইন, অধিনিয়ম আৰু নিয়ম পালন কৰাৰ বাবে দায়বদ্ধ।</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

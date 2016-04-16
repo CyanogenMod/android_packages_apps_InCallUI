@@ -39,4 +39,7 @@
   <string name="recording_time_text">Salvestamine</string>
   <string name="recording_warning_title">Lubada kõne salvestamine?</string>
   <string name="recording_warning_text">Teade: Teie olete kohustatud järgima seaduseid, määruseid ja reegleid, mis käivad kõnede salvestamise funktsiooni ja nende salvestiste jagamise kohta.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

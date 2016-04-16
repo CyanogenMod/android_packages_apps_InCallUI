@@ -40,4 +40,7 @@
   <string name="recording_time_text">Nagrywanie</string>
   <string name="recording_warning_title">Włączyć nagrywanie połączeń?</string>
   <string name="recording_warning_text">Uwaga; Ponosisz odpowiedzialność za wszelkie komplikacje z prawem związane z nagrywaniem rozmów i ich udostępnianiem bądź rozpowszechnianiem tych nagrań.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

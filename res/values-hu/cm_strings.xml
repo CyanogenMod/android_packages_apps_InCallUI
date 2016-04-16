@@ -40,4 +40,7 @@
   <string name="recording_time_text">Felvétel</string>
   <string name="recording_warning_title">Hívás rögzítésének engedélyezése?</string>
   <string name="recording_warning_text">Figyelmeztetés: A hívás rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

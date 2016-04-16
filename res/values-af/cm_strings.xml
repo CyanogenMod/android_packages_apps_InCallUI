@@ -40,4 +40,7 @@
   <string name="recording_time_text">Neem tans op</string>
   <string name="recording_warning_title">Aktiveer oproep opname?</string>
   <string name="recording_warning_text">Kennisgewing: Jy is verantwoordelik vir die nakoming van enige wette, regulasies en reëls wat van toepassing is op die gebruik van oproep opname funksie en die gebruik of verspreiding van die opnames.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

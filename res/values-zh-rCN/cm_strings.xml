@@ -40,4 +40,10 @@
   <string name="recording_time_text">正在录音</string>
   <string name="recording_warning_title">启用通话录音吗？</string>
   <string name="recording_warning_text">注意：您有责任遵守任何有关通话录音，以及对于录音使用、分发相关的法律、法规和规定。</string>
+  <string name="onscreenTransferCall">呼叫转移</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">选择视频服务</string>
+  <string name="snackbar_invite_action_text">邀请</string>
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

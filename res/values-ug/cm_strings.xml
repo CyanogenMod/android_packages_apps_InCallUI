@@ -40,4 +40,8 @@
   <string name="recording_time_text">خاتىرىلەۋاتىدۇ</string>
   <string name="recording_warning_title">سۆزلىشىشنى ئاۋازغا ئالامسىز؟</string>
   <string name="recording_warning_text">دىققەت: سىزنىڭ سۆزلىشىشنى ئاۋازغا ئېلىشقا ئالاقىدار ئۈننى ئىشلىتىش، مۇناسىۋەتلىك قانۇن، بەلگىلىمە ۋە تۈزۈمگە رىئايە قىلىش مەسئۇليىتىڭىز بار.</string>
+  <string name="onscreenTransferCall">چاقىرىشنى يۆتكەش</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

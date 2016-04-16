@@ -39,4 +39,7 @@
   <string name="recording_time_text">Gëtt opgeholl</string>
   <string name="recording_warning_title">Uruffopnam aktivéieren?</string>
   <string name="recording_warning_text">Bemierkung: Du bass responsabel fir d\'Anhale vu Gesetzer, Regulatiounen a Regelen, déi op d\'Funktioun fir d\'Uruffopnam sou wéi fir d\'Benotzung an Distributioun vun dësen Opname gëllen.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

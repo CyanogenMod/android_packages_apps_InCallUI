@@ -39,4 +39,7 @@
   <string name="recording_time_text">Gravando</string>
   <string name="recording_warning_title">Activar a gravación das chamadas?</string>
   <string name="recording_warning_text">Aviso: É a súa responsabilidade respectar as leis, normas e regras que afecten á función de gravación de chamadas e á distribución desas gravacións.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

@@ -40,4 +40,7 @@
   <string name="recording_time_text">Snimanje</string>
   <string name="recording_warning_title">Omogućivanje snimanja poziva?</string>
   <string name="recording_warning_text">Obavijest: Vi ste odgovorni za usklađenost sa zakonima, propisima i pravilima koji se odnose na korištenje funkcionalnosti snimanja poziva i korištenje ili distribuciju tih snimaka.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

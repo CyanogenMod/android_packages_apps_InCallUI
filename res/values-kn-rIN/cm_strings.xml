@@ -40,4 +40,7 @@
   <string name="recording_time_text">ರಿಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ</string>
   <string name="recording_warning_title">ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸು?</string>
   <string name="recording_warning_text">ಗಮನಿಸಿ: ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ವೈಶಿಷ್ಟ್ಯವನ್ನು ಬಳಸುವುದು ಮತ್ತು ಉಪಯೋಗಿಸುವ ಅಥವ ಆ ರಿಕಾರ್ಡಿಂಗ್‍ಗಳನ್ನು ವಿತರಿಸುವಂತಹ ಯಾವುದೇ ಕಾನೂನು, ನಿಬಂಧನೆಗಳ ಮತ್ತು ನಿಯಮಗಳ ಅನುಸರಣೆಯ ಜವಾಬ್ದಾರಿ ನಿಮ್ಮದಾಗಿರುತ್ತದೆ.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

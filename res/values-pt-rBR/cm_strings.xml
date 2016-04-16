@@ -39,4 +39,19 @@
   <string name="recording_time_text">Gravando</string>
   <string name="recording_warning_title">Ativar gravação de chamadas?</string>
   <string name="recording_warning_text">Aviso: Você é responsável por cumprir leis, regulações e regras que se aplicam ao uso da funcionalidade de gravação de chamadas e da utilização ou distribuição dessas gravações.</string>
+  <string name="onscreenTransferCall">Transferir chamada</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Selecione o serviço de vídeo</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Este contato não é um contato <xliff:g id="incall_plugin">%s</xliff:g>. Você deve adicionar esta pessoa antes de fazer uma vídeo chamada.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Este contato não é um contato <xliff:g id="incall_plugin">%s</xliff:g>. Deseja enviar um convite?</string>
+  <string name="snackbar_invite_action_text">CONVIDAR</string>
+  <string name="caller_info_loading">Procurando <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> não pôde ser encontrado</string>
+  <string name="caller_info_no_result">Nada foi encontrado para <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> configuração incompleta</string>
+  <string name="call_button_contact_unknown">Desconhecida</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Bloquear chamada</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Bloquear</string>
 </resources>

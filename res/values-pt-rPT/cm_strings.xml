@@ -40,4 +40,8 @@
   <string name="recording_time_text">A gravar</string>
   <string name="recording_warning_title">Ativar a gravação de chamadas?</string>
   <string name="recording_warning_text">Aviso: Você é responsável pela conformidade com quaisquer leis, regulamentos e regras que se apliquem ao uso da funcionalidade e a utilização ou distribuição dessas gravações de chamadas.</string>
+  <string name="onscreenTransferCall">Transferir chamada</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

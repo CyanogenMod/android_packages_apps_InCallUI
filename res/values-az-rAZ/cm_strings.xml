@@ -39,4 +39,7 @@
   <string name="recording_time_text">Səs yazılır</string>
   <string name="recording_warning_title">Zəng səsyazma fəallaşdırılsın?</string>
   <string name="recording_warning_text">Diqqət: Zəng səsyazma funksiyasını istifadə edərkən və bu səsyazmaları paylaşarkən əlaqəli qanun,  nizamnamə və qaydalara uyğun olaraq məsuliyyət daşıyırsınız.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

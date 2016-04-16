@@ -40,4 +40,7 @@
   <string name="recording_time_text">Ідзе запіс</string>
   <string name="recording_warning_title">Уключыць запіс тэлефонных гутарак?</string>
   <string name="recording_warning_text">Увага: выкарыстанне гэтай функцыі ў некаторых краінах з\'яўляецца незаконным. Вы несяце асабістую адказнасць за выкананне законаў і правіл, гэта тычыцца функцыі запісу гутарак і наступнага шырання гэтых запісаў.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

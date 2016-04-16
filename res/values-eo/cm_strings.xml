@@ -39,4 +39,7 @@
   <string name="recording_time_text">Registrado</string>
   <string name="recording_warning_title">Ĉu ebligi registradon de alvokoj?</string>
   <string name="recording_warning_text">Noto : Vi respondecas pri leĝoj kaj reguloj rilate al la registrado de alvokoj kaj ties uzo.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

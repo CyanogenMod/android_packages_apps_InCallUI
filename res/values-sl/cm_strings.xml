@@ -40,4 +40,19 @@
   <string name="recording_time_text">Snemanje</string>
   <string name="recording_warning_title">Omogoči snemanje klicev?</string>
   <string name="recording_warning_text">Obvestilo: Odgovorni ste za skladnost z zakoni, predpisi in pravili, ki veljajo za uporabo funkcionalnosti snemanja klicev in uporabo ali distribucijo teh posnetkov.</string>
+  <string name="onscreenTransferCall">Prenesi klic</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Izberite storitev videoklicev</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Ta stik ni stik <xliff:g id="incall_plugin">%s</xliff:g>. Za opravljanje videoklicev morate najprej to osebo dodati.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Ta stik ni stik <xliff:g id="incall_plugin">%s</xliff:g>. Povabi ta stik?</string>
+  <string name="snackbar_invite_action_text">POVABI</string>
+  <string name="caller_info_loading">Iskanje <xliff:g id="provider">%s</xliff:g> \u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> ni bilo mogoče doseči</string>
+  <string name="caller_info_no_result">Ni ujemanj s/z <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">Namestitev <xliff:g id="provider">%s</xliff:g> nekončana</string>
+  <string name="call_button_contact_unknown">Neznan</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokiraj klicatelja</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokiraj</string>
 </resources>

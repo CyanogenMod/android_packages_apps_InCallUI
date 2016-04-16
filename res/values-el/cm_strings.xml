@@ -40,4 +40,19 @@
   <string name="recording_time_text">Γίνεται εγγραφή</string>
   <string name="recording_warning_title">Ενεργοποίηση καταγραφής κλήσεων;</string>
   <string name="recording_warning_text">Προσοχή: Είστε υπεύθυνοι για τη συμμόρφωση με οποιουσδήποτε νόμους, κανονισμούς και κανόνες που ισχύουν για τη χρήση της λειτουργίας καταγραφής κλήσεων και τη χρήση ή διανομή των καταγραφών αυτών.</string>
+  <string name="onscreenTransferCall">Μεταφορά κλήσης</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Επιλέξτε υπηρεσία βίντεο</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Αυτή η επαφή δεν είναι μια <xliff:g id="incall_plugin">%s</xliff:g> επαφή. Πρέπει να προσθέσετε αυτό το άτομο πρώτα για να κάνετε κλήσεις βίντεο.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Αυτή η επαφή δεν είναι μια <xliff:g id="incall_plugin">%s</xliff:g> επαφή. Πρόσκληση αυτής της επαφής;</string>
+  <string name="snackbar_invite_action_text">ΠΡΟΣΚΛΗΣΗ</string>
+  <string name="caller_info_loading">Αναζήτηση στο <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">Δεν ήταν δυνατή η σύνδεση με το <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">Δεν βρέθηκε κανένα αποτέλεσμα για <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">Ελλιπής ρύθμιση του <xliff:g id="provider">%s</xliff:g></string>
+  <string name="call_button_contact_unknown">Άγνωστη</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Αποκλεισμός καλούντος</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Αποκλεισμός</string>
 </resources>

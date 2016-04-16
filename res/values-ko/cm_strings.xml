@@ -40,4 +40,7 @@
   <string name="recording_time_text">녹음 중</string>
   <string name="recording_warning_title">통화 녹음을 활성화 할까요?</string>
   <string name="recording_warning_text">주의 사항: 통화 녹음 기능의 사용과 녹음된 파일의 사용 및 배포에 적용되는 모든 법, 규정 및 규칙을 준수해야 합니다.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

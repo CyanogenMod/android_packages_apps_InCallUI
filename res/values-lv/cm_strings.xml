@@ -33,4 +33,7 @@
   <string name="onscreenCallRecordText">Ierakstīt zvanu</string>
   <string name="onscreenStopCallRecordText">Apturēt ierakstīšanu</string>
   <string name="recording_time_text">Ieraksta</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

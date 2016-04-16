@@ -40,4 +40,8 @@
   <string name="recording_time_text">מקליט</string>
   <string name="recording_warning_title">להפעיל הקלטת שיחה?</string>
   <string name="recording_warning_text">לתשומת לבך: באחריותך לציית לכל חוקים, התקנות והכללים החלים על השימוש באפשרות הקלטת השיחות, על השימוש ו/או ההפצה של הקלטות אלה.</string>
+  <string name="onscreenTransferCall">העברת שיחה</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

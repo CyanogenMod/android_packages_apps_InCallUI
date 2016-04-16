@@ -39,4 +39,7 @@
   <string name="recording_time_text">در حال ضبط</string>
   <string name="recording_warning_title">فعال‌کردن ضبط تماس؟</string>
   <string name="recording_warning_text">توجه: شما مسئول تبعیت از قوانین، قواعد و مقررات مربوط به قابلیت استفاده از ضبط صدا و استفاده از آن برای پخش موارد ضبط‌شده هستید.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

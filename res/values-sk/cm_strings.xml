@@ -39,4 +39,7 @@
   <string name="recording_time_text">Nahrávanie</string>
   <string name="recording_warning_title">Povoliť nahrávanie hovorov?</string>
   <string name="recording_warning_text">Upozornenie: Ste zodpovedný za dodržiavanie všetkých zákonov, predpisov a pravidiel, ktoré sa vzťahujú na nahrávanie hovorov a použitie alebo distribúciu týchto nahrávok.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
 </resources>

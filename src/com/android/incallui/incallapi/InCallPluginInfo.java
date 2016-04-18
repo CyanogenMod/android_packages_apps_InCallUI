@@ -25,8 +25,14 @@ public class InCallPluginInfo {
     private String mPluginTitle;
     private String mUserId;
     private String mMimeType;
-    private Drawable mPluginColorIcon;
-    private Drawable mPluginSingleColorIcon;
+    /* Plugin's simple brand icon (24dp x 24dp)
+       Expected format: Vector Drawable (.xml)
+       2 colors allowed. */
+    private Drawable mPluginBrandIcon;
+    /* Plugin's video call action icon (24dp x 24dp)
+       Expected format: Vector Drawable (.xml)
+       1 color allowed. */
+    private Drawable mPluginVideoIcon;
     private PendingIntent mInviteIntent;
 
     private InCallPluginInfo() {
@@ -48,12 +54,18 @@ public class InCallPluginInfo {
         return mMimeType;
     }
 
-    public Drawable getPluginColorIcon() {
-        return mPluginColorIcon;
+    /* Plugin's simple brand icon (24dp x 24dp)
+       Expected format: Vector Drawable (.xml)
+       2 colors allowed. */
+    public Drawable getPluginBrandIcon() {
+        return mPluginBrandIcon;
     }
 
-    public Drawable getPluginSingleColorIcon() {
-        return mPluginSingleColorIcon;
+    /* Plugin's video call action icon (24dp x 24dp)
+       Expected format: Vector Drawable (.xml)
+       1 color allowed. */
+    public Drawable getPluginVideoIcon() {
+        return mPluginVideoIcon;
     }
 
     public PendingIntent getPluginInviteIntent() {
@@ -65,8 +77,8 @@ public class InCallPluginInfo {
         private String mPluginTitle;
         private String mUserId;
         private String mMimeType;
-        private Drawable mPluginColorIcon;
-        private Drawable mPluginSingleColorIcon;
+        private Drawable mPluginBrandIcon;
+        private Drawable mPluginVideoIcon;
         private PendingIntent mInviteIntent;
 
         public Builder() {
@@ -92,13 +104,13 @@ public class InCallPluginInfo {
             return this;
         }
 
-        public Builder setPluginColorIcon(Drawable pluginColorIcon) {
-            this.mPluginColorIcon = pluginColorIcon;
+        public Builder setPluginBrandIcon(Drawable pluginBrandIcon) {
+            this.mPluginBrandIcon = pluginBrandIcon;
             return this;
         }
 
-        public Builder setPluginSingleColorIcon(Drawable pluginSingleColorIcon) {
-            this.mPluginSingleColorIcon = pluginSingleColorIcon;
+        public Builder setPluginVideoIcon(Drawable pluginVideoIcon) {
+            this.mPluginVideoIcon = pluginVideoIcon;
             return this;
         }
 
@@ -110,7 +122,7 @@ public class InCallPluginInfo {
         // TODO: Check if we want to require an invite intent or not
         public InCallPluginInfo build() throws IllegalStateException{
             if (mPluginComponent == null || mPluginTitle == null || mMimeType == null
-                    || mPluginColorIcon == null || mPluginSingleColorIcon == null) {
+                    || mPluginBrandIcon == null || mPluginVideoIcon == null) {
                 throw new IllegalStateException();
             }
             InCallPluginInfo info = new InCallPluginInfo();
@@ -118,8 +130,8 @@ public class InCallPluginInfo {
             info.mPluginTitle = mPluginTitle;
             info.mUserId = mUserId;
             info.mMimeType = mMimeType;
-            info.mPluginColorIcon = mPluginColorIcon;
-            info.mPluginSingleColorIcon = mPluginSingleColorIcon;
+            info.mPluginBrandIcon = mPluginBrandIcon;
+            info.mPluginVideoIcon = mPluginVideoIcon;
             info.mInviteIntent = mInviteIntent;
             return info;
         }

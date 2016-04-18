@@ -465,6 +465,64 @@ public class CallButtonFragment
         mSwitchCameraButton.setSelected(isBackFacingCamera);
     }
 
+    // The icons used for the call button fragment are constructed using layerdrawables,
+    // where the second layer is a item containing a bitmap with it's gravity set to "center".
+    // This method gets the insets set on the layerdrawable layer when the bitmap is centered,
+    // and applies it to the vector drawable that we are replacing it with.
+    public void modifyChangeToVideoButton() {
+        boolean canVideoCall = getPresenter().canVideoCall();
+        List<InCallPluginInfo> contactInCallPlugins =
+                getPresenter().getContactInCallPluginInfoList();
+        int listSize = (contactInCallPlugins != null) ? contactInCallPlugins.size() : 0;
+        if (!canVideoCall && listSize == 1) {
+            InCallPluginInfo info = contactInCallPlugins.get(0);
+            if (info != null && info.getPluginVideoIcon() != null) {
+                LayerDrawable layerDrawable =
+                        (LayerDrawable) getResources().getDrawable(R.drawable.btn_change_to_video)
+                                .mutate();
+
+                int buttonWidth = mChangeToVideoButton.getWidth();
+                int buttonHeight = mChangeToVideoButton.getWidth();
+                if (buttonWidth == 0 || buttonHeight == 0) {
+                    buttonWidth =
+                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
+                    buttonHeight =
+                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
+                }
+                int xInset = buttonWidth - layerDrawable.getIntrinsicWidth();
+                if (xInset > 0) {
+                    xInset = xInset / 2;
+                } else {
+                    xInset = 0;
+                }
+                int yInset = buttonHeight - layerDrawable.getIntrinsicHeight();
+                if (yInset > 0) {
+                    yInset = yInset / 2;
+                } else {
+                    yInset = 0;
+                }
+
+                if (DEBUG) {
+                    Log.i(TAG, "mChangeToVideoButton: [w h] [" + mChangeToVideoButton.getWidth() +
+                            " " + mChangeToVideoButton.getHeight() + "]\n" +
+                            "adjusted button: [w h] [" + buttonWidth + " " + buttonHeight + "]\n" +
+                            "layerDrawable: [w h] [" + layerDrawable.getIntrinsicWidth() + " " +
+                            layerDrawable.getIntrinsicHeight() + "]\n" +
+                            "xInset = " + xInset + ", xInset = " + yInset);
+                }
+
+                Drawable icon = info.getPluginVideoIcon();
+                icon.setTintList(getResources().getColorStateList(R.color.selectable_icon_tint));
+                icon.setAutoMirrored(false);
+
+                // layer 0 is background, layer 1 is the icon to use.
+                layerDrawable.setLayerInset(1, xInset, yInset, xInset, yInset);
+                layerDrawable.setDrawableByLayerId(R.id.foregroundItem, icon);
+                mChangeToVideoButton.setBackground(layerDrawable);
+            }
+        }
+    }
+
     @Override
     public void setVideoPaused(boolean isPaused) {
         mPauseVideoButton.setSelected(isPaused);
@@ -585,7 +643,7 @@ public class CallButtonFragment
             int i = 0;
             for (InCallPluginInfo info : contactInCallPlugins) {
                 items.add(info.getPluginTitle());
-                icons.add(info.getPluginColorIcon());
+                icons.add(info.getPluginBrandIcon());
                 itemToCallType.add(i++);
             }
         }

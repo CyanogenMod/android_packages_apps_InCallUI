@@ -174,8 +174,8 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
                 InCallPluginInfo.Builder infoBuilder = inCallPluginInfoBuilderList.get(index);
                 infoBuilder.setPluginComponent(callMethod.mComponent)
                         .setPluginTitle(callMethod.mName)
-                        .setPluginColorIcon(callMethod.mBrandIcon)
-                        .setPluginSingleColorIcon(callMethod.mSingleColorBrandIcon);
+                        .setPluginBrandIcon(callMethod.mBrandIcon)
+                        .setPluginVideoIcon(callMethod.mVideoIcon);
 
                 try {
                     inCallPluginList.add(infoBuilder.build());

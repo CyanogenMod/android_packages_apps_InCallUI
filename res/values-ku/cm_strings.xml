@@ -17,28 +17,48 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">لایه‌نه‌ناوه‌کی ڕێگری کرد له‌ هه‌موو په‌یوه‌ندییه‌ هاتووه‌کان.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">پەیوەندی وەڵام نەدرایەوە و پشتگوێخرا</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">په‌یوه‌ندییه‌ به‌دواکه‌وتنه‌کان</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">لێدان (وه‌ستان\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">تەلەفۆنەکە لەسەر چاوەڕێیە</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">لیستی تەلەفۆنە بلۆکراوەکان</string>
   <string name="call_recording_failed_message">هنه‌توانرا تۆمارکردنی په‌یوه‌ندی ده‌ستپێبکرێت</string>
   <string name="call_recording_file_location">تەلەفۆنی تۆمارکراو پاشەکەوتکرا بۆ <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">زیاکردکردنی بۆ لیستی پەیوەندی</string>
   <string name="blacklist_dialog_message">په‌یوه‌ندی داهاتوو له‌لایه‌ن <xliff:g id="number">%s</xliff:g> بلۆک ده‌کرێت</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">تەلەفۆنی ڤیدۆی (وەستێنرا)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">زیادکردنی بەشداربوو</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">دیارکردنی جۆری پەیوەندی</string>
   <string name="modify_call_option_vt">په‌یوه‌ندی وێنه‌یی</string>
   <string name="modify_call_option_vt_tx">ناردنی ڤیدیۆ</string>
   <string name="modify_call_option_vt_rx">وەەرگرتنی ڤیدیۆ</string>
   <string name="modify_call_option_voice">تەنیا دەنگ</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">تکایە باری TTY لەکاربخە بۆ ڕێگەدان بە پەیوەندی ڤیدۆی</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">لێدەر دەستیپێکرد</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">لێدەر وەستێنرا</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">کامێراکە ئامادە نیە</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">کامێرەکە ئامادەیە</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">پەیوەندیەکی نەناسراو</string>
   <string name="onscreenCallRecordText">دەستپێکردن و وەستانی تۆماکردنی پەیوەندی</string>
   <string name="onscreenAddToBlacklistText">زیادکردنی پەیوەندی بۆ لیستی بلۆکراوەکان</string>
@@ -46,15 +66,26 @@
   <string name="menu_stop_record">وه‌ستانی تۆمارکردن</string>
   <string name="recording_time_text">تۆمارکردن</string>
   <string name="recording_warning_title">چالاککردنی تۆمارکردنی پەیوەندی?</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">سیمکارتی ١</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">سیمکارتی ٢</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">دەستپێکردنەوەی پەیوەندی</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">پەیوەندی پەیوەندکرا، بەڵام دەنگ بەسەرچوو</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">پەیوەندی پەیوەندکرا، بەڵام ڤیدۆ بەسەرچوو</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">جۆری ڤیدۆ کواڵتی\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">کواڵتی ڤیدۆ گۆڕڕا بۆ <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">بەرز</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">ناوەند</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">که‌م</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">نه‌زانراو</string>
 </resources>

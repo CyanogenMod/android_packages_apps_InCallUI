@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">บุคคลได้กีดกันสายเข้าทั้งหมด</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">ไม่รับสายและส่งต่อ</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">สายที่ส่งต่อ</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">กำลังโทรออก (รอ\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">กำลังโทรผ่าน <xliff:g id="provider_name">%s</xliff:g> (รอ\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">รอสาย</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">สายการโทรที่รออยู่ (ผ่าน <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">รายชื่อผู้โทรที่ถูกบล็อค</string>
   <string name="call_recording_failed_message">ไม่สามารถเริ่มบันทึกการสนทนาได้</string>
   <string name="call_recording_file_location">บันทึกการสนทนาไปยัง  <xliff:g id="filename">%s</xliff:g> แล้ว</string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">เพิ่มไปยังรายชื่อผู้โทรที่ถูกบล็อค</string>
   <string name="blacklist_dialog_message">การโทรจาก <xliff:g id="number">%s</xliff:g> ในอนาคตจะถูกบล็อค</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">สายวิดีโอ (หยุดชั่วคราว)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">เพิ่มผู้เข้าร่วม</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">เลือกประเภทการสนทนา</string>
   <string name="modify_call_option_vt">สนทนาวิดีโอ</string>
   <string name="modify_call_option_vt_tx">ตัวส่งวิดีโอ</string>
   <string name="modify_call_option_vt_rx">ตัวรับวิดีโอ</string>
   <string name="modify_call_option_voice">เสียงเท่านั้น</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">กรุณาปิดใช้งานรูปแบบ TTY เพื่อให้ใช้สายวิดีโอได้</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">เริ่มเล่น</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">หยุดเล่น</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">กล้องไม่พร้อม</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">กล้องพร้อมแล้ว</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">ไม่รู้จักกิจกรรมการโทร</string>
   <string name="onscreenCallRecordText">เริ่มต้นและหยุดการบันทึกการโทร</string>
   <string name="onscreenAddToBlacklistText">เพิ่มผู้โทรไปยังรายชื่อที่ถูกบล็อค</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">เวลาบันทึก</string>
   <string name="recording_warning_title">เปิดบันทึกการโทรหรือไม่</string>
   <string name="recording_warning_text">ข้อสังเกต: คุณมีภาระรับผิดชอบในการปฏิบัติตามกฎหมาย ระเบียบข้อบังคับ และกฎที่ใช้กับการใช้ฟังก์ชันบันทึกการสนทนาและการใช้หรือการเผยแพร่ของบันทึกเหล่านั้น</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">ซิม 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">ซิม 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">สนทนาต่อ</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">เชื่อมต่อสายแล้ว แต่เสียงถูกระงับไว้</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">เชื่อมต่อสายแล้ว แต่วิดีโอถูกระงับไว้</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">กำลังหาคุณภาพวิดีโอ\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">คุณภาพวีดีโอเปลี่ยนเป็น<xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">สูง</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">ปานกลาง</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">ต่ำ</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">ไม่ทราบ</string>
 </resources>

@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Участник забрани всички входящи повиквания.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Повиквания без отговор и препратени</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Препратено повикване</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Набиране (изчакайте\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Повикване чрез <xliff:g id="provider_name">%s </xliff:g> (Waiting\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Задържано повикване</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Обаждане на изчакване (от <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Списък на блокираните контакти</string>
   <string name="call_recording_failed_message">Неуспешен опит за записване на разговора</string>
   <string name="call_recording_file_location">Записания разговор е запазен в <xliff:g id="filename">%s </xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Добавяне към списъка с блокираните контакти</string>
   <string name="blacklist_dialog_message">Бъдещите обаждания от <xliff:g id="number">%s</xliff:g> ще бъдат блокирани</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Видео повикване (пауза)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Добавяне на участник</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Изберете типа на повикването</string>
   <string name="modify_call_option_vt">Видео повикване</string>
   <string name="modify_call_option_vt_tx">Видео предаване</string>
   <string name="modify_call_option_vt_rx">Видео получаване</string>
   <string name="modify_call_option_voice">Само глас</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Моля, деактивирайте TTY режим, за да даде възможност за видео разговори</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Плейъра започна</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Плейъра спря</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Камерата не е готова</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Камерата е готова</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Събитие за неизвестно повикване</string>
   <string name="onscreenCallRecordText">Стартиране и спиране запис на обаждане</string>
   <string name="onscreenAddToBlacklistText">Добавяне към списъка на блокираните контакти</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">Записване</string>
   <string name="recording_warning_title">Разреши записването на разговори?</string>
   <string name="recording_warning_text">Забележка: Вие сте отговорни за спазването на всички закони, наредби и правила, които важат за използването на записани разговори или разпространение на тези записи.</string>
-  <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">СИМ карта 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">СИМ карта 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Разговорът е възобновен</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Повикването е свързано, но аудио е спряно</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Повикването е свързано, но видеото е спряно</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Откриване качеството на видеото\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Качеството на видеото, променено на <xliff:g id="quality" example="high">%1$s </xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">високо</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">средно</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">ниско</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">неизвестно</string>
 </resources>

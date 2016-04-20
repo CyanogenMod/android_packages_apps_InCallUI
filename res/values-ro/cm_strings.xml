@@ -17,29 +17,49 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Apelatul a blocat toate apelurile primite.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Apel nerăspuns și redirecționat</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Apel redirecționat</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Apelez (așteptați\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Apelare via <xliff:g id="provider_name">%s</xliff:g> (În așteptare\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Apel în așteptare</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Apel în așteptare (prin <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Lista apelanților blocați</string>
   <string name="call_recording_failed_message">Înregistrarea apelului a eșuat</string>
   <string name="call_recording_file_location">S-a salvat înregistrarea apelului către <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Adăugare la lista apelanților blocați</string>
   <string name="blacklist_dialog_message">Viitoarele apeluri de la <xliff:g id="number">%s</xliff:g> vor fi blocate</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Apel video (în pauză)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Adaugă participant</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Selectați tipul de apel</string>
   <string name="modify_call_option_vt">Apel video</string>
   <string name="modify_call_option_vt_tx">Transmisie video</string>
   <string name="modify_call_option_vt_rx">Recepție video</string>
   <string name="modify_call_option_voice">Numai voce</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Vă rugăm să dezactivați modul TTY pentru a permite apeluri video</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Redarea a început</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Camera foto nu este pregătită</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Camera foto este gata</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Eveniment necunoscut al sesiunii de apel</string>
   <string name="onscreenCallRecordText">Începe și termină înregistrarea convorbirii</string>
   <string name="onscreenAddToBlacklistText">Adăugare apelant la lista apelanților blocați</string>
@@ -48,15 +68,26 @@
   <string name="recording_time_text">Înregistrare</string>
   <string name="recording_warning_title">Activați înregistrarea apelurilor?</string>
   <string name="recording_warning_text">Anunț: Sunteți responsabil pentru respectarea oricărei legi, regulament și normă care se aplică la utilizarea funcției de înregistrare și folosirea sau distribuirea acestor înregistrări.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Apelul a fost reluat</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Apelul este conectat, dar redarea audio este suspendată</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Apelul este conectat, dar imaginea este suspendată</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Detectarea calității semnalului video\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Calitatea video s-a schimbat în <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">ridicată</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">medie</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">scăzută</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">necunoscută</string>
 </resources>

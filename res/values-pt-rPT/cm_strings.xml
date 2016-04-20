@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Todas as chamadas recebidas em multi-conferência foram barradas.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Chamada não respondida e reencaminhada</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Chamada reencaminhada</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">A marcar (aguarde\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">A chamar através de <xliff:g id="provider_name">%s</xliff:g> (aguarde\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Chamada em espera</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Chamada em espera (através de <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Lista de números bloqueados</string>
   <string name="call_recording_failed_message">Falha ao iniciar a gravação de chamadas</string>
   <string name="call_recording_file_location">A gravação da chamada foi guardada em <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Adicionar à lista de números bloqueados</string>
   <string name="blacklist_dialog_message">Futuras chamadas de <xliff:g id="number">%s</xliff:g> serão bloqueadas</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Chamada de vídeo (pausada)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Adicionar participante</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Selecionar o tipo de chamada</string>
   <string name="modify_call_option_vt">Chamada de vídeo</string>
   <string name="modify_call_option_vt_tx">Transmissão de vídeo</string>
   <string name="modify_call_option_vt_rx">Receção de vídeo</string>
   <string name="modify_call_option_voice">Apenas voz</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Por favor, desative o modo TTY para permitir chamadas de vídeo</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">O leitor de vídeo foi iniciado</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">O leitor de vídeo parou</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">A câmara não está pronta</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">A câmara está pronta</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Evento de sessão de chamada desconhecido</string>
   <string name="onscreenCallRecordText">Iniciar e parar a gravação de chamadas</string>
   <string name="onscreenAddToBlacklistText">Adicionar o número à lista de números bloqueados</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">A gravar</string>
   <string name="recording_warning_title">Ativar a gravação de chamadas?</string>
   <string name="recording_warning_text">Aviso: Você é responsável pela conformidade com quaisquer leis, regulamentos e regras que se apliquem ao uso da funcionalidade e a utilização ou distribuição dessas gravações de chamadas.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Chamada retomada</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">A chamada está conectada, mas o áudio está suspenso</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">A chamada está conectada, mas o vídeo está suspenso</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">A detetar a qualidade do vídeo\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">A qualidade do vídeo mudou para <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">alta</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">média</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">baixa</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">desconhecida</string>
 </resources>

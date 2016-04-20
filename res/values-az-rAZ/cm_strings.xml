@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Qrup bütün gələn zəngləri əngəlləndi.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Zəng cavablanmayıb yönləndirildi</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Yönləndirilmiş zəng</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Yığılır (gözləyir\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ilə zəng edilir (Gözləyin\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Zəng gözlədilir</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Zəng gözləmədədir (<xliff:g id="provider_name">%s</xliff:g> ilə)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Əngəllənən zəng edənlərin siyahısı</string>
   <string name="call_recording_failed_message">Zəng səsyazması başladılmadı</string>
   <string name="call_recording_file_location">Zəng səsyazmasının saxlanıldığı yer: <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Əngəllənən zəng edənlər siyahısına əlavə et</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g> nömrəsindən gələcək zənglər əngəllənəcək</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Görüntülü zəng (ara verildi)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">İştirakçı əlavə et</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Zəng növünü seçin</string>
   <string name="modify_call_option_vt">Görüntülü zəng</string>
   <string name="modify_call_option_vt_tx">Video ötürmə</string>
   <string name="modify_call_option_vt_rx">Video qəbulu</string>
   <string name="modify_call_option_voice">Yalnız səs</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Görüntülü zənglərə icazə vermək üçün zəhmət olmasa TTY rejimi ləğv edin</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Oynadıcı başladı</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Oynadıcı dayandı</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kamera hazır deyil</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera hazırdır</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Bilinməyən zəng seansı</string>
   <string name="onscreenCallRecordText">Zəng səsyazmasını başlat və dayandır</string>
   <string name="onscreenAddToBlacklistText">Zəng edən şəxsi əngəllənənlər siyahısına əlavə et</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">Səs yazılır</string>
   <string name="recording_warning_title">Zəng səsyazma fəallaşdırılsın?</string>
   <string name="recording_warning_text">Diqqət: Zəng səsyazma funksiyasını istifadə edərkən və bu səsyazmaları paylaşarkən əlaqəli qanun,  nizamnamə və qaydalara uyğun olaraq məsuliyyət daşıyırsınız.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Zəngə qayıdıldı</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Bağlantı yaradıldı, ancaq səs gözlədilir</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Bağlantı yaradıldı, ancaq görüntü gözlədilir</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Görüntü keyfiyyəti aşkarlanır\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Görüntü keyfiyyəti <xliff:g id="quality" example="high">%1$s</xliff:g> olaraq dəyişdirildi</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">yüksək</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">orta</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">aşağı</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">bilinməyən</string>
 </resources>

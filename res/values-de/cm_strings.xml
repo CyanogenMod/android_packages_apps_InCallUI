@@ -17,47 +17,78 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Die Gegenseite blockiert alle eingehenden Anrufe.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Anruf unbeantwortet und weitergeleitet</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Weitergeleiteter Anruf</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Rufaufbau (anklopfen\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Anruf über <xliff:g id="provider_name">%s</xliff:g> (Anklopfen\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Anruf wird gehalten</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Anruf wird gehalten (via <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Anrufer-Sperrliste</string>
   <string name="call_recording_failed_message">Starten der Anrufaufzeichnung fehlgeschlagen</string>
   <string name="call_recording_file_location">Anrufaufzeichnung in <xliff:g id="filename">%s</xliff:g> gespeichert</string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Zur Anrufer-Sperrliste hinzufügen</string>
   <string name="blacklist_dialog_message">Zukünftige Anrufe von <xliff:g id="number">%s</xliff:g> werden blockiert.</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Videoanruf (pausiert)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Teilnehmer hinzufügen</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Anrufart auswählen</string>
   <string name="modify_call_option_vt">Videoanruf</string>
   <string name="modify_call_option_vt_tx">Video übertragen</string>
   <string name="modify_call_option_vt_rx">Video empfangen</string>
   <string name="modify_call_option_voice">Nur Sprache</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Deaktivieren Sie den TTY-Modus, um Videoanrufe zu erlauben.</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Videospieler gestartet</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Videospieler angehalten</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kamera ist nicht bereit</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera ist bereit</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Unbekanntes Anrufereignis</string>
   <string name="onscreenCallRecordText">Anrufaufzeichnung starten und stoppen</string>
   <string name="onscreenAddToBlacklistText">Anrufer zur Sperrliste hinzufügen</string>
   <string name="menu_start_record">Anruf aufzeichnen</string>
-  <string name="menu_stop_record">Aufnahme beenden</string>
+  <string name="menu_stop_record">Aufzeichnung beenden</string>
   <string name="recording_time_text">Aufzeichnung</string>
   <string name="recording_warning_title">Anrufaufzeichnung aktivieren?</string>
   <string name="recording_warning_text">Hinweis: Sie sind dafür verantwortlich, dass alle Gesetze, Verordnungen und Vorschriften für die Verwendung der Anrufaufzeichnung und die Verwendung oder Verteilung dieser Aufnahmen eingehalten werden.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Anruf fortgesetzt</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Gesprächspartner ist verbunden, aber die Tonübertragung wurde unterbrochen</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Gesprächspartner ist verbunden, aber die Bildübertragung wurde unterbrochen</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Videoqualität wird ermittelt\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Videoqualität in <xliff:g id="quality" example="high">%1$s</xliff:g> geändert</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">hoch</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">mittel</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">niedrig</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">unbekannt</string>
 </resources>

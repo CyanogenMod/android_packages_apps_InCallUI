@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Ryhmä on estänyt kaikki tulevat puhelut.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Puheluun ei vastattu ja se siirrettiin</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Siirretty puhelu</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Soitetaan (odotetaan\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Soitetaan <xliff:g id="provider_name">%s</xliff:g> (Odottaa\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Puhelu pidossa</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Puhelu on pidossa (<xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Estettyjen soittajien lista</string>
   <string name="call_recording_failed_message">Puhelun nauhoitus epäonnistui</string>
   <string name="call_recording_file_location">Tallennettu nauhoitettu puhelu hakemistoon <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Lisää estettyjen soittajien listaan</string>
   <string name="blacklist_dialog_message">Tulevat puhelut numerosta <xliff:g id="number">%s</xliff:g> estetään</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Videopuhelu (keskeytetty)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Lisää osallistuja</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Valitse puhelun tyyppi</string>
   <string name="modify_call_option_vt">Videopuhelu</string>
   <string name="modify_call_option_vt_tx">Videon lähetys</string>
   <string name="modify_call_option_vt_rx">Videon vastaanotto</string>
   <string name="modify_call_option_voice">Vain ääni</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Ota TTY-tila pois käytöstä soittaaksesi videopuheluita</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Soitin käynnistyi</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Soitin pysähtyi</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kamera ei ole valmis</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera on valmis</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Tuntematon puhelun tapahtuma</string>
   <string name="onscreenCallRecordText">Aloita ja lopeta puhelun nauhoittaminen</string>
   <string name="onscreenAddToBlacklistText">Lisää soittaja estettyjen soittajien listaan</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">Nauhoitetaan</string>
   <string name="recording_warning_title">Ota puheluiden nauhoitus käyttöön?</string>
   <string name="recording_warning_text">Huomautus: Olet vastuussa lakien, asetuksien ja sääntöjen noudattamisesta, jotka koskevat puheluiden nauhoittamista ja näiden nauhoitteiden käytöstä ja jakelusta.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Puhelu palautettu</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Puhelu on yhdistetty, mutta äänen siirto on keskeytetty</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Puhelu on yhdistetty, mutta videon siirto on keskeytetty</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Tunnistetaan videon laatua\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Videon laatu muutettu <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">korkeaksi</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">keskitasoiseksi</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">matalaksi</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">tuntemattomaksi</string>
 </resources>

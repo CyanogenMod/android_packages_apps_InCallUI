@@ -17,27 +17,47 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">對方已禁止所有來電。</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">來電未接聽並已轉駁</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <!-- In-call screen: status label for a call that is held remotely -->
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">已封鎖來電者名單</string>
   <string name="call_recording_failed_message">無法啟動通話錄音</string>
   <string name="call_recording_file_location">已將電話錄音存到 <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">添加至已封鎖來電者名單</string>
   <string name="blacklist_dialog_message">未來從 <xliff:g id="number">%s</xliff:g> 的來電將會被封鎖</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">視像通話 (已暫停)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">新增參與者</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">選取通話類型</string>
   <string name="modify_call_option_vt">視像通話</string>
   <string name="modify_call_option_vt_tx">視像傳輸</string>
   <string name="modify_call_option_vt_rx">視像接收</string>
   <string name="modify_call_option_voice">只有語音</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">停用 TTY 模式即可進行視像通話</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">播放器已開始</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">播放器已停止</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">相機尚未就緒</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">相機已就緒</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">未知的通話事件</string>
   <string name="onscreenCallRecordText">開始和結束通話錄音</string>
   <string name="onscreenAddToBlacklistText">添加來電者至已封鎖來電者名單</string>
@@ -46,15 +66,26 @@
   <string name="recording_time_text">正在錄製</string>
   <string name="recording_warning_title">啟用通話錄音？</string>
   <string name="recording_warning_text">注意：您有責任遵守任何適用於規管通話錄音功能的使用和分發這些錄音的法律、法規或規章。</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 卡 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 卡 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">已回復通話</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">通話已連接，但音訊被暫停</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">通話已連接，但視像被暫停</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">正在檢查視像品質\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">影像品質改為 <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">高畫質</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">中畫質</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">低畫質</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">不明畫質</string>
 </resources>

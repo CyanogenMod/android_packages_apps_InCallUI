@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Oseba ima zaporo vseh dohodnih klicev.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Klic neodgovorjen in posredovan</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Posredovan klic</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Klicanje (čakanje \u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Klicanje preko <xliff:g id="provider_name">%s</xliff:g> (čakanje \u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Klic na čakanju</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Klic na čakanju (preko <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Seznam blokiranih klicateljev</string>
   <string name="call_recording_failed_message">Začetek snemanja klica je spodletel</string>
   <string name="call_recording_file_location">Snemanje klica shranjeno v <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Dodaj na seznam blokiranih klicateljev</string>
   <string name="blacklist_dialog_message">Prihodnji klici iz <xliff:g id="number">%s</xliff:g> bodo blokirani</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Videoklic (v premoru)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Dodaj udeleženca</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Izberi vrsto klica</string>
   <string name="modify_call_option_vt">Videoklic</string>
   <string name="modify_call_option_vt_tx">Videoprenos</string>
   <string name="modify_call_option_vt_rx">Videoprejem</string>
   <string name="modify_call_option_voice">Samo glas</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Onemogočite način TTY, da dovolite videoklice</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Predvajalnik zagnan</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Predvajalnik ustavljen</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kamera ni pripravljena</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera je pripravljena</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Neznan dogodek seje klica</string>
   <string name="onscreenCallRecordText">Začni in ustavi snemanje klicev</string>
   <string name="onscreenAddToBlacklistText">Dodaj klicatelja na seznam blokiranih klicateljev</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">Snemanje</string>
   <string name="recording_warning_title">Omogoči snemanje klicev?</string>
   <string name="recording_warning_text">Obvestilo: Odgovorni ste za skladnost z zakoni, predpisi in pravili, ki veljajo za uporabo funkcionalnosti snemanja klicev in uporabo ali distribucijo teh posnetkov.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Klic obnovljen</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Klic je povezan, vendar je zvok ustavljen</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Klic je povezan, vendar je slika ustavljena</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Zaznavanje kakovosti slike \u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Kakovost slike spremenjena na <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">visoko</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">srednjo</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">nizko</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">neznano</string>
 </resources>

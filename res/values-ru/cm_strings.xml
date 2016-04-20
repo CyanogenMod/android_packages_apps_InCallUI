@@ -17,47 +17,78 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Участник запретил все входящие вызовы.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Вызов не отвечен и переадресован</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Переадресованный вызов</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Вызов (ожидание\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Вызов через <xliff:g id="provider_name">%s</xliff:g> (ожидание\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Вызов на удержании</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Вызов на удержании (через <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Чёрный список</string>
   <string name="call_recording_failed_message">Не удалось начать запись разговора</string>
   <string name="call_recording_file_location">Запись разговора сохранена в <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Добавить в чёрный список</string>
   <string name="blacklist_dialog_message">Вызовы с <xliff:g id="number">%s</xliff:g> будут автоматически отклоняться</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Видеовызов (приостановлен)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Добавить участника</string>
-  <string name="modify_call_option_title">Выбрать тип вызова</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">Выбор типа вызова</string>
   <string name="modify_call_option_vt">Видеовызов</string>
   <string name="modify_call_option_vt_tx">Передача видео</string>
   <string name="modify_call_option_vt_rx">Приём видео</string>
   <string name="modify_call_option_voice">Только передача голоса</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Отключите режим TTY для выполнения видеозвонков</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Воспроизведение начато</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Воспроизведение остановлено</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Камера не готова</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Камера готова</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Неизвестное событие сессии вызова</string>
-  <string name="onscreenCallRecordText">Начать или остановить запись</string>
+  <string name="onscreenCallRecordText">Начать или остановить запись вызова</string>
   <string name="onscreenAddToBlacklistText">Добавить абонента в чёрный список</string>
   <string name="menu_start_record">Записать вызов</string>
   <string name="menu_stop_record">Остановить запись</string>
   <string name="recording_time_text">Идет запись</string>
   <string name="recording_warning_title">Включить запись телефонных разговоров?</string>
   <string name="recording_warning_text">Внимание: использование этой функции в некоторых странах является незаконным. Вы несёте личную ответственность за соблюдение законов и правил касательно функции записи разговоров и их последующего распространения.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Вызов возобновлен</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Вызов подключен, но аудио остановлено</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Вызов подключен, но видео приостановлено</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Определение качества видео\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Качество видео изменено на «<xliff:g id="quality" example="high">%1$s</xliff:g>»</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">высокое</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">среднее</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">низкое</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">неизвестное</string>
 </resources>

@@ -17,5 +17,36 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">অগ্রবর্তী কল পাঠানো</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <!-- In-call screen: status label for a call that is held remotely -->
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
+  <!-- Text for the onscreen "Blacklist" button -->
+  <!-- Blacklist confirmation dialog -->
+  <!-- In-call screen: status label when in a paused video call. -->
+  <!-- Text for the onscreen "Add Participant" button -->
+  <!-- In-call screen: Modify Call Options for IMS call -->
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
+  <!-- Message indicating that camera is ready/available -->
+  <!-- Message indicating unknown call session event -->
+  <!-- Set Subscription screen: label sub 1 -->
+  <!-- Set Subscription screen: label sub 2 -->
+  <!-- Call substate label for call resumed -->
+  <!-- Call substate label for call connected suspended (audio) -->
+  <!-- Call substate label for call connected suspended (video) -->
+  <!-- Call substate label for avp retry -->
+  <!-- Video quality changed message -->
+  <!-- Video quality High -->
+  <!-- Video quality Medium -->
+  <!-- Video quality Low -->
+  <!-- Video quality Unknown -->
 </resources>

@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">فرد مورد نظر تمام تماس‌های ورودی را مسدود کرده است.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">تماس پاسخ داده نشد و انتقال یافت</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">تماس انتقال یافته</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">شماره‌گیری (صبر کنید\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">تماس از طریق <xliff:g id="provider_name">%s</xliff:g> (در حال انتظار\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">تماس در انتظار</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">تماس در انتظار (via <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">لیست تما‌س‌گیرنده مسدود</string>
   <string name="call_recording_failed_message">شروع ضبط تماس ناموفق بود</string>
   <string name="call_recording_file_location">ذخیره تماس ضبط شده در <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">افزودن به لیست تماس‌گیرنده‌های مسدود شده</string>
   <string name="blacklist_dialog_message">تماس های آتی از <xliff:g id="number">%s </xliff:g> مسدود خواهند شد</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">تماس ویدیویی (مکث)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">افزودن شرکت‌کننده</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">نوع تماس را انتخاب کنید</string>
   <string name="modify_call_option_vt">تماس ویدیویی</string>
   <string name="modify_call_option_vt_tx">انتقال‌دهنده ویدیو</string>
   <string name="modify_call_option_vt_rx">دریافت ویدیو</string>
   <string name="modify_call_option_voice">فقط صدا</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">لطفاً حالت TTY را برای برقراری تماس تصویری غیرفعال کنید</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">آغاز پخش‌کننده</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">توقف پخش‌کننده</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">دوربین آماده نیست</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">دوربین آماده است</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">رویداد تماس ناشناس</string>
   <string name="onscreenCallRecordText">شروع و توقف ضبط تماس</string>
   <string name="onscreenAddToBlacklistText">افزودن تماس‌گیرنده به لیست تماس‌گیرنده مسدود شده</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">در حال ضبط</string>
   <string name="recording_warning_title">فعال‌کردن ضبط تماس؟</string>
   <string name="recording_warning_text">توجه: شما مسئول تبعیت از قوانین، قواعد و مقررات مربوط به قابلیت استفاده از ضبط صدا و استفاده از آن برای پخش موارد ضبط‌شده هستید.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">سیم‌کارت ۱</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">سیم‌کارت ۲</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">تماس از سر گرفته شد</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">تماس متصل است، اما صدا معلق است</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">تماس متصل است، اما ویدیو معلق است</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">در حال تشخیص کیفیت ویدئو\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">کیفیت ویدئو به <xliff:g id="quality" example="high">%1$s </xliff:g> تغییر کرد</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">زیاد</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">متوسط</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">کم</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">ناشناخته</string>
 </resources>

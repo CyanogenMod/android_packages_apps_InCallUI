@@ -110,6 +110,12 @@
             android:contentDescription="@string/onscreenVideoCallText"
             android:visibility="gone" />
 
+        <!-- Take a note for this call -->
+        <ImageButton android:id="@+id/takeNoteButton"
+            style="@style/InCallButton"
+            android:contentDescription="@string/onscreenNoteText"
+            android:visibility="gone" />
+
         <!-- "Switch camera" for video calls. -->
         <ToggleButton android:id="@+id/switchCameraButton"
             style="@style/InCallCompoundButton"

@@ -65,4 +65,10 @@
     <!-- [CHAR LIMIT=12] -->
     <string name="notification_action_block">Block</string>
 
+    <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+    <string name="onscreenNoteText">Take note</string>
+    <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+    <string name="deeplink_unknown_caller">Unknown</string>
+
 </resources>

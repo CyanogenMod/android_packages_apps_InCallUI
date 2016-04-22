@@ -70,5 +70,20 @@
     <string name="onscreenNoteText">Take note</string>
     <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
     <string name="deeplink_unknown_caller">Unknown</string>
+    <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+    <string name="description_target_answer_hold_active">Hold current call and answer</string>
+    <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+    <string name="description_target_answer_end_active">End current call and answer</string>
+
+    <!-- In-call screen: display text for the target action -->
+    <string name="empty_string"></string>
+    <string name="display_text_target_dismiss">DISMISS</string>
+    <string name="display_text_target_block">BLOCK</string>
+    <string name="display_text_target_answer">ANSWER</string>
+    <string name="display_text_target_sms">QUICK MESSAGE</string>
+    <string name="display_text_target_answer_and_hold_active">HOLD CURRENT CALL AND ANSWER</string>
+    <string name="display_text_target_answer_and_end_active">END CURRENT CALL AND ANSWER</string>
 
 </resources>

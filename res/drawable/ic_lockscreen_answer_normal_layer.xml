@@ -14,20 +14,20 @@
      limitations under the License.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- A fake circle to fix the size of this layer asset. -->
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
-            <solid android:color="#00000000"/>
-            <size
-                android:width="@dimen/incoming_call_widget_circle_size"
-                android:height="@dimen/incoming_call_widget_circle_size" />
+        <shape
+            android:shape="ring"
+            android:innerRadius="0dp"
+            android:thickness="@dimen/incoming_call_widget_circle_thickness"
+            android:useLevel="false">
+            <solid android:color="@color/incoming_call_answer_circle"/>
         </shape>
     </item>
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/fab_ic_call"
-            android:tint="@color/glowpad_call_widget_normal_tint"
+            android:src="@drawable/ic_call_white_24dp"
+            android:tint="@color/incoming_call_widget_bitmap"
             android:autoMirrored="true" />
     </item>
 </layer-list>

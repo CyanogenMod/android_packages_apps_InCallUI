@@ -28,6 +28,9 @@
         <!-- Reference to an array resource that be used to announce the directions with targets around the circle. -->
         <attr name="directionDescriptions" format="reference"/>
 
+        <!-- Reference to an array resource that be used to display text for the target action. -->
+        <attr name="targetDisplayText" format="reference"/>
+
         <!-- Sets a drawable as the center. -->
         <attr name="handleDrawable" format="reference"/>
 

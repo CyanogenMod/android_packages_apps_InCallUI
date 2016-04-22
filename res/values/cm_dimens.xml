@@ -36,4 +36,17 @@
     <dimen name="lookup_extra_info_container_margin_top">25dp</dimen>
 
     <dimen name="notification_three_action_padding">12dp</dimen>
+
+    <!-- Call waiting reponse changes -->
+    <dimen name="incoming_call_display_text_size">14sp</dimen>
+    <dimen name="incoming_call_widget_circle_thickness">22dp</dimen>
+    <dimen name="incoming_call_widget_ring_thickness">2dp</dimen>
+    <dimen name="incoming_call_widget_ring_inner_radius">27dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_top_offset">30dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_thickness">11dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_width">20dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_height">20dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_left_offset">30dp</dimen>
+    <dimen name="incoming_call_widget_display_text_side_offset">30dp</dimen>
+
 </resources>

@@ -29,6 +29,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -37,6 +38,10 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.accessibility.AccessibilityEventCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.ExploreByTouchHelper;
+import android.text.DynamicLayout;
+import android.text.Layout.Alignment;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -136,6 +141,14 @@ public class GlowPadView extends View {
 
     private AccessibilityNodeProvider mAccessibilityNodeProvider;
     private GlowpadExploreByTouchHelper mExploreByTouchHelper;
+
+    private ArrayList<String> mTargetDisplayText;
+    private boolean mShowHintText = false;
+    private int mTargetDisplayTextResourceId;
+    private TextPaint mTextPaint;
+    private DynamicLayout mTextLayout;
+    private SpannableStringBuilder mDisplayText;
+    private int mDisplayTextWidth;
 
     private class AnimationBundle extends ArrayList<Tweener> {
         private static final long serialVersionUID = 0xA84D78726F127468L;
@@ -274,11 +287,35 @@ public class GlowPadView extends View {
             setDirectionDescriptionsResourceId(resourceId);
         }
 
+        // Read array of display text
+        if (a.getValue(R.styleable.GlowPadView_targetDisplayText, outValue)) {
+            final int resourceId = outValue.resourceId;
+            if (resourceId == 0) {
+                throw new IllegalStateException("Must specify display text");
+            }
+            setTargetDisplayTextResourceId(resourceId);
+        }
+
+        mTextPaint = new TextPaint();
+        mTextPaint.setColor(getResources().getColor(R.color.incoming_call_display_text));
+
+        // This SpannableStringBuilder is used as first parameter when creating DynamicLayout.
+        // DynamicLayout creates instance of internal static class DynamicLayout.ChangeWatcher
+        // and attaches it to SpannableStringBuilder. As a result, whenever
+        // SpannableStringBuilder is updated, DynamicLayout receives change notification
+        mDisplayText = new SpannableStringBuilder("");
+
+        mDisplayTextWidth = (int) (getRingWidth() - mMaxTargetWidth - getResources()
+                .getDimensionPixelSize(R.dimen.incoming_call_widget_display_text_side_offset));
+        mTextPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen
+                .incoming_call_display_text_size));
+        mTextLayout = new DynamicLayout(mDisplayText, mTextPaint, mDisplayTextWidth,
+                android.text.Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+
         // Use gravity attribute from LinearLayout
         //a = context.obtainStyledAttributes(attrs, R.styleable.LinearLayout);
         mGravity = a.getInt(R.styleable.GlowPadView_android_gravity, Gravity.TOP);
         a.recycle();
-
 
         setVibrateEnabled(mVibrationDuration > 0);
 
@@ -678,6 +715,18 @@ public class GlowPadView extends View {
     }
 
     /**
+     * Sets the resource id specifying the target display text
+     *
+     * @param resourceId The resource id.
+     */
+    public void setTargetDisplayTextResourceId(int resourceId) {
+        mTargetDisplayTextResourceId = resourceId;
+        if (mTargetDisplayText != null) {
+            mTargetDisplayText.clear();
+        }
+    }
+
+    /**
      * Gets the resource id specifying the target descriptions for accessibility.
      *
      * @return The resource id.
@@ -943,9 +992,11 @@ public class GlowPadView extends View {
         if (activeTarget != -1) {
             switchToState(STATE_SNAP, x,y);
             updateGlowPosition(x, y);
+            mShowHintText = true;
         } else {
             switchToState(STATE_TRACKING, x, y);
             updateGlowPosition(x, y);
+            mShowHintText = false;
         }
 
         if (mActiveTarget != activeTarget) {
@@ -1196,6 +1247,18 @@ public class GlowPadView extends View {
                 target.draw(canvas);
             }
         }
+        if (mShowHintText && mActiveTarget >= 0) {
+            String displayText = getTargetDisplayText(mActiveTarget);
+
+            if (displayText != null && !TextUtils.equals(displayText, mDisplayText.toString())) {
+                mDisplayText.replace(0, mDisplayText.length(), displayText);
+            }
+            int textHeight = mTextLayout.getHeight();
+            canvas.save();
+            canvas.translate(mWaveCenterX-mDisplayTextWidth/2, mWaveCenterY-textHeight/2);
+            mTextLayout.draw(canvas);
+            canvas.restore();
+        }
         mHandleDrawable.draw(canvas);
     }
 
@@ -1251,6 +1314,22 @@ public class GlowPadView extends View {
             }
         }
         return mTargetDescriptions.get(index);
+    }
+
+    private String getTargetDisplayText(int index) {
+        if (mTargetDisplayText == null || mTargetDisplayText.isEmpty()) {
+            mTargetDisplayText = loadDescriptions(mTargetDisplayTextResourceId);
+            if (mTargetDrawables.size() > mTargetDisplayText.size()) {
+                Log.w(TAG, "The number of target drawables must be"
+                        + " less than or equal to the number of target display text.");
+                return null;
+            }
+        }
+        if (index < mTargetDisplayText.size()) {
+            return mTargetDisplayText.get(index);
+        } else {
+            return null;
+        }
     }
 
     private String getDirectionDescription(int index) {

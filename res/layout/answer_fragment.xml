@@ -30,6 +30,7 @@
         dc:targetDrawables="@array/incoming_call_widget_audio_with_sms_without_block_targets"
         dc:targetDescriptions="@array/incoming_call_widget_audio_with_sms_without_block_target_descriptions"
         dc:directionDescriptions="@array/incoming_call_widget_audio_with_sms_without_block_direction_descriptions"
+        dc:targetDisplayText="@array/incoming_call_widget_audio_with_sms_without_block_display_text"
         dc:handleDrawable="@drawable/ic_incall_audio_handle"
         dc:outerRingDrawable="@drawable/ic_lockscreen_outerring"
         dc:outerRadius="@dimen/glowpadview_target_placement_radius"

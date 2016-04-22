@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The CyanogenMod Project
+<!--
+     Copyright (C) 2015 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,25 +14,15 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape
             android:shape="ring"
-            android:innerRadius="0dp"
-            android:thickness="@dimen/incoming_call_widget_circle_thickness"
+            android:innerRadius="@dimen/incoming_call_widget_ring_inner_radius"
+            android:thickness="@dimen/incoming_call_widget_ring_thickness"
             android:useLevel="false">
-            <solid android:color="@color/incoming_call_sms_circle"/>
+            <solid android:color="@color/incoming_call_activated_ring"/>
         </shape>
     </item>
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/ic_do_not_disturb_alt_white_24dp"
-            android:tint="@color/incoming_call_widget_bitmap"
-            android:autoMirrored="true" />
-    </item>
-    <item   android:top="@dimen/incoming_call_widget_small_circle_top_offset"
-            android:left="@dimen/incoming_call_widget_small_circle_left_offset"
-            android:drawable="@drawable/ic_lockscreen_decline_small_layer" />
+    <item android:drawable="@drawable/ic_lockscreen_answer_end_current_normal_layer" />
 </layer-list>

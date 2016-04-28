@@ -40,7 +40,19 @@
   <string name="recording_time_text">Felvétel</string>
   <string name="recording_warning_title">Hívás rögzítésének engedélyezése?</string>
   <string name="recording_warning_text">Figyelmeztetés: A hívás rögzítésére és a hangfelvétel felhasználására vonatkozó törvények, rendeletek és szabályozások betartásáért Ön tartozik felelősséggel.</string>
+  <string name="onscreenTransferCall">Hívás átadása</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Válassza ki a videó szolgáltatást</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Ez a kapcsolat nem egy <xliff:g id="incall_plugin">%s</xliff:g> kapcsolat. Először hozzá kell adnia a személyt, hogy videohívást kezdeményezzen.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Ez a kapcsolat nem egy <xliff:g id="incall_plugin">%s</xliff:g> kapcsolat. Meghívja ezt a kapcsolatot?</string>
+  <string name="snackbar_invite_action_text">MEGHÍV</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g> keresése\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> nem elérhető</string>
+  <string name="caller_info_no_result">Nincs <xliff:g id="provider">%s </xliff:g> találat</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> beállítása hiányos</string>
+  <string name="call_button_contact_unknown">Ismeretlen</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Hívó blokkolása</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokkolás</string>
 </resources>

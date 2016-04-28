@@ -42,6 +42,14 @@
   <string name="recording_warning_text">Hinweis: Sie sind dafür verantwortlich, dass alle Gesetze, Verordnungen und Vorschriften für die Verwendung der Anrufaufzeichnung und die Verwendung oder Verteilung dieser Aufnahmen eingehalten werden.</string>
   <string name="onscreenTransferCall">Anruf weiterleiten</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="snackbar_incall_plugin_no_invite_found">Dieser Kontakt ist kein <xliff:g id="incall_plugin">%s </xliff:g>-Kontakt. Sie müssen diese Person zuerst hinzufügen, um Videoanrufe zu tätigen.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Dieser Kontakt ist kein <xliff:g id="incall_plugin">%s </xliff:g>-Kontakt. Möchten Sie diesen Kontakt einladen?</string>
+  <string name="snackbar_invite_action_text">EINLADEN</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g> wird durchsucht\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> konnte nicht erreicht werden</string>
+  <string name="caller_info_no_result">Keine Übereinstimmung bei <xliff:g id="provider">%s</xliff:g> gefunden</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g>-Einrichtung unvollständig</string>
+  <string name="call_button_contact_unknown">Unbekannt</string>
   <!-- Description of the target to block a call -->
   <string name="description_target_block">Anrufer blockieren</string>
   <!-- [CHAR LIMIT=12] -->

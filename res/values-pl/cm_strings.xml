@@ -40,7 +40,14 @@
   <string name="recording_time_text">Nagrywanie</string>
   <string name="recording_warning_title">Włączyć nagrywanie połączeń?</string>
   <string name="recording_warning_text">Uwaga; Ponosisz odpowiedzialność za wszelkie komplikacje z prawem związane z nagrywaniem rozmów i ich udostępnianiem bądź rozpowszechnianiem tych nagrań.</string>
+  <string name="onscreenTransferCall">Przeniesienie połączenia</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Wybierz usługę wideo</string>
+  <string name="snackbar_incall_plugin_contact_invite">Ten kontakt nie jest <xliff:g id="incall_plugin">%s</xliff:g> kontaktem. Zaprosić ten kontakt?</string>
+  <string name="snackbar_invite_action_text">ZAPROŚ</string>
+  <string name="call_button_contact_unknown">Nieznany</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Zablokuj rozmówcę</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokuj</string>
 </resources>

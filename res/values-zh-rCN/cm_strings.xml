@@ -43,7 +43,16 @@
   <string name="onscreenTransferCall">呼叫转移</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="video_call_option_title">选择视频服务</string>
+  <string name="snackbar_incall_plugin_no_invite_found">此联系人不是一个 <xliff:g id="incall_plugin">%s </xliff:g> 联系人。您必须先添加此人才能进行视频通话。</string>
+  <string name="snackbar_incall_plugin_contact_invite">此联系人不是一个 <xliff:g id="incall_plugin">%s </xliff:g> 联系人。邀请此联系人吗？</string>
   <string name="snackbar_invite_action_text">邀请</string>
+  <string name="caller_info_loading">正在搜索 <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">无法连接到 <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">没有符合 <xliff:g id="provider">%s</xliff:g> 的匹配</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> 安装未完成</string>
+  <string name="call_button_contact_unknown">未知</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">屏蔽来电</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">屏蔽</string>
 </resources>

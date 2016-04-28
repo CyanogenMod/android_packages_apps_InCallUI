@@ -42,6 +42,17 @@
   <string name="recording_warning_text">Upozornění: je Vaší zodpovědností dodržování zákonů, předpisů a pravidel, týkající se nahrávání hovorů, jejich užití či distribuce.</string>
   <string name="onscreenTransferCall">Přesměrovat hovor</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Vyberte video službu</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Tento kontakt není kontakt rozšíření <xliff:g id="incall_plugin">%s</xliff:g>. Pro umožnění video hovorů je potřeba tento účet přidat.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Tento kontakt není kontakt rozšíření <xliff:g id="incall_plugin">%s</xliff:g>. Chcete jej pozvat?</string>
+  <string name="snackbar_invite_action_text">POZVAT</string>
+  <string name="caller_info_loading">Vyhledávání <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> je nedostupný</string>
+  <string name="caller_info_no_result">Nebyl nalezen odpovídající <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> nastavení nebylo dokončeno</string>
+  <string name="call_button_contact_unknown">Neznámé</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokovat volajícího</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokovat</string>
 </resources>

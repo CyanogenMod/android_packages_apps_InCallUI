@@ -40,7 +40,19 @@
   <string name="recording_time_text">Снимање</string>
   <string name="recording_warning_title">Омогући снимање позива?</string>
   <string name="recording_warning_text">Белешка: Ви сте одговорни за сагласност са законима, регулацијама и правилима који се примењују за коришћење функције снимања позива и дистрибуције тих снимака.</string>
+  <string name="onscreenTransferCall">Пренеси позив</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Изабери видео услугу</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Овај контакт није <xliff:g id="incall_plugin">%s</xliff:g> контакт. Мораш прво додати ову особу да би направио видео позив.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Овај контакт није <xliff:g id="incall_plugin">%s</xliff:g> контакт. Позвати овај контакт?</string>
+  <string name="snackbar_invite_action_text">ПОЗОВИ</string>
+  <string name="caller_info_loading">Претражујем <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> није доступан</string>
+  <string name="caller_info_no_result">Нема <xliff:g id="provider">%s</xliff:g> пронађеног</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> подешавање некомплетно</string>
+  <string name="call_button_contact_unknown">Непознато</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Блокирај позиваоца</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Блокирај</string>
 </resources>

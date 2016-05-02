@@ -93,6 +93,7 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     private static final int SNACKBAR_TIMEOUT = 10000; // 10 seconds auto dismiss
 
     private CallButtonFragment mCallButtonFragment;
+    private ModButtonFragment mModButtonFragment;
     private CallCardFragment mCallCardFragment;
     private AnswerFragment mAnswerFragment;
     private DialpadFragment mDialpadFragment;
@@ -371,6 +372,8 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
             mConferenceManagerFragment = (ConferenceManagerFragment) fragment;
         } else if (fragment instanceof CallButtonFragment) {
             mCallButtonFragment = (CallButtonFragment) fragment;
+        } else if (fragment instanceof ModButtonFragment) {
+            mModButtonFragment = (ModButtonFragment) fragment;
         }
     }
 

@@ -72,6 +72,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <fragment android:name="com.android.incallui.ModButtonFragment"
+            android:id="@+id/modButtonFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <TextView android:id="@+id/connectionServiceMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

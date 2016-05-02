@@ -33,4 +33,6 @@
     <color name="incoming_call_hold_small_circle">#607d8b</color>
     <color name="incoming_call_hold_bitmap">#b2ffffff</color>
     <color name="incoming_call_sms_circle">#0288d1</color>
+
+    <color name="mod_button_background_color">@color/dialer_theme_color_dark</color>
 </resources>

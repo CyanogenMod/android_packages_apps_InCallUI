@@ -49,4 +49,8 @@
     <dimen name="incoming_call_widget_small_circle_left_offset">30dp</dimen>
     <dimen name="incoming_call_widget_display_text_side_offset">30dp</dimen>
 
+
+    <dimen name="mod_button_inset">12dp</dimen>
+    <dimen name="mod_button_margin_bottom">0dp</dimen>
+    <dimen name="mod_bar_margin_sides">30dp</dimen>
 </resources>

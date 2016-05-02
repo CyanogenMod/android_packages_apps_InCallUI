@@ -132,6 +132,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     // Container view that houses the primary call information
     private ViewGroup mPrimaryCallInfo;
     private View mCallButtonsContainer;
+    private View mModButtonsContainer;
     private TextView mRecordingTimeLabel;
     private TextView mRecordingIcon;
 
@@ -284,6 +285,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mPrimaryCallCardContainer = view.findViewById(R.id.primary_call_info_container);
         mPrimaryCallInfo = (ViewGroup) view.findViewById(R.id.primary_call_banner);
         mCallButtonsContainer = view.findViewById(R.id.callButtonFragment);
+        mModButtonsContainer = view.findViewById(R.id.modButtonFragment);
         mInCallMessageLabel = (TextView) view.findViewById(R.id.connectionServiceMessage);
         mProgressSpinner = view.findViewById(R.id.progressSpinner);
 
@@ -1225,6 +1227,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
             mPrimaryCallCardContainer.setBackgroundColor(themeColors.mPrimaryColor);
         }
         mCallButtonsContainer.setBackgroundColor(themeColors.mPrimaryColor);
+        mModButtonsContainer.setBackgroundColor(themeColors.mSecondaryColor);
         mCallSubject.setTextColor(themeColors.mPrimaryColor);
 
         mCurrentThemeColors = themeColors;
@@ -1272,6 +1275,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 mFloatingActionButtonController.setScreenWidth(parent.getWidth());
 
                 mCallButtonsContainer.setAlpha(0);
+                mModButtonsContainer.setAlpha(0);
                 mCallStateLabel.setAlpha(0);
                 mPrimaryName.setAlpha(0);
                 mCallTypeLabel.setAlpha(0);
@@ -1283,6 +1287,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
                 assignTranslateAnimation(mCallNumberAndLabel, 3);
                 assignTranslateAnimation(mCallTypeLabel, 4);
                 assignTranslateAnimation(mCallButtonsContainer, 5);
+                assignTranslateAnimation(mModButtonsContainer, 6);
 
                 final Animator animator = getShrinkAnimator(parent.getHeight(), originalHeight);
 
@@ -1480,6 +1485,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
     private void setViewStatePostAnimation(OnLayoutChangeListener layoutChangeListener) {
         setViewStatePostAnimation(mCallButtonsContainer);
+        setViewStatePostAnimation(mModButtonsContainer);
         setViewStatePostAnimation(mCallStateLabel);
         setViewStatePostAnimation(mPrimaryName);
         setViewStatePostAnimation(mCallTypeLabel);

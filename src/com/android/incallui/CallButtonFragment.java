@@ -19,10 +19,7 @@ package com.android.incallui;
 import static com.android.incallui.CallButtonFragment.Buttons.*;
 
 import android.annotation.NonNull;
-import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -34,7 +31,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.telecom.CallAudioState;
 import android.util.SparseIntArray;
-import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -42,21 +38,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.TextView;
-
-import com.android.incallui.incallapi.InCallPluginInfo;
-
-import java.lang.Override;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
 
@@ -67,9 +53,6 @@ public class CallButtonFragment
         extends BaseFragment<CallButtonPresenter, CallButtonPresenter.CallButtonUi>
         implements CallButtonPresenter.CallButtonUi, OnMenuItemClickListener, OnDismissListener,
         View.OnClickListener {
-    private static final String TAG = CallButtonFragment.class.getSimpleName();
-    private static final boolean DEBUG = false;
-
     private static final int INVALID_INDEX = -1;
     private int mButtonMaxVisible;
     // The button is currently visible in the UI
@@ -85,9 +68,9 @@ public class CallButtonFragment
         public static final int BUTTON_AUDIO = 0;
         public static final int BUTTON_MUTE = 1;
         public static final int BUTTON_DIALPAD = 2;
-        public static final int BUTTON_UPGRADE_TO_VIDEO = 3;
-        public static final int BUTTON_HOLD = 4;
-        public static final int BUTTON_SWAP = 5;
+        public static final int BUTTON_HOLD = 3;
+        public static final int BUTTON_SWAP = 4;
+        public static final int BUTTON_UPGRADE_TO_VIDEO = 5;
         public static final int BUTTON_SWITCH_CAMERA = 6;
         public static final int BUTTON_ADD_CALL = 7;
         public static final int BUTTON_MERGE = 8;
@@ -95,8 +78,7 @@ public class CallButtonFragment
         public static final int BUTTON_MANAGE_VIDEO_CONFERENCE = 10;
         public static final int BUTTON_RECORD_CALL = 11;
         public static final int BUTTON_TRANSFER_CALL = 12;
-        public static final int BUTTON_TAKE_NOTE = 13;
-        public static final int BUTTON_COUNT = 14;
+        public static final int BUTTON_COUNT = 13;
     }
 
     private SparseIntArray mButtonVisibilityMap = new SparseIntArray(BUTTON_COUNT);
@@ -116,7 +98,6 @@ public class CallButtonFragment
     private ImageButton mManageVideoCallConferenceButton;
     private ImageButton mAddParticipantButton;
     private ImageButton mTransferCallButton;
-    private ImageButton mTakeNoteButton;
 
     private PopupMenu mAudioModePopup;
     private boolean mAudioModePopupVisible;
@@ -187,10 +168,8 @@ public class CallButtonFragment
         mOverflowButton = (ImageButton) parent.findViewById(R.id.overflowButton);
         mOverflowButton.setOnClickListener(this);
         mManageVideoCallConferenceButton = (ImageButton) parent.findViewById(
-                R.id.manageVideoCallConferenceButton);
+            R.id.manageVideoCallConferenceButton);
         mManageVideoCallConferenceButton.setOnClickListener(this);
-        mTakeNoteButton = (ImageButton) parent.findViewById(R.id.takeNoteButton);
-        mTakeNoteButton.setOnClickListener(this);
         return parent;
     }
 
@@ -246,7 +225,7 @@ public class CallButtonFragment
                 getPresenter().addParticipantClicked();
                 break;
             case R.id.changeToVideoButton:
-                getPresenter().switchToVideoCall();
+                getPresenter().changeToVideoClicked();
                 break;
             case R.id.switchCameraButton:
                 getPresenter().switchCameraClicked(
@@ -269,9 +248,6 @@ public class CallButtonFragment
                 break;
             case R.id.transferCall:
                 getPresenter().transferCallClicked();
-                break;
-            case R.id.takeNoteButton:
-                getPresenter().takeNote();
             default:
                 Log.wtf(this, "onClick: unexpected");
                 return;
@@ -407,7 +383,6 @@ public class CallButtonFragment
         mManageVideoCallConferenceButton.setEnabled(isEnabled);
         mAddParticipantButton.setEnabled(isEnabled);
         mTransferCallButton.setEnabled(isEnabled);
-        mTakeNoteButton.setEnabled(isEnabled);
     }
 
     @Override
@@ -451,8 +426,6 @@ public class CallButtonFragment
                 return mCallRecordButton;
             case BUTTON_TRANSFER_CALL:
                 return mTransferCallButton;
-            case BUTTON_TAKE_NOTE:
-                return mTakeNoteButton;
             default:
                 Log.w(this, "Invalid button id");
                 return null;
@@ -472,64 +445,6 @@ public class CallButtonFragment
     @Override
     public void setCameraSwitched(boolean isBackFacingCamera) {
         mSwitchCameraButton.setSelected(isBackFacingCamera);
-    }
-
-    // The icons used for the call button fragment are constructed using layerdrawables,
-    // where the second layer is a item containing a bitmap with it's gravity set to "center".
-    // This method gets the insets set on the layerdrawable layer when the bitmap is centered,
-    // and applies it to the vector drawable that we are replacing it with.
-    public void modifyChangeToVideoButton() {
-        boolean canVideoCall = getPresenter().canVideoCall();
-        List<InCallPluginInfo> contactInCallPlugins =
-                getPresenter().getContactInCallPluginInfoList();
-        int listSize = (contactInCallPlugins != null) ? contactInCallPlugins.size() : 0;
-        if (!canVideoCall && listSize == 1) {
-            InCallPluginInfo info = contactInCallPlugins.get(0);
-            if (info != null && info.getPluginVideoIcon() != null) {
-                LayerDrawable layerDrawable =
-                        (LayerDrawable) getResources().getDrawable(R.drawable.btn_change_to_video)
-                                .mutate();
-
-                int buttonWidth = mChangeToVideoButton.getWidth();
-                int buttonHeight = mChangeToVideoButton.getWidth();
-                if (buttonWidth == 0 || buttonHeight == 0) {
-                    buttonWidth =
-                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
-                    buttonHeight =
-                            getResources().getDimensionPixelSize(R.dimen.in_call_button_dimension);
-                }
-                int xInset = buttonWidth - layerDrawable.getIntrinsicWidth();
-                if (xInset > 0) {
-                    xInset = xInset / 2;
-                } else {
-                    xInset = 0;
-                }
-                int yInset = buttonHeight - layerDrawable.getIntrinsicHeight();
-                if (yInset > 0) {
-                    yInset = yInset / 2;
-                } else {
-                    yInset = 0;
-                }
-
-                if (DEBUG) {
-                    Log.i(TAG, "mChangeToVideoButton: [w h] [" + mChangeToVideoButton.getWidth() +
-                            " " + mChangeToVideoButton.getHeight() + "]\n" +
-                            "adjusted button: [w h] [" + buttonWidth + " " + buttonHeight + "]\n" +
-                            "layerDrawable: [w h] [" + layerDrawable.getIntrinsicWidth() + " " +
-                            layerDrawable.getIntrinsicHeight() + "]\n" +
-                            "xInset = " + xInset + ", xInset = " + yInset);
-                }
-
-                Drawable icon = info.getPluginVideoIcon();
-                icon.setTintList(getResources().getColorStateList(R.color.selectable_icon_tint));
-                icon.setAutoMirrored(false);
-
-                // layer 0 is background, layer 1 is the icon to use.
-                layerDrawable.setLayerInset(1, xInset, yInset, xInset, yInset);
-                layerDrawable.setDrawableByLayerId(R.id.foregroundItem, icon);
-                mChangeToVideoButton.setBackground(layerDrawable);
-            }
-        }
     }
 
     @Override
@@ -625,69 +540,6 @@ public class CallButtonFragment
                 }
             });
         }
-    }
-
-    /**The function is called when Video Call button gets pressed. The function creates and
-     * displays video call options.
-     */
-    @Override
-    public void displayVideoCallOptions() {
-        CallButtonPresenter.CallButtonUi ui = getUi();
-        if (ui == null) {
-            Log.e(this, "Cannot display VideoCallOptions as ui is null");
-            return;
-        }
-
-        Context context = getContext();
-
-        final ArrayList<Drawable> icons = new ArrayList<Drawable>();
-        final ArrayList<String> items = new ArrayList<String>();
-        final ArrayList<Integer> itemToCallType = new ArrayList<Integer>();
-        final Resources res = ui.getContext().getResources();
-
-        // Prepare the string array and mapping.
-        List<InCallPluginInfo> contactInCallPlugins =
-                getPresenter().getContactInCallPluginInfoList();
-        if (contactInCallPlugins != null && !contactInCallPlugins.isEmpty()) {
-            int i = 0;
-            for (InCallPluginInfo info : contactInCallPlugins) {
-                items.add(info.getPluginTitle());
-                icons.add(info.getPluginBrandIcon());
-                itemToCallType.add(i++);
-            }
-        }
-
-        boolean canVideoCall = getPresenter().canVideoCall();
-        if (canVideoCall) {
-            // First item, if available is VT IMS call
-            items.add(res.getString(R.string.modify_call_option_vt));
-            Drawable icon = res.getDrawable(R.drawable.ic_toolbar_video);
-            icon.setTint(res.getColor(R.color.vidoecall_handoff_default_video_call_color));
-            icons.add(icon);
-            itemToCallType.add(-1);
-        }
-
-        ListAdapter adapter = new ListItemWithImageArrayAdapter(context.getApplicationContext(),
-                R.layout.videocall_handoff_item, items, icons);
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                final int selCallType = itemToCallType.get(item);
-                if (selCallType < 0) {
-                    // VT Call selected
-                    getPresenter().changeToVideoClicked();
-                } else {
-                    //  InCall Plugin selected
-                    getPresenter().handoverCallToVoIPPlugin(selCallType);
-                }
-                dialog.dismiss();
-            }
-        };
-        AlertDialog.Builder builder = new AlertDialog.Builder(getUi().getContext());
-        builder.setTitle(R.string.video_call_option_title);
-        builder.setAdapter(adapter, listener);
-        final AlertDialog alert;
-        alert = builder.create();
-        alert.show();
     }
 
     @Override
@@ -1018,57 +870,5 @@ public class CallButtonFragment
     @Override
     public Context getContext() {
         return getActivity();
-    }
-
-    @Override
-    public void showInviteSnackbar(final PendingIntent inviteIntent, String inviteText) {
-        if (TextUtils.isEmpty(inviteText)) {
-            return;
-        }
-        final InCallActivity activity = (InCallActivity) getActivity();
-        if (activity != null) {
-            activity.showInviteSnackbar(inviteIntent, inviteText);
-        }
-    }
-
-    @Override
-    public void setDeepLinkNoteIcon(Drawable d) {
-        if (d == null) {
-            mTakeNoteButton.setVisibility(View.GONE);
-        } else {
-            mTakeNoteButton.setImageDrawable(d);
-        }
-    }
-
-    /**
-     * Adapter used to Array adapter with an icon and custom item layout
-     */
-    private class ListItemWithImageArrayAdapter extends ArrayAdapter<String> {
-        private int mLayout;
-        private List<Drawable> mIcons;
-
-        public ListItemWithImageArrayAdapter(Context context, int layout, List<String> titles,
-                List<Drawable> icons) {
-            super(context, 0, titles);
-            mLayout = layout;
-            mIcons = icons;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            String title = getItem(position);
-            Drawable icon = mIcons.get(position);
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(mLayout, parent, false);
-            }
-
-            TextView textView = (TextView) convertView.findViewById(R.id.title);
-            textView.setText(title);
-
-            ImageView msgIcon = (ImageView) convertView.findViewById(R.id.icon);
-            msgIcon.setImageDrawable(icon);
-
-            return convertView;
-        }
     }
 }

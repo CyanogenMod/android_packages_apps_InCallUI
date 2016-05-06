@@ -369,21 +369,29 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
     }
 
     public void takeNote() {
-        if (mCall != null && mNoteDeepLink != null) {
-            Context ctx = getUi().getContext();
-
-            android.telecom.Call.Details details = mCall.getTelecommCall().getDetails();
-            CallDeepLinkContent content = new CallDeepLinkContent(mNoteDeepLink);
-            content.setName(TextUtils.isEmpty(mPrimaryContactInfo.name) ?
-                    ctx.getString(R.string.deeplink_unknown_caller) : mPrimaryContactInfo.name);
-            content.setNumber(mCall.getNumber());
-            content.setUri(DeepLinkIntegrationManager.generateCallUri(mCall.getNumber(),
-                    details.getCreateTimeMillis()));
-            DeepLinkIntegrationManager.getInstance().sendContentSentEvent(ctx, mNoteDeepLink,
-                    new ComponentName(ctx, CallButtonPresenter.class));
-            ctx.startActivity(content.build());
-
+        if (mCall == null || mNoteDeepLink == null || getUi() == null) {
+            return;
         }
+        Context ctx = getUi().getContext();
+        android.telecom.Call.Details details = mCall.getTelecommCall().getDetails();
+        String name;
+        String number;
+        if (mCall.isConferenceCall()) {
+            NoteCallInfo noteCallInfo = getNoteCallInfoForConferenceCall(ctx);
+            name = noteCallInfo.mNames;
+            number = noteCallInfo.mNumbers;
+        } else {
+            name = getNormalizedName(ctx, mPrimaryContactInfo.name);
+            number = mCall.getNumber();
+        }
+        CallDeepLinkContent content = new CallDeepLinkContent(mNoteDeepLink);
+        content.setNumber(number);
+        content.setName(name);
+        content.setUri(DeepLinkIntegrationManager.generateCallUri(number,
+                details.getCreateTimeMillis()));
+        DeepLinkIntegrationManager.getInstance().sendContentSentEvent(ctx, mNoteDeepLink,
+                new ComponentName(ctx, CallButtonPresenter.class));
+        ctx.startActivity(content.build());
     }
 
     public void getPreferredLinks() {
@@ -393,6 +401,31 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
             DeepLinkIntegrationManager.getInstance().getPreferredLinksFor(mNoteDeepLinkCallback,
                 DeepLinkContentType.CALL, callUri);
         }
+    }
+
+    private NoteCallInfo getNoteCallInfoForConferenceCall(Context ctx) {
+        StringBuilder names = new StringBuilder();
+        StringBuilder numbers = new StringBuilder();
+        List<String> callIds = mCall.getChildCallIds();
+        int len = callIds.size();
+        for (int i = 0; i < len; i++) {
+            ContactCacheEntry callInfo = ContactInfoCache.getInstance(
+                    getUi().getContext()).getInfo(callIds.get(i));
+            if (callInfo != null) {
+                numbers.append(callInfo.number);
+                names.append(getNormalizedName(ctx, callInfo.name));
+                if (i < len - 1) {
+                    numbers.append(", ");
+                    names.append(", ");
+                }
+            }
+        }
+        return new NoteCallInfo(numbers.toString(), names.toString());
+    }
+
+    private String getNormalizedName(Context ctx, String name) {
+        return TextUtils.isEmpty(name) ?
+                ctx.getString(R.string.deeplink_unknown_caller) : mPrimaryContactInfo.name;
     }
 
     private ResultCallback<DeepLink.DeepLinkResultList> mNoteDeepLinkCallback =
@@ -424,5 +457,14 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
                 CMSettings.Secure.CM_SETUP_WIZARD_COMPLETED, 0) != 0) &&
                 (Settings.Global.getInt(context.getContentResolver(),
                         Settings.Global.DEVICE_PROVISIONED, 0) != 0);
+    }
+
+    private class NoteCallInfo {
+        public NoteCallInfo(String numbers, String names) {
+            mNames = names;
+            mNumbers = numbers;
+        }
+        String mNames;
+        String mNumbers;
     }
 }

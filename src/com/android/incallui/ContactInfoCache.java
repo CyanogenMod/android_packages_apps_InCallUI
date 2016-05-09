@@ -33,6 +33,7 @@ import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import com.android.contacts.common.util.PhoneNumberHelper;
+import com.android.contacts.common.util.UriUtils;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
@@ -44,7 +45,6 @@ import com.android.incalluibind.ObjectFactory;
 import com.android.services.telephony.common.MoreStrings;
 
 import com.cyanogen.ambient.incall.extension.InCallContactInfo;
-import com.cyanogen.ambient.incall.util.InCallHelper;
 import com.cyanogen.lookup.phonenumber.contract.LookupProvider;
 import com.cyanogen.lookup.phonenumber.provider.LookupProviderImpl;
 import com.cyanogen.lookup.phonenumber.request.LookupRequest;
@@ -104,12 +104,11 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         mPhoneNumberService = ObjectFactory.newPhoneNumberService(context);
         mCachedNumberLookupService =
                 com.android.dialerbind.ObjectFactory.newCachedNumberLookupService();
-        LookupProvider lookupProvider = new LookupProviderImpl(context);
-        if (lookupProvider.initialize()) {
-            mLookupProvider = lookupProvider;
-        } else {
-            mLookupProvider = null;
-        }
+        mLookupProvider = LookupProviderImpl.INSTANCE.get(context);
+    }
+
+    public void tearDown() {
+        LookupProviderImpl.INSTANCE.release();
     }
 
     public ContactCacheEntry getInfo(String callId) {
@@ -125,6 +124,18 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
         ContactInfoCache.populateCacheEntry(context, info, entry, call.getNumberPresentation(),
                 isIncoming);
         return entry;
+    }
+
+    /**
+     * @return true if any of the contacts in the cache do not have a name specified.
+     */
+    public boolean hasUnknownCalls() {
+        for (ContactCacheEntry entry : mInfoMap.values()) {
+            if (!UriUtils.isLocalContactUri(entry.lookupUri)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void maybeInsertCnapInformationIntoCache(Context context, final Call call,
@@ -261,7 +272,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 clearCallbacks = false;
             }
 
-            if (!callerInfo.contactExists && mLookupProvider != null) {
+            if (!callerInfo.contactExists && mLookupProvider.isEnabled()) {
                 cacheEntry.isLookupInProgress = true;
                 cacheEntry.lookupProviderName = mLookupProvider.getDisplayName();
                 String countryIso = ((TelephonyManager) mContext.getSystemService(

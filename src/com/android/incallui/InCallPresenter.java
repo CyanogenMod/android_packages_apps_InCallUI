@@ -40,6 +40,7 @@ import com.android.contacts.common.activity.BlockContactActivity;
 import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.MaterialColorMapUtils.MaterialPalette;
+import com.android.dialer.callerinfo.CallerInfoProviderPicker;
 import com.android.incalluibind.ObjectFactory;
 import com.android.phone.common.incall.CallMethodInfo;
 import com.android.phone.common.incall.DialerDataSubscription;
@@ -1417,15 +1418,19 @@ public class InCallPresenter implements CallList.Listener,
         Log.i(this, "attemptCleanup? " + shouldCleanup);
 
         if (shouldCleanup) {
-            mIsActivityPreviouslyStarted = false;
-            mIsChangingConfigurations = false;
-
-            // blow away stale contact info so that we get fresh data on
-            // the next set of calls
             if (mContactInfoCache != null) {
+                // If the user is ending a call from an unknown contact,
+                // prompt the user to enable caller info provider.
+                if (mIsActivityPreviouslyStarted && mContactInfoCache.hasUnknownCalls()) {
+                    CallerInfoProviderPicker.onUnknownCallEnded(mContext);
+                }
+
+                // Blow away stale contact info so that we get fresh data on the next set of calls.
                 mContactInfoCache.clearCache();
             }
             mContactInfoCache = null;
+            mIsActivityPreviouslyStarted = false;
+            mIsChangingConfigurations = false;
 
             if (mProximitySensor != null) {
                 removeListener(mProximitySensor);

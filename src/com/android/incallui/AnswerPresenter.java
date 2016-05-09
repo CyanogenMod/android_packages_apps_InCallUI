@@ -497,7 +497,7 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
         Call call = mCall[phoneId];
         final String number = call.getNumber();
         final Context context = getUi().getContext();
-        mBlockContactHelper = new BlockContactHelper(context, new LookupProviderImpl(context));
+        mBlockContactHelper = new BlockContactHelper(context);
         mBlockContactHelper.setContactInfo(number);
     }
 

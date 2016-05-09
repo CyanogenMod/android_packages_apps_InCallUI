@@ -129,6 +129,9 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     private Animation mSlideOut;
     private boolean mDismissKeyguard = false;
 
+    /** Flag indicating if we are exiting fast because service is not bound. */
+    private boolean mExitFast = false;
+
     private final int TAB_COUNT_ONE = 1;
     private final int TAB_COUNT_TWO = 2;
     private final int TAB_POSITION_FIRST = 0;
@@ -161,6 +164,13 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
         Log.d(this, "onCreate()...  this = " + this);
 
         super.onCreate(icicle);
+
+        if (InCallServiceImpl.mTelephonyManager == null) {
+            // Service is not bound. We shouldn't be here. Exit.
+            mExitFast = true;
+            finish();
+            return;
+        }
 
         // set this flag so this activity will stay in front of the keyguard
         // Have the WindowManager filter out touch events that are "too fat".
@@ -347,8 +357,10 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
     @Override
     protected void onDestroy() {
         Log.d(this, "onDestroy()...  this = " + this);
-        InCallPresenter.getInstance().unsetActivity(this);
-        InCallPresenter.getInstance().updateIsChangingConfigurations();
+        if (!mExitFast) {
+            InCallPresenter.getInstance().unsetActivity(this);
+            InCallPresenter.getInstance().updateIsChangingConfigurations();
+        }
         super.onDestroy();
     }
 

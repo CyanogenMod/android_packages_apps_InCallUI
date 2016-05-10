@@ -129,7 +129,7 @@ public class ModButtonFragment
     @Override
     public void onResume() {
         super.onResume();
-
+        getPresenter().getPreferredLinks();
         updateColors();
     }
 

@@ -148,11 +148,7 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
             mCall = null;
         }
 
-        if (mCall != null && mPrimaryContactInfo == null) {
-            startContactInfoSearch(mCall, newState == InCallState.INCOMING);
-            getPreferredLinks();
-        }
-
+        getPreferredLinks();
         updateUi(newState, mCall);
     }
 
@@ -493,7 +489,7 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
     }
 
     public void getPreferredLinks() {
-        if (mCall != null) {
+        if (mCall != null && (mNoteDeepLink == null || !mNoteDeepLink.getAlreadyHasContent())) {
             Uri callUri = DeepLinkIntegrationManager.generateCallUri(mCall.getNumber(),
                     mCall.getCreateTimeMillis());
             DeepLinkIntegrationManager.getInstance().getPreferredLinksFor(mNoteDeepLinkCallback,

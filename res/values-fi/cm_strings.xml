@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">PIKAVIESTI</string>
   <string name="display_text_target_answer_and_hold_active">PIDÄ NYKYINEN PUHELU PIDOSSA JA VASTAA</string>
   <string name="display_text_target_answer_and_end_active">LOPETA NYKYINEN PUHELU JA VASTAA</string>
+  <string name="onscreenModOverflowText">Lisää Modeja</string>
 </resources>

@@ -40,7 +40,37 @@
   <string name="recording_time_text">تسجيل</string>
   <string name="recording_warning_title">تمكين تسجيل المكالمات؟</string>
   <string name="recording_warning_text">إشعار: أنت مسؤول عن الامتثال لأي من القوانين والأنظمة والقواعد التي تنطبق على استخدام خاصية تسجيل اللمكالمات واستخدام أو توزيع تلك التسجيلات.</string>
+  <string name="onscreenTransferCall">تحويل المكالمة</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">تحديد خدمة الفيديو</string>
+  <string name="snackbar_incall_plugin_no_invite_found">جهة الاتصال هذه ليست جهة اتصال <xliff:g id="incall_plugin">%s</xliff:g>. يجب عليك إضافة هذا الشخص أولاً لإجراء مكالمات فيديو.</string>
+  <string name="snackbar_incall_plugin_contact_invite">جهة الاتصال هذه ليست جهة اتصال <xliff:g id="incall_plugin">%s</xliff:g>. هل تريد دعوة جهة الاتصال هذه؟</string>
+  <string name="snackbar_invite_action_text">دعوة</string>
+  <string name="caller_info_loading">جاري البحث عن <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">تعذر الوصول إلى <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">لم يتم العثور على توافق <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">إعداد <xliff:g id="provider">%s</xliff:g> غير كامل</string>
+  <string name="call_button_contact_unknown">مجهول</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">حظر المتصل</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">حظر</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">تدوين ملاحظة</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">مجهول</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">إجراء المكالمة الحالية والرد</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">إنهاء المكالمة الحالية والرد</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">رفض</string>
+  <string name="display_text_target_block">إقفال</string>
+  <string name="display_text_target_answer">رد</string>
+  <string name="display_text_target_sms">رسالة سريعة</string>
+  <string name="display_text_target_answer_and_hold_active">إجراء المكالمة الحالية والرد</string>
+  <string name="display_text_target_answer_and_end_active">إنهاء المكالمة الحالية والرد</string>
 </resources>

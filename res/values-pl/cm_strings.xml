@@ -43,11 +43,24 @@
   <string name="onscreenTransferCall">Przeniesienie połączenia</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="video_call_option_title">Wybierz usługę wideo</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Ten kontakt nie jest <xliff:g id="incall_plugin">%s</xliff:g> kontaktem. Musisz najpierw dodać tą osobę do wykonywania połączeń wideo.</string>
   <string name="snackbar_incall_plugin_contact_invite">Ten kontakt nie jest <xliff:g id="incall_plugin">%s</xliff:g> kontaktem. Zaprosić ten kontakt?</string>
   <string name="snackbar_invite_action_text">ZAPROŚ</string>
+  <string name="caller_info_loading">Wyszukiwanie <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> jest nieosiągalny</string>
+  <string name="caller_info_no_result">Nie znaleziono pasujących <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> konfiguracja niekompletna</string>
   <string name="call_button_contact_unknown">Nieznany</string>
   <!-- Description of the target to block a call -->
   <string name="description_target_block">Zablokuj rozmówcę</string>
   <!-- [CHAR LIMIT=12] -->
   <string name="notification_action_block">Blokuj</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

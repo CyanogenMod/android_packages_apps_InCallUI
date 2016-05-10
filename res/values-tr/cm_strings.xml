@@ -40,7 +40,37 @@
   <string name="recording_time_text">Kayıt ediliyor</string>
   <string name="recording_warning_title">Arama kaydı etkinleştirilsin mi?</string>
   <string name="recording_warning_text">Dikkat: Arama kaydı işlevini kullanırken veya bu kayıtları dağıtırken ilgili yasa, düzenleme ve kurallara karşı sorumlusunuz.</string>
+  <string name="onscreenTransferCall">Arama aktarma</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Video hizmeti seçin</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Bu kişi <xliff:g id="incall_plugin">%s</xliff:g> kişi değil. Görüntülü arama yapmak için ilk olarak bu kişiyi eklemeniz gerekir.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Bu kişi <xliff:g id="incall_plugin">%s</xliff:g> kişi değil. Davet edilsin mi?</string>
+  <string name="snackbar_invite_action_text">DAVET</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g> aranıyor\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> kişisine ulaşılamadı</string>
+  <string name="caller_info_no_result"><xliff:g id="provider">%s</xliff:g> eşleşmesi bulunamadı</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> kurulumu tamamlanmadı</string>
+  <string name="call_button_contact_unknown">Bilinmiyor</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Arayanı engelle</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Engelle</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Not al</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Bilinmiyor</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Geçerli aramayı bekletin ve yanıtlayın</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Geçerli aramayı sonlandırın ve yanıtlayın</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">SON VER</string>
+  <string name="display_text_target_block">ENGELLE</string>
+  <string name="display_text_target_answer">CEVAPLA</string>
+  <string name="display_text_target_sms">HIZLI MESAJ</string>
+  <string name="display_text_target_answer_and_hold_active">GEÇERLİ ARAMAYI BEKLETİN VE YANITLAYIN</string>
+  <string name="display_text_target_answer_and_end_active">GEÇERLİ ARAMAYI SONLANDIRIN VE YANITLAYIN</string>
 </resources>

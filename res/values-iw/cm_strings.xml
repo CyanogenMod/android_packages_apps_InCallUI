@@ -24,10 +24,10 @@
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
-  <string name="card_title_dialing_waiting">מחייג (ממתין\u2026)</string>
+  <string name="card_title_dialing_waiting">מחייג (ממתיןu2026\)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
-  <string name="calling_via_waiting_template">מתקשר באמצעות <xliff:g id="provider_name">%s</xliff:g> (ממתין\u2026)</string>
+  <string name="calling_via_waiting_template">מתקשר באמצעות <xliff:g id="provider_name">%s</xliff:g> (ממתיןu2026\)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (דרך <xliff:g id="provider_name">%2$s</xliff:g>)</string>
@@ -40,8 +40,37 @@
   <string name="recording_time_text">מקליט</string>
   <string name="recording_warning_title">להפעיל הקלטת שיחה?</string>
   <string name="recording_warning_text">לתשומת לבך: באחריותך לציית לכל חוקים, התקנות והכללים החלים על השימוש באפשרות הקלטת השיחות, על השימוש ו/או ההפצה של הקלטות אלה.</string>
-  <string name="onscreenTransferCall">העברת שיחה</string>
+  <string name="onscreenTransferCall">העבר שיחה</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">בחר שירות וידאו</string>
+  <string name="snackbar_incall_plugin_no_invite_found">איש קשר זה אינו איש קשר <xliff:g id="incall_plugin">%s </xliff:g>. עליך להוסיף אדם זה לפני ביצוע שיחות וידאו.</string>
+  <string name="snackbar_incall_plugin_contact_invite">איש קשר זה אינו איש קשר <xliff:g id="incall_plugin">%s </xliff:g>. להזמין איש קשר זה?</string>
+  <string name="snackbar_invite_action_text">הזמנה</string>
+  <string name="caller_info_loading">מחפש <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">לא היה ניתן ליצור קשר עם <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">לא נמצאה התאמה ל- <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">התקנת <xliff:g id="provider">%s</xliff:g> לא הושלמה</string>
+  <string name="call_button_contact_unknown">לא ידוע</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">חסום מתקשר</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">חסום</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">רשום הערה</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">לא ידוע</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">החזק שיחה נוכחית וענה לשיחה נכנסת חדשה</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">סיים שיחה נוכחית וענה לשיחה נכנסת חדשה</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">בטל</string>
+  <string name="display_text_target_block">חסום</string>
+  <string name="display_text_target_answer">לענות</string>
+  <string name="display_text_target_sms">הודעה מהירה</string>
+  <string name="display_text_target_answer_and_hold_active">החזק שיחה נוכחית וענה על שיחה נכנסת חדשה</string>
+  <string name="display_text_target_answer_and_end_active">סיים שיחה נוכחית וענה לשיחה נכנסת חדשה</string>
 </resources>

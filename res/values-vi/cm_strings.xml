@@ -40,7 +40,37 @@
   <string name="recording_time_text">Ghi âm</string>
   <string name="recording_warning_title">Cho phép ghi âm cuộc gọi?</string>
   <string name="recording_warning_text">Thông báo: Bạn có trách nhiệm tuân thủ bất kỳ luật pháp, quy định và quy tắc nào áp dụng cho việc sử dụng chức năng ghi âm cuộc gọi và sử dụng hay phân phối các bản ghi âm đó.</string>
+  <string name="onscreenTransferCall">Chuyển cuộc gọi</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Chọn dịch vụ video</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Số liên hệ này không phải là một số liên hệ <xliff:g id="incall_plugin">%s </xliff:g>. Trước tiên bạn phải thêm người này để thực hiện cuộc gọi video.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Số liên hệ này không phải là một số liên hệ <xliff:g id="incall_plugin">%s</xliff:g>. Mời số liên hệ này?</string>
+  <string name="snackbar_invite_action_text">MỜI</string>
+  <string name="caller_info_loading">Đang tìm kiếm <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">Không thể liên lạc với <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">Không tìm thấy <xliff:g id="provider">%s</xliff:g> phù hợp</string>
+  <string name="caller_info_unauthenticated">Thiết lập <xliff:g id="provider">%s</xliff:g> không thành công</string>
+  <string name="call_button_contact_unknown">Chưa biết</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Chặn người gọi</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Chặn</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Ghi chú</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Chưa biết</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Giữ cuộc gọi hiện tại và trả lời</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Kết thúc cuộc gọi hiện tại và trả lời</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">BỎ QUA</string>
+  <string name="display_text_target_block">CHẶN</string>
+  <string name="display_text_target_answer">TRẢ LỜI</string>
+  <string name="display_text_target_sms">TIN NHẮN NHANH</string>
+  <string name="display_text_target_answer_and_hold_active">GIỮ CUỘC GỌI HIỆN TẠI VÀ TRẢ LỜI</string>
+  <string name="display_text_target_answer_and_end_active">KẾT THÚC CUỘC GỌI HIỆN TẠI VÀ TRẢ LỜI</string>
 </resources>

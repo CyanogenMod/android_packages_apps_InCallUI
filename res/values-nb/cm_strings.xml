@@ -40,7 +40,29 @@
   <string name="recording_time_text">Tar opp</string>
   <string name="recording_warning_title">Aktivere samtale opptak?</string>
   <string name="recording_warning_text">Merknad: Du er ansvarlig for å overholde alle lover, regler og regler som gjelder for bruk av samtalen innspillingen funksjonaliteten og bruk eller distribusjon av disse innspillingene.</string>
+  <string name="onscreenTransferCall">Overfør samtale</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Velg video-tjeneste</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Denne kontakten er ikke en <xliff:g id="incall_plugin">%s</xliff:g> kontakt. Du må legge denne personen til før du kan begynne video samtaler.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Denne kontakten er ikke en <xliff:g id="incall_plugin">%s </xliff:g> kontakt. Inviterer kontakten?</string>
+  <string name="snackbar_invite_action_text">INVITER</string>
+  <string name="caller_info_loading">Søker <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> kunne ikke nås</string>
+  <string name="caller_info_no_result">Ingen <xliff:g id="provider">%s</xliff:g> match funnet</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s </xliff:g> installasjonen er ufullstendig</string>
+  <string name="call_button_contact_unknown">Ukjent</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokker ringer</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokker</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Ta et notat</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Ukjent</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

@@ -40,7 +40,27 @@
   <string name="recording_time_text">녹음 중</string>
   <string name="recording_warning_title">통화 녹음을 활성화 할까요?</string>
   <string name="recording_warning_text">주의 사항: 통화 녹음 기능의 사용과 녹음된 파일의 사용 및 배포에 적용되는 모든 법, 규정 및 규칙을 준수해야 합니다.</string>
+  <string name="onscreenTransferCall">통화 전환</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">비디오 서비스 선택</string>
+  <string name="snackbar_incall_plugin_no_invite_found">이 연락처는 <xliff:g id="incall_plugin">%s</xliff:g> 연락처가 아닙니다. 이 사람을 먼저 추가해야 영상 통화를 할 수 있습니다.</string>
+  <string name="snackbar_incall_plugin_contact_invite">이 연락처는 <xliff:g id="incall_plugin">%s</xliff:g> 연락처가 아닙니다. 이 연락처를 초대할까요?</string>
+  <string name="snackbar_invite_action_text">초대</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g>에서 검색중\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g>에 연결할 수 없습니다</string>
+  <string name="caller_info_no_result"><xliff:g id="provider">%s</xliff:g>에서 일치하는 정보 발견되지 않음</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> 설정 미완료</string>
+  <string name="call_button_contact_unknown">알 수 없음</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">발신자 차단</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">차단</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

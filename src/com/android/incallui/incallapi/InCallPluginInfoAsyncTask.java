@@ -142,23 +142,11 @@ public class InCallPluginInfoAsyncTask extends AsyncTask<Void, Void, List<InCall
 
         // Fill in plugin Info.
         if (plugins != null && !plugins.isEmpty()) {
-            InCallApi inCallServices = InCallServices.getInstance();
             for (CallMethodInfo callMethod : plugins.values()) {
                 if (!pluginIndex.containsKey(callMethod.mVideoCallableMimeType)) {
-                    if (DEBUG) {
-                        Log.d(TAG, "Contact does not have account with this plugin, looking up" +
-                                " invite for Component=" + callMethod.mComponent.flattenToString() +
-                                " and Uri=" + mContactInfo.mLookupUri.toString());
-                    }
-                    PendingIntentResult inviteResult =
-                            inCallServices.getInviteIntent(
-                                    AmbientConnection.CLIENT.get(mContext.getApplicationContext()),
-                                    callMethod.mComponent, mContactInfo).await();
                     InCallPluginInfo.Builder infoBuilder =
                             new InCallPluginInfo.Builder().setUserId(null)
-                                    .setMimeType(callMethod.mVideoCallableMimeType)
-                                    .setPluginInviteIntent(inviteResult == null ?
-                                            null : inviteResult.intent);
+                                    .setMimeType(callMethod.mVideoCallableMimeType);
                     inCallPluginInfoBuilderList.add(infoBuilder);
                     pluginIndex.put(callMethod.mVideoCallableMimeType,
                             inCallPluginInfoBuilderList.size() - 1);

@@ -29,15 +29,18 @@ import com.android.incallui.incallapi.InCallPluginInfo;
 import com.android.phone.common.ambient.AmbientConnection;
 import com.android.phone.common.incall.StartInCallCallReceiver;
 import com.cyanogen.ambient.common.api.AmbientApiClient;
+import com.cyanogen.ambient.common.api.PendingResult;
 import com.cyanogen.ambient.common.api.ResultCallback;
 import com.cyanogen.ambient.deeplink.DeepLink;
 import com.cyanogen.ambient.deeplink.applicationtype.DeepLinkApplicationType;
 import com.cyanogen.ambient.deeplink.linkcontent.CallDeepLinkContent;
 import com.cyanogen.ambient.deeplink.linkcontent.DeepLinkContentType;
 import com.cyanogen.ambient.incall.InCallServices;
+import com.cyanogen.ambient.incall.extension.InCallContactInfo;
 import com.cyanogen.ambient.incall.extension.OriginCodes;
 import com.cyanogen.ambient.incall.extension.StartCallRequest;
 import com.cyanogen.ambient.incall.extension.StatusCodes;
+import com.cyanogen.ambient.incall.results.PendingIntentResult;
 
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -50,7 +53,9 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cyanogenmod.providers.CMSettings;
 
@@ -72,6 +77,8 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
     private DeepLink mNoteDeepLink;
     private ContactInfoCache.ContactCacheEntry mPrimaryContactInfo;
     private StartInCallCallReceiver mCallback;
+
+    private Map<String, PendingIntent> mInviteIntentMap;
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
@@ -109,6 +116,10 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
         // Update the buttons state immediately for the current call
         onStateChange(InCallState.NO_CALLS, inCallPresenter.getInCallState(),
                 CallList.getInstance());
+
+        if (mInviteIntentMap == null) {
+            mInviteIntentMap = new HashMap<String, PendingIntent>();
+        }
     }
 
     @Override
@@ -121,6 +132,7 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
         InCallPresenter.getInstance().removeCanAddCallListener(this);
         InCallPresenter.getInstance().removeInCallPluginUpdateListener(this);
         CallList.getInstance().removeActiveSubChangeListener(this);
+        mInviteIntentMap.clear();
     }
 
     @Override
@@ -231,7 +243,6 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
             if (component != null && !TextUtils.isEmpty(component.flattenToString()) &&
                     !TextUtils.isEmpty(mimeType)) {
                 // Attempt call handover
-                final PendingIntent inviteIntent = info.getPluginInviteIntent();
                 if (!TextUtils.isEmpty(userId)) {
                     AmbientApiClient client =
                             AmbientConnection.CLIENT.get(ctx.getApplicationContext());
@@ -251,24 +262,111 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
                         final ContactInfoCache cache = ContactInfoCache.getInstance(ctx);
                         ContactCacheEntry entry = cache.getInfo(mCall.getId());
                         Uri lookupUri = entry.lookupUri;
-                        Log.i(TAG, "Attempting invite for " + lookupUri.toString());
+                        if (lookupUri != null) {
+                            Log.i(TAG, "Attempting invite for " + lookupUri.toString());
+                        } else {
+                            Log.i(TAG, "Attempting invite for " + entry.number);
+                        }
                     }
-
-                    String inviteText;
-                    if (inviteIntent != null) {
-                        // Attempt contact invite
-                        inviteText = ctx.getApplicationContext()
-                                .getString(R.string.snackbar_incall_plugin_contact_invite,
-                                        info.getPluginTitle());
-                    } else {
-                        // Inform user to add contact manually, no invite intent found
-                        inviteText = ctx.getApplicationContext()
-                                .getString(R.string.snackbar_incall_plugin_no_invite_found,
-                                        info.getPluginTitle());
-                    }
-                    getUi().showInviteSnackbar(inviteIntent, inviteText);
+                    inCallPluginContactInvite(ctx, info);
                 }
             }
+        }
+    }
+
+    private void inCallPluginContactInvite(final Context ctx, InCallPluginInfo info) {
+        if (info == null || info.getPluginComponent() == null) {
+            Log.e(TAG, "Unable to get invite intent because no InCall plugin component found.");
+            return;
+        }
+
+        final String pluginComponentString = info.getPluginComponent().flattenToString();
+        final String pluginTitle = info.getPluginTitle();
+
+        // Check contains and not null here,
+        // invite intent can be null if it does not exist for a certain plugin.
+        if (mInviteIntentMap.containsKey(pluginComponentString)) {
+            final PendingIntent inviteIntent = mInviteIntentMap.get(pluginComponentString);
+
+            // We have an invite intent, attempt contact invite
+            if (DEBUG) {
+                Log.d(TAG, "Using pre-populated invite intent");
+            }
+            showInviteSnackbar(ctx, inviteIntent, pluginTitle);
+        } else {
+            // We don't have an invite intent, try to create one, or use generic one if
+            // intent creation failed.
+            if (DEBUG) {
+                Log.d(TAG, "No pre-populated invite intent found, attempting to get one...");
+            }
+
+            final String callId = mCall.getId();
+            final ContactCacheEntry cacheEntry =
+                    ContactInfoCache.getInstance(ctx).getInfo(callId);
+
+            if (cacheEntry == null) {
+                Log.e(TAG, "Unable to get invite intent because contact info not found.");
+                return;
+            }
+
+            // Cache a null pending intent for later, we aren't sure how long the incallservice
+            // will take to populate the correct one. This will prevent many incallservice queries
+            // for the same call to queue up.
+            mInviteIntentMap.put(pluginComponentString, null);
+
+            final InCallContactInfo contactInfo =
+                    new InCallContactInfo(cacheEntry.name, cacheEntry.number, cacheEntry.lookupUri);
+            PendingResult<PendingIntentResult> inviteResult =
+                    InCallServices.getInstance().getInviteIntent(
+                            AmbientConnection.CLIENT.get(ctx),
+                            info.getPluginComponent(),
+                            contactInfo);
+
+            // Set callback for incallservice results
+            inviteResult.setResultCallback(new ResultCallback<PendingIntentResult>() {
+                @Override
+                public void onResult(PendingIntentResult result) {
+
+
+                    PendingIntent pendingInviteIntent = null;
+                    if (result != null && result.intent != null) {
+                        pendingInviteIntent = result.intent;
+                    }
+
+                    // Cache it for later
+                    if (mInviteIntentMap != null) {
+                        mInviteIntentMap.put(pluginComponentString, pendingInviteIntent);
+                    }
+
+                    // If UI is still available, show snackbar
+                    if (getUi() == null || getUi().getContext() == null) {
+                        if(DEBUG) {
+                            Log.d(TAG, "Got invite creation result, but no valid UI or context.");
+                        }
+                        return;
+                    }
+
+                    final Context context = getUi().getContext();
+                    showInviteSnackbar(context, pendingInviteIntent, pluginTitle);
+                }
+            });
+        }
+    }
+
+    private void showInviteSnackbar(Context ctx, PendingIntent inviteIntent, String pluginTitle) {
+        if (getUi() != null && !TextUtils.isEmpty(pluginTitle)) {
+            String inviteText;
+            if (inviteIntent != null) {
+                // We have an invite intent, attempt contact invite
+                inviteText =
+                        ctx.getString(R.string.snackbar_incall_plugin_contact_invite, pluginTitle);
+            } else {
+                // Inform user to add contact manually, no invite intent found
+                // (no intent defined by plugin)
+                inviteText =
+                        ctx.getString(R.string.snackbar_incall_plugin_no_invite_found, pluginTitle);
+            }
+            getUi().showInviteSnackbar(inviteIntent, inviteText);
         }
     }
 

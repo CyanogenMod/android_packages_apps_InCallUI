@@ -1039,6 +1039,27 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
             return;
         }
         mInviteSnackbar = Snackbar.make(rootView, inviteText, SNACKBAR_TIMEOUT);
+        mInviteSnackbar.setCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+                if (DEBUG) {
+                    Log.d(TAG, "Snackbar.Callback.onDismissed");
+                }
+                if (mCallCardFragment != null) {
+                    mCallCardFragment.updateFabPosition();
+                }
+            }
+
+            @Override
+            public void onShown(Snackbar snackbar) {
+                if (DEBUG) {
+                    Log.d(TAG, "Snackbar.Callback.onShown");
+                }
+                if (mCallCardFragment != null) {
+                    mCallCardFragment.updateFabPosition(snackbar.getView().getHeight());
+                }
+            }
+        });
         if (inviteIntent != null) {
             mInviteSnackbar.setActionTextColor(getResources()
                     .getColor(R.color.snackbar_action_text_color))
@@ -1050,27 +1071,6 @@ public class InCallActivity extends Activity implements FragmentDisplayManager {
                             } catch (PendingIntent.CanceledException e) {
                                 Log.e(TAG, "Caught CanceledException from InCall Plugin invite" +
                                         " intent", e);
-                            }
-                        }
-                    })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            if (DEBUG) {
-                                Log.d(TAG, "Snackbar.Callback.onDismissed");
-                            }
-                            if (mCallCardFragment != null) {
-                                mCallCardFragment.updateFabPosition();
-                            }
-                        }
-
-                        @Override
-                        public void onShown(Snackbar snackbar) {
-                            if (DEBUG) {
-                                Log.d(TAG, "Snackbar.Callback.onShown");
-                            }
-                            if (mCallCardFragment != null) {
-                                mCallCardFragment.updateFabPosition(snackbar.getView().getHeight());
                             }
                         }
                     });

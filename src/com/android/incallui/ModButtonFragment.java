@@ -130,6 +130,7 @@ public class ModButtonFragment
     public void onResume() {
         super.onResume();
 
+        getPresenter().getPreferredLinks();
         updateColors();
     }
 

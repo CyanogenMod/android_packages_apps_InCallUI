@@ -187,14 +187,30 @@
                 android:layout_gravity="start|top"
                 android:orientation="vertical">
 
-            <TextView
-                    android:id="@+id/contactInfoAttribution"
+            <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/contact_info_attribution_text_size"
-                    android:textColor="@color/contact_info_attribution_text_color"
-                    android:text="@string/powered_by_provider" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                <ImageView
+                        android:id="@+id/contactInfoAttributionLogo"
+                        android:scaleType="centerCrop"
+                        android:layout_height="@dimen/contact_info_attribution_logo_size"
+                        android:layout_width="@dimen/contact_info_attribution_logo_size"
+                        android:layout_marginStart="@dimen/contact_info_attribution_logo_padding"
+                        android:layout_marginEnd="@dimen/contact_info_attribution_logo_padding" />
+
+                <TextView
+                        android:id="@+id/contactInfoAttributionText"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:textSize="@dimen/contact_info_attribution_text_size"
+                        android:textColor="@color/contact_info_attribution_text_color"
+                        android:text="@string/powered_by_provider" />
+
+            </LinearLayout>
 
             <TextView
                     android:id="@+id/spamInfo"

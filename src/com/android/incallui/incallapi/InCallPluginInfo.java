@@ -33,7 +33,6 @@ public class InCallPluginInfo {
        Expected format: Vector Drawable (.xml)
        1 color allowed. */
     private Drawable mPluginVideoIcon;
-    private PendingIntent mInviteIntent;
 
     private InCallPluginInfo() {
     }
@@ -68,10 +67,6 @@ public class InCallPluginInfo {
         return mPluginVideoIcon;
     }
 
-    public PendingIntent getPluginInviteIntent() {
-        return mInviteIntent;
-    }
-
     public static class Builder {
         private ComponentName mPluginComponent;
         private String mPluginTitle;
@@ -79,7 +74,6 @@ public class InCallPluginInfo {
         private String mMimeType;
         private Drawable mPluginBrandIcon;
         private Drawable mPluginVideoIcon;
-        private PendingIntent mInviteIntent;
 
         public Builder() {
         }
@@ -114,11 +108,6 @@ public class InCallPluginInfo {
             return this;
         }
 
-        public Builder setPluginInviteIntent(PendingIntent pluginInviteIntent) {
-            this.mInviteIntent = pluginInviteIntent;
-            return this;
-        }
-
         // TODO: Check if we want to require an invite intent or not
         public InCallPluginInfo build() throws IllegalStateException{
             if (mPluginComponent == null || mPluginTitle == null || mMimeType == null
@@ -132,7 +121,6 @@ public class InCallPluginInfo {
             info.mMimeType = mMimeType;
             info.mPluginBrandIcon = mPluginBrandIcon;
             info.mPluginVideoIcon = mPluginVideoIcon;
-            info.mInviteIntent = mInviteIntent;
             return info;
         }
     }

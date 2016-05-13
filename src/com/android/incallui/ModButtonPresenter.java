@@ -380,7 +380,7 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
 
         final boolean isProvisioned = isDeviceProvisionedInSettingsDb(ui.getContext());
         final boolean isEnabled = isProvisioned &&
-                state.isConnectingOrConnected() &&
+                state == InCallState.INCALL &&
                 call != null;
         ui.setEnabled(isEnabled);
 

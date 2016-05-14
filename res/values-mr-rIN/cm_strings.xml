@@ -40,4 +40,15 @@
   <string name="recording_time_text">रेकॉर्डिंग</string>
   <string name="recording_warning_title">कॉल रेकॉर्डिंग सक्षम करा?</string>
   <string name="recording_warning_text">सूचना: कॉल रेकॉर्डिंग कार्यक्षमतेस आणि त्या रेकॉर्डिंग्जच्या वापर किंवा वितरणास लागू होणाऱ्या कोणत्याही कायदे, नियमने आणि नियमांच्या अनुपालनासाठी तुम्ही जबाबदार आहात.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

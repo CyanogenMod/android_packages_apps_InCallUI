@@ -40,4 +40,37 @@
   <string name="recording_time_text">Nahrávání</string>
   <string name="recording_warning_title">Povolit nahrávání hovoru?</string>
   <string name="recording_warning_text">Upozornění: je Vaší zodpovědností dodržování zákonů, předpisů a pravidel, týkající se nahrávání hovorů, jejich užití či distribuce.</string>
+  <string name="onscreenTransferCall">Přesměrovat hovor</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Vyberte video službu</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Tento kontakt není kontakt rozšíření <xliff:g id="incall_plugin">%s</xliff:g>. Pro umožnění video hovorů je potřeba tento účet přidat.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Tento kontakt není kontakt rozšíření <xliff:g id="incall_plugin">%s</xliff:g>. Chcete jej pozvat?</string>
+  <string name="snackbar_invite_action_text">POZVAT</string>
+  <string name="caller_info_loading">Vyhledávání <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> je nedostupný</string>
+  <string name="caller_info_no_result">Nebyl nalezen odpovídající <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> nastavení nebylo dokončeno</string>
+  <string name="call_button_contact_unknown">Neznámé</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokovat volajícího</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokovat</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Vytvořit poznámku</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Neznámý</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Pozdržet hovor a odpovědět</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Ukončit hovor a odpovědět</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">ZRUŠIT</string>
+  <string name="display_text_target_block">BLOKOVAT</string>
+  <string name="display_text_target_answer">ODPOVĚDĚT</string>
+  <string name="display_text_target_sms">RYCHLÁ ZPRÁVA</string>
+  <string name="display_text_target_answer_and_hold_active">POZDRŽET HOVOR A ODPOVĚDĚT</string>
+  <string name="display_text_target_answer_and_end_active">UKONČIT HOVOR A ODPOVĚDĚT</string>
 </resources>

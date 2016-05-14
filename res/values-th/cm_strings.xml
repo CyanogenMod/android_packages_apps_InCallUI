@@ -40,4 +40,38 @@
   <string name="recording_time_text">เวลาบันทึก</string>
   <string name="recording_warning_title">เปิดบันทึกการโทรหรือไม่</string>
   <string name="recording_warning_text">ข้อสังเกต: คุณมีภาระรับผิดชอบในการปฏิบัติตามกฎหมาย ระเบียบข้อบังคับ และกฎที่ใช้กับการใช้ฟังก์ชันบันทึกการสนทนาและการใช้หรือการเผยแพร่ของบันทึกเหล่านั้น</string>
+  <string name="onscreenTransferCall">โอนสาย</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">เลือกผู้ให้บริการวิดีโอ</string>
+  <string name="snackbar_incall_plugin_no_invite_found">ผู้ติดต่อนี้ไม่ใช่ <xliff:g id="incall_plugin">%s</xliff:g> คุณต้องเพิ่มผู้ติดต่อนี้ก่อนจะใช้งานสายวิดีโอ</string>
+  <string name="snackbar_incall_plugin_contact_invite">ผู้ติดต่อนี้ไม่<xliff:g id="incall_plugin">%s</xliff:g> เชิญผู้ติดต่อนี้?</string>
+  <string name="snackbar_invite_action_text">เชิญ</string>
+  <string name="caller_info_loading">กำลังค้นหา<xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">ไม่สามารถเข้าถึง <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">ไม่พบ <xliff:g id="provider">%s</xliff:g> ที่ตรง</string>
+  <string name="caller_info_unauthenticated">การตั้งค่า <xliff:g id="provider">%s</xliff:g> ไม่สมบูรณ์</string>
+  <string name="call_button_contact_unknown">ไม่รู้จัก</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">บล็อคผู้โทร</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">บล็อค</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">จดบันทึก</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">ไม่รู้จัก</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">ให้สายปัจจุบันถือสายรอและรับสาย</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">วางสายปัจจุบันและรับสาย</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">ยกเลิก</string>
+  <string name="display_text_target_block">บล็อค</string>
+  <string name="display_text_target_answer">รับสาย</string>
+  <string name="display_text_target_sms">ข้อความด่วน</string>
+  <string name="display_text_target_answer_and_hold_active">ให้สายปัจจุบันถือสายรอและรับสาย</string>
+  <string name="display_text_target_answer_and_end_active">วางสายปัจจุบันและรับสาย</string>
+  <string name="onscreenModOverflowText">ชุดปลั๊กอินอื่น ๆ</string>
 </resources>

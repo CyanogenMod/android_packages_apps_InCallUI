@@ -30,6 +30,7 @@
   <string name="calling_via_waiting_template">Llamando pente <xliff:g id="provider_name">%s</xliff:g> (Esperando\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (per <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Llamada n\'espera</string>
   <string name="call_recording_failed_message">Hebo un fallu al aniciar la grabación</string>
@@ -39,4 +40,38 @@
   <string name="recording_time_text">Grabando</string>
   <string name="recording_warning_title">¿Habilitar grabación de llamada?</string>
   <string name="recording_warning_text">Avisu: Yes responsable del cumplimientu con cualesquier llei, regulación y regla que s\'aplique al usar la funcionalidá de grabación de llamada y l\'usu o districución d\'eses grabaciones.</string>
+  <string name="onscreenTransferCall">Tresferir llamada</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Esbillar serviciu de videu</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Esti contautu nun ye ún <xliff:g id="incall_plugin">%s</xliff:g>. Tienes d\'amestar primero a esta persona pa facer llamaes de videu.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Esti contautu nun ye ún <xliff:g id="incall_plugin">%s</xliff:g>. ¿Convidalu?</string>
+  <string name="snackbar_invite_action_text">CONVIDAR</string>
+  <string name="caller_info_loading">Guetando <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">Nun pudo algamase a <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">Nun s\'alcontró coincidencia dala de <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_unauthenticated">Configuración de <xliff:g id="provider">%s</xliff:g> incompleta</string>
+  <string name="call_button_contact_unknown">Desconocíu</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Bloquéu de llamaes</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Bloquiar</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Tomar nota</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Desconocíu</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Poner llamada actual n\'espera y contestar</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Finar llamada actual y contestar</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">DESATENDER</string>
+  <string name="display_text_target_block">BLOQUIAR</string>
+  <string name="display_text_target_answer">RESPONDER</string>
+  <string name="display_text_target_sms">MENSAXE RÁPIDU</string>
+  <string name="display_text_target_answer_and_hold_active">PONER LLAMADA ACTUAL N\'ESPERA Y RESPONDER</string>
+  <string name="display_text_target_answer_and_end_active">FINAR LLAMADA ACTUAL Y RESPONDER</string>
+  <string name="onscreenModOverflowText">Más Mods</string>
 </resources>

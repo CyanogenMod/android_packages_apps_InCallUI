@@ -39,4 +39,15 @@
   <string name="recording_time_text">Gravando</string>
   <string name="recording_warning_title">Activar a gravación das chamadas?</string>
   <string name="recording_warning_text">Aviso: É a súa responsabilidade respectar as leis, normas e regras que afecten á función de gravación de chamadas e á distribución desas gravacións.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

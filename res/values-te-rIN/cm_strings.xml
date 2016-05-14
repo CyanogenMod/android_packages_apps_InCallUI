@@ -40,4 +40,15 @@
   <string name="recording_time_text">రికార్డింగ్</string>
   <string name="recording_warning_title">కాల్ రికార్డింగును అమలు చేయాలా?</string>
   <string name="recording_warning_text">గమనిక: కాల్ రికార్డింగ్ కార్యాచరణ మరియు ఆ రికార్డింగుల ఉపయోగం మరియు పంపిణీకు సంబంధించి వర్తించే ఏవైనా చట్టాలు, నిబంధనలు మరియు నియమాలకు కట్టుబడి ఉండడానికి మీరే బాధ్యులు.</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <!-- Description of the target to block a call -->
+  <!-- [CHAR LIMIT=12] -->
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <!-- In-call screen: display text for the target action -->
 </resources>

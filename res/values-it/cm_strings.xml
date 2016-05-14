@@ -40,4 +40,37 @@
   <string name="recording_time_text">Registrazione in corso</string>
   <string name="recording_warning_title">Attivare la registrazione della chiamata?</string>
   <string name="recording_warning_text">Avviso: Tu sei responsabile della conformità con eventuali leggi, regolamenti e norme che si applicano all\'utilizzo, condivisione e distribuzione sulle registrazioni delle chiamate.</string>
+  <string name="onscreenTransferCall">Trasferimento chiamata</string>
+  <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Seleziona servizio video</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Questo non è un contatto <xliff:g id="incall_plugin">%s</xliff:g>. Devi aggiungere questa persona prima per effetuare videochiamate.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Questo non è un contatto <xliff:g id="incall_plugin">%s</xliff:g>. Vuoi invitare questo contatto?</string>
+  <string name="snackbar_invite_action_text">INVITA</string>
+  <string name="caller_info_loading">Ricerca <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">Impossibile raggiungere <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">Nessun risultato <xliff:g id="provider">%s</xliff:g> trovato</string>
+  <string name="caller_info_unauthenticated">Setup <xliff:g id="provider">%s</xliff:g> incompleto</string>
+  <string name="call_button_contact_unknown">Sconosciuto</string>
+  <!-- Description of the target to block a call -->
+  <string name="description_target_block">Chiamante bloccato</string>
+  <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blocca</string>
+  <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
+         launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Prendi nota</string>
+  <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Sconosciuto</string>
+  <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Metti in attesa la chiamata e rispondi</string>
+  <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
+    LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Termina la chiamata e rispondi</string>
+  <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">CHIUDI</string>
+  <string name="display_text_target_block">BLOCCA</string>
+  <string name="display_text_target_answer">RISPONDI</string>
+  <string name="display_text_target_sms">MESSAGGIO RAPIDO</string>
+  <string name="display_text_target_answer_and_hold_active">METTI IN ATTESA LA CHIAMATA E RISPONDI</string>
+  <string name="display_text_target_answer_and_end_active">TERMINA LA CHIAMATA E RISPONDI</string>
 </resources>

@@ -36,9 +36,9 @@
   <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Chamada retomada</string>
   <!-- Call substate label for call connected suspended (audio) -->
-  <string name="call_substate_connected_suspended_audio">Chamada está conectada, mas o áudio está suspenso</string>
+  <string name="call_substate_connected_suspended_audio">Conectada, com áudio suspenso</string>
   <!-- Call substate label for call connected suspended (video) -->
-  <string name="call_substate_connected_suspended_video">Chamada está conectada, mas o vídeo está suspenso</string>
+  <string name="call_substate_connected_suspended_video">Conectada, com vídeo suspenso</string>
   <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Detectando a qualidade de vídeo\u2026</string>
   <!-- Video quality changed message -->
@@ -98,17 +98,17 @@
   <!-- Session modify cause code downgrade rtp timeout -->
   <string name="session_modify_cause_downgrade_rtp_timeout">Chamada rebaixada devido ao tempo limite da RTP</string>
   <!-- Session modify cause code downgrade qos -->
-  <string name="session_modify_cause_downgrade_qos">Chamada rebaixada devido a qualidade do serviço</string>
+  <string name="session_modify_cause_downgrade_qos">Qualidade da chamada diminuída devido à qualidade do serviço</string>
   <!-- Session modify cause code downgrade packet loss -->
-  <string name="session_modify_cause_downgrade_packet_loss">Chamada rebaixada devido a perda de pacotes</string>
+  <string name="session_modify_cause_downgrade_packet_loss">Qualidade da chamada diminuída devido a perdas de pacotes</string>
   <!-- Session modify cause code downgrade low thrput -->
-  <string name="session_modify_cause_downgrade_low_thrput">Chamada rebaixada devido à baixa taxa de transferência</string>
+  <string name="session_modify_cause_downgrade_low_thrput">Qualidade da chamada diminuída devido à baixa taxa de transferência</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
-  <string name="session_modify_cause_downgrade_thermal_mitigation">Chamada rebaixada devido à atenuação térmica</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Qualidade da chamada diminuída devido a alívio térmico</string>
   <!-- Session modify cause code downgrade lipsync -->
-  <string name="session_modify_cause_downgrade_lipsync">Chamada rebaixada devido para acompanhar a sincronização labial</string>
+  <string name="session_modify_cause_downgrade_lipsync">Qualidade da chamada diminuída para acompanhar a sincronização labial</string>
   <!-- Session modify cause code downgrade generic error -->
-  <string name="session_modify_cause_downgrade_generic_error">Chamada rebaixada devido a um erro genérico</string>
+  <string name="session_modify_cause_downgrade_generic_error">Qualidade da chamada diminuída devido a um erro genérico</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Selecione o cartão SIM</string>
   <!-- Set Subscription screen: label sub 1 -->

@@ -54,7 +54,7 @@
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">נגן הופעל</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
-  <string name="player_stopped">הנגן עצר</string>
+  <string name="player_stopped">נגן עצר</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
   <string name="camera_not_ready">המצלמה לא מוכנה</string>
@@ -73,7 +73,7 @@
   <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">שינוי השיחה נכשל עקב סוללה חלשה.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
-  <string name="video_call_not_allowed_if_tty_enabled">אנא בטל את מצב TTY כדי לאפשר שיחות וידאו.</string>
+  <string name="video_call_not_allowed_if_tty_enabled">עליך להשבית את מצב TTY כדי לאפשר שיחות וידאו.</string>
   <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">הוסף משתתף</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->

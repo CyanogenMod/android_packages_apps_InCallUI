@@ -50,7 +50,7 @@
   <!-- Video quality Low -->
   <string name="video_quality_low">baixa</string>
   <!-- Video quality Unknown -->
-  <string name="video_quality_unknown">deconeguda</string>
+  <string name="video_quality_unknown">desconeguda</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">S\'ha encès el reproductor</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->

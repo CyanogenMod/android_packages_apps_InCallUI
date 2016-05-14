@@ -33,11 +33,4 @@
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (வழி<xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">அழைப்பில் ஹோல்டில் உள்ளது</string>
-  <string name="call_recording_failed_message">அழைப்பு பதிவுசெய்தலை தொடங்குதல் தோல்வியுற்றது</string>
-  <string name="call_recording_file_location">அழைப்பு பதிவுசெய்தலை <xliff:g id="filename">%s</xliff:g>க்கு சேமித்தது</string>
-  <string name="onscreenCallRecordText">அழைப்பை பதிவுசெய்</string>
-  <string name="onscreenStopCallRecordText">பதிவுசெய்தலை நிறுத்து</string>
-  <string name="recording_time_text">பதிவுசெய்கிறது</string>
-  <string name="recording_warning_title">அழைப்பு பதிவுசெய்தலை செயல்படுத்தவா?</string>
-  <string name="recording_warning_text">அறிவிப்பு: அழைப்பு பதிவுசெய்தல் இயக்கம் மற்றும் அந்த பதிவுகளை பயன்படுத்துதல் மற்றும் விநியோகித்தல்களுடன் பொருந்தும் ஏதேனும் சட்டங்கள், விதிமுறைகள் மற்றும் விதிகளுடன் இணங்குவது உங்களுடைய பொறுப்பு</string>
 </resources>

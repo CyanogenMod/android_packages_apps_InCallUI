@@ -32,11 +32,4 @@
          provider (e.g. MSIM) -->
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Skambutis sulaikytas</string>
-  <string name="call_recording_failed_message">Nepavyko pradėti skambučio įrašymo</string>
-  <string name="call_recording_file_location">Skambučio įrašas išsaugotas į <xliff:g id="filename">%s</xliff:g></string>
-  <string name="onscreenCallRecordText">Įrašyti skambutį</string>
-  <string name="onscreenStopCallRecordText">Sustabdyti įrašymą</string>
-  <string name="recording_time_text">Įrašoma</string>
-  <string name="recording_warning_title">Įgalinti skambučio įrašymą?</string>
-  <string name="recording_warning_text">Pastaba: jūs esate atsakingas už įstatymų, teisės aktų ir taisyklių, kurios taikomos skambučių įrašymo naudojimuisi, funkcionalumui ir įrašų platinimui.</string>
 </resources>

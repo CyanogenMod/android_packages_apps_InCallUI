@@ -30,8 +30,4 @@
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
   <!-- In-call screen: status label for a call that is held remotely  -->
-  <string name="call_recording_failed_message">Failed to start call recording</string>
-  <string name="onscreenCallRecordText">Record call</string>
-  <string name="onscreenStopCallRecordText">Stop recording</string>
-  <string name="recording_time_text">Recording</string>
 </resources>

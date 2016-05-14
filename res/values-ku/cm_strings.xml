@@ -31,10 +31,4 @@
          provider (e.g. MSIM) -->
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">تەلەفۆنەکە لەسەر چاوەڕێیە</string>
-  <string name="call_recording_failed_message">هنه‌توانرا تۆمارکردنی په‌یوه‌ندی ده‌ستپێبکرێت</string>
-  <string name="call_recording_file_location">تەلەفۆنی تۆمارکراو پاشەکەوتکرا بۆ <xliff:g id="filename">%s</xliff:g></string>
-  <string name="onscreenCallRecordText">تۆمارکردنی پەیوەندی</string>
-  <string name="onscreenStopCallRecordText">وه‌ستانی تۆمارکردن</string>
-  <string name="recording_time_text">تۆمارکردن</string>
-  <string name="recording_warning_title">چالاککردنی تۆمارکردنی پەیوەندی?</string>
 </resources>

@@ -32,11 +32,4 @@
          provider (e.g. MSIM) -->
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Zəng gözlədilir</string>
-  <string name="call_recording_failed_message">Zəng səsyazması başladılmadı</string>
-  <string name="call_recording_file_location">Zəng səsyazmasının saxlanıldığı yer: <xliff:g id="filename">%s</xliff:g></string>
-  <string name="onscreenCallRecordText">Zəngin səsini yaz</string>
-  <string name="onscreenStopCallRecordText">Səsyazmanı dayandır</string>
-  <string name="recording_time_text">Səs yazılır</string>
-  <string name="recording_warning_title">Zəng səsyazma fəallaşdırılsın?</string>
-  <string name="recording_warning_text">Diqqət: Zəng səsyazma funksiyasını istifadə edərkən və bu səsyazmaları paylaşarkən əlaqəli qanun,  nizamnamə və qaydalara uyğun olaraq məsuliyyət daşıyırsınız.</string>
 </resources>

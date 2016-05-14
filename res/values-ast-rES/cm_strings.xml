@@ -30,13 +30,7 @@
   <string name="calling_via_waiting_template">Llamando pente <xliff:g id="provider_name">%s</xliff:g> (Esperando\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (per <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Llamada n\'espera</string>
-  <string name="call_recording_failed_message">Hebo un fallu al aniciar la grabación</string>
-  <string name="call_recording_file_location">Grabación de llamada guardada en <xliff:g id="filename">%s</xliff:g></string>
-  <string name="onscreenCallRecordText">Grabar la llamada</string>
-  <string name="onscreenStopCallRecordText">Parar de grabar</string>
-  <string name="recording_time_text">Grabando</string>
-  <string name="recording_warning_title">¿Habilitar grabación de llamada?</string>
-  <string name="recording_warning_text">Avisu: Yes responsable del cumplimientu con cualesquier llei, regulación y regla que s\'aplique al usar la funcionalidá de grabación de llamada y l\'usu o districución d\'eses grabaciones.</string>
 </resources>

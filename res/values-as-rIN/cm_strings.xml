@@ -33,11 +33,4 @@
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (<xliff:g id="provider_name">%2$s</xliff:g> ৰ মাধ্যমেৰে)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">কল হোল্ডত আছে</string>
-  <string name="call_recording_failed_message">কল ৰেকৰ্ডিং আৰম্ভ কৰিবলৈ ব্যৰ্থ</string>
-  <string name="call_recording_file_location">কল ৰেকৰ্ডিং <xliff:g id="filename">%s</xliff:g>লৈ সংৰক্ষণ কৰিছে</string>
-  <string name="onscreenCallRecordText">কল ৰেকৰ্ড কৰক</string>
-  <string name="onscreenStopCallRecordText">ৰেকৰ্ডিং আৰম্ভ কৰক</string>
-  <string name="recording_time_text">ৰেকৰ্ডিং</string>
-  <string name="recording_warning_title">কল ৰেকৰ্ডিং সক্ষম কৰিব</string>
-  <string name="recording_warning_text">জাননী: আপুনি কল ৰেকৰ্ডিং কাৰ্য আৰু সেই ৰেকৰ্ডিঙৰ ব্যৱহাৰ আৰু বিতৰণৰ বাবে প্ৰযোজ্য যিকোনো আইন, অধিনিয়ম আৰু নিয়ম পালন কৰাৰ বাবে দায়বদ্ধ।</string>
 </resources>

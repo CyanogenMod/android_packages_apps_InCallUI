@@ -33,11 +33,4 @@
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> ( <xliff:g id="provider_name">%2$s</xliff:g>ମାଧ୍ୟମରେ)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">କଲ୍‍ ହୋଲ୍‍ଡ୍‍ରେ ରଖାଯାଇଛି</string>
-  <string name="call_recording_failed_message">କଲ୍‍ ରେକର୍ଡିଂ ଆର‍ମ୍ଭ କରିବାରେ ବିଫଳ ହେଲା</string>
-  <string name="call_recording_file_location">କଲ୍‍ ରେକଡିଂ <xliff:g id="filename">%s</xliff:g>ରେ ସଞ୍ଚିତ ହୋଇଛି</string>
-  <string name="onscreenCallRecordText">କଲ୍‍ ରେକର୍ଡ କରନ୍ତୁ</string>
-  <string name="onscreenStopCallRecordText">ରେକର୍ଡିଂ ସ୍ଥଗିତ କରିବା</string>
-  <string name="recording_time_text">ରେକର୍ଡିଂ</string>
-  <string name="recording_warning_title">କଲ୍‍ ରେକର୍ଡିଂ ସଷମ କରିବେ କି?</string>
-  <string name="recording_warning_text">ସୂବିଜ୍ଞପ୍ତି କଲ୍‍ ରେକର୍ଡିଂ ସଂଚାଳନ ବ୍ୟବହାର ଓ ସେହି ସମସ୍ତ ରେକର୍ଡିଂର ବଣ୍ଟନ ଉପରେ ଜାରି ହୋଇପାରୁଥିବା ସମସ୍ତ ଆଇନ୍‍, ନିର୍ଦ୍ଦେଶାବଳି ଓ ନିୟମ ସହିତ ସମ୍ବଧିତ ଅନୁପାଳନ ପାଇଁ ଆପଣ ଦାୟୀ ଅଟନ୍ତି।</string>
 </resources>

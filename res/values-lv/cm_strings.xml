@@ -30,7 +30,4 @@
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
   <!-- In-call screen: status label for a call that is held remotely  -->
-  <string name="onscreenCallRecordText">Ierakstīt zvanu</string>
-  <string name="onscreenStopCallRecordText">Apturēt ierakstīšanu</string>
-  <string name="recording_time_text">Ieraksta</string>
 </resources>

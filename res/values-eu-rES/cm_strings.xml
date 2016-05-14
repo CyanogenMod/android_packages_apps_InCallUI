@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">MEZU AZKARRA</string>
   <string name="display_text_target_answer_and_hold_active">JARRI UNEKO DEIA ZAIN ETA ERANTZUN</string>
   <string name="display_text_target_answer_and_end_active">MOZTU UNEKO DEIA ETA ERANTZUN</string>
+  <string name="onscreenModOverflowText">Mod gehiago</string>
 </resources>

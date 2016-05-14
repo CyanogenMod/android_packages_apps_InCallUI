@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">HITRO SPOROČILO</string>
   <string name="display_text_target_answer_and_hold_active">ZADRŽI TRENUTNI KLIC IN ODGOVORI</string>
   <string name="display_text_target_answer_and_end_active">KONČAJ TRENUTNI KLIC IN ODGOVORI</string>
+  <string name="onscreenModOverflowText">Več modifikacij</string>
 </resources>

@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">MESSAGGIO RAPIDO</string>
   <string name="display_text_target_answer_and_hold_active">METTI IN ATTESA LA CHIAMATA E RISPONDI</string>
   <string name="display_text_target_answer_and_end_active">TERMINA LA CHIAMATA E RISPONDI</string>
+  <string name="onscreenModOverflowText">Altre Mod</string>
 </resources>

@@ -680,7 +680,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
 
         PendingIntent blockPendingIntent = createNotificationPendingIntent(
                 mContext, ACTION_BLOCK_INCOMING_CALL);
-        builder.addAction(R.drawable.ic_block_24dp,
+        builder.addAction(R.drawable.ic_do_not_disturb_white_24dp,
                 mContext.getText(R.string.notification_action_block), blockPendingIntent);
     }
 

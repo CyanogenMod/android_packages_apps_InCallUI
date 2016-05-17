@@ -143,7 +143,7 @@ public class ModButtonFragment
                 getPresenter().switchToVideoCall();
                 break;
             case R.id.takeNoteButton:
-                getPresenter().takeNote();
+                getPresenter().handleNoteClick();
                 break;
             case R.id.overflowButton:
                 if (mOverflowPopup != null) {

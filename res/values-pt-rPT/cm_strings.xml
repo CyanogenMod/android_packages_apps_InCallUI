@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">MENSAGEM RÁPIDA</string>
   <string name="display_text_target_answer_and_hold_active">ATENDER E COLOCAR CHAMADA ATUAL EM ESPERA</string>
   <string name="display_text_target_answer_and_end_active">ATENDER E TERMINAR A CHAMADA ATUAL</string>
+  <string name="onscreenModOverflowText">Mais Mods</string>
 </resources>

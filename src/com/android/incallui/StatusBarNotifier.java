@@ -285,7 +285,7 @@ public class StatusBarNotifier implements InCallPresenter.InCallStateListener,
 
         if (contactInfo.isSpam) {
             subTextContent = mContext.getResources().getQuantityString(R.plurals.spam_count_text,
-                    contactInfo.spamCount);
+                    contactInfo.spamCount, contactInfo.spamCount);
         }
 
         if (!TextUtils.isEmpty(subTextContent)) {

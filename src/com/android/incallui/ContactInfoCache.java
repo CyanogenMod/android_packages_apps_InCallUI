@@ -458,7 +458,7 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
             oldEntry.isLookupInProgress = false;
             oldEntry.lookupStatus = response.mStatusCode;
 
-            if (response == null) {
+            if (response == null || response.mStatusCode != StatusCode.SUCCESS) {
                 oldEntry.lookupProviderName = mLookupProvider.getDisplayName();
                 oldEntry.lookupStatus = StatusCode.FAIL;
                 mMainHandler.post(new Runnable() {

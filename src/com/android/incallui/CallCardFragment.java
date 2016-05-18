@@ -1364,6 +1364,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         }
         mLookupStatusMessage.setVisibility(showLookupStatus ? View.VISIBLE : View.GONE);
         mContactInfoAttributionText.setVisibility(showContactAttribution ? View.VISIBLE : View.GONE);
+        mContactInfoAttributionLogo.setVisibility(showContactAttribution ? View.VISIBLE : View.GONE);
     }
 
     public void onDialpadVisibilityChange(boolean isShown) {

@@ -24,10 +24,10 @@
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">שיחה שהועברה</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
-  <string name="card_title_dialing_waiting">מחייג (ממתין\u2026)</string>
+  <string name="card_title_dialing_waiting">מחייג (ממתיןu2026\)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
-  <string name="calling_via_waiting_template">מתקשר באמצעות <xliff:g id="provider_name">%s</xliff:g> (ממתין\u2026)</string>
+  <string name="calling_via_waiting_template">מתקשר באמצעות <xliff:g id="provider_name">%s</xliff:g> (ממתיןu2026\)</string>
   <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">שיחה בהמתנה</string>
   <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
@@ -80,7 +80,7 @@
   <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">השיחה מחוברת, אבל הווידאו מושהה</string>
   <!-- Call substate label for avp retry -->
-  <string name="call_substate_avp_retry">מזהה איכות וידאו\u2026</string>
+  <string name="call_substate_avp_retry">מזהה איכות וידאוu2026\</string>
   <!-- Video quality changed message -->
   <string name="video_quality_changed">איכות וידאו שונתה ל-<xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <!-- Video quality High -->

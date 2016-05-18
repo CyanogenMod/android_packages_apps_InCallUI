@@ -23,6 +23,7 @@
   <!-- In-call screen: status label for a call that's on hold -->
   <!-- Incoming call screen, name of "unknown" caller -->
   <!-- Incoming call screen, string when number hidden -->
+  <string name="private_num">Асабісты нумар</string>
   <!-- Incoming call screen, string when called from a pay phone -->
   <!-- In-call screen: status label for a conference call -->
   <!-- In-call screen: call lost dialog text -->
@@ -52,12 +53,16 @@
   <!-- Call settings screen, Set voicemail dialog title -->
   <!-- Card titles -->
   <!-- In-call screen: status label for a call in the "dialing" state -->
+  <string name="card_title_dialing">Тэлефануйма</string>
   <!-- In-call screen: status label for a re-dialing call -->
+  <string name="card_title_redialing">Паўтарыць выклік</string>
   <!-- In-call screen: status label for a conference call -->
   <!-- In-call screen: status label for an incoming call -->
   <!-- In-call screen: status label displayed briefly after a call ends -->
+  <string name="card_title_call_ended">Размова скончана</string>
   <!-- In-call screen: status label for call that's on hold -->
   <!-- In-call screen: status label for a call that's in the process of hanging up -->
+  <string name="card_title_hanging_up">Сканчэньне размовы</string>
   <!-- In-call screen: status label for a call that's in CDMA flash mode -->
   <!-- In-call screen: special status label that shows your own phone
          number during emergency callback mode (ECM) [CHAR LIMIT=30] -->

@@ -148,6 +148,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     private View mManageConferenceCallButton;
 
     private View mPhotoContainer;
+    private View mLookupExtraInfoContainer;
     private TextView mLookupStatusMessage;
     private TextView mContactInfoAttributionText;
     private ImageView mContactInfoAttributionLogo;
@@ -333,6 +334,7 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
         mCallStateLabel.setElegantTextHeight(false);
         mCallSubject = (TextView) view.findViewById(R.id.callSubject);
 
+        mLookupExtraInfoContainer = view.findViewById(R.id.lookup_extra_info_container);
         mLookupStatusMessage = (TextView) view.findViewById(R.id.lookupStatusMessage);
         mContactInfoAttributionText = (TextView) view.findViewById(R.id.contactInfoAttributionText);
         mContactInfoAttributionLogo = (ImageView) view.findViewById(R.id.contactInfoAttributionLogo);
@@ -607,11 +609,6 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
 
         setLookupProviderStatus(isLookupInProgress, lookupStatus, providerName, providerLogo,
                 showSpamInfo, spamCount);
-        if (showSpamInfo) {
-            mPhoto.setVisibility(View.GONE);
-            mPhotoContainer.setBackgroundColor(getContext().getResources().getColor(
-                    R.color.contact_info_spam_info_text_color, getContext().getTheme()));
-        }
     }
 
     @Override
@@ -1370,6 +1367,13 @@ public class CallCardFragment extends BaseFragment<CallCardPresenter, CallCardPr
     public void onDialpadVisibilityChange(boolean isShown) {
         mIsDialpadShowing = isShown;
         updateFabPosition();
+        // ensure that the extra-info container doesn't overlap w/ the dialpad
+        if (isShown) {
+            mLookupExtraInfoContainer.setElevation(0f);
+        } else {
+            mLookupExtraInfoContainer.setElevation(getContext().getResources()
+                    .getDimensionPixelSize(R.dimen.lookup_extra_info_container_elevation));
+        }
     }
 
     public void updateFabPosition() {

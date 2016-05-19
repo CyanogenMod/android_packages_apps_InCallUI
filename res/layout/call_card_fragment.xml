@@ -202,6 +202,7 @@
     </FrameLayout>
 
     <FrameLayout
+            android:id="@+id/lookup_extra_info_container"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_below="@id/primary_call_info_container"
@@ -226,7 +227,6 @@
                     android:scaleType="centerCrop"
                     android:layout_height="@dimen/contact_info_attribution_logo_size"
                     android:layout_width="@dimen/contact_info_attribution_logo_size"
-                    android:layout_marginStart="@dimen/contact_info_attribution_logo_padding"
                     android:layout_marginEnd="@dimen/contact_info_attribution_logo_padding" />
 
                 <TextView

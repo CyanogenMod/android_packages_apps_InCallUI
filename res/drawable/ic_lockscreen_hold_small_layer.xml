@@ -30,7 +30,7 @@
         <bitmap
             android:gravity="center"
             android:src="@drawable/ic_pause_16dp"
-            android:tint="@color/incoming_call_hold_bitmap"
+            android:tint="@color/incoming_call_widget_bitmap"
             android:autoMirrored="true" />
     </item>
 </layer-list>

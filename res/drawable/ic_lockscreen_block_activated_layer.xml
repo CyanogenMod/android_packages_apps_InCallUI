@@ -15,13 +15,22 @@
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="ring"
-            android:innerRadius="@dimen/incoming_call_widget_ring_inner_radius"
-            android:thickness="@dimen/incoming_call_widget_ring_thickness"
-            android:useLevel="false">
-            <solid android:color="@color/incoming_call_activated_ring"/>
+        <shape android:shape="oval">
+            <solid android:color="@color/incoming_call_secondary_action_circle" />
+            <size
+                android:width="@dimen/incoming_call_widget_circle_size"
+                android:height="@dimen/incoming_call_widget_circle_size" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_lockscreen_block_normal_layer" />
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_do_not_disturb_alt_white_24dp"
+            android:tint="@color/incoming_call_widget_bitmap"
+            android:autoMirrored="true" />
+    </item>
+    <item
+        android:top="@dimen/incoming_call_widget_small_circle_top_offset"
+        android:left="@dimen/incoming_call_widget_small_circle_left_offset"
+        android:drawable="@drawable/ic_lockscreen_decline_small_layer" />
 </layer-list>

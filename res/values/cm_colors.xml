@@ -25,14 +25,12 @@
     <color name="contact_info_attribution_text_color">#ffffff</color>
 
     <color name="incoming_call_display_text">#b2ffffff</color>
-    <color name="incoming_call_answer_circle">#00c853</color>
-    <color name="incoming_call_decline_circle">#ff2844</color>
-    <color name="incoming_call_decline_small_circle">#ff2844</color>
-    <color name="incoming_call_activated_ring">#ffffff</color>
+    <color name="incoming_call_answer_circle">#4caf50</color>
+    <color name="incoming_call_decline_circle">#f44336</color>
+    <color name="incoming_call_decline_small_circle">#f44336</color>
     <color name="incoming_call_widget_bitmap">#ffffff</color>
     <color name="incoming_call_hold_small_circle">#607d8b</color>
-    <color name="incoming_call_hold_bitmap">#b2ffffff</color>
-    <color name="incoming_call_sms_circle">#0288d1</color>
+    <color name="incoming_call_secondary_action_circle">#03a9f4</color>
 
     <color name="mod_button_background_color">@color/dialer_theme_color_dark</color>
 </resources>

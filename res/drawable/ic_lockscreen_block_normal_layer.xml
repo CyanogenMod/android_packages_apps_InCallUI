@@ -16,12 +16,12 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="ring"
-            android:innerRadius="0dp"
-            android:thickness="@dimen/incoming_call_widget_circle_thickness"
-            android:useLevel="false">
-            <solid android:color="@color/incoming_call_sms_circle"/>
+        <!-- A fake circle to fix the size of this layer asset. -->
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <size
+                android:width="@dimen/incoming_call_widget_circle_size"
+                android:height="@dimen/incoming_call_widget_circle_size" />
         </shape>
     </item>
     <item>
@@ -31,7 +31,4 @@
             android:tint="@color/incoming_call_widget_bitmap"
             android:autoMirrored="true" />
     </item>
-    <item   android:top="@dimen/incoming_call_widget_small_circle_top_offset"
-            android:left="@dimen/incoming_call_widget_small_circle_left_offset"
-            android:drawable="@drawable/ic_lockscreen_decline_small_layer" />
 </layer-list>

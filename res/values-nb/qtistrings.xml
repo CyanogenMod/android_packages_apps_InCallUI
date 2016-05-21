@@ -79,22 +79,36 @@
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <string name="qti_description_target_deflect">Avled</string>
   <string name="qti_description_deflect_error">Nummer er ikke angitt. Skriv inn tallet via IMS innstillinger, og prøv på nytt.</string>
+  <string name="qti_description_deflect_service_error">Samtalenedbøynings tjeneste støttes ikke.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">Samtalen ble avsluttet fordi overføringen fra LTE til 3G / 2G ikke var mulig.</string>
   <!-- Title of the IMS to CS redial dialog -->
   <string name="cs_redial_option">Ring på nytt</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">Kunne ikke sette opp et IMS videoanrop, ringe opp igjen som ikke-IMS videoanrop?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">Samtalen ble oppgradert på forespørsel fra bruker</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">Samtalen ble oppgradert på forespørsel fra fjernbruker</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">Samtalen ble nedgradert på forespørsel fra bruker</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">Samtalen ble nedgradert på forespørsel fra fjernbruker</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">Samtalen ble nedgradert på grunn av RTP tidsavbrudd</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">Samtalen ble nedgradert på grunn av servicekvalitet</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">Samtalen ble nedgradert på grunn av pakketap</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">Samtalen ble nedgradert på grunn av lav dataoverføringshastighet</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Samtalen ble nedgradert på grunn av overoppheting</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">Samtalen ble nedgradert på grunn av leppesynkronisering</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">Samtalen ble nedgradert på grunn av en generell feil</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Velg SIM-kort</string>
   <!-- Set Subscription screen: label sub 1 -->

@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">Osapool on keelanud kõik sisenevad kõned.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">Kõne vastamata ja edasi suunatud</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">Edastatud kõne</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">Helistan (ootan\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template">Helistan <xliff:g id="provider_name">%s</xliff:g> abil (Ootel\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Kõne ootel</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">Kõne ootel (teenuse <xliff:g id="provider_name">%s</xliff:g> abil)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Blokeeritud helistajate nimekiri</string>
   <string name="call_recording_failed_message">Kõne salvestuse alustamine nurjus</string>
   <string name="call_recording_file_location">Kõne salvestatud kohta <xliff:g id="filename">%s</xliff:g></string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Lisa blokeeritud helistajate nimekirja</string>
   <string name="blacklist_dialog_message">Tulevased kõned numbrilt <xliff:g id="number">%s</xliff:g> blokeeritakse</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Videokõne (peatatud)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">Lisa osaleja</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Vali kõne tüüp</string>
   <string name="modify_call_option_vt">Videokõne</string>
   <string name="modify_call_option_vt_tx">Edasta video</string>
   <string name="modify_call_option_vt_rx">Võta video vastu</string>
   <string name="modify_call_option_voice">Ainult heli</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">Videokõne lubamiseks keelake TTY režiim</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">Mängija alustas</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">Mängija lõpetas</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">Kaamera ei ole valmis</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kaamera on valmis</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">Tundmatud kõne sessiooni sündmus</string>
   <string name="onscreenCallRecordText">Alusta ja lõpeta kõne salvestamine</string>
   <string name="onscreenAddToBlacklistText">Lisa helistaja blokeeritud helistajate nimekirja</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">Salvestamine</string>
   <string name="recording_warning_title">Lubada kõne salvestamine?</string>
   <string name="recording_warning_text">Teade: Teie olete kohustatud järgima seaduseid, määruseid ja reegleid, mis käivad kõnede salvestamise funktsiooni ja nende salvestiste jagamise kohta.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">SIM 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">Kõne jätkub</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Kõne on ühendatud, kuid heli on peatatud</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">Kõne on ühendatud, kuid video on peatatud</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">Tuvastan video kvaliteeti\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">Video kvaliteet muudeti <xliff:g id="quality" example="high">%1$s</xliff:g></string>
+  <!-- Video quality High -->
   <string name="video_quality_high">kõrge</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">keskmise</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">madal</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">teadmata</string>
 </resources>

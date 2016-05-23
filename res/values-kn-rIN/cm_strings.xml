@@ -17,30 +17,50 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- In-call screen: call failure reason (call denied because call barring is ON on MT side ) -->
   <string name="callFailed_incoming_cb_enabled">ಪಕ್ಷವು ಎಲ್ಲಾ ಒಳಬರುವ ಕರೆಗಳನ್ನು ತಡೆಹಿಡಿದಿದ್ದಾರೆ.</string>
+  <!-- In-call screen: status label for an incoming call that is not answered and forwarded  -->
   <string name="callUnanswered_forwarded">ಕರೆ ಉತ್ತರಿಸಿಲ್ಲ ಹಾಗು ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾಗಿದೆ</string>
+  <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾದ ಕರೆ</string>
+  <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
   <string name="card_title_dialing_waiting">ಡಯಲ್ ಮಾಡುತ್ತಿದೆ (ನಿರೀಕ್ಷಿಸುತ್ತಿದೆ\u2026)</string>
+  <!-- In-call screen: status label for an outgoing call that's routed via a specific
+         provider (e.g. MSIM) and is waiting for the busy remote side -->
   <string name="calling_via_waiting_template"><xliff:g id="provider_name">%s</xliff:g> ಮೂಲಕ ಕರೆಮಾಡಲಾಗುತ್ತಿದೆ (ನಿರೀಕ್ಷಿಸುತ್ತಿದೆ\u2026)</string>
+  <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">ಕರೆ ಹಿಡಿದಿಡಲಾಗಿದೆ</string>
+  <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
   <string name="card_title_waiting_via_template">ಕರೆಯನ್ನು ಹಿಡಿದಿಡಲಾಗಿದೆ (<xliff:g id="provider_name">%s</xliff:g> ಮೂಲಕ)</string>
+  <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">ನಿರ್ಬಂಧಿಸಿದ ಕರೆಮಾಡುವರ ಪಟ್ಟಿ</string>
   <string name="call_recording_failed_message">ಕರೆ ರಿಕಾರ್ಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>
   <string name="call_recording_file_location">ಕರೆ ರಿಕಾರ್ಡಿಂಗನ್ನು ಇಲ್ಲಿ <xliff:g id="filename">%s</xliff:g> ಉಳಿಸಲಾಗಿದೆ</string>
+  <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">ನಿರ್ಬಂಧಿಸಿದ ಕರೆಮಾಡುವರ ಪಟ್ಟಿಗೆ ಸೇರಿಸಿ</string>
   <string name="blacklist_dialog_message"><xliff:g id="number">%s</xliff:g>ನಿಂದ ಬರುವ ಮುಂದಿನ ಕರೆಗಳನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ</string>
+  <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">ವೀಡಿಯೋ ಕರೆ (ವಿರಾಮದಲ್ಲಿಟ್ಟಿದೆ)</string>
+  <!-- Text for the onscreen "Add Participant" button -->
   <string name="onscreenAddParticipant">ಸಹಭಾಗಿಯನ್ನು ಸೇರಿಸಿ</string>
+  <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">ಕರೆ ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
   <string name="modify_call_option_vt">ವೀಡಿಯೋ ಕರೆ</string>
   <string name="modify_call_option_vt_tx">ವೀಡಿಯೋ ಪ್ರಸಾರ</string>
   <string name="modify_call_option_vt_rx">ವೀಡಿಯೋ ಸ್ವೀಕಾರ</string>
   <string name="modify_call_option_voice">ಧ್ವನಿ ಮಾತ್ರ</string>
+  <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
   <string name="video_call_not_allowed_if_tty_enabled">ವೀಡಿಯೋ ಕರೆಗಳನ್ನು ಅನುಮತಿಸಲು ದಯವಿಟ್ಟು TTY ಮೋಡ್ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
+  <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <string name="player_started">ಪ್ಲೇಯರ್ ಆರಂಭಗೊಂಡಿದೆ</string>
+  <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <string name="player_stopped">ಪ್ಲೇಯರ್ ನಿಂತಿದೆ</string>
+  <!-- Message indicating that camera failure has occurred for the selected camera and
+         as result camera is not ready -->
   <string name="camera_not_ready">ಕ್ಯಾಮೆರಾ ಸಿದ್ಧವಾಗಿಲ್ಲ</string>
+  <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">ಕ್ಯಾಮೆರಾ ಸಿದ್ಧವಾಗಿದೆ</string>
+  <!-- Message indicating unknown call session event -->
   <string name="unknown_call_session_event">ಅಜ್ಞಾತ ಕರೆ ಅವಧಿ ಘಟನೆ</string>
   <string name="onscreenCallRecordText">ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ಆರಂಭಿಸಿ ಮತ್ತು ನಿಲ್ಲಿಸಿ</string>
   <string name="onscreenAddToBlacklistText">ಕರೆಮಾಡುಗರ ನಿರ್ಬಂಧಿಸಿದ ಕರೆಮಾಡುವರ ಪಟ್ಟಿಕೆ ಸೇರಿಸಿ</string>
@@ -49,15 +69,26 @@
   <string name="recording_time_text">ರಿಕಾರ್ಡ್ ಆಗುತ್ತಿದೆ</string>
   <string name="recording_warning_title">ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ಸಕ್ರಿಯಗೊಳಿಸು?</string>
   <string name="recording_warning_text">ಗಮನಿಸಿ: ಕರೆ ರಿಕಾರ್ಡಿಂಗ್ ವೈಶಿಷ್ಟ್ಯವನ್ನು ಬಳಸುವುದು ಮತ್ತು ಉಪಯೋಗಿಸುವ ಅಥವ ಆ ರಿಕಾರ್ಡಿಂಗ್‍ಗಳನ್ನು ವಿತರಿಸುವಂತಹ ಯಾವುದೇ ಕಾನೂನು, ನಿಬಂಧನೆಗಳ ಮತ್ತು ನಿಯಮಗಳ ಅನುಸರಣೆಯ ಜವಾಬ್ದಾರಿ ನಿಮ್ಮದಾಗಿರುತ್ತದೆ.</string>
+  <!-- Set Subscription screen: label sub 1 -->
   <string name="sub_1">ಸಿಮ್ 1</string>
+  <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">ಸಿಮ್ 2</string>
+  <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">ಕರೆ ಮುಂದುವರಿಸಲಾಗಿದೆ</string>
+  <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">ಕರೆಯು ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಆದರೆ ಆಡಿಯೋ ಅಮಾನತುಗೊಂಡಿದೆ</string>
+  <!-- Call substate label for call connected suspended (video) -->
   <string name="call_substate_connected_suspended_video">ಕರೆಯು ಸಂಪರ್ಕಗೊಂಡಿದೆ, ಆದರೆ ವೀಡಿಯೋ ಅಮಾನತುಗೊಂಡಿದೆ</string>
+  <!-- Call substate label for avp retry -->
   <string name="call_substate_avp_retry">ವೀಡಿಯೋ ಗುಣಮಟ್ಟವನು ಪತ್ತೆಹಚ್ಚುತ್ತಿದೆ\u2026</string>
+  <!-- Video quality changed message -->
   <string name="video_quality_changed">ವೀಡಿಯೋ ಗುಣಮಟ್ಟವು <xliff:g id="quality" example="high">%1$s</xliff:g>ಗೆ ಬದಲಾಗಿದೆ</string>
+  <!-- Video quality High -->
   <string name="video_quality_high">ಅಧಿಕ</string>
+  <!-- Video quality Medium -->
   <string name="video_quality_medium">ಮಧ್ಯಮ</string>
+  <!-- Video quality Low -->
   <string name="video_quality_low">ಕಡಿಮೆ</string>
+  <!-- Video quality Unknown -->
   <string name="video_quality_unknown">ಅಪರಿಚಿತ</string>
 </resources>

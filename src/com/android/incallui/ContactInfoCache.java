@@ -818,6 +818,12 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 this.lookupKey = entry.lookupKey;
                 this.isEmergencyNumber = entry.isEmergencyNumber;
                 this.inCallPluginInfoList = entry.inCallPluginInfoList;
+                this.spamCount = entry.spamCount;
+                this.isSpam = entry.isSpam;
+                this.lookupProviderName = entry.lookupProviderName;
+                this.lookupProviderBadge = entry.lookupProviderBadge;
+                this.isLookupInProgress = entry.isLookupInProgress;
+                this.lookupStatus = entry.lookupStatus;
             }
         }
 

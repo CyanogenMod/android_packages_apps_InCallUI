@@ -42,13 +42,12 @@
     <dimen name="incoming_call_widget_circle_thickness">22dp</dimen>
     <dimen name="incoming_call_widget_ring_thickness">2dp</dimen>
     <dimen name="incoming_call_widget_ring_inner_radius">27dp</dimen>
-    <dimen name="incoming_call_widget_small_circle_top_offset">30dp</dimen>
     <dimen name="incoming_call_widget_small_circle_thickness">11dp</dimen>
-    <dimen name="incoming_call_widget_small_circle_width">20dp</dimen>
-    <dimen name="incoming_call_widget_small_circle_height">20dp</dimen>
-    <dimen name="incoming_call_widget_small_circle_left_offset">30dp</dimen>
+    <dimen name="incoming_call_widget_small_circle_size">20dp</dimen>
     <dimen name="incoming_call_widget_display_text_side_offset">30dp</dimen>
-
+    <!-- this offset is calculated as (incoming_call_widget_circle_size - incoming_call_widget_small_circle_size)
+         so that the small circle is bottom-right aligned to the large one -->
+    <dimen name="incoming_call_widget_small_circle_offset">36dp</dimen>
 
     <dimen name="mod_button_inset">12dp</dimen>
     <dimen name="mod_button_margin_bottom">0dp</dimen>

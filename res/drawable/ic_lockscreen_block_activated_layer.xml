@@ -30,7 +30,7 @@
             android:autoMirrored="true" />
     </item>
     <item
-        android:top="@dimen/incoming_call_widget_small_circle_top_offset"
-        android:left="@dimen/incoming_call_widget_small_circle_left_offset"
+        android:top="@dimen/incoming_call_widget_small_circle_offset"
+        android:left="@dimen/incoming_call_widget_small_circle_offset"
         android:drawable="@drawable/ic_lockscreen_decline_small_layer" />
 </layer-list>

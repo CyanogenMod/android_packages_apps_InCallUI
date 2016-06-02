@@ -16,14 +16,10 @@
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape
-            android:shape="ring"
-            android:innerRadius="0dp"
-            android:thickness="@dimen/incoming_call_widget_small_circle_thickness"
-            android:useLevel="false">
-            <solid android:color="@color/incoming_call_decline_small_circle"/>
-            <size android:width="@dimen/incoming_call_widget_small_circle_width"
-                  android:height="@dimen/incoming_call_widget_small_circle_height"/>
+        <shape android:shape="oval">
+            <solid android:color="@color/incoming_call_decline_small_circle" />
+            <size android:width="@dimen/incoming_call_widget_small_circle_size"
+                  android:height="@dimen/incoming_call_widget_small_circle_size" />
         </shape>
     </item>
     <item>

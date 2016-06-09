@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">הודעה מהירה</string>
   <string name="display_text_target_answer_and_hold_active">החזק שיחה נוכחית וענה על שיחה נכנסת חדשה</string>
   <string name="display_text_target_answer_and_end_active">סיים שיחה נוכחית וענה לשיחה נכנסת חדשה</string>
+  <string name="onscreenModOverflowText">עוד תוספים</string>
 </resources>

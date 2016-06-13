@@ -400,9 +400,7 @@ public class ModButtonPresenter extends Presenter<ModButtonPresenter.ModButtonUi
         List<InCallPluginInfo> contactInCallPlugins = getContactInCallPluginInfoList();
         final boolean shouldShowInCall = isProvisioned &&
                 contactInCallPlugins != null && !contactInCallPlugins.isEmpty();
-        final boolean showNote = isProvisioned &&
-                DeepLinkIntegrationManager.getInstance().ambientIsAvailable(getUi().getContext()) &&
-                        mNoteDeepLink != null;
+        final boolean showNote = isProvisioned && mNoteDeepLink != null;
 
         ui.showButton(BUTTON_INCALL, shouldShowInCall);
         if (shouldShowInCall) {

@@ -526,11 +526,9 @@ public class AnswerPresenter extends Presenter<AnswerPresenter.AnswerUi>
     public void rejectCallWithMessage(String message) {
         int phoneId = getActivePhoneId();
         Log.i(this, "rejectCallWithMessage phoneId:" + phoneId);
-        if (phoneId == -1) {
-            return;
+        if (phoneId != -1) {
+            TelecomAdapter.getInstance().rejectCall(mCall[phoneId].getId(), true, message);
         }
-
-        TelecomAdapter.getInstance().rejectCall(mCall[phoneId].getId(), true, message);
 
         onDismissDialog();
     }

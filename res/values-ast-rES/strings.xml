@@ -95,6 +95,7 @@
   <string name="card_title_video_call_requesting">Solicitando videu</string>
   <!-- In-call screen: status label when there is a problem connecting a video call. -->
   <!-- In-call screen: status label when the remote party rejects a video call request. -->
+  <string name="card_title_video_call_rejected">Refugóse la solicitú de videu</string>
   <!-- In-call screen: string shown to the user when their outgoing number is different than the
          number reported by TelephonyManager#getLine1Number() -->
   <!-- In-call screen: string shown to the user when their outgoing number is different than the
@@ -117,12 +118,14 @@
   <string name="notification_ongoing_call">Llamada en cursu</string>
   <!-- The "label" of the in-call Notification for an ongoing call, which is being made over
          Wi-Fi. [CHAR LIMIT=60] -->
+  <string name="notification_ongoing_call_wifi">Llamada Wi-Fi entrante</string>
   <!-- The "label" of the in-call Notification for a call that's on hold -->
   <string name="notification_on_hold">N\'espera</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call. [CHAR LIMIT=60] -->
   <string name="notification_incoming_call">\u2026ta llamándote</string>
   <!-- The "label" of the in-call Notification for an incoming ringing call,
          which is being made over Wi-Fi. [CHAR LIMIT=60] -->
+  <string name="notification_incoming_call_wifi">Llamada Wi-Fi entrante</string>
   <!-- The "label" of the in-call Notification for an incoming ringing video call. -->
   <string name="notification_incoming_video_call">Videollamada entrante</string>
   <!-- The "label" of the in-call Notification for upgrading an existing call to a video call. -->
@@ -204,9 +207,12 @@
   <string name="dialerKeyboardHintText">Usar tecláu para marcar</string>
   <!-- Text for the onscreen "Hold" button when it is not selected. Pressing it will put
          the call on hold. -->
+  <string name="onscreenHoldText_unselected">Retener llamada</string>
   <!-- Text for the onscreen "Hold" button when it is selected. Pressing it will resume
          the call from a previously held state. -->
+  <string name="onscreenHoldText_selected">Reanudar llamada</string>
   <!-- Text for the onscreen "End call" button -->
+  <string name="onscreenEndCallText">Finar llamada</string>
   <!-- Text for the onscreen "Show Dialpad" button -->
   <string name="onscreenShowDialpadText">Tecláu</string>
   <!-- Text for the onscreen "Mute" button -->
@@ -238,11 +244,16 @@
   <!-- Text for the onscreen overflow button, to see additional actions which can be done. -->
   <string name="onscreenOverflowText">Más opciones</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">Reproductor aniciáu</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">Reproductor paráu</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">Cámara non tresnada</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">Cámara tresnada</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">"Eventu de sesión de llamada desconocíu"</string>
   <!-- For incoming calls, this is a string we can get from a CDMA network instead of
          the actual phone number, to indicate there's no number present.  DO NOT TRANSLATE. -->
   <!-- Preference for Voicemail service provider under "Voicemail" settings.
@@ -337,14 +348,30 @@
   <!-- This can be used in any application wanting to disable the text "Emergency number" -->
   <string name="emergency_call_dialog_number_for_display">Númberu d\'emerxencia</string>
   <!-- Phrase describing a time duration using seconds [CHAR LIMIT=16] -->
+  <plurals name="duration_seconds">
+    <item quantity="one">1 segundu</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> segundos</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes [CHAR LIMIT=16] -->
+  <plurals name="duration_minutes">
+    <item quantity="one">1 minutu</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> minutos</item>
+  </plurals>
   <!-- Phrase describing a time duration using hours [CHAR LIMIT=16] -->
+  <plurals name="duration_hours">
+    <item quantity="one">1 hora</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> hores</item>
+  </plurals>
   <!-- Description of the profile photo shown when the device's camera is disabled udring a video
         call. [CHAR LIMIT=NONE] -->
+  <string name="profile_photo_description">Semeya de perfil</string>
   <!-- Description of the "camera off" icon displayed when the device's camera is disabled during
          a video call. [CHAR LIMIT=NONE] -->
+  <string name="camera_off_description">Cámara apagada</string>
   <!-- Used to inform the user that a call was received via a number other than the primary
         phone number associated with their device. [CHAR LIMIT=16] -->
+  <string name="child_number">per <xliff:g id="child_number" example="650-555-1212">%s</xliff:g></string>
   <!-- Used to inform the user that the note associated with an outgoing call has been sent.
          [CHAR LIMIT=32] -->
+  <string name="note_sent">Unvióse la nota</string>
 </resources>

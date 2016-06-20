@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">SZYBKA WIADOMOŚĆ</string>
   <string name="display_text_target_answer_and_hold_active">ZAWIEŚ OBECNE POŁĄCZENIE I ODPOWIEDZ</string>
   <string name="display_text_target_answer_and_end_active">ZAKOŃCZ OBECNE POŁĄCZENIE I ODPOWIEDZ</string>
+  <string name="onscreenModOverflowText">Więcej modyfikacji</string>
 </resources>

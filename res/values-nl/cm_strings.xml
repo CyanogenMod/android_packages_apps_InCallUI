@@ -42,10 +42,15 @@
   <string name="recording_warning_text">Let op: u bent zelf verantwoordelijk om de wetten, verordeningen en regels na te leven die van toepassing zijn bij het opnemen van gesprekken en het gebruik of verspreiding van zulke opnamen.</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="snackbar_incall_plugin_no_invite_found">Dit contact is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. U moet deze persoon eerst toevoegen om video-oproepen te maken.</string>
+  <string name="snackbar_invite_action_text">UITNODIGEN</string>
+  <string name="call_button_contact_unknown">Onbekend</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Beller blokkeren</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blokkeren</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
          launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Notitie maken</string>
   <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
   <string name="deeplink_unknown_caller">Onbekend</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
@@ -53,4 +58,7 @@
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
   <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">AFWIJZEN</string>
+  <string name="display_text_target_block">BLOKKEREN</string>
+  <string name="display_text_target_answer">ANTWOORDEN</string>
 </resources>

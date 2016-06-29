@@ -42,14 +42,36 @@
   <string name="recording_warning_text">Bemærk: Du er ansvarlig for at overholde alle love og regler, der gælder for brugen af optagelse af opkald og for anvendelse eller distribution af disse optagelser.</string>
   <string name="onscreenTransferCall">Overfør opkald</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Vælg videoservice</string>
+  <string name="snackbar_incall_plugin_no_invite_found">Kontakten er ikke en <xliff:g id="incall_plugin">%s</xliff:g> kontakt. Du skal tilføje personen først for at foretage videoopkald.</string>
+  <string name="snackbar_incall_plugin_contact_invite">Kontakten er ikke en <xliff:g id="incall_plugin">%s</xliff:g> kontakt. Inviter kontakten?</string>
+  <string name="snackbar_invite_action_text">INVITÉR</string>
+  <string name="caller_info_loading">Søger <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> kunne ikke nås</string>
+  <string name="caller_info_no_result">Intet <xliff:g id="provider">%s</xliff:g> match fundet</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> opsætning ikke færdig</string>
+  <string name="call_button_contact_unknown">Ukendt</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blokér den der ringer op</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Bloker</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
          launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Tage til efterretning</string>
   <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Ukendt</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Sæt nuværende opkald på hold og svar</string>
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">Afslut nuværende opkald og svar</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">AFVIS</string>
+  <string name="display_text_target_block">BLOKER</string>
+  <string name="display_text_target_answer">SVAR</string>
+  <string name="display_text_target_sms">HURTIG BESKED</string>
+  <string name="display_text_target_answer_and_hold_active">HOLD NUVÆRENDE OPKALD OG SVAR</string>
+  <string name="display_text_target_answer_and_end_active">AFSLUT NUVÆRENDE OPKALD OG SVAR</string>
+  <string name="onscreenModOverflowText">Flere Mods</string>
 </resources>

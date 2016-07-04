@@ -43,6 +43,7 @@
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="snackbar_incall_plugin_no_invite_found">Dit contact is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. U moet deze persoon eerst toevoegen om video-oproepen te maken.</string>
   <string name="snackbar_invite_action_text">UITNODIGEN</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> instellen niet voltooid</string>
   <string name="call_button_contact_unknown">Onbekend</string>
   <!-- Description of the target to block a call -->
   <string name="description_target_block">Beller blokkeren</string>

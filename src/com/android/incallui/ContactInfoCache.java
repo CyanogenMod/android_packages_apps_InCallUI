@@ -25,9 +25,9 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.DisplayNameSources;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
@@ -264,7 +264,9 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
             // Before issuing a request for more data from other services, we only check that the
             // contact wasn't found in the local DB.  We don't check the if the cache entry already
             // has a name because we allow overriding cnap data with data from other services.
-            if (!callerInfo.contactExists && mPhoneNumberService != null) {
+            if (!callerInfo.contactExists &&
+                    !callerInfo.isEmergencyNumber() &&
+                    mPhoneNumberService != null) {
                 Log.d(TAG, "Contact lookup. Local contacts miss, checking remote");
                 final PhoneNumberServiceListener listener = new PhoneNumberServiceListener(callId);
                 mPhoneNumberService.getPhoneNumberInfo(cacheEntry.number, listener, listener,
@@ -272,7 +274,9 @@ public class ContactInfoCache implements ContactsAsyncHelper.OnImageLoadComplete
                 clearCallbacks = false;
             }
 
-            if (!callerInfo.contactExists && mLookupProvider.isEnabled()) {
+            if (!callerInfo.contactExists &&
+                    !callerInfo.isEmergencyNumber() &&
+                    mLookupProvider.isEnabled()) {
                 cacheEntry.isLookupInProgress = true;
                 cacheEntry.lookupProviderName = mLookupProvider.getDisplayName();
                 String countryIso = ((TelephonyManager) mContext.getSystemService(

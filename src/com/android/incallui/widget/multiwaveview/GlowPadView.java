@@ -225,7 +225,7 @@ public class GlowPadView extends View {
     private boolean mAlwaysTrackFinger;
     private int mHorizontalInset;
     private int mVerticalInset;
-    private int mGravity = Gravity.TOP;
+    private int mGravity = Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL;
     private boolean mInitialLayout = true;
     private Tweener mBackgroundAnimator;
     private PointCloud mPointCloud;

@@ -336,6 +336,7 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
                     public void onCancel(DialogInterface dialogInterface) {
                         if (mGlowpad != null) {
                             mGlowpad.startPing();
+                            mGlowpad.reset(false);
                         }
                         dismissCannedResponsePopup();
                         getPresenter().onDismissDialog();
@@ -380,6 +381,9 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
        if (mCustomMessagePopup != null) {
            mCustomMessagePopup.dismiss();
            mCustomMessagePopup = null;
+           if (mGlowpad != null) {
+               mGlowpad.reset(false);
+           }
        }
     }
 
@@ -525,6 +529,13 @@ public class AnswerFragment extends BaseFragment<AnswerPresenter, AnswerPresente
                 getPresenter().getLookupProviderName(),
                 this);
         bcdf.show(getFragmentManager(), "block_contact_dialog");
+    }
+
+    @Override
+    public void onBlockCancelled() {
+        if (mGlowpad != null) {
+            mGlowpad.reset(false);
+        }
     }
 
     @Override

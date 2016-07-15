@@ -45,7 +45,9 @@
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">Kamera net prett</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">Kamera prett</string>
   <!-- Message indicating unknown call session event -->
   <!-- Message indicating data usage -->
   <!-- In-call screen: Modify Call Options for IMS call -->

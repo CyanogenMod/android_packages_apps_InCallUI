@@ -33,27 +33,47 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">Uruff fortgesat</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">Uruff connectéiert, awer den Toun ass ënnerbrach</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">Uruff connectéiert, awer de Video ass ënnerbrach</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">Videoqualitéit gëtt detektéiert\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed">Videoqualitéit op <xliff:g id="quality" example="high">%1$s</xliff:g> geännert</string>
   <!-- Video quality High -->
+  <string name="video_quality_high">héich</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">mëttel</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">niddreg</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">onbekannt</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">Ofspiller gestart</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">Ofspiller gestoppt</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
   <string name="camera_not_ready">Kamera net prett</string>
   <!-- Message indicating that camera is ready/available -->
   <string name="camera_ready">Kamera prett</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">Onbekannt Uruff-Evenement</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">Datennotzung: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">Urufftyp auswielen</string>
+  <string name="modify_call_option_vt">Videouruff</string>
+  <string name="modify_call_option_vt_tx">Video iwwerdroen</string>
+  <string name="modify_call_option_vt_rx">Video empfänken</string>
+  <string name="modify_call_option_voice">Just Stëmm</string>
   <!-- Modify call error cause -->
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">Desaktivéier w.e.g. den TTY-Modus fir Videouriff z\'erméiglechen</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">Weidere Korrespondent</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
   <!-- Message indicating call failed due to handover not feasible -->
   <!-- Title of the IMS to CS redial dialog -->
@@ -71,6 +91,9 @@
   <!-- Session modify cause code downgrade lipsync -->
   <!-- Session modify cause code downgrade generic error -->
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">SIM-Kaart auswielen</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

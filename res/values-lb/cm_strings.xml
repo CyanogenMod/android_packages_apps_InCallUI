@@ -30,6 +30,7 @@
   <string name="calling_via_waiting_template">Uruff iwwer <xliff:g id="provider_name">%s</xliff:g> (Waart\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
+  <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (iwwer <xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">Uruff gëtt gehalen</string>
   <string name="call_recording_failed_message">D\'Opnam vum Uruff konnt net gestart ginn</string>
@@ -39,15 +40,28 @@
   <string name="recording_time_text">Gëtt opgeholl</string>
   <string name="recording_warning_title">Uruffopnam aktivéieren?</string>
   <string name="recording_warning_text">Bemierkung: Du bass responsabel fir d\'Anhale vu Gesetzer, Regulatiounen a Regelen, déi op d\'Funktioun fir d\'Uruffopnam sou wéi fir d\'Benotzung an Distributioun vun dësen Opname gëllen.</string>
+  <string name="onscreenTransferCall">Uruff weiderleeden</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">Videoservice auswielen</string>
+  <string name="snackbar_invite_action_text">ALUEDEN</string>
+  <string name="call_button_contact_unknown">Onbekannt</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Nummer blockéieren</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">Blockéieren</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
          launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">Notiz erstellen</string>
   <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">Onbekannt</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
   <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">REFUSÉIEREN</string>
+  <string name="display_text_target_block">BLOCKÉIEREN</string>
+  <string name="display_text_target_answer">UNHUELEN</string>
+  <string name="display_text_target_sms">SÉIERE MESSAGE</string>
+  <string name="onscreenModOverflowText">Méi Mods</string>
 </resources>

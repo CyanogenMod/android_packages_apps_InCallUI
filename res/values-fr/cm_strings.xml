@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">MESSAGE RAPIDE</string>
   <string name="display_text_target_answer_and_hold_active">METTRE L\'APPEL EN COURS EN ATTENTE ET RÉPONDRE</string>
   <string name="display_text_target_answer_and_end_active">METTRE FIN À L\'APPEL EN COURS ET RÉPONDRE</string>
+  <string name="onscreenModOverflowText">Plus de Mods</string>
 </resources>

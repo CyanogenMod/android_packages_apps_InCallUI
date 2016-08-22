@@ -66,8 +66,8 @@
   <string name="data_usage_label">Penggunaan data: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">Pilih jenis panggilan</string>
-  <string name="modify_call_option_vt">Dwiarah video</string>
-  <string name="modify_call_option_vt_tx">Pemancaran video</string>
+  <string name="modify_call_option_vt">Video dua arah</string>
+  <string name="modify_call_option_vt_tx">Transmisi video</string>
   <string name="modify_call_option_vt_rx">Menerima video</string>
   <string name="modify_call_option_voice">Suara saja</string>
   <!-- Modify call error cause -->
@@ -88,27 +88,27 @@
   <string name="cs_redial_msg">Tidak dapat membuat panggilan video IMS, memanggil ulang dengan panggilan video non-IMS?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
-  <string name="session_modify_cause_upgrade_local_request">Panggilan ditingkatkan mutu atas permintaan pengguna</string>
+  <string name="session_modify_cause_upgrade_local_request">Panggilan ditingkatkan atas permintaan pengguna</string>
   <!-- Session modify cause code upgrade remote request -->
-  <string name="session_modify_cause_upgrade_remote_request">Panggilan ditingkatkan mutu atas permintaan pengguna jarak jauh</string>
+  <string name="session_modify_cause_upgrade_remote_request">Panggilan ditingkatkan atas permintaan pengguna jarak jauh</string>
   <!-- Session modify cause code downgrade local request -->
-  <string name="session_modify_cause_downgrade_local_request">Panggilan dikenakan turun mutu atas permintaan pengguna</string>
+  <string name="session_modify_cause_downgrade_local_request">Panggilan diturunkan atas permintaan pengguna</string>
   <!-- Session modify cause code downgrade remote request -->
-  <string name="session_modify_cause_downgrade_remote_request">Panggilan dikenakan turun mutu atas permintaan pengguna jarak jauh</string>
+  <string name="session_modify_cause_downgrade_remote_request">Panggilan diturunkan atas permintaan pengguna jarak jauh</string>
   <!-- Session modify cause code downgrade rtp timeout -->
-  <string name="session_modify_cause_downgrade_rtp_timeout">Panggilan terkena turun mutu karena batas waktu RTP</string>
+  <string name="session_modify_cause_downgrade_rtp_timeout">Panggilan diturunkan dikarenakan RTP timeout</string>
   <!-- Session modify cause code downgrade qos -->
-  <string name="session_modify_cause_downgrade_qos">Panggilan terkena turun mutu karena kualitas layanan</string>
+  <string name="session_modify_cause_downgrade_qos">Panggilan diturunkan dikarenakan kualitas layanan</string>
   <!-- Session modify cause code downgrade packet loss -->
-  <string name="session_modify_cause_downgrade_packet_loss">Panggilan terkena turun mutu karena kehilangan paket</string>
+  <string name="session_modify_cause_downgrade_packet_loss">Panggilan diturunkan dikarenakan kehilangan paket</string>
   <!-- Session modify cause code downgrade low thrput -->
   <string name="session_modify_cause_downgrade_low_thrput">Panggilan terkena turun mutu karena hasil lewatan yang rendah</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
-  <string name="session_modify_cause_downgrade_thermal_mitigation">Panggilan terkena turun mutu karena penanggulangan panas</string>
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Panggilan diturunkan dikarenakan penanggulangan panas</string>
   <!-- Session modify cause code downgrade lipsync -->
-  <string name="session_modify_cause_downgrade_lipsync">Panggilan terkena turun mutu karena sinkronisasi bibir</string>
+  <string name="session_modify_cause_downgrade_lipsync">Panggilan diturunkan dikarenakan lipsync</string>
   <!-- Session modify cause code downgrade generic error -->
-  <string name="session_modify_cause_downgrade_generic_error">Panggilan terkena turun mutu karena galat umum</string>
+  <string name="session_modify_cause_downgrade_generic_error">Panggilan diturunkan dikarenakan kesalahan umum</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
   <string name="select_account_dialog_title">Pilih kartu SIM</string>
   <!-- Set Subscription screen: label sub 1 -->

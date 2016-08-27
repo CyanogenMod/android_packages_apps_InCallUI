@@ -27,7 +27,7 @@
   <string name="card_title_dialing_waiting">Memanggil (menunggu\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
-  <string name="calling_via_waiting_template">Menelepon melalui <xliff:g id="provider_name">%s</xliff:g> (Menunggu\u2026)</string>
+  <string name="calling_via_waiting_template">Panggilan melalui <xliff:g id="provider_name">%s</xliff:g> (Menunggu\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (melalui <xliff:g id="provider_name">%2$s</xliff:g>)</string>
@@ -36,7 +36,7 @@
   <string name="call_recording_failed_message">Gagal memulai perekaman panggilan</string>
   <string name="call_recording_file_location">Rekaman panggilan disimpan ke <xliff:g id="filename">%s</xliff:g></string>
   <string name="onscreenCallRecordText">Rekam panggilan</string>
-  <string name="onscreenStopCallRecordText">Hentikan perekaman</string>
+  <string name="onscreenStopCallRecordText">Hentikan merekam</string>
   <string name="recording_time_text">Merekam</string>
   <string name="recording_warning_title">Aktifkan perekam panggilan?</string>
   <string name="recording_warning_text">Perhatian: Anda akan bertanggung jawab untuk mematuhi setiap hukum, peraturan dan aturan yang berlaku untuk penggunaan fungsi perekaman panggilan dan penggunaan atau distribusi dari rekaman tersebut.</string>
@@ -73,4 +73,5 @@
   <string name="display_text_target_sms">PESAN CEPAT</string>
   <string name="display_text_target_answer_and_hold_active">TAHAN PANGGILAN AKTIF DAN JAWAB</string>
   <string name="display_text_target_answer_and_end_active">AKHIRI PANGGILAN AKTIF DAN JAWAB</string>
+  <string name="onscreenModOverflowText">Mods Lainnya</string>
 </resources>

@@ -40,6 +40,7 @@
   <string name="recording_time_text">Opnemen\u2026</string>
   <string name="recording_warning_title">Gespreksopname inschakelen?</string>
   <string name="recording_warning_text">Let op: u bent zelf verantwoordelijk om de wetten, verordeningen en regels na te leven die van toepassing zijn bij het opnemen van gesprekken en het gebruik of verspreiding van zulke opnamen.</string>
+  <string name="onscreenTransferCall">Gesprek doorschakelen</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="snackbar_incall_plugin_no_invite_found">Dit contact is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. U moet deze persoon eerst toevoegen om video-oproepen te maken.</string>
   <string name="snackbar_invite_action_text">UITNODIGEN</string>

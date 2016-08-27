@@ -32,87 +32,43 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
-  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Panggilan substate:\u000a <xliff:g id="state" example="Resumed">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
-  <string name="call_substate_call_resumed">Dilanjutkan</string>
   <!-- Call substate label for call connected suspended (audio) -->
-  <string name="call_substate_connected_suspended_audio">Panggilan tersambung, tetapi audio dihentikan</string>
   <!-- Call substate label for call connected suspended (video) -->
-  <string name="call_substate_connected_suspended_video">Panggilan tersambung, tetapi video dihentikan</string>
   <!-- Call substate label for avp retry -->
-  <string name="call_substate_avp_retry">Mendeteksi kualitas video\u2026</string>
   <!-- Video quality changed message -->
-  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>: Kualitas video berubah menjadi <xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <!-- Video quality High -->
-  <string name="video_quality_high">tinggi</string>
   <!-- Video quality Medium -->
-  <string name="video_quality_medium">sedang</string>
   <!-- Video quality Low -->
-  <string name="video_quality_low">rendah</string>
   <!-- Video quality Unknown -->
-  <string name="video_quality_unknown">tidak diketahui</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
-  <string name="player_started">Pemutar dimulai</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
-  <string name="player_stopped">Pemutar berhenti</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
-  <string name="camera_not_ready">Kamera tidak siap</string>
   <!-- Message indicating that camera is ready/available -->
-  <string name="camera_ready">Kamera siap</string>
   <!-- Message indicating unknown call session event -->
-  <string name="unknown_call_session_event">Sesi acara panggilan yang tidak diketahui</string>
   <!-- Message indicating data usage -->
-  <string name="data_usage_label">Penggunaan data: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
-  <string name="modify_call_option_title">Pilih jenis panggilan</string>
-  <string name="modify_call_option_vt">Video dua arah</string>
-  <string name="modify_call_option_vt_tx">Transmisi video</string>
-  <string name="modify_call_option_vt_rx">Menerima video</string>
-  <string name="modify_call_option_voice">Suara saja</string>
   <!-- Modify call error cause -->
-  <string name="modify_call_failed_due_to_low_battery">Gagal mengubah panggilan karena baterai terlalu lemah.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
-  <string name="video_call_not_allowed_if_tty_enabled">Nonaktifkan modus TTY untuk mengizinkan panggilan video.</string>
   <!-- Text for the onscreen "Add Participant" button -->
-  <string name="onscreenAddParticipant">Tambahkan peserta</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
-  <string name="qti_description_target_deflect">Mengalihkan</string>
-  <string name="qti_description_deflect_error">Nomor belum diatur. Menetapkan nomor melalui pengaturan IMS dan cobalah kembali.</string>
-  <string name="qti_description_deflect_service_error">Layanan pengalihan panggilan tidak didukung.</string>
   <!-- Message indicating call failed due to handover not feasible -->
-  <string name="call_failed_ho_not_feasible">Panggilan telah berakhir sebagai LTE untuk peralihan 3G/2G tidak dimungkinkan.</string>
   <!-- Title of the IMS to CS redial dialog -->
-  <string name="cs_redial_option">Panggil ulang</string>
   <!-- Message text of the IMS to CS redial dialog -->
-  <string name="cs_redial_msg">Tidak dapat membuat panggilan video IMS, memanggil ulang dengan panggilan video non-IMS?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
-  <string name="session_modify_cause_upgrade_local_request">Panggilan ditingkatkan atas permintaan pengguna</string>
   <!-- Session modify cause code upgrade remote request -->
-  <string name="session_modify_cause_upgrade_remote_request">Panggilan ditingkatkan atas permintaan pengguna jarak jauh</string>
   <!-- Session modify cause code downgrade local request -->
-  <string name="session_modify_cause_downgrade_local_request">Panggilan diturunkan atas permintaan pengguna</string>
   <!-- Session modify cause code downgrade remote request -->
-  <string name="session_modify_cause_downgrade_remote_request">Panggilan diturunkan atas permintaan pengguna jarak jauh</string>
   <!-- Session modify cause code downgrade rtp timeout -->
-  <string name="session_modify_cause_downgrade_rtp_timeout">Panggilan diturunkan dikarenakan RTP timeout</string>
   <!-- Session modify cause code downgrade qos -->
-  <string name="session_modify_cause_downgrade_qos">Panggilan diturunkan dikarenakan kualitas layanan</string>
   <!-- Session modify cause code downgrade packet loss -->
-  <string name="session_modify_cause_downgrade_packet_loss">Panggilan diturunkan dikarenakan kehilangan paket</string>
   <!-- Session modify cause code downgrade low thrput -->
-  <string name="session_modify_cause_downgrade_low_thrput">Panggilan terkena turun mutu karena hasil lewatan yang rendah</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
-  <string name="session_modify_cause_downgrade_thermal_mitigation">Panggilan diturunkan dikarenakan penanggulangan panas</string>
   <!-- Session modify cause code downgrade lipsync -->
-  <string name="session_modify_cause_downgrade_lipsync">Panggilan diturunkan dikarenakan lipsync</string>
   <!-- Session modify cause code downgrade generic error -->
-  <string name="session_modify_cause_downgrade_generic_error">Panggilan diturunkan dikarenakan kesalahan umum</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
-  <string name="select_account_dialog_title">Pilih kartu SIM</string>
   <!-- Set Subscription screen: label sub 1 -->
-  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
-  <string name="sub_2">SIM 2</string>
 </resources>

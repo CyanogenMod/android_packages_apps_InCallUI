@@ -25,7 +25,6 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="@color/glowpad_background_color"
-        android:layout_marginBottom="@dimen/glowpadview_margin_bottom"
 
         dc:targetDrawables="@array/incoming_call_widget_audio_with_sms_without_block_targets"
         dc:targetDescriptions="@array/incoming_call_widget_audio_with_sms_without_block_target_descriptions"

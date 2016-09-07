@@ -57,10 +57,14 @@
   <string name="deeplink_unknown_caller">Onbekend</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">Huidig gesprek in de wacht zetten en opnemen</string>
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
   <!-- In-call screen: display text for the target action -->
   <string name="display_text_target_dismiss">AFWIJZEN</string>
   <string name="display_text_target_block">BLOKKEREN</string>
   <string name="display_text_target_answer">ANTWOORDEN</string>
+  <string name="display_text_target_sms">SNELBERICHT</string>
+  <string name="display_text_target_answer_and_hold_active">HUIDIG GESPREK IN DE WACHT ZETTEN EN OPNEMEN</string>
+  <string name="display_text_target_answer_and_end_active">HUIDIG GESPREK OPHANGEN EN OPNEMEN</string>
 </resources>

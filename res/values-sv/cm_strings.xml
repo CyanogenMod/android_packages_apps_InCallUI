@@ -46,8 +46,10 @@
   <string name="snackbar_invite_action_text">BJUD IN</string>
   <string name="caller_info_loading">Söker <xliff:g id="provider">%s</xliff:g>\u2026</string>
   <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> kunde inte nås</string>
+  <string name="caller_info_no_result">Ingen <xliff:g id="provider">%s</xliff:g> träff hittades</string>
   <string name="call_button_contact_unknown">Okänd</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">Blockera uppringare</string>
   <!-- [CHAR LIMIT=12] -->
   <string name="notification_action_block">Blockera</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
@@ -59,6 +61,7 @@
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
   <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">AVFÄRDA</string>
   <string name="display_text_target_block">BLOCKERA</string>
   <string name="display_text_target_answer">SVARA</string>
   <string name="display_text_target_sms">SNABBMEDDELANDE</string>

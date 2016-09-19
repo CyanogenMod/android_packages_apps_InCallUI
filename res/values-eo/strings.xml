@@ -18,10 +18,12 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Official label of the phone app, as seen in "Manage Applications"
          and other settings UIs. -->
+  <string name="phoneAppLabel" product="default">Telefono</string>
   <!-- Official label for the in-call UI. DO NOT TRANSLATE. -->
   <!-- Call status -->
   <!-- In-call screen: status label for a call that's on hold -->
   <!-- Incoming call screen, name of "unknown" caller -->
+  <string name="unknown">Nekonata</string>
   <!-- Incoming call screen, string when number hidden -->
   <!-- Incoming call screen, string when called from a pay phone -->
   <!-- In-call screen: status label for a conference call -->
@@ -40,8 +42,11 @@
          the "PAUSE" character in a phone number to be dialed; this dialog gives
          informative message to the user to show the sending numbers following the "Pause". -->
   <!-- In-call screen: button label on the "wait" prompt dialog -->
+  <string name="send_button">Sendi</string>
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
+  <string name="pause_prompt_yes">Jes</string>
   <!-- In-call screen: button label on the "wait" prompt dialog in CDMA Mode-->
+  <string name="pause_prompt_no">Ne</string>
   <!-- In-call screen: on the "wild" character dialog, this is the label
          for a text widget that lets the user enter the digits that should
          replace the "wild" character. -->
@@ -120,6 +125,7 @@
   <!-- Message for "reply via sms" action, which is displayed in the missed call notification.
          The user will be able to send text messages using the phone number.
          [CHAR LIMIT=12] -->
+  <string name="notification_missedCall_message">Mesaĝo</string>
   <!-- In-call screen: call failure message displayed in an error dialog -->
   <!-- In-call screen: call failure message displayed in an error dialog.
          This string is currently unused (see comments in InCallActivity.java.) -->
@@ -188,7 +194,9 @@
   <!--  Use this to describe the select contact button in EditPhoneNumberPreference; currently for screen readers through accessibility. -->
   <!-- "Respond via SMS" option that lets you compose a custom response. [CHAR LIMIT=30] -->
   <!-- "Custom Message" Cancel alert dialog button -->
+  <string name="custom_message_cancel">Nuligi</string>
   <!-- "Custom Message" Send alert dialog button -->
+  <string name="custom_message_send">Sendi</string>
   <!-- Description of the answer target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
   <!-- Description of the send_sms target in the Slide unlock screen of Phone. [CHAR LIMIT=NONE] -->
   <!-- Description of the decline target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
@@ -233,6 +241,10 @@
   <!-- Label for "Manage conference call" panel [CHAR LIMIT=40] -->
   <!-- This can be used in any application wanting to disable the text "Emergency number" -->
   <!-- Phrase describing a time duration using seconds [CHAR LIMIT=16] -->
+  <plurals name="duration_seconds">
+    <item quantity="one">1 sekundo</item>
+    <item quantity="other"><xliff:g id="count">%d</xliff:g> sekundoj</item>
+  </plurals>
   <!-- Phrase describing a time duration using minutes [CHAR LIMIT=16] -->
   <!-- Phrase describing a time duration using hours [CHAR LIMIT=16] -->
   <!-- Description of the profile photo shown when the device's camera is disabled udring a video

@@ -56,7 +56,6 @@ import android.view.accessibility.AccessibilityNodeInfo.AccessibilityAction;
 import android.view.accessibility.AccessibilityNodeProvider;
 
 import com.android.incallui.R;
-import com.android.incallui.InCallPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -642,7 +641,7 @@ public class GlowPadView extends View {
         final int count = array.length();
         ArrayList<TargetDrawable> drawables = new ArrayList<TargetDrawable>(count);
         for (int i = 0; i < count; i++) {
-            TypedValue value = array.peekValue(getRtlTarget(i));
+            TypedValue value = array.peekValue(i);
             TargetDrawable target = new TargetDrawable(res, value != null ? value.resourceId : 0, 3);
             drawables.add(target);
         }
@@ -1549,21 +1548,5 @@ public class GlowPadView extends View {
             return false;
         }
 
-    }
-
-    /**
-     * Get the mirrored target iterator if it is in RTL locale
-     */
-    private int getRtlTarget(int id) {
-        if (InCallPresenter.isRtl()) {
-            // In the drawable array, LEFT is array[0], TOP is array[1], RIGHT is array[2]
-            int LEFT = 0, RIGHT = 2;
-            if (id == LEFT) {
-                return RIGHT;
-            } else if (id == RIGHT) {
-                return LEFT;
-            }
-        }
-        return id;
     }
 }

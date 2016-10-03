@@ -41,6 +41,7 @@
   <!-- Video quality Medium -->
   <!-- Video quality Low -->
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">nekonata</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
   <!-- Message indicating that camera failure has occurred for the selected camera and

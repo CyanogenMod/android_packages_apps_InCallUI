@@ -40,15 +40,38 @@
   <string name="recording_time_text">録音中</string>
   <string name="recording_warning_title">通話録音を有効にしますか？</string>
   <string name="recording_warning_text">注意: あなたには通話録音機能とその録音データの配布に準用する法令・条例・規範を遵守する責任があります。</string>
+  <string name="onscreenTransferCall">通話を転送</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">ビデオサービスを選択</string>
+  <string name="snackbar_incall_plugin_no_invite_found">この連絡先は<xliff:g id="incall_plugin">%s</xliff:g>の連絡先ではありません。ビデオ通話を発信するには、先にこの人物を追加する必要があります。</string>
+  <string name="snackbar_incall_plugin_contact_invite">この連絡先は<xliff:g id="incall_plugin">%s</xliff:g>の連絡先ではありません。この連絡先を招待しますか？</string>
+  <string name="snackbar_invite_action_text">招待</string>
+  <string name="caller_info_loading"><xliff:g id="provider">%s</xliff:g>を検索中\u2026</string>
+  <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g>に接続できませんでした</string>
+  <string name="caller_info_no_result"><xliff:g id="provider">%s</xliff:g>で一致する人物は見つかりませんでした</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g>のセットアップが完了しませんでした</string>
+  <string name="call_button_contact_unknown">不明</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">発信者を着信拒否する</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">着信拒否</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
          launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">メモを取る</string>
   <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">不明</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">現在の通話を保留して応答</string>
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">現在の通話を終了して応答</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="display_text_target_dismiss">閉じる</string>
+  <string name="display_text_target_block">着信拒否</string>
+  <string name="display_text_target_answer">応答</string>
+  <string name="display_text_target_sms">クイックメッセージ</string>
+  <string name="display_text_target_answer_and_hold_active">現在の通話を保留して応答</string>
+  <string name="display_text_target_answer_and_end_active">現在の通話を終了して応答</string>
+  <string name="onscreenModOverflowText">その他のMod</string>
 </resources>

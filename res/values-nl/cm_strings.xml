@@ -44,11 +44,11 @@
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
   <string name="video_call_option_title">Videoservice selecteren</string>
   <string name="snackbar_incall_plugin_no_invite_found">Dit contact is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. U moet deze persoon eerst toevoegen om video-oproepen te maken.</string>
-  <string name="snackbar_incall_plugin_contact_invite">Deze persoon is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. Uitnodigen?</string>
+  <string name="snackbar_incall_plugin_contact_invite">Dit contact is geen <xliff:g id="incall_plugin">%s</xliff:g>-contact. Uitnodigen?</string>
   <string name="snackbar_invite_action_text">UITNODIGEN</string>
   <string name="caller_info_loading">Zoeken naar <xliff:g id="provider">%s</xliff:g>\u2026</string>
   <string name="caller_info_failure"><xliff:g id="provider">%s</xliff:g> kan niet worden bereikt</string>
-  <string name="caller_info_no_result">Geen <xliff:g id="provider">%s</xliff:g> match gevonden</string>
+  <string name="caller_info_no_result">Geen <xliff:g id="provider">%s</xliff:g>-resultaat gevonden</string>
   <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> instellen niet voltooid</string>
   <string name="call_button_contact_unknown">Onbekend</string>
   <!-- Description of the target to block a call -->

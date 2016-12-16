@@ -74,7 +74,7 @@
   <!-- Set Subscription screen: label sub 2 -->
   <string name="sub_2">SIM 2</string>
   <!-- Call substate label for call resumed -->
-  <string name="call_substate_call_resumed">Званок адноўлены</string>
+  <string name="call_substate_call_resumed">Размова адноўлена</string>
   <!-- Call substate label for call connected suspended (audio) -->
   <string name="call_substate_connected_suspended_audio">Выклік падлучаны, але аўдыя спынена</string>
   <!-- Call substate label for call connected suspended (video) -->

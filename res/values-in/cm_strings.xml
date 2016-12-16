@@ -27,18 +27,18 @@
   <string name="card_title_dialing_waiting">Memanggil (menunggu\u2026)</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
-  <string name="calling_via_waiting_template">Menelepon melalui <xliff:g id="provider_name">%s</xliff:g> (Menunggu\u2026)</string>
+  <string name="calling_via_waiting_template">Panggilan melalui <xliff:g id="provider_name">%s</xliff:g> (Menunggu\u2026)</string>
   <!-- In-call screen: status label for a call that is held remotely -->
   <string name="card_title_waiting_call">Panggilan ditunda</string>
   <!-- In-call screen: status label for a call that is held remotely and routed via a specific provider (e.g. MSIM) -->
-  <string name="card_title_waiting_via_template">Telepon sedang ditahan (melalui <xliff:g id="provider_name">%s</xliff:g>)</string>
+  <string name="card_title_waiting_via_template">Panggilan ditahan (melalui <xliff:g id="provider_name">%s</xliff:g>)</string>
   <!-- Text for the onscreen "Blacklist" button -->
   <string name="onscreenBlacklistText">Daftar penelepon yang diblokir</string>
   <string name="call_recording_failed_message">Gagal memulai perekaman panggilan</string>
   <string name="call_recording_file_location">Rekaman panggilan disimpan ke <xliff:g id="filename">%s</xliff:g></string>
   <!-- Blacklist confirmation dialog -->
   <string name="blacklist_dialog_title">Tambahkan ke daftar penelepon yang diblokir</string>
-  <string name="blacklist_dialog_message">Panggilan mendatang dari <xliff:g id="number">%s</xliff:g> akan diblokir</string>
+  <string name="blacklist_dialog_message">Panggilan selanjutnya dari <xliff:g id="number">%s</xliff:g> akan diblokir</string>
   <!-- In-call screen: status label when in a paused video call. -->
   <string name="card_title_video_call_paused">Panggilan video (dijeda)</string>
   <!-- Text for the onscreen "Add Participant" button -->
@@ -65,7 +65,7 @@
   <string name="onscreenCallRecordText">Mulai dan berhenti perekam panggilan</string>
   <string name="onscreenAddToBlacklistText">Tambahkan penelpon ke daftar penelepon yang diblokir</string>
   <string name="menu_start_record">Rekam panggilan</string>
-  <string name="menu_stop_record">Hentikan perekaman</string>
+  <string name="menu_stop_record">Hentikan merekam</string>
   <string name="recording_time_text">Merekam</string>
   <string name="recording_warning_title">Aktifkan perekam panggilan?</string>
   <string name="recording_warning_text">Perhatian: Anda akan bertanggung jawab untuk mematuhi setiap hukum, peraturan dan aturan yang berlaku untuk penggunaan fungsi perekaman panggilan dan penggunaan atau distribusi dari rekaman tersebut.</string>

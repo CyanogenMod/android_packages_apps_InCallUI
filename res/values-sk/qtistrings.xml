@@ -32,43 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>: Substav hovoru:\u000a <xliff:g id="state" example="Obnovený">%2$s</xliff:g></string>
   <!-- Call substate label for call resumed -->
+  <string name="call_substate_call_resumed">Hovor je obnovený</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">Hovor je pripojený, ale zvuk je pozastavený</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">Hovor je pripojený, ale video je pozastavené</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">Zisťovanie kvality videa\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed">Kvalita videa bola zmenená na <xliff:g id="quality" example="high">%1$s</xliff:g></string>
   <!-- Video quality High -->
+  <string name="video_quality_high">vysokú</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">strednú</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">nízku</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">neznáma</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">Prehrávač bol spustený</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">Prehrávač bol zastavený</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">Fotoaparát nie je pripravený</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">Fotoaparát je pripravený</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">Neznáma udalosť relácie hovoru</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">Využitie dát: <xliff:g id="usage">%1$s</xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">Vyberte typ hovoru</string>
+  <string name="modify_call_option_vt">Videohovor</string>
+  <string name="modify_call_option_vt_tx">Vysielanie videa</string>
+  <string name="modify_call_option_vt_rx">Príjem videa</string>
+  <string name="modify_call_option_voice">Iba hlas</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">Zlyhala úprava hovoru kvôli slabej batérii.</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">Prosím, zakážte režim TTY pre uskutočnenie videohovorov</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">Pridať účastníka</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">Odkloniť</string>
+  <string name="qti_description_deflect_error">Číslo nenastavené. Nastavte číslo cez nastavenia IMS a skúste znova.</string>
+  <string name="qti_description_deflect_service_error">Služba presmerovania hovoru nie je podporovaná.</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">Hovor bol ukončený, pretože odovzdanie LTE na 3G/2G nebolo uskutočniteľné.</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">Znovu vytočiť</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">Nie je možné urobiť IMS video hovor, chcete skúsiť hlasový hovor?</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">Hovor povýšený na žiadosť používateľa</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">Hovor povýšený na žiadosť vzdialeného používateľa</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">Hovor znížený na žiadosť používateľa</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">Hovor znížený na žiadosť vzdialeného používateľa</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">Hovor znížený kvôli limitu RTP</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">Hovor znížený kvôli kvalite služby</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">Hovor znížený kvôli strate paketov</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">Hovor znížený kvôli nízkej priepustnosti</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">Hovor znížený kvôli zmierneniu tepla</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">Hovor znížený kvôli lipsync</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">Hovor znížený kvôli všeobecnej chybe</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">Vybrať SIM kartu</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 2</string>
 </resources>

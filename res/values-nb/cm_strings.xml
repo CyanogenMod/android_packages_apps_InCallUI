@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Avslutt samtalen og svar</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">AVVIS</string>
   <string name="display_text_target_block">BLOKKER</string>
   <string name="display_text_target_answer">SVAR</string>

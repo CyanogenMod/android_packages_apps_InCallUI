@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">סיים שיחה נוכחית וענה לשיחה נכנסת חדשה</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">בטל</string>
   <string name="display_text_target_block">חסום</string>
   <string name="display_text_target_answer">לענות</string>

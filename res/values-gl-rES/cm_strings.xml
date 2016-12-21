@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Rematar chamada actual e responder</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">REXEITAR</string>
   <string name="display_text_target_block">BLOQUEAR</string>
   <string name="display_text_target_answer">RESPONDER</string>

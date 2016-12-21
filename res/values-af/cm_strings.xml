@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Beëindig huidige oproep en antwoord</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">ONTSLAAN</string>
   <string name="display_text_target_block">BLOKKEER</string>
   <string name="display_text_target_answer">ANTWOORD</string>

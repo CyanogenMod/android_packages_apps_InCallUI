@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Kết thúc cuộc gọi hiện tại và trả lời</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">BỎ QUA</string>
   <string name="display_text_target_block">CHẶN</string>
   <string name="display_text_target_answer">TRẢ LỜI</string>

@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Završi trenutni poziv i odgovori</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">ODBACI</string>
   <string name="display_text_target_block">BLOKIRAJ</string>
   <string name="display_text_target_answer">ODGOVORI</string>

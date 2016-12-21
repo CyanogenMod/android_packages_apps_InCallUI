@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">วางสายปัจจุบันและรับสาย</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">ยกเลิก</string>
   <string name="display_text_target_block">บล็อค</string>
   <string name="display_text_target_answer">รับสาย</string>

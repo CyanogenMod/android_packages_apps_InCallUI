@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">現在の通話を終了して応答</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">閉じる</string>
   <string name="display_text_target_block">着信拒否</string>
   <string name="display_text_target_answer">応答</string>

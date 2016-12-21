@@ -67,6 +67,7 @@
     LIMIT=NONE] -->
   <string name="description_target_answer_end_active">Afslut nuværende opkald og svar</string>
   <!-- In-call screen: display text for the target action -->
+  <string name="empty_string"></string>
   <string name="display_text_target_dismiss">AFVIS</string>
   <string name="display_text_target_block">BLOKER</string>
   <string name="display_text_target_answer">SVAR</string>

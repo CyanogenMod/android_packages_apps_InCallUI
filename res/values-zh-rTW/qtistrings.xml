@@ -32,44 +32,87 @@
 <!-- The xml contains Qti specific resource strings neede for any value added features. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Call substate label -->
+  <string name="call_substate_label"><xliff:g id="id">%1$s</xliff:g>： 通話子狀態：\u000a <xliff:g id="state"example="Resumed">%2$s </xliff:g></string>
   <!-- Call substate label for call resumed -->
   <string name="call_substate_call_resumed">已回復通話</string>
   <!-- Call substate label for call connected suspended (audio) -->
+  <string name="call_substate_connected_suspended_audio">通話已連接，但音訊被暫停</string>
   <!-- Call substate label for call connected suspended (video) -->
+  <string name="call_substate_connected_suspended_video">通話已連接，但影像被暫停</string>
   <!-- Call substate label for avp retry -->
+  <string name="call_substate_avp_retry">正在偵測影像品質\u2026</string>
   <!-- Video quality changed message -->
+  <string name="video_quality_changed"><xliff:g id="id">%1$s</xliff:g>：影像品質改為 <xliff:g id="quality" example="high">%2$s</xliff:g></string>
   <!-- Video quality High -->
+  <string name="video_quality_high">高</string>
   <!-- Video quality Medium -->
+  <string name="video_quality_medium">中</string>
   <!-- Video quality Low -->
+  <string name="video_quality_low">低</string>
   <!-- Video quality Unknown -->
+  <string name="video_quality_unknown">未知</string>
   <!-- Message indicating that Video Started flowing for IMS-VT calls -->
+  <string name="player_started">播放器已開始</string>
   <!-- Message indicating that Video Stopped flowing for IMS-VT calls -->
+  <string name="player_stopped">播放器已停止</string>
   <!-- Message indicating that camera failure has occurred for the selected camera and
          as result camera is not ready -->
+  <string name="camera_not_ready">相機尚未就緒</string>
   <!-- Message indicating that camera is ready/available -->
+  <string name="camera_ready">相機已就緒</string>
   <!-- Message indicating unknown call session event -->
+  <string name="unknown_call_session_event">未知的通話事件</string>
   <!-- Message indicating data usage -->
+  <string name="data_usage_label">數據用量: <xliff:g id="usage">%1$s </xliff:g></string>
   <!-- In-call screen: Modify Call Options for IMS call -->
+  <string name="modify_call_option_title">選取通話類型</string>
+  <string name="modify_call_option_vt">視訊通話</string>
+  <string name="modify_call_option_vt_tx">影像傳輸</string>
+  <string name="modify_call_option_vt_rx">影像接收</string>
+  <string name="modify_call_option_voice">僅語音</string>
   <!-- Modify call error cause -->
+  <string name="modify_call_failed_due_to_low_battery">由於電量過低，無法更改通話。</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
+  <string name="video_call_not_allowed_if_tty_enabled">停用 TTY 模式即可進行視訊通話</string>
   <!-- Text for the onscreen "Add Participant" button -->
+  <string name="onscreenAddParticipant">新增參與者</string>
   <!-- Description of the deflect target in the Slide unlock screen. [CHAR LIMIT=NONE] -->
+  <string name="qti_description_target_deflect">轉接</string>
+  <string name="qti_description_deflect_error">號碼未設定。請至 IMS 設定中設定號碼，然後重試。</string>
+  <string name="qti_description_deflect_service_error">不支援來電轉接。</string>
   <!-- Message indicating call failed due to handover not feasible -->
+  <string name="call_failed_ho_not_feasible">通話因無法從 LTE 切換至 3G/2G 而結束</string>
   <!-- Title of the IMS to CS redial dialog -->
+  <string name="cs_redial_option">重撥</string>
   <!-- Message text of the IMS to CS redial dialog -->
+  <string name="cs_redial_msg">無法撥打 IMS 視訊電話，是否使用非 IMS 語音電話重撥？</string>
   <!-- Session modify cause unspecified -->
   <!-- Session modify cause code upgrade local request -->
+  <string name="session_modify_cause_upgrade_local_request">通話因使用者要求而升級</string>
   <!-- Session modify cause code upgrade remote request -->
+  <string name="session_modify_cause_upgrade_remote_request">通話因遠端使用者要求而升級</string>
   <!-- Session modify cause code downgrade local request -->
+  <string name="session_modify_cause_downgrade_local_request">通話因使用者要求而降級</string>
   <!-- Session modify cause code downgrade remote request -->
+  <string name="session_modify_cause_downgrade_remote_request">通話因遠端使用者要求而降級</string>
   <!-- Session modify cause code downgrade rtp timeout -->
+  <string name="session_modify_cause_downgrade_rtp_timeout">由於 RTP 逾時，通話已降級</string>
   <!-- Session modify cause code downgrade qos -->
+  <string name="session_modify_cause_downgrade_qos">為保證服務品質，通話已降級</string>
   <!-- Session modify cause code downgrade packet loss -->
+  <string name="session_modify_cause_downgrade_packet_loss">由於資料包遺失，通話已降級</string>
   <!-- Session modify cause code downgrade low thrput -->
+  <string name="session_modify_cause_downgrade_low_thrput">由於低流量，通話已降級</string>
   <!-- Session modify cause code downgrade thermal mitigation -->
+  <string name="session_modify_cause_downgrade_thermal_mitigation">為降低溫度，通話已降級</string>
   <!-- Session modify cause code downgrade lipsync -->
+  <string name="session_modify_cause_downgrade_lipsync">為保持同步，通話已降級</string>
   <!-- Session modify cause code downgrade generic error -->
+  <string name="session_modify_cause_downgrade_generic_error">由於一般錯誤，通話已降級</string>
   <!-- Title for Select Account Dialog [CHAR LIMIT=30] -->
+  <string name="select_account_dialog_title">選擇 SIM 卡</string>
   <!-- Set Subscription screen: label sub 1 -->
+  <string name="sub_1">SIM 卡 1</string>
   <!-- Set Subscription screen: label sub 2 -->
+  <string name="sub_2">SIM 卡 2</string>
 </resources>

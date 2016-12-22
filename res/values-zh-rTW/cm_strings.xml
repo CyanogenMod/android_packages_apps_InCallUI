@@ -24,13 +24,14 @@
   <!-- In-call screen: "call type" indication for a forwarded call [CHAR LIMIT=30] -->
   <string name="incall_call_type_label_forwarded">已轉發通話</string>
   <!-- In-call screen: status label for a call in the "dialing" state that's waiting for the busy remote side -->
-  <string name="card_title_dialing_waiting">正在撥號（等待中\ u2026）</string>
   <!-- In-call screen: status label for an outgoing call that's routed via a specific
          provider (e.g. MSIM) and is waiting for the busy remote side -->
+  <string name="calling_via_waiting_template">經由 <xliff:g id="provider_name">%s</xliff:g> 撥打 (等待中\u2026)</string>
   <!-- In-call screen: status label template for an active call that's routed via a specific
          provider (e.g. MSIM) -->
   <string name="card_title_active_via_template"><xliff:g id="status" example="Call on hold">%1$s</xliff:g> (透過：<xliff:g id="provider_name">%2$s</xliff:g>)</string>
   <!-- In-call screen: status label for a call that is held remotely  -->
+  <string name="card_title_waiting_call">來電等待接聽</string>
   <string name="call_recording_failed_message">無法啟動通話錄音</string>
   <string name="call_recording_file_location">已將電話錄音存到 <xliff:g id="filename">%s</xliff:g></string>
   <string name="onscreenCallRecordText">錄製通話</string>
@@ -38,16 +39,39 @@
   <string name="recording_time_text">正在錄製</string>
   <string name="recording_warning_title">啟用通話錄音？</string>
   <string name="recording_warning_text">注意：您有責任遵守任何適用於規管通話錄音功能的使用和分發這些錄音的法律、法規或規章。</string>
+  <string name="onscreenTransferCall">來電轉接</string>
   <!-- In-call screen: Video Call Options for VT or plugin handoff -->
+  <string name="video_call_option_title">選擇視訊服務</string>
+  <string name="snackbar_incall_plugin_no_invite_found">此聯絡人不是一個 <xliff:g id="incall_plugin">%s </xliff:g> 聯絡人。您必須先新增此人才能進行視訊通話。</string>
+  <string name="snackbar_incall_plugin_contact_invite">此聯絡人不是一個 <xliff:g id="incall_plugin">%s </xliff:g> 聯絡人。邀請此聯絡人嗎？</string>
+  <string name="snackbar_invite_action_text">邀請</string>
+  <string name="caller_info_loading">正在搜尋 <xliff:g id="provider">%s</xliff:g>\u2026</string>
+  <string name="caller_info_failure">無法連線至 <xliff:g id="provider">%s</xliff:g></string>
+  <string name="caller_info_no_result">沒有符合 <xliff:g id="provider">%s</xliff:g> 的項目</string>
+  <string name="caller_info_unauthenticated"><xliff:g id="provider">%s</xliff:g> 安装未完成</string>
+  <string name="call_button_contact_unknown">未知來電</string>
   <!-- Description of the target to block a call -->
+  <string name="description_target_block">封鎖來電</string>
   <!-- [CHAR LIMIT=12] -->
+  <string name="notification_action_block">封鎖</string>
   <!-- text for the onscreen Note Badge in the CallButtonFragment. When clicked this button will
          launch the appropriate Note taking application as configured by the user. -->
+  <string name="onscreenNoteText">做筆記</string>
   <!-- Text to place in the name field of a Call DeepLink when the contact name is not known -->
+  <string name="deeplink_unknown_caller">未知來電</string>
   <!-- Description of the hold and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_hold_active">結束目前通話並接聽</string>
   <!-- Description of the end and answer target in the Slide unlock screen of Phone. [CHAR
     LIMIT=NONE] -->
+  <string name="description_target_answer_end_active">結束目前通話並接聽</string>
   <!-- In-call screen: display text for the target action -->
   <string name="empty_string"></string>
+  <string name="display_text_target_dismiss">拒接</string>
+  <string name="display_text_target_block">封鎖</string>
+  <string name="display_text_target_answer">接聽</string>
+  <string name="display_text_target_sms">快速回應</string>
+  <string name="display_text_target_answer_and_hold_active">保持目前通話並接聽</string>
+  <string name="display_text_target_answer_and_end_active">結束目前通話並接聽</string>
+  <string name="onscreenModOverflowText">更多模組</string>
 </resources>

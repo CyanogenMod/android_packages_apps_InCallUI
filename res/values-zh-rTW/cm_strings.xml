@@ -33,7 +33,7 @@
   <!-- In-call screen: status label for a call that is held remotely  -->
   <string name="card_title_waiting_call">來電等待接聽</string>
   <string name="call_recording_failed_message">無法啟動通話錄音</string>
-  <string name="call_recording_file_location">已將電話錄音存到 <xliff:g id="filename">%s</xliff:g></string>
+  <string name="call_recording_file_location">已將電話錄音儲存至「 <xliff:g id="filename">%s</xliff:g>」</string>
   <string name="onscreenCallRecordText">錄製通話</string>
   <string name="onscreenStopCallRecordText">停止錄製</string>
   <string name="recording_time_text">正在錄製</string>

@@ -67,9 +67,9 @@
   <!-- In-call screen: Modify Call Options for IMS call -->
   <string name="modify_call_option_title">選取通話類型</string>
   <string name="modify_call_option_vt">視訊通話</string>
-  <string name="modify_call_option_vt_tx">影像傳輸</string>
-  <string name="modify_call_option_vt_rx">影像接收</string>
-  <string name="modify_call_option_voice">僅語音</string>
+  <string name="modify_call_option_vt_tx">視訊傳輸</string>
+  <string name="modify_call_option_vt_rx">視訊接收</string>
+  <string name="modify_call_option_voice">僅限語音</string>
   <!-- Modify call error cause -->
   <string name="modify_call_failed_due_to_low_battery">由於電量過低，無法更改通話。</string>
   <!-- Message indicating video calls not allowed if user enabled TTY Mode -->
